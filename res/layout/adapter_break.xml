@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:background="#2f2f3d"
+    tools:context=".BreakAdapter" >
+
+    <FrameLayout 
+        android:id="@+id/frameLayoutHorario"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp">
+        
+        <TextView 
+            android:id="@+id/tHorarioInicioD1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:maxLines="1"
+            android:textColor="#69697a"
+            android:text="11h00"/>
+        
+        <TextView 
+            android:id="@+id/tHorarioFimD1"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:textColor="#69697a"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:text="12h00"/>
+    </FrameLayout>
+    
+    <FrameLayout 
+        android:id="@+id/frameLayoutPalestrante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_alignBottom="@+id/frameLayoutHorario"
+        android:layout_toRightOf="@+id/frameLayoutHorario">
+    	
+        <ImageView 
+            android:id="@+id/imgPalestranteAgendaB"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/hsm_agenda_id_coffee"/>
+    </FrameLayout>
+    
+    <FrameLayout 
+        android:id="@+id/frameLayoutDadosPalestrante"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignBottom="@+id/frameLayoutPalestrante"
+        android:layout_toRightOf="@+id/frameLayoutPalestrante">
+        
+        <TextView 
+            android:id="@+id/tIntervalo"
+            android:layout_width="150dp"
+            android:textSize="13dp"
+            android:textColor="#b3b3c7"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="Break"/>
+    </FrameLayout>
+
+</RelativeLayout>

@@ -1,0 +1,99 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hsm_bg_c_blur"
+    android:orientation="vertical"
+    tools:context=".MeuCartaoActivity" >
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingLeft="10dp"
+		android:background="@drawable/hsm_background_blur"
+        android:layout_weight="1">
+        
+        <EditText 
+		        android:id="@+id/tNomeNet"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:inputType="text"
+		        android:singleLine="true"
+		        android:textColorHint="#ababc7"
+		        android:hint="Nome Completo *"/>
+		    
+		    <EditText 
+		        android:id="@+id/tEmailNet"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:inputType="textEmailAddress"
+		        android:singleLine="true"
+		        android:textColorHint="#ababc7"
+		        android:hint="Email *"/>
+		    
+		    <EditText 
+		        android:id="@+id/tTelefoneNet"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:inputType="number"
+		        android:singleLine="true"
+		        android:textColorHint="#ababc7"
+		        android:hint="Telefone *"/>
+		    
+		    <EditText 
+		        android:id="@+id/tCelularNet"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:inputType="number"
+		        android:singleLine="true"
+		        android:textColorHint="#ababc7"
+		        android:hint="Celular *"/>
+		    
+		    <EditText 
+		        android:id="@+id/tEmpresaNet"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:inputType="text"
+		        android:singleLine="true"
+		        android:textColorHint="#ababc7"
+		        android:hint="Empresa *"/>
+		    
+		    <EditText 
+		        android:id="@+id/tCargoNet"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:inputType="text"
+		        android:singleLine="true"
+		        android:textColorHint="#ababc7"
+		        android:hint="Cargo *"/>
+		    
+		    <EditText 
+		        android:id="@+id/tWebsiteNet"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:inputType="text"
+		        android:singleLine="true"
+		        android:textColorHint="#ababc7"
+		        android:hint="Website *"/>
+        
+    </LinearLayout>
+    
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_gravity="center_horizontal">
+        
+        <Button 
+            android:id="@+id/btnCriarMeuCartao"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="20dp"
+	        android:textColor="#FFFFFF"
+	        android:layout_gravity="center_horizontal"
+	        android:background="@drawable/hsm_bt_tiny_clear"
+	        android:text="Criar"/>
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- the theme applied to the application or activity -->
+    <style name="CustomActionBarTheme"
+           parent="@style/Theme.Sherlock.Light.DarkActionBar">
+        
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="MyActionBar"
+           parent="@style/android:Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/hsm_background_blur</item>
+    </style>
+</resources>

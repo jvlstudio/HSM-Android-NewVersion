@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@drawable/hsm_background"
+    android:orientation="horizontal" >
+    
+	<ImageView 
+	    android:id="@+id/imgRevista"
+	    android:layout_width="100dp"
+	    android:layout_height="100dp"
+	    android:layout_marginTop="10dp"
+	    android:layout_marginBottom="10dp"
+	    android:adjustViewBounds="true"
+	    android:src="@drawable/abundancia"/>
+	
+	<LinearLayout 
+	    android:layout_width="100dp"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="10dp"
+	    android:orientation="vertical">
+	    
+	    <TextView 
+	        android:id="@+id/txtTituloRevista"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#ababc7"
+	        android:textStyle="bold"
+	        android:layout_marginTop="30dp"
+	        android:text="TITULO"/>
+	    
+	    <TextView 
+	        android:id="@+id/txtDescricaoRevista"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#ababc7"
+	        android:maxLines="2"
+	        android:textSize="12dp"
+	        android:text="DESCRICAO"/>
+	</LinearLayout>
+	
+	<Button 
+	    android:id="@+id/btnRevistaMais"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="40dp"
+	    android:layout_marginLeft="30dp"
+	    android:layout_marginRight="20dp"
+	    android:textColor="#FFFFFF"
+	    android:textSize="12dp"
+	    android:focusable="false"
+	    android:background="@drawable/hsm_bt_tiny_clear"
+	    android:text="VER MAIS"/>
+</LinearLayout>

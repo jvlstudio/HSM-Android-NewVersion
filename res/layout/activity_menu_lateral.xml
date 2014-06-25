@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hsm_background_blur"
+    android:orientation="vertical"
+    tools:context=".MenuLateralActivity" >
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/dlMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left">
+        
+        <FrameLayout 
+            android:id="@+id/content_frame"
+            ></FrameLayout>
+        
+        
+    </android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>

@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:background="@drawable/hsm_background_blur"
+    tools:context=".AmigoAdapter" >
+
+    <ImageView 
+        android:id="@+id/imgPacoteNet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hsm_ball_gold"/>
+    
+    <ImageView 
+        android:id="@+id/imgPacoteNet"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/hsm_panelist_noimage"/>
+    
+    <TextView 
+        android:id="@+id/lNomeNet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textColor="#191970"
+        android:textStyle="bold"
+        android:text="NOME DO FULANO"/>
+
+</LinearLayout>
