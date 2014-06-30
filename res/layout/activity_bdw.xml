@@ -1,0 +1,85 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hsm_bg_c_blur"
+    tools:context=".BDWActivity" >
+	
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+	    <ImageView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/hsm_banner_bdw_2"
+	        android:layout_gravity="center_horizontal"/>
+	    
+	    <ScrollView 
+	        android:id="@+id/scroll"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content">
+	        
+	        <TextView 
+	            android:id="@+id/bdw"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:textColor="#FFFFFF"
+	            android:maxLines = "14"
+				android:scrollbars = "vertical"
+	            android:text="O design brasileiro vive seu momento de maior expressão e relevância. Muita coisa aconteceu ao longo dos últimos anos. O número de escolas e cursos aumentou significativamente, centenas de escritórios se desenvolveram, profissionais talentosos foram exportados para organizações de todo o mundo e uma infinidade de prêmios internacionais foram conquistados. Todo esse processo é resultado do amadurecimento de uma atividade que há mais de quatro décadas vem construindo um espaço relevante na economia brasileira e agora busca ir além: hoje, o design brasileiro propõe-se a ser um agente de transformação da nossa indústria, se apresentando como a grande ferramenta para gerar inovação e inserir o Brasil na economia “criativa”, em âmbito mundial.
+
+Neste contexto, a ABEDESIGN – Associação Brasileira de Empresas de Design, entidade que representa o setor, em parceria com a Apex-Brasil, entendeu este como o momento oportuno para promover a Brasil Design Week, um grande evento destinado a consolidar e estabelecer um novo marco para o design brasileiro, e inspirar empresários e gestores a utilizá-lo como ferramenta estratégica de negócios.
+
+Em sua 6ª edição, a Brasil Design Week reafirma a parceria exclusiva com a HSM, realizadora da Expo Management, garantindo assim a inserção do maior evento de design do Brasil na maior agenda de negócios da América Latina.
+
+Mais que uma promoção, este evento é um movimento intenso, com o objetivo de integrar empresas, órgãos governamentais e instituições de apoio ao design, para que juntos possamos construir um Brasil melhor, mais competitivo e cada vez mais inovador.
+
+A sexta edição da Brasil Design Week é realizada em um espaço de 400m2 dentro da HSM ExpoManagement, o maior evento de gestão da América Latina, que recebe mais de 15 mil visitantes."
+	            android:layout_margin="10dp"/>
+	        
+	    </ScrollView>
+	    
+	    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+		    <Button
+		        android:id="@+id/btnAgendaBDW"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:background="@drawable/hsm_bt_tiny_clear"
+		        android:layout_margin="10dp"
+		        android:textColor="#191970"
+		        android:text="Agenda" />
+		    <Button
+		        android:id="@+id/btnPalestranteBDW"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:enabled="false"
+		        android:layout_margin="10dp"
+		        android:background="@drawable/hsm_bt_tiny_clear"
+		        android:text="Palestrantes" />
+	    </LinearLayout>
+	    
+	    <Button
+	        android:id="@+id/btnMaisInformacoes"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	        android:layout_marginTop="20dp"
+	        android:layout_marginBottom="20dp"
+	        android:textColor="#FFFFFF"
+	        android:background="@drawable/hsm_bt_large_purple"
+	        android:text="Mais Informações" />
+	    
+	    <fragment 
+		     android:id="@+id/footerFragment"
+		     android:layout_gravity="center_horizontal"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     class="br.ikomm.hsm.fragment.BannerFragment"/>
+	</LinearLayout>
+</ScrollView>

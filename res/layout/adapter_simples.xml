@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:padding="10dp"
+    tools:context=".SimplesAdapter" >
+
+    <TextView
+        android:id="@+id/tTituloEvento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:textColor="#191970"
+        android:text="TITULO DO EVENTO" />
+    
+    <TextView
+        android:id="@+id/tNomeAuditorio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:paddingTop="5dp"
+        android:textSize="10dp"
+        android:text="AUDITORIO" />
+
+</LinearLayout>

@@ -1,0 +1,248 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hsm_background"
+    android:orientation="vertical"
+    tools:context="br.com.ikomm.apps.HSM.DetalheLivroActivity$PlaceholderFragment" >
+
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        
+        <ImageView 
+            android:id="@+id/imgLivroDet"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/abundancia"/>
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+            
+        	<TextView 
+        	    android:id="@+id/txtTituloDet"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="#ffcc00"
+	            android:layout_marginTop="10dp"
+	            android:textStyle="bold"
+	            android:text="TITULO DO LIVRO"/>    
+	        
+        	<TextView 
+        	    android:id="@+id/txtDescricaoDet"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="5dp"
+	            android:textSize="10dp"
+	            android:textColor="#69697a"
+	            android:text="DESCRIÇÃO"/>
+        	
+        	<Button 
+        	    android:id="@+id/btnComprarDet"
+        	    android:layout_width="100dp"
+        	    android:layout_height="38dp"
+        	    android:layout_marginTop="20dp"
+        	    android:text="Comprar"
+        	    android:textColor="#FFF"
+        	    android:background="@drawable/hsm_bt_tiny_clear"/>
+        </LinearLayout>
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        
+        <TextView 
+        	    android:id="@+id/tS"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="5dp"
+	            android:clickable="true"
+	            android:textSize="12dp"
+	            android:textColor="#ffcc00"
+	            android:text="SINOPSE  |"/>
+        
+        <TextView 
+        	    android:id="@+id/tE"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="5dp"
+	            android:clickable="true"
+	            android:textSize="12dp"
+	            android:layout_marginLeft="10dp"
+	            android:textColor="#ffcc00"
+	            android:text="ESPEC.  |"/>
+        
+        <TextView 
+        	    android:id="@+id/tA"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="5dp"
+	            android:clickable="true"
+	            android:textSize="12dp"
+	            android:layout_marginLeft="10dp"
+	            android:textColor="#ffcc00"
+	            android:text="AUTOR"/>
+    </LinearLayout>
+    
+    <ScrollView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp">
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            
+            
+            <!-- Sinopse -->
+            <LinearLayout 
+                android:id="@+id/llSinopse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+                
+                <TextView 
+                    android:id="@+id/textDescricaoLivro"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="5dp"
+		            android:layout_marginRight="10dp"
+		            android:textColor="#69697a"
+		            android:text="Descrição do Livro"/>
+            </LinearLayout>
+            
+            <!-- Espec. -->
+            <LinearLayout 
+                android:id="@+id/llEspec"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+                
+                <LinearLayout 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    
+                    <ImageView 
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/hsm_ico_desc"/>
+                    
+                    <TextView 
+                        android:id="@+id/textTamanho"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:textColor="#69697a"
+			            android:text="15,5 x 23 cm"/>
+                </LinearLayout>
+                
+                <LinearLayout 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    
+                    <ImageView 
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/hsm_ico_pag"/>
+                    
+                    <TextView 
+                        android:id="@+id/textPag"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:textColor="#69697a"
+			            android:layout_gravity="center_vertical"
+			            android:text="264"/>
+                </LinearLayout>
+                
+                <LinearLayout 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    <ImageView 
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/hsm_ico_cod"/>
+                    
+                    <TextView 
+                        android:id="@+id/textCodigo"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:textColor="#69697a"
+			            android:text="9788567389073"/>
+                </LinearLayout>
+                
+                <LinearLayout 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    
+                    <ImageView 
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/hsm_ico_isbm"/>
+                    
+                    <TextView 
+                        android:id="@+id/textISBM"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:textColor="#69697a"
+			            android:text="978-85-67389-07-3"/>
+                </LinearLayout>
+            </LinearLayout>
+            
+            <!-- Autor -->
+            <LinearLayout 
+                android:id="@+id/llAutor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+                
+                <TextView 
+                    android:id="@+id/textNomeAutor"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="5dp"
+		            android:layout_marginRight="10dp"
+		            android:textColor="#ffcc00"
+		            android:text="Nome do Autor"/>
+                
+                <TextView 
+                    android:id="@+id/textDescricaoAutor"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="10dp"
+		            android:textColor="#69697a"
+		            android:text="Descrição do Autor"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

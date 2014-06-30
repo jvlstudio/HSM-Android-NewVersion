@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/hsm_bg_c_blur"
+    android:orientation="vertical"
+    tools:context=".PagamentoActivity" >
+	
+		<FrameLayout
+   	        android:layout_width="wrap_content"
+   	        android:layout_height="wrap_content"
+   	        android:layout_gravity="center_horizontal" >
+
+   	        <ImageView
+   	            android:id="@+id/imgPagamento"
+   	            android:layout_width="match_parent"
+   	            android:layout_height="wrap_content"
+   	            android:src="@drawable/hsm_passes_title_red" />
+   	    </FrameLayout>
+
+   	    <TextView
+   	        	android:id="@+id/lbDias"
+   	            android:layout_width="fill_parent"
+   	            android:layout_height="wrap_content"
+   	            android:layout_gravity="center|top"
+   	            android:paddingLeft="22dp"
+   	            android:layout_marginTop="25dp"
+   	            android:visibility="gone"
+   	            android:text="ESCOLHA UM DIA"
+   	            android:textColor="#535361"
+   	            android:textSize="20dp" />
+
+   	        <Spinner
+   	            android:id="@+id/spinerQuantidade"
+   	            android:layout_width="match_parent"
+   	            android:layout_height="wrap_content"
+   	            android:visibility="gone"
+   	            android:textColor="#535361"
+   	            android:entries="@array/quantidadeArray"
+   	            android:prompt="@string/quantidade" >
+   	        </Spinner>
+
+   	        
+   	    <TextView
+   	            android:layout_width="wrap_content"
+   	            android:layout_height="wrap_content"
+   	            android:layout_gravity="top"
+   	            android:paddingLeft="22dp"
+   	            android:text="FORMA DE PAGAMENTO"
+   	            android:textColor="#535361"
+   	            android:textSize="20dp" />
+
+   	        <Spinner
+   	            android:id="@+id/spinerTipoPagamento"
+   	            android:layout_width="match_parent"
+   	            android:layout_height="wrap_content"
+   	            android:entries="@array/tipoPagamentoArray"
+   	            android:prompt="@string/tipoPagamento" >
+   	        </Spinner>
+
+   	    <TextView
+   	            android:layout_width="wrap_content"
+   	            android:layout_height="wrap_content"
+   	            android:layout_gravity="top"
+   	            android:paddingLeft="22dp"
+   	            android:text="PARTICIPANTE"
+   	            android:textColor="#535361"
+   	            android:textSize="20dp" />
+
+   	    <Button
+   	            android:id="@+id/btnParticipante"
+   	            android:layout_width="wrap_content"
+   	            android:layout_height="wrap_content"
+   	            android:layout_gravity="center"
+   	            android:layout_marginTop="20dp"
+   	            android:textColor="#FFFFFF"
+   	            android:background="@drawable/hsm_bt_tiny_clear"
+   	            android:text="@string/cadastrar" />
+
+   	    <Button
+   	        android:id="@+id/btnComprar"
+   	        android:layout_width="wrap_content"
+   	        android:layout_height="wrap_content"
+   	        android:layout_margin="20dp"
+   	        android:background="@drawable/hsm_bt_large_blue"
+   	        android:text="@string/comprar"
+   	        android:layout_gravity="center_horizontal"
+   	        android:textColor="#FFFFFF" />
+
+   	   
+</LinearLayout>

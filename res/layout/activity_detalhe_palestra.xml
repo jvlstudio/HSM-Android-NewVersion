@@ -1,0 +1,160 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hsm_bg_c_blur"
+    android:orientation="vertical"
+    tools:context=".DetalhePalestraActivity" >
+	
+    <RelativeLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="120dp">
+	        
+	     	<FrameLayout 
+	     	    android:id="@+id/frameLayoutImgPalestrante"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingTop="20dp"
+		        android:padding="3dp">
+	    
+		        <ImageView 
+		            android:id="@+id/imgPalestranteDetalhe"
+		            android:layout_width="100dp"
+		            android:layout_height="wrap_content"
+		            android:adjustViewBounds="true"
+		            android:src="@drawable/p_marco_tulio_zanini_large"/>
+	        </FrameLayout>
+	        
+	     	<FrameLayout 
+	     	    android:id="@+id/frameLayoutNomePalestrante"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="15dp"
+		        android:layout_marginLeft="20dp"
+		        android:textAlignment="@+id/frameLayoutImgPalestrante"
+		        android:layout_toRightOf="@+id/frameLayoutImgPalestrante">
+	    
+	     	    <TextView 
+	     	        android:id="@+id/tDetNomePalestrante"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:textStyle="bold"
+		            android:textColor="#69697a"
+		            android:text="NOME PALESTRANTE"
+		            android:textSize="14dp"/>
+	        </FrameLayout>
+	        
+	     	<FrameLayout 
+	     	    android:id="@+id/frameLayoutEspecialidade"
+	     	    android:layout_width="wrap_content"
+	     	    android:layout_height="wrap_content"
+	     	    android:layout_marginTop="10dp"
+	     	    android:layout_marginLeft="20dp"
+	     	    android:textAlignment="@+id/frameLayoutNomePalestrante"
+	     	    android:layout_toRightOf="@+id/frameLayoutImgPalestrante"
+	     	    android:layout_below="@+id/frameLayoutNomePalestrante">
+	     	    
+	     	    <TextView 
+	     	        android:id="@+id/tDetEspecialidade"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:textColor="#ffcc00"
+		            android:text="ESPECIALIDADE"/>
+	     	</FrameLayout>
+	     	
+	     	<FrameLayout 
+	     	    android:id="@+id/frameLayoutData"
+	     	    android:layout_width="wrap_content"
+	     	    android:layout_height="wrap_content"
+	     	    android:layout_marginTop="10dp"
+	     	    android:layout_marginLeft="20dp"
+	     	    android:textAlignment="@+id/frameLayoutNomePalestrante"
+	     	    android:layout_toRightOf="@+id/frameLayoutImgPalestrante"
+	     	    android:layout_below="@+id/frameLayoutEspecialidade">
+	     	    
+	     	    <TextView 
+	     	        android:id="@+id/tDetData"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:textColor="#69697a"
+		            android:text="28 Ago"/>
+	     	</FrameLayout>
+	    	
+	     	<FrameLayout 
+	     	    android:id="@+id/frameLayoutHorario"
+	     	    android:layout_width="wrap_content"
+	     	    android:layout_height="wrap_content"
+	     	    android:layout_marginTop="10dp"
+	     	    android:layout_marginLeft="20dp"
+	     	    android:textAlignment="@+id/frameLayoutNomePalestrante"
+	     	    android:layout_toRightOf="@+id/frameLayoutImgPalestrante"
+	     	    android:layout_below="@+id/frameLayoutData">
+		     	    <TextView 
+		     	        android:id="@+id/tDetHorario"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:textColor="#69697a"
+			            android:text="9h - 10h"/>
+	     	</FrameLayout>
+	    </RelativeLayout>
+	    
+	    <FrameLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="2">
+	    
+	        <TextView
+		        android:id="@+id/tResumoPalestra"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center_horizontal"
+		        android:minLines="2"
+		        android:textColor="#b3b3c7"
+		        android:textStyle="bold"
+		        android:padding="5dp"
+		        android:text="Resumo da Palestra em questão"
+		        android:textAlignment="center" />
+	        
+	    </FrameLayout>
+	    
+	    <FrameLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="3">
+			<ScrollView 
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content">
+			    
+			    <TextView
+		        android:id="@+id/tDetalhesPalestra"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:minLines="1"
+		        android:padding="5dp"
+		        android:paddingTop="70dp"
+		        android:textColor="#b3b3c7"
+		        android:text="Detalhes da Palestra em questão"/>
+			</ScrollView>	    
+	    </FrameLayout>
+	    
+	    <FrameLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="2">
+	    
+	        <Button 
+	            android:id="@+id/btnAgendar"
+	            android:layout_width="wrap_content"
+	            android:layout_height="50dp"
+	            android:layout_gravity="center"
+	            android:textColor="#FFFFFF"
+	            android:background="@drawable/hsm_bt_tiny_clear"
+	            android:text="Agendar"/>
+		</FrameLayout>
+    
+    	<fragment 
+		     android:id="@+id/footerFragment"
+		     android:layout_width="match_parent"
+		     android:layout_height="wrap_content"
+		     class="br.ikomm.hsm.fragment.BannerFragment"/>
+</LinearLayout>

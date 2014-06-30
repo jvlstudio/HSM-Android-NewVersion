@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:orientation="horizontal"
+    tools:context=".PalestranteAdapter" >
+
+    <ImageView 
+        android:id="@+id/imagemPalestrante"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="15dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/p_jeremy_rifkin"/>
+    
+    <TextView 
+        android:id="@+id/nomePalestrante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+      	android:textColor="#ababc7"
+	    android:textStyle="bold"
+        android:text="Nome Palestrante"
+        android:layout_gravity="center_vertical"/>
+
+</LinearLayout>

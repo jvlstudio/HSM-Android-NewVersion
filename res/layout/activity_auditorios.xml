@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/hsm_bg_c_blur"
+    tools:context=".AuditoriosActivity" >
+
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+        
+        <ImageButton 
+	        android:id="@+id/ibtnBDW1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@null"
+	        android:layout_marginTop="20dp"
+	        android:layout_gravity="center_horizontal"
+	        android:src="@drawable/hsm_events_quick_bdw13"/>
+    </FrameLayout>
+    
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+	    <ImageButton 
+	        android:id="@+id/ibtnAuditorio"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="20dp"
+	        android:background="@null"
+	        android:layout_gravity="center_horizontal"
+	        android:src="@drawable/hsm_events_quick_mostra13"/>
+
+	</FrameLayout>
+	
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+		
+		<fragment 
+			     android:id="@+id/footerFragment"
+			     android:layout_width="wrap_content"
+			     android:layout_height="wrap_content"
+			     class="br.ikomm.hsm.fragment.BannerFragment"/>
+	</FrameLayout>
+</LinearLayout>
