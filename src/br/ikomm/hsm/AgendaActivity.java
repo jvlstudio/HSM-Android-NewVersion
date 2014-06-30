@@ -32,7 +32,7 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null){
 			event_id = extras.getInt("event_id");
-			dates = extras.getString("dates").split("-");
+			dates = extras.getString("dates").replace("|", "-").split("-");
 		}
 		
 		Activity context = this;
