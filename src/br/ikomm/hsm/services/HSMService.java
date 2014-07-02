@@ -156,7 +156,8 @@ public class HSMService extends Service implements Runnable{
 	private boolean wsAgenda() {
 		// TODO Auto-generated method stub
 		try {
-			AgendaWS lista = wsCommunication.wsAgenda();
+//			AgendaWS lista = wsCommunication.wsAgenda();
+			AgendaWS lista = wsCommunication.wsFakeAgenda();
 			if(!lista.data.isEmpty()){
 				AgendaRepo _ar = new AgendaRepo(getApplicationContext());
 				_ar.open();
@@ -164,6 +165,11 @@ public class HSMService extends Service implements Runnable{
 				for(Agenda item : lista.data){
 					Agenda _agenda = _ar.getAgenda(item.id);
 					if(_agenda.id == 0){
+						// TODO: Delete this, later.
+						if (item.id == 27 || item.id == 28 || item.id == 29 || item.id == 31) {
+							item.date_start = "2014-08-23 22:00:00";
+							item.date_end = "2014-08-23 24:00:00";
+						}
 						_ar.insertAgenda(item);
 					}
 				}

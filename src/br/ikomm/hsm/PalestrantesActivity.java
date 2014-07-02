@@ -1,21 +1,16 @@
 package br.ikomm.hsm;
 
-import br.com.ikomm.apps.HSM.DetalhePalestraNeoActivity;
-import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.adapter.PalestranteAdapter;
-import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
+import br.com.ikomm.apps.HSM.R;
+import br.ikomm.hsm.adapter.PalestranteAdapter;
 
 public class PalestrantesActivity extends Activity implements OnItemClickListener {
 
@@ -33,15 +28,12 @@ public class PalestrantesActivity extends Activity implements OnItemClickListene
 		
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
-		
 		carregarCampos();
 	}
 
 	private void carregarCampos() {
-		// TODO Auto-generated method stub
 		ListView lista = (ListView) findViewById(R.id.listaPalestrantes);
 		lista.setAdapter(new PalestranteAdapter(this, event_id));
-		
 		lista.setOnItemClickListener(this);
 	}
 
@@ -54,7 +46,6 @@ public class PalestrantesActivity extends Activity implements OnItemClickListene
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
 		Intent _intent = new Intent(this, DetalhePalestraActivity.class);
 		_intent.putExtra("panelist_id", arg3);
 		_intent.putExtra("event_id", event_id);

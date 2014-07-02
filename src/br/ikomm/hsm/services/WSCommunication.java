@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
+import br.ikomm.hsm.SplashScreen;
 import br.ikomm.hsm.model.ws.AgendaWS;
 import br.ikomm.hsm.model.ws.BookWS;
 import br.ikomm.hsm.model.ws.EventWS;
@@ -26,61 +27,90 @@ public class WSCommunication {
 	private static final String ERROR = "HSM_ws_error";
 	private static final String URL_SERVER = "http://apps.ikomm.com.br/hsm5/rest-android";
 	private Gson gson;
-	
+
 	/**
 	 * HOME
 	 */
-	public HomeWS wsHome(){
+	public HomeWS wsHome() {
 		try {
-		HttpClient _httpClient = new DefaultHttpClient();
-		Gson gson = new Gson();
-		String url = URL_SERVER + "/home.php";
-		
-		HttpGet _httpGet = new HttpGet(url);
-		HttpResponse _httpResponse = _httpClient.execute(_httpGet);
-		
-		HttpEntity _httpEntity = _httpResponse.getEntity();
-		InputStream content = _httpEntity.getContent();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-		
-		
-		String responseBody = reader.readLine();
-		HomeWS list = gson.fromJson(responseBody, HomeWS.class);
-		
-		return list;
-			
+			HttpClient _httpClient = new DefaultHttpClient();
+			Gson gson = new Gson();
+			String url = URL_SERVER + "/home.php";
+
+			HttpGet _httpGet = new HttpGet(url);
+			HttpResponse _httpResponse = _httpClient.execute(_httpGet);
+
+			HttpEntity _httpEntity = _httpResponse.getEntity();
+			InputStream content = _httpEntity.getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					content));
+
+			String responseBody = reader.readLine();
+			HomeWS list = gson.fromJson(responseBody, HomeWS.class);
+
+			return list;
+
 		} catch (Exception ex) {
 			// TODO: handle exception
-			Log.e(ERROR, "erro no met. wsHome: "+ ex);
+			Log.e(ERROR, "erro no met. wsHome: " + ex);
 			return null;
 		}
 	}
-	
+
 	/**
 	 * EVENTS
 	 */
-	public EventWS wsEvent(){
+	public EventWS wsEvent() {
 		try {
-		HttpClient _httpClient = new DefaultHttpClient();
-		Gson gson = new Gson();
-		String url = URL_SERVER + "/events.php";
-		
-		HttpGet _httpGet = new HttpGet(url);
-		HttpResponse _httpResponse = _httpClient.execute(_httpGet);
-		
-		HttpEntity _httpEntity = _httpResponse.getEntity();
-		InputStream content = _httpEntity.getContent();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-		
-		
+			HttpClient _httpClient = new DefaultHttpClient();
+			Gson gson = new Gson();
+			String url = URL_SERVER + "/events.php";
+
+			HttpGet _httpGet = new HttpGet(url);
+			HttpResponse _httpResponse = _httpClient.execute(_httpGet);
+
+			HttpEntity _httpEntity = _httpResponse.getEntity();
+			InputStream content = _httpEntity.getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					content));
+
 			String responseBody = reader.readLine();
 			EventWS list = gson.fromJson(responseBody, EventWS.class);
-		
-		return list;
-			
+
+			return list;
+
 		} catch (Exception ex) {
 			// TODO: handle exception
-			Log.e(ERROR, "erro no met. wsEvent: "+ ex);
+			Log.e(ERROR, "erro no met. wsEvent: " + ex);
+			return null;
+		}
+	}
+
+	/**
+	 * AGENDA
+	 */
+	public AgendaWS wsAgenda() {
+		try {
+			HttpClient _httpClient = new DefaultHttpClient();
+			Gson gson = new Gson();
+			String url = URL_SERVER + "/agenda.php";
+
+			HttpGet _httpGet = new HttpGet(url);
+			HttpResponse _httpResponse = _httpClient.execute(_httpGet);
+
+			HttpEntity _httpEntity = _httpResponse.getEntity();
+			InputStream content = _httpEntity.getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					content));
+
+			String responseBody = reader.readLine();
+			AgendaWS list = gson.fromJson(responseBody, AgendaWS.class);
+//			AgendaWS list = gson.fromJson(SplashScreen.FAKE_AGENDA_JSON, AgendaWS.class);
+
+			return list;
+		} catch (Exception ex) {
+			// TODO: handle exception
+			Log.e(ERROR, "erro no met. wsAgenda: " + ex);
 			return null;
 		}
 	}
@@ -88,144 +118,143 @@ public class WSCommunication {
 	/**
 	 * AGENDA
 	 */
-	public AgendaWS wsAgenda(){
+	public AgendaWS wsFakeAgenda() {
 		try {
-		HttpClient _httpClient = new DefaultHttpClient();
-		Gson gson = new Gson();
-		String url = URL_SERVER + "/agenda.php";
-		
-		HttpGet _httpGet = new HttpGet(url);
-		HttpResponse _httpResponse = _httpClient.execute(_httpGet);
-		
-		HttpEntity _httpEntity = _httpResponse.getEntity();
-		InputStream content = _httpEntity.getContent();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-		
-		
+			HttpClient _httpClient = new DefaultHttpClient();
+			Gson gson = new Gson();
+			String url = URL_SERVER + "/agenda.php";
+
+			HttpGet _httpGet = new HttpGet(url);
+			HttpResponse _httpResponse = _httpClient.execute(_httpGet);
+
+			HttpEntity _httpEntity = _httpResponse.getEntity();
+			InputStream content = _httpEntity.getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					content));
+
 			String responseBody = reader.readLine();
 			AgendaWS list = gson.fromJson(responseBody, AgendaWS.class);
-		
-		return list;
-			
+
+			return list;
 		} catch (Exception ex) {
 			// TODO: handle exception
-			Log.e(ERROR, "erro no met. wsAgenda: "+ ex);
+			Log.e(ERROR, "erro no met. wsAgenda: " + ex);
 			return null;
 		}
 	}
-	
+
 	/**
 	 * PANELISTS
 	 */
-	public PanelistWS wsPanelist(){
+	public PanelistWS wsPanelist() {
 		try {
-		HttpClient _httpClient = new DefaultHttpClient();
-		Gson gson = new Gson();
-		String url = URL_SERVER + "/panelist.php";
-		
-		HttpGet _httpGet = new HttpGet(url);
-		HttpResponse _httpResponse = _httpClient.execute(_httpGet);
-		
-		HttpEntity _httpEntity = _httpResponse.getEntity();
-		InputStream content = _httpEntity.getContent();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-		
-		
+			HttpClient _httpClient = new DefaultHttpClient();
+			Gson gson = new Gson();
+			String url = URL_SERVER + "/panelist.php";
+
+			HttpGet _httpGet = new HttpGet(url);
+			HttpResponse _httpResponse = _httpClient.execute(_httpGet);
+
+			HttpEntity _httpEntity = _httpResponse.getEntity();
+			InputStream content = _httpEntity.getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					content));
+
 			String responseBody = reader.readLine();
 			PanelistWS list = gson.fromJson(responseBody, PanelistWS.class);
-		
-		return list;
-			
+
+			return list;
+
 		} catch (Exception ex) {
 			// TODO: handle exception
-			Log.e(ERROR, "erro no met. wsPanelist: "+ ex);
+			Log.e(ERROR, "erro no met. wsPanelist: " + ex);
 			return null;
 		}
 	}
-	
+
 	/**
 	 * PASSES
 	 */
-	public PasseWS wsPasse(){
+	public PasseWS wsPasse() {
 		try {
-		HttpClient _httpClient = new DefaultHttpClient();
-		Gson gson = new Gson();
-		String url = URL_SERVER + "/passes.php";
-		
-		HttpGet _httpGet = new HttpGet(url);
-		HttpResponse _httpResponse = _httpClient.execute(_httpGet);
-		
-		HttpEntity _httpEntity = _httpResponse.getEntity();
-		InputStream content = _httpEntity.getContent();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-		
-		
+			HttpClient _httpClient = new DefaultHttpClient();
+			Gson gson = new Gson();
+			String url = URL_SERVER + "/passes.php";
+
+			HttpGet _httpGet = new HttpGet(url);
+			HttpResponse _httpResponse = _httpClient.execute(_httpGet);
+
+			HttpEntity _httpEntity = _httpResponse.getEntity();
+			InputStream content = _httpEntity.getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					content));
+
 			String responseBody = reader.readLine();
 			PasseWS list = gson.fromJson(responseBody, PasseWS.class);
-		
-		return list;
-			
+
+			return list;
+
 		} catch (Exception ex) {
 			// TODO: handle exception
-			Log.e(ERROR, "erro no met. wsPasse: "+ ex);
+			Log.e(ERROR, "erro no met. wsPasse: " + ex);
 			return null;
 		}
 	}
-	
+
 	/**
 	 * MAGAZINES
 	 */
-	public MagazineWS wsMagazine(){
+	public MagazineWS wsMagazine() {
 		try {
-		HttpClient _httpClient = new DefaultHttpClient();
-		Gson gson = new Gson();
-		String url = URL_SERVER + "/magazines.php";
-		
-		HttpGet _httpGet = new HttpGet(url);
-		HttpResponse _httpResponse = _httpClient.execute(_httpGet);
-		
-		HttpEntity _httpEntity = _httpResponse.getEntity();
-		InputStream content = _httpEntity.getContent();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-		
-		
+			HttpClient _httpClient = new DefaultHttpClient();
+			Gson gson = new Gson();
+			String url = URL_SERVER + "/magazines.php";
+
+			HttpGet _httpGet = new HttpGet(url);
+			HttpResponse _httpResponse = _httpClient.execute(_httpGet);
+
+			HttpEntity _httpEntity = _httpResponse.getEntity();
+			InputStream content = _httpEntity.getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					content));
+
 			String responseBody = reader.readLine();
 			MagazineWS list = gson.fromJson(responseBody, MagazineWS.class);
-		
-		return list;
-			
+
+			return list;
+
 		} catch (Exception ex) {
 			// TODO: handle exception
-			Log.e(ERROR, "erro no met. wsMagazine: "+ ex);
+			Log.e(ERROR, "erro no met. wsMagazine: " + ex);
 			return null;
 		}
 	}
-	
+
 	/**
 	 * BOOKS
 	 */
-	public BookWS wsBook(){
+	public BookWS wsBook() {
 		try {
-		HttpClient _httpClient = new DefaultHttpClient();
-		Gson gson = new Gson();
-		String url = URL_SERVER + "/books.php";
-		
-		HttpGet _httpGet = new HttpGet(url);
-		HttpResponse _httpResponse = _httpClient.execute(_httpGet);
-		
-		HttpEntity _httpEntity = _httpResponse.getEntity();
-		InputStream content = _httpEntity.getContent();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-		
-		
+			HttpClient _httpClient = new DefaultHttpClient();
+			Gson gson = new Gson();
+			String url = URL_SERVER + "/books.php";
+
+			HttpGet _httpGet = new HttpGet(url);
+			HttpResponse _httpResponse = _httpClient.execute(_httpGet);
+
+			HttpEntity _httpEntity = _httpResponse.getEntity();
+			InputStream content = _httpEntity.getContent();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					content));
+
 			String responseBody = reader.readLine();
 			BookWS list = gson.fromJson(responseBody, BookWS.class);
-		
-		return list;
-			
+
+			return list;
+
 		} catch (Exception ex) {
 			// TODO: handle exception
-			Log.e(ERROR, "erro no met. wsBook: "+ ex);
+			Log.e(ERROR, "erro no met. wsBook: " + ex);
 			return null;
 		}
 	}

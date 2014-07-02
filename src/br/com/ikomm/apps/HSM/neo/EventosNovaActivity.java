@@ -3,14 +3,8 @@ package br.com.ikomm.apps.HSM.neo;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.ikomm.apps.HSM.R;
-import br.com.ikomm.apps.HSM.R.id;
-import br.com.ikomm.apps.HSM.R.layout;
-import br.com.ikomm.apps.HSM.R.menu;
-import br.ikomm.hsm.model.Event;
-import br.ikomm.hsm.model.EventRepo;
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,11 +15,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.Toast;
-import android.os.Build;
+import br.com.ikomm.apps.HSM.R;
+import br.ikomm.hsm.model.Event;
+import br.ikomm.hsm.model.EventRepo;
 
 public class EventosNovaActivity extends Activity {
 
@@ -36,16 +30,13 @@ public class EventosNovaActivity extends Activity {
 		
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
-
 		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.eventos_nova, menu);
 		return true;
@@ -67,19 +58,15 @@ public class EventosNovaActivity extends Activity {
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class PlaceholderFragment extends Fragment {
-
 		private EventRepo _er;
 		private List<Event> events = new ArrayList<Event>();
 		int total = 0;
 		
-		public PlaceholderFragment() {
-		}
+		public PlaceholderFragment() {}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_eventos_nova,
-					container, false);
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_eventos_nova, container, false);
 			
 			LinearLayout linear = (LinearLayout) rootView.findViewById(R.id.listaEventos);
 			
@@ -103,18 +90,14 @@ public class EventosNovaActivity extends Activity {
 					imgButton[i].setAdjustViewBounds(true);
 					
 					final Event _event = events.get(i);
-							
 					imgButton[i].setOnClickListener(new OnClickListener() {
-						
 						@Override
 						public void onClick(View v) {
-							// TODO Auto-generated method stub
 							Intent intent = new Intent(getActivity(), DetalheEventoNeoActivity.class);
 							intent.putExtra("id", _event.id);
 							startActivity(intent);
 						}
 					});
-					
 					linear.addView(imgButton[i], params);
 					i++;
 				}
@@ -122,5 +105,4 @@ public class EventosNovaActivity extends Activity {
 			return rootView;
 		}
 	}
-
 }

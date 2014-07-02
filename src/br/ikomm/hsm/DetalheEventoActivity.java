@@ -24,9 +24,7 @@ public class DetalheEventoActivity extends FragmentActivity {
 	}
 
 	private OnClickListener onClickPasses() {
-		// TODO Auto-generated method stub
 		return new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(DetalheEventoActivity.this, PacoteActivity.class));
@@ -35,22 +33,17 @@ public class DetalheEventoActivity extends FragmentActivity {
 	}
 
 	private OnClickListener onClickAgenda() {
-		// TODO Auto-generated method stub
 		return new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(DetalheEventoActivity.this, AgendaActivity.class));
-				
 			}
 		};
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.detalhe_evento, menu);
 		return false;
 	}
-
 }

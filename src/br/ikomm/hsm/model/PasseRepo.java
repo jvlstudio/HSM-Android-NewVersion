@@ -48,7 +48,7 @@ public class PasseRepo {
 		value.put("email", passe.email);
 		value.put("description", passe.description);
 		value.put("days", passe.days);
-		value.put("dates", passe.dates);
+		value.put("mDates", passe.dates);
 		value.put("show_dates", passe.show_dates);
 		value.put("is_multiple", passe.is_multiple);
 		return this.mDb.insert("passe", null, value);
@@ -170,7 +170,7 @@ public class PasseRepo {
 		value.put("email", passe.email);
 		value.put("description", passe.description);
 		value.put("days", passe.days);
-		value.put("dates", passe.dates);
+		value.put("mDates", passe.dates);
 		value.put("show_dates", passe.show_dates);
 		value.put("is_multiple", passe.is_multiple);
 		return this.mDb.update("passe", value, "id = " + passe.id, null) > 0;

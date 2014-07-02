@@ -1,7 +1,5 @@
 package br.ikomm.hsm.model;
 
-import java.util.Date;
-
 public class Agenda {
 	public int id;
 	public String type;
@@ -15,4 +13,14 @@ public class Agenda {
 	public String label;
 	public String sublabel;
 	public String image;
+	
+	@Override
+	public String toString() {
+		return "Agenda [id=" + id + ", type=" + type + ", event_id=" + event_id
+			+ ", panelist_id=" + panelist_id + ", date=" + date
+			+ ", date_start=" + date_start + ", date_end=" + date_end
+			+ ", theme_title=" + theme_title + ", theme_description="
+			+ theme_description + ", label=" + label + ", sublabel="
+			+ sublabel + ", image=" + image + "]";
+	}	
 }
