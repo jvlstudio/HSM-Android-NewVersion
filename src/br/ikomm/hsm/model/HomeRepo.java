@@ -62,6 +62,23 @@ public class HomeRepo {
 		 return mCursor;
 	}
 	
+	// getSingle
+	public Home getHomeFromCursor(Cursor cursor) {
+		Home home = new Home();
+		home.id = cursor.getInt(0);
+		home.events_title = cursor.getString(1);
+		home.events_image_android = cursor.getString(2);
+		home.education_title = cursor.getString(3);
+		home.education_image_android = cursor.getString(4);
+		home.videos_title = cursor.getString(5);
+		home.videos_image_android = cursor.getString(6);
+		home.magazines_title = cursor.getString(7);
+		home.magazines_image_android = cursor.getString(8);
+		home.books_title = cursor.getString(9);
+		home.books_image_android = cursor.getString(10);
+		return home;
+	}
+	
 	// delete
 	public boolean delete(long id){
 		return this.mDb.delete("home", "id = " +id, null) > 0;

@@ -1,35 +1,47 @@
 package br.ikomm.hsm;
 
-import br.com.ikomm.apps.HSM.EventosActivity;
-import br.com.ikomm.apps.HSM.ListaNetworkingActivity;
-import br.com.ikomm.apps.HSM.R;
-import br.com.ikomm.apps.HSM.neo.EventosNovaActivity;
-import br.com.ikomm.apps.HSM.neo.ListaLivrosActivity;
-import br.com.ikomm.apps.HSM.neo.RevistaActivity;
-import br.ikomm.hsm.util.ActionBarCustom;
-import br.ikomm.hsm.util.WebServiceCommunication;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+import br.com.ikomm.apps.HSM.ListaNetworkingActivity;
+import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.neo.EventosNovaActivity;
+import br.com.ikomm.apps.HSM.neo.ListaLivrosActivity;
+import br.com.ikomm.apps.HSM.neo.RevistaActivity;
+import br.ikomm.hsm.model.Home;
+import br.ikomm.hsm.model.HomeRepo;
+import br.ikomm.hsm.util.WebServiceCommunication;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+/**
+ * HomeActivity.java class.
+ * Modified by Rodrigo Cericatto at July 3, 2014.
+ */
 public class HomeActivity extends FragmentActivity {
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
 	private String[] mPlanetTitles;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -37,8 +49,10 @@ public class HomeActivity extends FragmentActivity {
 	private CharSequence mTitle;
 	private ActionBarDrawerToggle mDrawerToggle;
 
-	ImageButton imageButton;
-
+	//--------------------------------------------------
+	// Activity Life Cycle
+	//--------------------------------------------------
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,99 +60,152 @@ public class HomeActivity extends FragmentActivity {
 
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
-	
-		//ActionBarCustom abc = new ActionBarCustom();
-		//abc.setActionBarBackgroundColor(this, "#1d1d26", true);
 
+		addImages();
 		addListenerOnButton();
 
 		mPlanetTitles = getResources().getStringArray(R.array.menuList);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-		// Set the adapter for the list view
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.drawer_list_item, mPlanetTitles));
-		// Set the list's click listener
+		// Set the adapter for the list view.
+		mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mPlanetTitles));
+		// Set the list's click listener.
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 		mTitle = mDrawerTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, R.string.drawer_open,
-				R.string.drawer_close) {
-
-			/** Called when a drawer has settled in a completely closed state. */
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
+			/**
+			 * Called when a drawer has settled in a completely closed state.
+			 */
 			@Override
 			public void onDrawerClosed(View view) {
 				getActionBar().setTitle(mTitle);
-				invalidateOptionsMenu(); // creates call to
-											// onPrepareOptionsMenu()
+				// Creates call to onPrepareOptionsMenu().
+				invalidateOptionsMenu();
 			}
 
-			/** Called when a drawer has settled in a completely open state. */
+			/**
+			 * Called when a drawer has settled in a completely open state.
+			 */
 			@Override
 			public void onDrawerOpened(View drawerView) {
 				getActionBar().setTitle(mDrawerTitle);
-				invalidateOptionsMenu(); // creates call to
-											// onPrepareOptionsMenu()
+				// Creates call to onPrepareOptionsMenu().
+				invalidateOptionsMenu();
 			}
 		};
 
-		// Set the drawer toggle as the DrawerListener
+		// Set the drawer toggle as the DrawerListener.
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
-		// Update banners no sharedPreferences
-		Thread trd = new Thread(new Runnable() {
+		// Update banners no sharedPreferences.
+		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					WebServiceCommunication ws = new WebServiceCommunication();
 					ws.updateBanners(HomeActivity.this);
 				} catch (Exception e) {
-					// TODO: handle exception
+					e.printStackTrace();
 				}
 			}
 		});
-		//trd.start();
-
 	}
+	
+	//--------------------------------------------------
+	// Menu Methods
+	//--------------------------------------------------
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.home, menu);
+		return false;
+	}
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
 
-	private class DrawerItemClickListener implements
-			ListView.OnItemClickListener {
+	/**
+	 * Adds images to the {@link ImageView}.
+	 */
+	private void addImages() {
+        // Get repo.
+        HomeRepo repo = new HomeRepo(this);
+        repo.open();
+        
+        // Get Home.
+		Cursor cursor = repo.getHome(1);
+		Home home = repo.getHomeFromCursor(cursor);
+		
+		// Get URL's.
+		String homeEventsUrl = home.events_image_android;
+		String educationUrl = home.education_image_android;
+		String homeTvUrl = home.videos_image_android;
+		String issuesUrl = home.magazines_image_android;
+		String booksUrl = home.books_image_android;
+		
+		// Initializes layout components.
+		ImageView homeEventsImageView = (ImageView)findViewById(R.id.ibtnGrande);
+		ImageView educationImageView = (ImageView)findViewById(R.id.ibtn14o);
+		ImageView homeTvImageView = (ImageView)findViewById(R.id.ibtn24o);
+		ImageView issuesImageView = (ImageView)findViewById(R.id.ibtn34o);
+		ImageView booksImageView = (ImageView)findViewById(R.id.ibtn44o);
+		
+		// Set image views and its contents.
+		setUniversalImage(homeEventsUrl, homeEventsImageView);
+		setUniversalImage(educationUrl, educationImageView);
+		setUniversalImage(homeTvUrl, homeTvImageView);
+		setUniversalImage(issuesUrl, issuesImageView);
+		setUniversalImage(booksUrl, booksImageView);
+	}
+	
+	/**
+	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 *  
+	 * @param url The url of the image.
+	 * @param imageView The {@link ImageView} which will receive the image.
+	 */
+	public void setUniversalImage(String url, ImageView imageView) {
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
+		imageLoader.displayImage(url, imageView, cache);
+	}
+	
+	//--------------------------------------------------
+	// Drawer Layout
+	//--------------------------------------------------
+
+	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
-		public void onItemClick(AdapterView parent, View view, int position,
-				long id) {
+		public void onItemClick(AdapterView parent, View view, int position, long id) {
 			if (id == 0) {
 				startActivity(new Intent(HomeActivity.this, HomeActivity.class));
 				finish();
 			} else if (id == 1) {
-				startActivity(new Intent(HomeActivity.this,
-						EventosNovaActivity.class));
+				startActivity(new Intent(HomeActivity.this, EventosNovaActivity.class));
 				finish();
 			} else if (id == 2) {
-				startActivity(new Intent(HomeActivity.this,
-						ListaLivrosActivity.class));
+				startActivity(new Intent(HomeActivity.this, ListaLivrosActivity.class));
 				finish();
-			} else if (id == 3){
-				startActivity(new Intent(HomeActivity.this,
-						ListaNetworkingActivity.class));
+			} else if (id == 3) {
+				startActivity(new Intent(HomeActivity.this, ListaNetworkingActivity.class));
 				finish();
 			} else if (id == 4) {
-				startActivity(new Intent(HomeActivity.this,
-						RevistaActivity.class));
+				startActivity(new Intent(HomeActivity.this, RevistaActivity.class));
 				finish();
 			} else if (id == 5) {
-				Uri uri = Uri
-						.parse("http://www.youtube.com/watch?v=ZHolmn4LBzg");
+				Uri uri = Uri.parse("http://www.youtube.com/watch?v=ZHolmn4LBzg");
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
 			} else {
-				Toast.makeText(HomeActivity.this, "Dispon’vel em breve",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(HomeActivity.this, "Dispon’vel em breve", Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -158,13 +225,10 @@ public class HomeActivity extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Pass the event to ActionBarDrawerToggle, if it returns
-		// true, then it has handled the app icon touch event
+		// Pass the event to ActionBarDrawerToggle, if it returns true, then it has handled the app icon touch event.
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		// Handle your other action bar items...
-
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -183,18 +247,23 @@ public class HomeActivity extends FragmentActivity {
 		final AlertDialog alert = dialog.create();
 		alert.show();
 	}
+	
+	//--------------------------------------------------
+	// Click Listeners
+	//--------------------------------------------------
 
+	/**
+	 * Click listeners.
+	 */
 	private void addListenerOnButton() {
 		findViewById(R.id.ibtnGrande).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this,
-						EventosNovaActivity.class));
+				startActivity(new Intent(HomeActivity.this, EventosNovaActivity.class));
 			}
 		});
 
 		findViewById(R.id.ibtn14o).setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				showDialogClick(v);
@@ -202,41 +271,26 @@ public class HomeActivity extends FragmentActivity {
 		});
 
 		findViewById(R.id.ibtn24o).setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				Uri uri = Uri
-						.parse("https://www.youtube.com/channel/UCszAA4rqXiFw8WO_UUq_sAg");
+				Uri uri = Uri.parse("https://www.youtube.com/channel/UCszAA4rqXiFw8WO_UUq_sAg");
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
 			}
 		});
 
 		findViewById(R.id.ibtn34o).setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this,
-						RevistaActivity.class));
+				startActivity(new Intent(HomeActivity.this, RevistaActivity.class));
 			}
 		});
 
 		findViewById(R.id.ibtn44o).setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(HomeActivity.this,
-						ListaLivrosActivity.class));
+				startActivity(new Intent(HomeActivity.this, ListaLivrosActivity.class));
 			}
 		});
-
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.home, menu);
-		return false;
-	}
-
 }
