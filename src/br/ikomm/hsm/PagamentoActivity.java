@@ -1,8 +1,12 @@
 package br.ikomm.hsm;
 
-import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.util.WebServiceCommunication;
+import java.util.ArrayList;
+import java.util.List;
 
+import br.com.ikomm.apps.HSM.R;
+import br.ikomm.hsm.model.Passe;
+import br.ikomm.hsm.model.PasseRepo;
+import br.ikomm.hsm.util.WebServiceCommunication;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.content.Intent;
@@ -26,21 +30,21 @@ public class PagamentoActivity extends FragmentActivity {
 	private String cargo = "";
 	private String cor = "";
 	private String dia = "";
+	private Long event_id;
+	PasseRepo _pr;
+	Passe passe = new Passe();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pagamento);
-
 		
-		ActionBar action = getActionBar();
-		action.setLogo(R.drawable.hsm_logo);
+		Bundle extras = getIntent().getExtras(); 
+		if (extras != null){
+			event_id = extras.getLong("passe");
+		}
 		
 		Intent intent = getIntent();
-		
-		ImageView imgView = (ImageView) findViewById(R.id.imgPagamento);
-		TextView tData = (TextView) findViewById(R.id.lbDias);
-		Spinner dias = (Spinner) findViewById(R.id.spinerQuantidade);
 		
 		ic_cadastro = intent.getIntExtra("ok", 0);
 		banners = intent.getIntExtra("banner", -1);
@@ -50,26 +54,34 @@ public class PagamentoActivity extends FragmentActivity {
 		cpf = intent.getStringExtra("cpf");
 		empresa = intent.getStringExtra("empresa");
 		cargo = intent.getStringExtra("cargo");
-
-		String a = null;
-
-		switch (banners) {
-		case 0:
-			cor = "green";
+		
+		ActionBar action = getActionBar();
+		action.setLogo(R.drawable.hsm_logo);
+		
+		_pr = new PasseRepo(getBaseContext());
+		_pr.open();
+		passe = _pr.getPasse(event_id);
+		_pr.close();
+		
+		ImageView imgView = (ImageView) findViewById(R.id.imgPagamento);
+		TextView tData = (TextView) findViewById(R.id.lbDias);
+		Spinner dias = (Spinner) findViewById(R.id.spinerQuantidade);
+		
+		if (passe.color.equals("green")) {
+			cor = passe.color;
 			imgView.setImageResource(R.drawable.hsm_passes_title_green);
 			tData.setVisibility(View.VISIBLE);
 			dias.setVisibility(View.VISIBLE);
-			break;
-		case 1:
-			cor = "gold";
-			imgView.setImageResource(R.drawable.hsm_passes_title_gold);
-			break;
-		case 2:
-			cor = "red";
-			imgView.setImageResource(R.drawable.hsm_passes_title_red);
-			break;
 		}
-
+		if (passe.color.equals("gold")) {
+			cor = passe.color;
+			imgView.setImageResource(R.drawable.hsm_passes_title_gold);
+		}
+		if (passe.color.equals("red")) {
+			cor = passe.color;
+			imgView.setImageResource(R.drawable.hsm_passes_title_red);
+		}
+		
 		addListnerOnButton();
 
 	}
@@ -101,24 +113,23 @@ public class PagamentoActivity extends FragmentActivity {
 					finish();
 				} else {
 					Toast.makeText(PagamentoActivity.this,
-							"Cadastro com dados inválidos.", Toast.LENGTH_LONG)
+							"Cadastro com dados inv‡lidos.", Toast.LENGTH_LONG)
 							.show();
 				}
 			}
-
 		});
 
 		findViewById(R.id.btnParticipante).setOnClickListener(
-				new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						Intent intent = new Intent(PagamentoActivity.this,
-								ParticipanteActivity.class);
-						intent.putExtra("var", banners);
-						startActivity(intent);
-					}
-				});
+			new OnClickListener() {
+					
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(PagamentoActivity.this,
+							ParticipanteActivity.class);
+					intent.putExtra("var", banners);
+					startActivity(intent);
+				}
+			});
 	}
 
 	@Override

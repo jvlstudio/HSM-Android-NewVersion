@@ -107,4 +107,9 @@ public class BookRepo {
 		value.put("link", book.link);
 		return this.mDb.update("book", value, "id = " + book.id, null) > 0;
 	}
+
+	public boolean deleteAll() {
+		// TODO Auto-generated method stub
+		return this.mDb.delete("book", null, null) > 0;
+	}
 }

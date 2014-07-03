@@ -117,4 +117,9 @@ public class PanelistRepo {
 		value.put("picture", panelist.picture);
 		return this.mDb.update("panelist", value, "id = " + panelist.id, null) > 0;
 	}
+
+	public boolean deleteAll() {
+		// TODO Auto-generated method stub
+		return this.mDb.delete("panelist", null, null) > 0;
+	}
 }

@@ -121,13 +121,13 @@ public class DatabaseManager extends SQLiteOpenHelper{
 	  * [11] - email
 	  * [12] - description
 	  * [13] - days
-	  * [14] - dates
+	  * [14] - mDates
 	  * [15] - show_dates
 	  * [16] - is_multiple
 	  */
 	 private static final String DATABASE_PASSE = "create table passe(_id integer primary key autoincrement, id integer, event_id integer, "
 	 		+ "event_name text, event_slug text, color text, name text, slug text, price_from text, price_to text, "
-	 		+ "valid_to text, email text, description text, days text, dates text, show_dates text, is_multiple text);";
+	 		+ "valid_to text, email text, description text, days text, mDates text, show_dates text, is_multiple text);";
 	  
 	public static DatabaseManager getInstance(Context context){
 		if (sInstance == null){

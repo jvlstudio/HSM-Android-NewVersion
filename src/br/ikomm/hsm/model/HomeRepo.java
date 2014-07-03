@@ -83,4 +83,9 @@ public class HomeRepo {
 		value.put("books_image_android", home.books_image_android);
 		return this.mDb.update("home", value, "id = " + home.id, null) > 0;
 	}
+
+	public boolean deleteAll() {
+		// TODO Auto-generated method stub
+		return this.mDb.delete("home", null, null) > 0;
+	}
 }

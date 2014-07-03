@@ -97,5 +97,10 @@ public class MagazineRepo {
 		value.put("description", magazine.description);
 		value.put("link", magazine.link);
 		return this.mDb.update("magazine", value, "id = " + magazine.id, null) > 0;
+	}
+
+	public boolean deleteAll() {
+		// TODO Auto-generated method stub
+		return this.mDb.delete("magazine", null, null) > 0;
 	}	
 }

@@ -1,7 +1,6 @@
 package br.ikomm.hsm;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -15,11 +14,23 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
+/**
+ * AgendaAdapter.java class.
+ * Modified by Rodrigo Cericatto at June 30, 2014.
+ */
 public class AgendaActivity extends SherlockFragmentActivity implements OnClickListener, TabListener {
 
-	private ViewPager viewPager;
-	private int event_id = 0;
-	String[] dates;
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	private ViewPager mViewPager;
+	private int mEventId = 0;
+	private String[] mDates;
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,52 +41,58 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 		action.setLogo(R.drawable.hsm_logo);
 		
 		Bundle extras = getIntent().getExtras(); 
+<<<<<<< HEAD
 		if (extras != null){
 			event_id = extras.getInt("event_id");
 			dates = extras.getString("dates").replace("|", "-").split("-");
+=======
+		if (extras != null) {
+			mEventId = extras.getInt("event_id");
+			mDates = extras.getString("dates").replace("|", "-").split("-");
+>>>>>>> 583d03d55ce3aa67e90a79bd2d5991201ee69183
 		}
 		
-		Activity context = this;
-		viewPager = (ViewPager) findViewById(R.id.viewPagerAgenda);
-		viewPager.setAdapter(new AgendaAdapter(getSupportFragmentManager(), event_id));
-		
+		mViewPager = (ViewPager) findViewById(R.id.viewPagerAgenda);
+		mViewPager.setAdapter(new AgendaAdapter(getSupportFragmentManager(), mEventId, mDates.length));
 		
 		final com.actionbarsherlock.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        for (int i = 0; i < dates.length; i++) {
-			actionBar.addTab(actionBar.newTab().setText(dates[i]).setTabListener(this));
+        for (int i = 0; i < mDates.length; i++) {
+			actionBar.addTab(actionBar.newTab().setText(mDates[i]).setTabListener(this));
 		}
         
-        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-              @Override
-              public void onPageSelected(int position) {
-                    actionBar.setSelectedNavigationItem(position);
-              }
-        });
+		mViewPager.setOnPageChangeListener(
+			new ViewPager.SimpleOnPageChangeListener() {
+				@Override
+				public void onPageSelected(int position) {
+					actionBar.setSelectedNavigationItem(position);
+				}
+			}
+		);
 	}
 
+	//--------------------------------------------------
+	// Click Listener
+	//--------------------------------------------------
+	
 	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
+	public void onClick(View view) {
 		startActivity(new Intent(this, DetalhePalestraActivity.class));
 	}
+	
+	//--------------------------------------------------
+	// Tab Listener
+	//--------------------------------------------------
+	
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		viewPager.setCurrentItem(tab.getPosition());
+		mViewPager.setCurrentItem(tab.getPosition());
 	}
 
 	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {}
 
 	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {}
 }

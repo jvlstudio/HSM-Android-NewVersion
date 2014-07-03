@@ -48,7 +48,7 @@ public class PacoteActivity extends FragmentActivity implements OnItemClickListe
 	public void onItemClick(AdapterView<?> s, View arg1, int pos, long id) {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(this, PagamentoActivity.class);
-		intent.putExtra("banner", pos);
+		intent.putExtra("passe", id);
 		startActivity(intent);
 	}
 

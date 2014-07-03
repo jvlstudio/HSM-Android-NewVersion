@@ -31,14 +31,12 @@ import br.ikomm.hsm.model.Panelist;
 import br.ikomm.hsm.model.PanelistRepo;
 
 public class DetalhePalestraActivity extends FragmentActivity {
-
 	private Long panelist_id;
 	private int event_id = 0;
 	private Panelist _panelist;
 	private Agenda _agenda;
 	private PanelistRepo _pr;
 	private AgendaRepo _ar;
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +69,6 @@ public class DetalhePalestraActivity extends FragmentActivity {
 	}
 
 	private void carregaCampos() {
-		// TODO Auto-generated method stub
 		ImageView imagem = (ImageView) findViewById(R.id.imgPalestranteDetalhe);
 
 		TextView nomePalestrante = (TextView) findViewById(R.id.tDetNomePalestrante);
@@ -117,10 +114,8 @@ public class DetalhePalestraActivity extends FragmentActivity {
 		findViewById(R.id.btnAgendar).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//addEvent();
-				Toast.makeText(DetalhePalestraActivity.this,
-						"Palestra agendada com sucesso", Toast.LENGTH_SHORT)
-						.show();
+//				addEvent();
+				Toast.makeText(DetalhePalestraActivity.this, "Palestra agendada com sucesso", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -183,7 +178,6 @@ public class DetalhePalestraActivity extends FragmentActivity {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
 	}
 	 */
 }

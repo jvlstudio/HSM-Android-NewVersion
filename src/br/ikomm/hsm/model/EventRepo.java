@@ -108,4 +108,9 @@ public class EventRepo {
 		value.put("info_locale", event.info_locale);
 		return this.mDb.update("event", value, "id = " + event.id, null) > 0;
 	}
+
+	public boolean deleteAll() {
+		// TODO Auto-generated method stub
+		return this.mDb.delete("event", null, null) > 0;
+	}
 }

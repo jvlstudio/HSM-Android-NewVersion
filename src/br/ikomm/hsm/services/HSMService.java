@@ -114,6 +114,7 @@ public class HSMService extends Service implements Runnable{
 			if(lista.data != null){
 				HomeRepo _hr = new HomeRepo(getApplicationContext());
 				_hr.open();
+				_hr.deleteAll();
 				Cursor _c = _hr.getHome(lista.data.id);
 				if (_c.getCount() == 0) {
 					_hr.insertHome(lista.data);
@@ -134,14 +135,15 @@ public class HSMService extends Service implements Runnable{
 			EventWS lista = wsCommunication.wsEvent();
 			if(!lista.data.isEmpty()){
 				EventRepo _er = new EventRepo(getApplicationContext());
+				_er.open();
+				_er.deleteAll();
 				for(Event item : lista.data){
-					_er.open();
 					Event _event = _er.getEvent(item.id);
 					if (_event.id == 0){
 						_er.insertEvent(item);
 					}
-					_er.close();
 				}
+				_er.close();
 			}
 			
 			return true;
@@ -154,17 +156,24 @@ public class HSMService extends Service implements Runnable{
 	private boolean wsAgenda() {
 		// TODO Auto-generated method stub
 		try {
-			AgendaWS lista = wsCommunication.wsAgenda();
+//			AgendaWS lista = wsCommunication.wsAgenda();
+			AgendaWS lista = wsCommunication.wsFakeAgenda();
 			if(!lista.data.isEmpty()){
 				AgendaRepo _ar = new AgendaRepo(getApplicationContext());
+				_ar.open();
+				_ar.deleteAll();
 				for(Agenda item : lista.data){
-					_ar.open();
 					Agenda _agenda = _ar.getAgenda(item.id);
 					if(_agenda.id == 0){
+						// TODO: Delete this, later.
+						if (item.id == 27 || item.id == 28 || item.id == 29 || item.id == 31) {
+							item.date_start = "2014-08-23 22:00:00";
+							item.date_end = "2014-08-23 24:00:00";
+						}
 						_ar.insertAgenda(item);
 					}
-					_ar.close();
 				}
+				_ar.close();
 			}
 			
 			return true;
@@ -180,14 +189,15 @@ public class HSMService extends Service implements Runnable{
 			PanelistWS lista = wsCommunication.wsPanelist();
 			if(!lista.data.isEmpty()){
 				PanelistRepo _pr = new PanelistRepo(getApplicationContext());
+				_pr.open();
+				_pr.deleteAll();
 				for(Panelist item : lista.data){
-					_pr.open();
 					Panelist _pan = _pr.getPanelist(item.id);
 					if(_pan.id == 0){
 						_pr.insertPanelist(item);
 					}
-					_pr.close();
 				}
+				_pr.close();
 			}
 			
 			return true;
@@ -203,14 +213,15 @@ public class HSMService extends Service implements Runnable{
 			PasseWS lista = wsCommunication.wsPasse();
 			if(!lista.data.isEmpty()){
 				PasseRepo _pr = new PasseRepo(getApplicationContext());
+				_pr.open();
+				_pr.deleteAll();
 				for(Passe item : lista.data){
-					_pr.open();
 					Passe _passe = _pr.getPasse(item.id);
 					if (_passe.id == 0) {
 						_pr.insertPasse(item);
 					}
-					_pr.close();
 				}
+				_pr.close();
 			}
 			
 			return true;
@@ -226,14 +237,15 @@ public class HSMService extends Service implements Runnable{
 			MagazineWS lista = wsCommunication.wsMagazine();
 			if(!lista.data.isEmpty()){
 				MagazineRepo _mr = new MagazineRepo(getApplicationContext());
+				_mr.open();
+				_mr.deleteAll();
 				for(Magazine item : lista.data){
-					_mr.open();
 					Magazine _mag = _mr.getMagazine(item.id);
 					if(_mag.id == 0){
 						_mr.insertMagazine(item);
 					}
-					_mr.close();
 				}
+				_mr.close();
 			}
 			
 			return true;
@@ -249,14 +261,15 @@ public class HSMService extends Service implements Runnable{
 			BookWS lista = wsCommunication.wsBook();
 			if(!lista.data.isEmpty()){
 				BookRepo _br = new BookRepo(getApplicationContext());
+				_br.open();
+				_br.deleteAll();
 				for(Book item : lista.data){
-					_br.open();
 					Book book = _br.getBook(item.id);
 					if (book.id == 0){
 						_br.insertBook(item);
 					}
-					_br.close();
 				}
+				_br.close();
 			}
 			
 			return true;

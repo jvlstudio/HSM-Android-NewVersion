@@ -1,13 +1,11 @@
 package br.ikomm.hsm.adapter;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,57 +13,62 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.model.Palestra;
-import br.ikomm.hsm.model.PalestraRepository;
+import br.ikomm.hsm.model.Agenda;
+import br.ikomm.hsm.model.Panelist;
+import br.ikomm.hsm.model.PanelistRepo;
 
+/**
+ * Data1Adapter.java class.
+ * Modified by Rodrigo Cericatto at June 30, 2014.
+ */
 public class Data1Adapter extends BaseAdapter {
 
-	private Context context;
-	private LayoutInflater inflater;
-	private List<Palestra> palestras;
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private Activity mActivity;
+	private LayoutInflater mInflater;
+	private List<Agenda> mAgendaList;
+	
+	private TextView mHoraInicioTextView;
+	private TextView mHoraFimTextView;
+	private TextView mNomePalestranteTextView;
+	private TextView mTipoPalestraTextView;
+	private ImageView mPalestranteImageView;
 
-	public Data1Adapter(Activity activity, Context context) {
+	//--------------------------------------------------
+	// Constructor
+	//--------------------------------------------------
+	
+	public Data1Adapter(Activity activity, List<Agenda> listAgenda) {
 		super();
-		this.context = context;
-		inflater = LayoutInflater.from(activity);
-		List<Palestra> all = new PalestraRepository().getAll();
-
-		palestras = new ArrayList<Palestra>();
-
-		for (int i = all.size() - 1; i >= 0; i--) {
-			if (all.get(i).day.equals("4 de novembro")) {
-				palestras.add(all.get(i));
-			}
-		}
-		Collections.sort(palestras, new HoraComparator());
-
+		
+		mActivity = activity;
+		mInflater = LayoutInflater.from(activity);
+		mAgendaList = listAgenda;
+		
+		Collections.sort(mAgendaList, new HoraComparator());
 	}
-
-	public class HoraComparator implements Comparator<Palestra> {
-		@Override
-		public int compare(Palestra o1, Palestra o2) {
-			return o1.hour_init.compareTo(o2.hour_init);
-		}
-	}
+	
+	//--------------------------------------------------
+	// Adapter Methods
+	//--------------------------------------------------
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return palestras.size();
+		return mAgendaList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		if (palestras.get(position) != null
-				&& !palestras.get(position).id.isEmpty()) {
-			return Long.valueOf(palestras.get(position).id);
+		if (mAgendaList.get(position) != null) {
+			return Long.valueOf(mAgendaList.get(position).id);
 		}
 		return 0;
 
@@ -73,119 +76,117 @@ public class Data1Adapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
 		View view = convertView;
-		Palestra palestraAtual = palestras.get(position);
+		Agenda currentAgenda = mAgendaList.get(position);
 
-		if (palestraAtual.id == null || palestraAtual.id.isEmpty()) {
-			view = inflater.inflate(R.layout.adapter_break, parent, false);
-
-			TextView legenda = (TextView) view.findViewById(R.id.tIntervalo);
-			legenda.setText(palestraAtual.title);
-
-			TextView horaInicio = (TextView) view
-					.findViewById(R.id.tHorarioInicioD1);
-			horaInicio.setText(palestraAtual.hour_init);
-
-			TextView horaFinal = (TextView) view
-					.findViewById(R.id.tHorarioFimD1);
-			horaFinal.setText(palestraAtual.hour_final);
-
-			ImageView imagem = (ImageView) view
-					.findViewById(R.id.imgPalestranteAgendaB);
-
-			if (palestraAtual.title.contains("coffe-break")
-					|| palestraAtual.title.contains("coffe break")) {
-				String uri = "drawable/hsm_agenda_id_coffee";
-
-				int imageResource = parent
-						.getContext()
-						.getResources()
-						.getIdentifier(uri, null,
-								parent.getContext().getPackageName());
-
-				Drawable image = parent.getContext().getResources()
-						.getDrawable(imageResource);
-				imagem.setImageDrawable(image);
-			} else if (palestraAtual.title.contains("almoÁo")) {
-				String uri = "drawable/hsm_agenda_id_lunch";
-
-				int imageResource = parent
-						.getContext()
-						.getResources()
-						.getIdentifier(uri, null,
-								parent.getContext().getPackageName());
-
-				Drawable image = parent.getContext().getResources()
-						.getDrawable(imageResource);
-				imagem.setImageDrawable(image);
-			} else if (palestraAtual.title.contains("happy-hour")) {
-				String uri = "drawable/hsm_agenda_id_happyhour";
-
-				int imageResource = parent
-						.getContext()
-						.getResources()
-						.getIdentifier(uri, null,
-								parent.getContext().getPackageName());
-
-				Drawable image = parent.getContext().getResources()
-						.getDrawable(imageResource);
-				imagem.setImageDrawable(image);
-			} else if (palestraAtual.title.contains("credenciamento")
-					|| palestraAtual.title.contains("abertura")) {
-				String uri = "drawable/hsm_agenda_id_credential";
-
-				int imageResource = parent
-						.getContext()
-						.getResources()
-						.getIdentifier(uri, null,
-								parent.getContext().getPackageName());
-
-				Drawable image = parent.getContext().getResources()
-						.getDrawable(imageResource);
-				imagem.setImageDrawable(image);
+		if (currentAgenda.panelist_id == 0) {
+			view = mInflater.inflate(R.layout.adapter_break, parent, false);
+			initializeComponents(view);
+			
+			populateComponents(currentAgenda);
+			if (currentAgenda.type.contains("coffe-break") || currentAgenda.type.contains("coffe break")) {
+				mPalestranteImageView.setBackgroundResource(R.drawable.hsm_agenda_id_coffee);
+			} else if (currentAgenda.type.contains("almoço")) {
+				mPalestranteImageView.setBackgroundResource(R.drawable.hsm_agenda_id_lunch);
+			} else if (currentAgenda.type.contains("happy-hour")) {
+				mPalestranteImageView.setBackgroundResource(R.drawable.hsm_agenda_id_happyhour);
+			} else if (currentAgenda.type.contains("credenciamento") || currentAgenda.type.contains("abertura")) {
+				mPalestranteImageView.setBackgroundResource(R.drawable.hsm_agenda_id_credential);
 			}
-
 		} else {
-
-			view = inflater.inflate(R.layout.adapter_data1, parent, false);
-
-			TextView horaInicio = (TextView) view
-					.findViewById(R.id.tHorarioInicioD1);
-			horaInicio.setText(palestraAtual.hour_init);
-
-			TextView horaFinal = (TextView) view
-					.findViewById(R.id.tHorarioFimD1);
-			horaFinal.setText(palestraAtual.hour_final);
-
-			TextView nome = (TextView) view
-					.findViewById(R.id.tNomePalestranteD1);
-			nome.setText(palestraAtual.author);
-
-			TextView subtitle = (TextView) view
-					.findViewById(R.id.tTipoPalestraD1);
-			subtitle.setText(palestraAtual.subtitle);
-
-			ImageView imagem = (ImageView) view
-					.findViewById(R.id.imgPalestranteAgendaD1);
-
-			if (palestraAtual.slug != null && !palestraAtual.slug.isEmpty()) {
-				String uri = "drawable/" + palestraAtual.slug;
-
-				int imageResource = parent
-						.getContext()
-						.getResources()
-						.getIdentifier(uri, null,
-								parent.getContext().getPackageName());
-
-				Drawable image = parent.getContext().getResources()
-						.getDrawable(imageResource);
-				imagem.setImageDrawable(image);
-			} else {
-				imagem.setImageResource(android.R.color.transparent);
-			}
+			view = mInflater.inflate(R.layout.adapter_data1, parent, false);
+			initializeComponents(view);
+			populateComponents(currentAgenda);
 		}
 		return view;
 	}
 
+	//--------------------------------------------------
+	// Layout Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Initializes layout components. 
+	 * @param view
+	 * 
+	 */
+	public void initializeComponents(View view) {
+		eraseComponents();
+		createComponents(view);
+	}
+	
+	/**
+	 * Erase layout components.
+	 */
+	public void eraseComponents() {
+		mHoraInicioTextView = null;
+		mHoraFimTextView = null;
+		mNomePalestranteTextView = null;
+		mTipoPalestraTextView = null;
+		mPalestranteImageView = null;
+	}
+	
+	/**
+	 * Creates layout components.
+	 * 
+	 * @param view
+	 */
+	public void createComponents(View view) {
+		mHoraInicioTextView = (TextView) view.findViewById(R.id.tHorarioInicioD1);
+		mHoraFimTextView = (TextView) view.findViewById(R.id.tHorarioFimD1);
+		
+		mNomePalestranteTextView = (TextView) view.findViewById(R.id.tNomePalestranteD1);
+		mTipoPalestraTextView = (TextView) view.findViewById(R.id.tTipoPalestraD1);
+		
+		mPalestranteImageView = (ImageView) view.findViewById(R.id.imgPalestranteAgendaD1);
+	}
+
+	/**
+	 * Populates layout components. 
+	 * 
+	 * @param agenda
+	 */
+	public void populateComponents(Agenda agenda) {
+		String start[] = agenda.date_start.split(" ");
+		mHoraInicioTextView.setText(start[1]);
+		String end[] = agenda.date_end.split(" ");
+		mHoraFimTextView.setText(end[1]);
+		
+		if (mNomePalestranteTextView != null) {
+			mNomePalestranteTextView.setText(getPanelistName(agenda));
+		}
+		if (mTipoPalestraTextView != null) {
+			mTipoPalestraTextView.setText(agenda.type);
+		}
+		Bitmap bitmap = null;
+		if (mPalestranteImageView != null) {
+			mPalestranteImageView.setImageBitmap(bitmap);
+		}
+	}
+	
+	/**
+	 * Gets the {@link Panelist} name.
+	 * 
+	 * @param agenda
+	 * @return
+	 */
+	public String getPanelistName(Agenda agenda) {
+		PanelistRepo repo = new PanelistRepo(mActivity);
+		repo.open();
+		Panelist panelist = repo.getPanelist(agenda.panelist_id);
+		repo.close();
+		String name = panelist.name; 
+		return name;
+	}
+	
+	//--------------------------------------------------
+	// Comparator
+	//--------------------------------------------------
+	
+	public class HoraComparator implements Comparator<Agenda> {
+		@Override
+		public int compare(Agenda o1, Agenda o2) {
+			return o1.date_start.compareTo(o2.date_start);
+		}
+	}
 }

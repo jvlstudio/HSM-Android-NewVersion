@@ -58,7 +58,7 @@ public class AgendaRepo {
 		Agenda _agenda;
 		Cursor mCursor = this.mDb.query("agenda", null, null, null, null, null, null); 
 		
-		if(mCursor.getCount() > 0){
+		if (mCursor.getCount() > 0){
 			while (mCursor.moveToNext()) {
 				_agenda = new Agenda();
 				_agenda.id = mCursor.getInt(1);
@@ -157,6 +157,39 @@ public class AgendaRepo {
 		return  agendas;
 	}
 	
+	// byEvent
+	public List<Agenda> byEventAndDate(long event_id, String currentDate) throws SQLException {
+		List<Agenda> agendas = new ArrayList<Agenda>();
+		Agenda _agenda;
+		
+		Cursor mCursor = this.mDb.query(true, "agenda", null, "event_id = " + event_id, null, null, null, null, null, null); 
+		if (mCursor.getCount() > 0) {
+			while (mCursor.moveToNext()) {
+				// Adds to the correct date tab.
+				String dateStart[] = mCursor.getString(6).split(" ");
+				String dateFromDatabase = dateStart[0];
+				if (currentDate.equals(dateFromDatabase)) {
+					_agenda = new Agenda();
+					_agenda.id = mCursor.getInt(1);
+					_agenda.type = mCursor.getString(2);
+					_agenda.event_id = mCursor.getInt(3);
+					_agenda.panelist_id = mCursor.getInt(4);
+					_agenda.date = mCursor.getInt(5);
+					_agenda.date_start = mCursor.getString(6);
+					_agenda.date_end = mCursor.getString(7);
+					_agenda.theme_title = mCursor.getString(8);
+					_agenda.theme_description = mCursor.getString(9);
+					_agenda.label = mCursor.getString(10);
+					_agenda.sublabel = mCursor.getString(11);
+					_agenda.image = mCursor.getString(12);
+					agendas.add(_agenda);
+				}
+			}
+		}
+
+		return  agendas;
+	}
+	
 	// detailAgenda
 	public Agenda detailAgenda(long panelist_id, long event_id) throws SQLException {
 		Agenda _agenda = new Agenda();
@@ -180,5 +213,33 @@ public class AgendaRepo {
 		}
 
 		return  _agenda;
+	}
+
+	public boolean deleteAll() {
+		// TODO Auto-generated method stub
+		return this.mDb.delete("agenda", null, null) > 0;
+	}
+	
+	public void specialUpdate() {
+		List<Agenda> list = getAllAgenda();
+		
+		// Updates the Agenda list.
+		Agenda agenda = list.get(3);
+		agenda.date_start = "2014-08-23 10:00:00";
+		agenda.date_end = "2014-08-23 12:00:00";
+		agenda.id = 27;
+        update(agenda);
+		
+        agenda = list.get(4);
+		agenda.date_start = "2014-08-23 12:00:00";
+		agenda.date_end = "2014-08-23 14:00:00";
+		agenda.id = 28;
+        update(agenda);
+        
+        agenda = list.get(5);
+		agenda.date_start = "2014-08-23 14:00:00";
+		agenda.date_end = "2014-08-23 16:00:00";
+		agenda.id = 28;
+        update(agenda);
 	}
 }
