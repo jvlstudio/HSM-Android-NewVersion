@@ -41,15 +41,9 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 		action.setLogo(R.drawable.hsm_logo);
 		
 		Bundle extras = getIntent().getExtras(); 
-<<<<<<< HEAD
-		if (extras != null){
-			event_id = extras.getInt("event_id");
-			dates = extras.getString("dates").replace("|", "-").split("-");
-=======
 		if (extras != null) {
 			mEventId = extras.getInt("event_id");
 			mDates = extras.getString("dates").replace("|", "-").split("-");
->>>>>>> 583d03d55ce3aa67e90a79bd2d5991201ee69183
 		}
 		
 		mViewPager = (ViewPager) findViewById(R.id.viewPagerAgenda);
