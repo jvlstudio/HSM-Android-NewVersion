@@ -13,12 +13,24 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * ParticipanteActivity.java class.
+ * Modified by Rodrigo Cericatto at July 4, 2014.
+ */
 public class ParticipanteActivity extends FragmentActivity implements OnClickListener {
 
-	public static Participante participante = new Participante();
-	int variavelBanner;
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	public static Participante mParticipante = new Participante();
+	int mVariavelBanner;
 	private Long mEventId;
 
+	//--------------------------------------------------
+	// Activity Life Cycle
+	//--------------------------------------------------
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,9 +41,13 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 
 		findViewById(R.id.btnVoltar).setOnClickListener(this);
 		Intent intent = getIntent();
-		variavelBanner = intent.getIntExtra("var", -1);
+		mVariavelBanner = intent.getIntExtra("var", -1);
 		mEventId = intent.getLongExtra("event_id", -1);
 	}
+	
+	//--------------------------------------------------
+	// Menu Methods
+	//--------------------------------------------------
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,19 +55,22 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 		getMenuInflater().inflate(R.menu.participante, menu);
 		return false;
 	}
+	
+	//--------------------------------------------------
+	// Listeners
+	//--------------------------------------------------
 
 	@Override
 	public void onClick(View arg0) {
 		Intent intent = new Intent(getApplicationContext(), PagamentoActivity.class);
-
 		if (validar()) {
-			// popularParticipante();
 			intent.putExtra("ok", 1);
 		}else{
 			intent.putExtra("ok", 0);
 		}
 		
-		intent.putExtra("banner", variavelBanner);
+		// Put extras.
+		intent.putExtra("banner", mVariavelBanner);
 		EditText tNome = (EditText) findViewById(R.id.tNome);
 		EditText tEmail = (EditText) findViewById(R.id.tEmail);
 		EditText tCPF = (EditText) findViewById(R.id.tCPF);
@@ -65,34 +84,20 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 		intent.putExtra("cargo", tCargo.getText().toString());
 		intent.putExtra("nome", tNome.getText().toString());
 
+		// Calls Intent.
 		startActivity(intent);
 		finish();
 	}
 
-	/*
-	 * private void popularParticipante() { TextView tNome = (TextView)
-	 * findViewById(R.id.tNome); TextView tEmail = (TextView)
-	 * findViewById(R.id.tEmail); TextView tCPF = (TextView)
-	 * findViewById(R.id.tCPF); TextView tEmpresa = (TextView)
-	 * findViewById(R.id.tEmpresa); TextView tCargo = (TextView)
-	 * findViewById(R.id.tCargo);
-	 * 
-	 * if (tNome.getText() != "" ){ participante.Nome = (String)
-	 * tNome.getText(); }
-	 * 
-	 * if (tEmail.getText() != "" ){ participante.Email = (String)
-	 * tEmail.getText(); }
-	 * 
-	 * if (tCPF.getText() != "" ) { participante.CPF = (String) tCPF.getText();
-	 * }
-	 * 
-	 * if (tEmpresa.getText() != "" ) { participante.Empresa = (String)
-	 * tEmpresa.getText(); }
-	 * 
-	 * if (tCargo.getText() != "" ) { participante.Cargo = (String)
-	 * tCargo.getText(); } }
-	 */
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
 
+	/**
+	 * Validates each field.
+	 * 
+	 * @return
+	 */
 	private boolean validar() {
 		TextView tNome = (TextView) findViewById(R.id.tNome);
 		TextView tEmail = (TextView) findViewById(R.id.tEmail);
@@ -115,10 +120,15 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 		} else if (StringUtils.isEmpty(cargo)) {
 			return false;
 		}
-
 		return true;
 	}
 
+	/**
+	 * Check if CPF is valid.
+	 * 
+	 * @param cpf
+	 * @return
+	 */
 	public boolean validaCPF(String cpf) {
 		String strCpf = cpf;
 		if (strCpf.equals("")) {
@@ -132,18 +142,13 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 
 		d1 = d2 = 0;
 		digito1 = digito2 = resto = 0;
-
 		for (int nCount = 1; nCount < strCpf.length() - 1; nCount++) {
-			digitoCPF = Integer.valueOf(strCpf.substring(nCount - 1, nCount))
-					.intValue();
-
+			digitoCPF = Integer.valueOf(strCpf.substring(nCount - 1, nCount)).intValue();
 			d1 = d1 + (11 - nCount) * digitoCPF;
-
 			d2 = d2 + (12 - nCount) * digitoCPF;
 		}
 
 		resto = (d1 % 11);
-
 		if (resto < 2) {
 			digito1 = 0;
 		} else {
@@ -151,21 +156,15 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 		}
 
 		d2 += 2 * digito1;
-
 		resto = (d2 % 11);
-
 		if (resto < 2) {
 			digito2 = 0;
 		} else {
 			digito2 = 11 - resto;
 		}
 
-		String nDigVerific = strCpf.substring(strCpf.length() - 2,
-				strCpf.length());
-
+		String nDigVerific = strCpf.substring(strCpf.length() - 2, strCpf.length());
 		nDigResult = String.valueOf(digito1) + String.valueOf(digito2);
-
 		return nDigVerific.equals(nDigResult);
 	}
-
 }

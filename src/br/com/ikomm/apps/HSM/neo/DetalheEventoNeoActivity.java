@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.AgendaActivity;
@@ -17,11 +16,27 @@ import br.ikomm.hsm.PalestrantesActivity;
 import br.ikomm.hsm.model.Event;
 import br.ikomm.hsm.model.EventRepo;
 
+/**
+ * DetalheEventoNeoActivity.java class.
+ * Modified by Rodrigo Cericatto at July 4, 2014.
+ */
 public class DetalheEventoNeoActivity extends FragmentActivity {
 
-	private int id;
-	private EventRepo _er;
-	private Event _event;
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	private Integer mId;
+	private EventRepo mEventRepo;
+	private Event mEvent;
+	
+	private Button mAgendaButton;
+	private Button mPassesButton;
+	private Button mPalestrantesButton;
+	
+	//--------------------------------------------------
+	// Activity Life Cycle
+	//--------------------------------------------------
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +45,14 @@ public class DetalheEventoNeoActivity extends FragmentActivity {
 		
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null) {
-			id = extras.getInt("id");
+			mId = extras.getInt("mId");
 		}
 		
-		_er = new EventRepo(getBaseContext());
-		_er.open();
-		_event = _er.getEvent(id);
+		mEventRepo = new EventRepo(getBaseContext());
+		mEventRepo.open();
+		mEvent = mEventRepo.getEvent(mId);
 
-		if (_event != null) {
+		if (mEvent != null) {
 			carregarCampos();
 		}
 		ActionBar action = getActionBar();
@@ -45,55 +60,63 @@ public class DetalheEventoNeoActivity extends FragmentActivity {
 		addListenerButton();
 	}
 
-	private void carregarCampos() {
-		final ImageView imgEvento = (ImageView) findViewById(R.id.imgEventoDet);
-		TextView txtEvento = (TextView) findViewById(R.id.textEvent);
-		TextView txtDescricao = (TextView) findViewById(R.id.textDescriptionEvent);
-		Button btnAgenda = (Button) findViewById(R.id.btnAgenda);
-		Button btnPasses = (Button) findViewById(R.id.btnPasses);
-		Button btnPalestrantes = (Button) findViewById(R.id.btnPalestrante);
-		
-		txtEvento.setText(_event.name);
-		txtDescricao.setText(_event.description);
-	}
-
-	private void addListenerButton() {
-		Button btnAgenda = (Button) findViewById(R.id.btnAgenda);
-		btnAgenda.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(DetalheEventoNeoActivity.this, AgendaActivity.class);
-				intent.putExtra("event_id", _event.id);
-				intent.putExtra("dates", _event.info_dates);
-				startActivity(intent);
-			}
-		});
-		
-		Button btnPasses = (Button) findViewById(R.id.btnPasses);
-		btnPasses.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(DetalheEventoNeoActivity.this, PacoteActivity.class);
-				intent.putExtra("event_id", _event.id);
-				startActivity(intent);
-			}
-		});
-		
-		Button btnPalestrantes = (Button) findViewById(R.id.btnPalestrante);
-		btnPalestrantes.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(DetalheEventoNeoActivity.this, PalestrantesActivity.class);
-				intent.putExtra("event_id", _event.id);
-				startActivity(intent);
-			}
-		});
-	}
-
+	//--------------------------------------------------
+	// Menu Methods
+	//--------------------------------------------------
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.detalhe_evento_neo, menu);
 		return false;
+	}
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	private void carregarCampos() {
+		TextView txtEvento = (TextView) findViewById(R.id.textEvent);
+		txtEvento.setText(mEvent.name);
+
+		TextView txtDescricao = (TextView) findViewById(R.id.textDescriptionEvent);
+		txtDescricao.setText(mEvent.description);
+		
+		mAgendaButton = (Button) findViewById(R.id.btnAgenda);
+		mPassesButton = (Button) findViewById(R.id.btnPasses);
+		mPalestrantesButton = (Button) findViewById(R.id.btnPalestrante);
+	}
+
+	//--------------------------------------------------
+	// Listeners
+	//--------------------------------------------------
+	
+	private void addListenerButton() {
+		mAgendaButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(DetalheEventoNeoActivity.this, AgendaActivity.class);
+				intent.putExtra("event_id", mEvent.id);
+				intent.putExtra("dates", mEvent.info_dates);
+				startActivity(intent);
+			}
+		});
+		
+		mPassesButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(DetalheEventoNeoActivity.this, PacoteActivity.class);
+				intent.putExtra("event_id", mEvent.id);
+				startActivity(intent);
+			}
+		});
+		
+		mPalestrantesButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(DetalheEventoNeoActivity.this, PalestrantesActivity.class);
+				intent.putExtra("event_id", mEvent.id);
+				startActivity(intent);
+			}
+		});
 	}
 }

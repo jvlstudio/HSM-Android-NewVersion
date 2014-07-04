@@ -3,99 +3,127 @@ package br.ikomm.hsm.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
-import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.model.Agenda;
-import br.ikomm.hsm.model.AgendaRepo;
-import br.ikomm.hsm.model.Panelist;
-import br.ikomm.hsm.model.PanelistRepo;
-import android.os.Bundle;
 import android.app.Activity;
-import android.database.Cursor;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import br.com.ikomm.apps.HSM.R;
+import br.ikomm.hsm.model.Agenda;
+import br.ikomm.hsm.model.AgendaRepo;
+import br.ikomm.hsm.model.Panelist;
+import br.ikomm.hsm.model.PanelistRepo;
 
-public class PalestranteAdapter extends BaseAdapter{
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-	private Activity activity;
-	private LayoutInflater inflater;
-	private List<Panelist> panelists = new ArrayList<Panelist>();
-	private PanelistRepo _pr;
-	private AgendaRepo _ar;
-	private List<Agenda> agendas = new ArrayList<Agenda>();
-	private String listAgenda = "";
+/**
+ * PalestranteAdapter.java class.
+ * Modified by Rodrigo Cericatto at July 4, 2014.
+ */
+public class PalestranteAdapter extends BaseAdapter {
+
+	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
 	
-	public PalestranteAdapter(Activity activity, long event_id) {
+	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/panelist/";
+	
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private Activity mActivity;
+	private LayoutInflater mInflater;
+	
+	private List<Panelist> mPanelistList = new ArrayList<Panelist>();
+	private PanelistRepo mPanelistRepo;
+	private AgendaRepo mAgendaRepo;
+	private List<Agenda> mAgendaList = new ArrayList<Agenda>();
+	private String mAgendaData = "";
+	
+	//--------------------------------------------------
+	// Constructor
+	//--------------------------------------------------
+	
+	public PalestranteAdapter(Activity activity, long eventId) {
 		super();
-		this.activity = activity;
-		this.inflater = LayoutInflater.from(activity);
+		mActivity = activity;
+		mInflater = LayoutInflater.from(activity);
 		
-		_ar = new AgendaRepo(activity);
-		_ar.open();
-		agendas = _ar.byEvent(event_id);
+		mAgendaRepo = new AgendaRepo(activity);
+		mAgendaRepo.open();
+		mAgendaList = mAgendaRepo.byEvent(eventId);
 		
-		for (Agenda item : agendas) {
-			if (listAgenda.isEmpty()) {
-				listAgenda = String.valueOf(item.panelist_id);
+		for (Agenda item : mAgendaList) {
+			if (mAgendaData.isEmpty()) {
+				mAgendaData = String.valueOf(item.panelist_id);
 			} else {
-				listAgenda = listAgenda + "," + String.valueOf(item.panelist_id);
+				mAgendaData = mAgendaData + "," + String.valueOf(item.panelist_id);
 			}
 		}
-		_ar.close();
-		
-		_pr = new PanelistRepo(activity);
-		_pr.open();
-		panelists = _pr.getAllbyEvent(listAgenda);
-		_pr.close();
+		mAgendaRepo.close();
+		mPanelistRepo = new PanelistRepo(activity);
+		mPanelistRepo.open();
+		mPanelistList = mPanelistRepo.getAllbyEvent(mAgendaData);
+		mPanelistRepo.close();
 	}
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 *  
+	 * @param url The url of the image.
+	 * @param imageView The {@link ImageView} which will receive the image.
+	 */
+	public void setUniversalImage(String url, ImageView imageView) {
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(mActivity));
+		imageLoader.displayImage(url, imageView, cache);
+	}
+	
+	//--------------------------------------------------
+	// Adapter
+	//--------------------------------------------------
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return panelists.size();
+		return mPanelistList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		Panelist _item = panelists.get(position);
-		return _item.id;
+		Panelist item = mPanelistList.get(position);
+		return item.id;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.adapter_palestrante, null);
+		View view = mInflater.inflate(R.layout.adapter_palestrante, null);
 		ImageView picture = (ImageView) view.findViewById(R.id.imagemPalestrante);
 		TextView name = (TextView) view.findViewById(R.id.nomePalestrante);
 		 
-		Panelist _panelist = panelists.get(position);
+		Panelist panelist = mPanelistList.get(position);
+		name.setText(panelist.name);
 		
-		name.setText(_panelist.name);
-		// cria a URL para IMAGEM
-		if(!_panelist.picture.isEmpty()){
-			String imageUri = "http://apps.ikomm.com.br/hsm5/uploads/panelist/"+_panelist.picture;
-			DisplayImageOptions _cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
-			ImageLoader imageLoader = ImageLoader.getInstance();
-			imageLoader.init(ImageLoaderConfiguration.createDefault(activity));
-			
-			imageLoader.displayImage(imageUri, picture, _cache);
+		// Cria a URL para a imagem.
+		if (!panelist.picture.isEmpty()) {
+			setUniversalImage(URL + panelist.picture, picture);
+		} else {
+			setUniversalImage("http://barringtonstageco.org/media/potato.jpg", picture);
 		}
-		
 		return view;
 	}
 }

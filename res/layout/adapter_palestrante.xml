@@ -24,5 +24,4 @@
 	    android:textStyle="bold"
         android:text="Nome Palestrante"
         android:layout_gravity="center_vertical"/>
-
 </LinearLayout>

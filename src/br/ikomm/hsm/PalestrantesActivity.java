@@ -12,9 +12,21 @@ import android.widget.ListView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.adapter.PalestranteAdapter;
 
+/**
+ * PalestrantesActivity.java class.
+ * Modified by Rodrigo Cericatto at July 4, 2014.
+ */
 public class PalestrantesActivity extends Activity implements OnItemClickListener {
 
-	private int event_id;
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	private Integer mEventId;
+	
+	//--------------------------------------------------
+	// Activity Life Cycle
+	//--------------------------------------------------
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +35,7 @@ public class PalestrantesActivity extends Activity implements OnItemClickListene
 		
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null){
-			event_id = extras.getInt("event_id");
+			mEventId = extras.getInt("event_id");
 		}
 		
 		ActionBar action = getActionBar();
@@ -31,24 +43,36 @@ public class PalestrantesActivity extends Activity implements OnItemClickListene
 		carregarCampos();
 	}
 
-	private void carregarCampos() {
-		ListView lista = (ListView) findViewById(R.id.listaPalestrantes);
-		lista.setAdapter(new PalestranteAdapter(this, event_id));
-		lista.setOnItemClickListener(this);
-	}
-
+	//--------------------------------------------------
+	// Menu
+	//--------------------------------------------------
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.palestrantes, menu);
 		return false;
 	}
-
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	private void carregarCampos() {
+		ListView lista = (ListView) findViewById(R.id.listaPalestrantes);
+		lista.setAdapter(new PalestranteAdapter(this, mEventId));
+		lista.setOnItemClickListener(this);
+	}
+	
+	//--------------------------------------------------
+	// Liste
+	//--------------------------------------------------
+	
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		Intent _intent = new Intent(this, DetalhePalestraActivity.class);
-		_intent.putExtra("panelist_id", arg3);
-		_intent.putExtra("event_id", event_id);
-		startActivity(_intent);
+	public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+		Intent intent = new Intent(this, DetalhePalestraActivity.class);
+		intent.putExtra("panelist_id", id);
+		intent.putExtra("event_id", mEventId);
+		startActivity(intent);
 	}
 }

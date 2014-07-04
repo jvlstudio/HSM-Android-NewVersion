@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,7 +17,8 @@ import br.ikomm.hsm.model.PasseRepo;
 import br.ikomm.hsm.util.WebServiceCommunication;
 
 /**
- * PagamentoActivity.java class. Modified by Rodrigo Cericatto at July 4, 2014.
+ * PagamentoActivity.java class.
+ * Modified by Rodrigo Cericatto at July 4, 2014.
  */
 public class PagamentoActivity extends FragmentActivity {
 
