@@ -6,4 +6,11 @@ public class Pacote {
 	public String local;
 	public String precoNormal;
 	public String precoApp;
+	
+	@Override
+	public String toString() {
+		return "Pacote [titulo=" + titulo + ", validade=" + validade
+			+ ", local=" + local + ", precoNormal=" + precoNormal
+			+ ", precoApp=" + precoApp + "]";
+	}
 }

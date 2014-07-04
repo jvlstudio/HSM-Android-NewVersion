@@ -22,5 +22,5 @@ public class Agenda {
 			+ ", theme_title=" + theme_title + ", theme_description="
 			+ theme_description + ", label=" + label + ", sublabel="
 			+ sublabel + ", image=" + image + "]";
-	}	
+	}
 }

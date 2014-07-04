@@ -2,6 +2,7 @@ package br.ikomm.hsm;
 
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Participante;
+import br.ikomm.hsm.util.StringUtils;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.content.Intent;
@@ -16,6 +17,7 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 
 	public static Participante participante = new Participante();
 	int variavelBanner;
+	private Long mEventId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 		findViewById(R.id.btnVoltar).setOnClickListener(this);
 		Intent intent = getIntent();
 		variavelBanner = intent.getIntExtra("var", -1);
+		mEventId = intent.getLongExtra("event_id", -1);
 	}
 
 	@Override
@@ -39,9 +42,7 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-		Intent intent = new Intent(getApplicationContext(),
-				PagamentoActivity.class);
+		Intent intent = new Intent(getApplicationContext(), PagamentoActivity.class);
 
 		if (validar()) {
 			// popularParticipante();
@@ -51,13 +52,13 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 		}
 		
 		intent.putExtra("banner", variavelBanner);
-		
 		EditText tNome = (EditText) findViewById(R.id.tNome);
 		EditText tEmail = (EditText) findViewById(R.id.tEmail);
 		EditText tCPF = (EditText) findViewById(R.id.tCPF);
 		EditText tEmpresa = (EditText) findViewById(R.id.tEmpresa);
 		EditText tCargo = (EditText) findViewById(R.id.tCargo);
 
+		intent.putExtra("passe", mEventId);
 		intent.putExtra("email", tEmail.getText().toString());
 		intent.putExtra("cpf", tCPF.getText().toString());
 		intent.putExtra("empresa", tEmpresa.getText().toString());
@@ -93,22 +94,25 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 	 */
 
 	private boolean validar() {
-		// TODO Auto-generated method stub
 		TextView tNome = (TextView) findViewById(R.id.tNome);
 		TextView tEmail = (TextView) findViewById(R.id.tEmail);
 		TextView tCPF = (TextView) findViewById(R.id.tCPF);
 		TextView tEmpresa = (TextView) findViewById(R.id.tEmpresa);
 		TextView tCargo = (TextView) findViewById(R.id.tCargo);
 
-		if (tNome.getText() == "") {
+		String nome = tNome.getText().toString();
+		String email = tEmail.getText().toString();
+		String empresa = tEmpresa.getText().toString();
+		String cargo = tCargo.getText().toString();
+		if (StringUtils.isEmpty(nome)) {
 			return false;
-		} else if (tEmail.getText() == "") {
+		} else if (StringUtils.isEmpty(email)) {
 			return false;
 		} else if (!validaCPF(tCPF.getText().toString())) {
 			return false;
-		} else if (tEmpresa.getText() == "") {
+		} else if (StringUtils.isEmpty(empresa)) {
 			return false;
-		} else if (tCargo.getText() == "") {
+		} else if (StringUtils.isEmpty(cargo)) {
 			return false;
 		}
 

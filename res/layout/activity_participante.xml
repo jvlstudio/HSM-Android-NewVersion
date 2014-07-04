@@ -14,6 +14,7 @@
 		        android:inputType="text"
 		        android:singleLine="true"
 		        android:textColorHint="#535361"
+		        android:textColor="@android:color/white"
 		        android:hint="Nome Completo"/>
 		    
 		    <EditText 
@@ -23,6 +24,7 @@
 		        android:inputType="textEmailAddress"
 		        android:singleLine="true"
 		        android:textColorHint="#535361"
+		        android:textColor="@android:color/white"
 		        android:hint="Email"/>
 		    
 		    <EditText 
@@ -32,6 +34,7 @@
 		        android:inputType="number"
 		        android:singleLine="true"
 		        android:textColorHint="#535361"
+		        android:textColor="@android:color/white"
 		        android:hint="CPF"/>
 		    
 		    <EditText 
@@ -41,6 +44,7 @@
 		        android:inputType="text"
 		        android:singleLine="true"
 		        android:textColorHint="#535361"
+		        android:textColor="@android:color/white"
 		        android:hint="Empresa"/>
 		    
 		    <EditText 
@@ -50,6 +54,7 @@
 		        android:inputType="text"
 		        android:singleLine="true"
 		        android:textColorHint="#535361"
+		        android:textColor="@android:color/white"
 		        android:hint="Cargo"/>
 		    
 		    <Button 

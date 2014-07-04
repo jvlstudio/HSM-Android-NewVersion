@@ -13,4 +13,13 @@ public class Palestra {
 	public String subtitle;
 	public String title;
 	public String type;
+	
+	@Override
+	public String toString() {
+		return "Palestra [id=" + id + ", author=" + author + ", content="
+			+ content + ", day=" + day + ", gmtc=" + gmtc + ", hour_final="
+			+ hour_final + ", hour_init=" + hour_init + ", minutes="
+			+ minutes + ", slug=" + slug + ", subtitle=" + subtitle
+			+ ", title=" + title + ", type=" + type + "]";
+	}	
 }

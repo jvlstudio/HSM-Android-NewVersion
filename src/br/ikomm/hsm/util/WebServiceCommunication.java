@@ -13,9 +13,7 @@ import br.ikomm.hsm.model.BannerRepository;
 import android.content.Context;
 
 public class WebServiceCommunication {
-
-	public void sendFormularioCompra(String cor, String dia, String nome,
-			String email, String empresa, String cargo, String cpf) {
+	public void sendFormularioCompra(String cor, String dia, String nome, String email, String empresa, String cargo, String cpf) {
 		try {
 			HttpClient httpClient = new DefaultHttpClient();
 			String url = "http://apps.ikomm.com.br/hsm/graph/pass-add.php?";
@@ -98,5 +96,4 @@ public class WebServiceCommunication {
 		BannerRepository repo = new BannerRepository(context);
 		repo.setJsonShared(responseBody);
 	}
-
 }

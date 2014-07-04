@@ -8,4 +8,12 @@ public class Book {
 	public String author_name;
 	public String author_description;
 	public String link;
+	
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", name=" + name + ", picture=" + picture
+				+ ", description=" + description + ", author_name="
+				+ author_name + ", author_description=" + author_description
+				+ ", link=" + link + "]";
+	}	
 }

@@ -13,89 +13,112 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.model.Pacote;
 import br.ikomm.hsm.model.Passe;
 import br.ikomm.hsm.model.PasseRepo;
+import br.ikomm.hsm.util.StringUtils;
 
+/**
+ * PacoteAdapter.java class.
+ * Modified by Rodrigo Cericatto at July 3, 2014.
+ */
 public class PacoteAdapter extends BaseAdapter {
 
-	private Context context;
-	private LayoutInflater inflater;
-	PasseRepo _pr;
-	List<Passe> passes = new ArrayList<Passe>();
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private LayoutInflater mInflater;
+	private PasseRepo mPasseRepo;
+	private List<Passe> mPasseList = new ArrayList<Passe>();
 
+	//--------------------------------------------------
+	// Constructor
+	//--------------------------------------------------
+	
 	public PacoteAdapter(Activity activity, Context context, int id) {
 		super();
-		this.context = context;
-		inflater = LayoutInflater.from(activity);
+		mInflater = LayoutInflater.from(activity);
 		
-		_pr = new PasseRepo(context);
-		_pr.open();
-		passes = _pr.byEvent(id);
-		_pr.close();
+		mPasseRepo = new PasseRepo(context);
+		mPasseRepo.open();
+		mPasseList = mPasseRepo.byEvent(id);
+		mPasseRepo.close();
 	}
+	
+	//--------------------------------------------------
+	// Adapter Methods
+	//--------------------------------------------------
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return passes.size();
+		return mPasseList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		Passe _p = passes.get(position); 
-		return _p.id;
+		Passe passe = mPasseList.get(position); 
+		return passe.id;
 	}
 
 	@Override
-	public View getView(int position, View converView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-
-		View view = converView;
-		view = inflater.inflate(R.layout.adapter_pacote, parent, false);
+	public View getView(int position, View convertView, ViewGroup parent) {
+		View view = convertView;
+		view = mInflater.inflate(R.layout.adapter_pacote, parent, false);
 		
-		Passe _item = passes.get(position);
+		Passe item = mPasseList.get(position);
 
 		TextView titulo = (TextView) view.findViewById(R.id.tTituloPacote);
-		if (_item.event_name.length() > 20) {
-			titulo.setText(_item.event_name.subSequence(0, 19));
-		} else {
-			titulo.setText(_item.event_name);
+		// Event name.
+		if (!StringUtils.isEmpty(item.event_name)) {
+			if (item.event_name.length() > 20) {
+				titulo.setText(item.event_name.subSequence(0, 19));
+			} else {
+				titulo.setText(item.event_name);
+				titulo.setText("< Cadastrar T’tulo do Evento >");
+			}
 		}
-		
 
+		// Valid To.
 		TextView validade = (TextView) view.findViewById(R.id.tValidade);
-		validade.setText(_item.valid_to);
+		if (!StringUtils.isEmpty(item.valid_to)) {
+			validade.setText(item.valid_to);
+			validade.setText("< Cadastrar Validade >");
+		}
 
 		TextView locais = (TextView) view.findViewById(R.id.tLocais);
 		locais.setText("");
 
+		// Price From.
 		TextView precoNormal = (TextView) view.findViewById(R.id.tPrecoNormal);
-		precoNormal.setText("R$ " + _item.price_from);
+		if (!StringUtils.isEmpty(item.price_from)) {
+			precoNormal.setText("R$ " + item.price_from);
+		} else {
+			precoNormal.setText("< Cadastrar Preo Antigo >");
+		}
 
+		// Price To.
 		TextView precoApp = (TextView) view.findViewById(R.id.tValor);
-		precoApp.setText("R$ " + _item.price_to);
+		if (!StringUtils.isEmpty(item.price_to)) {
+			precoApp.setText("R$ " + item.price_to);
+			precoNormal.setText("< Cadastrar Preo Novo >");
+		}
 		
+		// Pass Color.
 		FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.framePasseDescricao);
-		
-		if (_item.color.equals("green")){
+		if (item.color.equals("green")){
 			frameLayout.setBackgroundColor(Color.parseColor("#00a180"));
 		}
-		if (_item.color.equals("gold")){
+		if (item.color.equals("gold")){
 			frameLayout.setBackgroundColor(Color.parseColor("#dca85c"));
 		}
-		if (_item.color.equals("red")){
+		if (item.color.equals("red")){
 			frameLayout.setBackgroundColor(Color.parseColor("#d04840"));
 		}
-		
 		return view;
 	}
-
 }

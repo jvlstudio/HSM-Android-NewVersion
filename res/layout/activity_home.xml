@@ -42,7 +42,7 @@
 	                        android:id="@+id/ibtnGrande"
 	                        android:layout_width="360dp"
 	                        android:layout_height="200dp"
-	                        android:background="@drawable/hsm_home_events_expo13_2"/>
+	                        android:background="@drawable/hsm_placeholder_big"/>
                         
 	                        <ImageButton
 		                    	android:layout_width="360dp"
@@ -63,7 +63,7 @@
                         android:layout_width="181dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:background="@drawable/hsm_home_bt_education" />
+                        android:background="@drawable/hsm_placeholder_small" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -77,7 +77,7 @@
                         android:id="@+id/ibtn24o"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/hsm_home_bt_tv" />
+                        android:background="@drawable/hsm_placeholder_small" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -90,7 +90,7 @@
                         android:id="@+id/ibtn34o"
                         android:layout_width="179dp"
                         android:layout_height="165dp"
-                        android:background="@drawable/hsm_home_bt_issues" />
+                        android:background="@drawable/hsm_placeholder_small" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -105,7 +105,7 @@
                         android:layout_width="177dp"
                         android:layout_height="166dp"
                         android:layout_gravity="left"
-                        android:background="@drawable/hsm_home_bt_books" />
+                        android:background="@drawable/hsm_placeholder_small" />
                 </FrameLayout>
             </RelativeLayout>
         </ScrollView>

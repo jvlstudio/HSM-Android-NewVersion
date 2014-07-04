@@ -13,9 +13,21 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+/**
+ * PacoteActivity.java class.
+ * Modified by Rodrigo Cericatto at July 3, 2014.
+ */
 public class PacoteActivity extends FragmentActivity implements OnItemClickListener {
 
-	private int event_id;
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private int mEventId;
+	
+	//--------------------------------------------------
+	// Activity Life Cycle
+	//--------------------------------------------------
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +36,7 @@ public class PacoteActivity extends FragmentActivity implements OnItemClickListe
 		
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null){
-			event_id = extras.getInt("event_id");
+			mEventId = extras.getInt("event_id");
 		}
 		
 		ActionBar action = getActionBar();
@@ -32,11 +44,14 @@ public class PacoteActivity extends FragmentActivity implements OnItemClickListe
 		
 		ListView listview = (ListView) findViewById(R.id.listViewPacotes);
 		Activity context = this;
-		listview.setAdapter(new PacoteAdapter(context, this, event_id));
-		
+		listview.setAdapter(new PacoteAdapter(context, this, mEventId));
 		listview.setOnItemClickListener(this);
 	}
 
+	//--------------------------------------------------
+	// Menu Methods
+	//--------------------------------------------------
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -44,12 +59,14 @@ public class PacoteActivity extends FragmentActivity implements OnItemClickListe
 		return false;
 	}
 
+	//--------------------------------------------------
+	// Listeners
+	//--------------------------------------------------
+	
 	@Override
-	public void onItemClick(AdapterView<?> s, View arg1, int pos, long id) {
-		// TODO Auto-generated method stub
+	public void onItemClick(AdapterView<?> s, View view, int position, long id) {
 		Intent intent = new Intent(this, PagamentoActivity.class);
 		intent.putExtra("passe", id);
 		startActivity(intent);
 	}
-
 }
