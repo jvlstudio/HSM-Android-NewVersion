@@ -121,8 +121,6 @@ public class PalestranteAdapter extends BaseAdapter {
 		// Cria a URL para a imagem.
 		if (!panelist.picture.isEmpty()) {
 			setUniversalImage(URL + panelist.picture, picture);
-		} else {
-			setUniversalImage("http://barringtonstageco.org/media/potato.jpg", picture);
 		}
 		return view;
 	}
