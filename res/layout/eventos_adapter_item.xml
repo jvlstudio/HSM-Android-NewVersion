@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#000000"
+    android:padding="5dp"
+    android:weightSum="2" >
+    
+    <!-- Image and Titles -->
+    <LinearLayout
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:orientation="horizontal"
+    	android:layout_weight="1" >
+        
+		<ImageView
+		    android:id="@+id/id_panelist_image_eventos_adapter_item"
+	        android:layout_width="160dp"
+	        android:layout_height="120dp"
+	        android:src="@drawable/hsm_placeholder_big" />
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	    	android:layout_height="match_parent"
+	    	android:padding="10dp"
+	    	android:orientation="vertical" >
+	        
+	        <TextView
+	            android:id="@+id/id_title_eventos_adapter_item"
+	        	android:layout_width="match_parent"
+	    		android:layout_height="wrap_content"
+	    		android:textColor="#FFFFFF"
+	    		android:textSize="18dp"    
+	    		android:layout_marginBottom="10dp"
+	            android:text="Título" />
+	        
+	        <TextView
+	            android:id="@+id/id_subtitle_eventos_adapter_item"
+	        	android:layout_width="match_parent"
+	    		android:layout_height="wrap_content"
+	    		android:textSize="18dp"
+	    		android:textColor="#FFFF00"
+	            android:text="Subtítulo" />
+	        
+	    </LinearLayout>        
+    </LinearLayout>
+    
+    <!-- Last Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:orientation="horizontal"
+    	android:layout_marginLeft="5dp"
+    	android:layout_marginRight="5dp"
+    	android:layout_marginBottom="10dp"
+    	android:gravity="center"
+    	android:background="#656565"
+    	android:layout_weight="1"
+    	android:weightSum="5" >
+        
+		<ImageView
+		    android:id="@+id/id_schedule_icon_eventos_adapter_item"
+	        android:layout_width="30dp"
+	        android:layout_height="30dp"
+	        android:layout_weight="1"
+	        android:src="@drawable/hsm_agenda_id_coffee" />
+	    
+        <TextView
+            android:id="@+id/id_date_eventos_adapter_item"
+        	android:layout_width="72dp"
+    		android:layout_height="wrap_content"
+    		android:layout_weight="1"
+    		android:textColor="#BABACA"
+    		android:textSize="18dp"
+            android:text="27 e 28 mar" />
+        
+		<ImageView
+		    android:id="@+id/id_checkin_icon_eventos_adapter_item"
+	        android:layout_width="30dp"
+	        android:layout_height="30dp"
+	        android:layout_weight="1"
+	        android:src="@drawable/hsm_agenda_id_coffee" />
+	    
+        <TextView
+            android:id="@+id/id_address_eventos_adapter_item"
+        	android:layout_width="100dp"
+    		android:layout_height="wrap_content"
+    		android:textColor="#BABACA"
+    		android:layout_weight="1"    
+    		android:textSize="18dp"
+            android:text="WTC Torre Empresarial" />
+        
+        <ImageView
+	        android:layout_width="1dp"
+	        android:layout_height="match_parent"
+	        android:padding="3dp"
+	        android:background="#BABACA" />
+        
+		<ImageView
+		    android:id="@+id/id_plus_button_eventos_adapter_item"
+	        android:layout_width="30dp"
+	        android:layout_height="30dp"
+	        android:layout_weight="1"
+	        android:src="@drawable/hsm_but_plus" />
+    </LinearLayout>
+</LinearLayout>

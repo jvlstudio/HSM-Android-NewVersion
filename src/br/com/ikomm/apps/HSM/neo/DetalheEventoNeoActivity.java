@@ -26,7 +26,7 @@ public class DetalheEventoNeoActivity extends FragmentActivity {
 	// Methods
 	//--------------------------------------------------
 	
-	private Integer mId;
+	private Long mId;
 	private EventRepo mEventRepo;
 	private Event mEvent;
 	
@@ -45,7 +45,7 @@ public class DetalheEventoNeoActivity extends FragmentActivity {
 		
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null) {
-			mId = extras.getInt("mId");
+			mId = extras.getLong("id");
 		}
 		
 		mEventRepo = new EventRepo(getBaseContext());

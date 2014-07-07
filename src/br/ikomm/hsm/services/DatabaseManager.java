@@ -58,9 +58,11 @@ public class DatabaseManager extends SQLiteOpenHelper{
 	  * [6] - info_dates
 	  * [7] - info_hours
 	  * [8] - info_locale
+	  * [9] - image_list
+	  * [10] - image_single
 	  */
 	 private static final String DATABASE_EVENT = "create table event(_id integer primary key autoincrement, id integer, name text, slug text, "
-	 		+ "description text, tiny_description text, info_dates text, info_hours text, info_locale text);";
+	 		+ "description text, tiny_description text, info_dates text, info_hours text, info_locale text, image_list text, image_single text);";
 
 	 /*
 	  * CAMPOS TABELA HOME

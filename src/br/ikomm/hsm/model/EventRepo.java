@@ -11,29 +11,59 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import br.ikomm.hsm.services.DatabaseManager;
 
+/**
+ * HomeActivity.java class.
+ * Modified by Rodrigo Cericatto at July 7, 2014.
+ */
 @SuppressLint("NewApi")
 public class EventRepo {
-	private final Context Ctx;
+	
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private final Context mContext;
 	private SQLiteDatabase mDb;
 	private DatabaseManager mDbManager;
 	
+	//--------------------------------------------------
+	// Constructor
+	//--------------------------------------------------
 	
 	public EventRepo(Context context) {
 		super();
-		this.Ctx = context;
+		this.mContext = context;
 	}
 	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Open database.
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
 	public EventRepo open() throws SQLException{
-		this.mDbManager = DatabaseManager.getInstance(this.Ctx);
-		this.mDb = this.mDbManager.getWritableDatabase();
+		mDbManager = DatabaseManager.getInstance(mContext);
+		mDb = mDbManager.getWritableDatabase();
 		return this;
 	}
 	
+	/**
+	 * Close database.
+	 */
 	public void close(){
-		this.mDbManager.close();
+		mDbManager.close();
 	}
 	
-	// insert 
+	/**
+	 * Insert.
+	 * 
+	 * @param event
+	 * @return
+	 */
 	public long insertEvent(Event event) {
 		ContentValues value = new ContentValues();
 		value.put("id", event.id);
@@ -44,14 +74,20 @@ public class EventRepo {
 		value.put("info_dates", event.info_dates);
 		value.put("info_hours", event.info_hours);
 		value.put("info_locale", event.info_locale);
-		return this.mDb.insert("event", null, value);
+		value.put("image_list", event.image_list);
+		value.put("image_single", event.image_single);
+		return mDb.insert("event", null, value);
 	}
 	
-	// getAll
+	/**
+	 * Get all.
+	 * 
+	 * @return
+	 */
 	public List<Event> getAllEvent() {
 		List<Event> events = new ArrayList<Event>();
 		Event _event;
-		Cursor mCursor = this.mDb.query("event", null, null, null, null, null, null);
+		Cursor mCursor = mDb.query("event", null, null, null, null, null, null);
 		
 		if (mCursor.getCount() > 0) {
 			while (mCursor.moveToNext()) {
@@ -64,16 +100,24 @@ public class EventRepo {
 				_event.info_dates = mCursor.getString(6);
 				_event.info_hours = mCursor.getString(7);
 				_event.info_locale = mCursor.getString(8);
+				_event.image_list = mCursor.getString(9);
+				_event.image_single = mCursor.getString(10);
 				events.add(_event);
 			}
 		}
 		return events;
 	}
 	
-	// getSingle
+	/**
+	 * Get single.
+	 * 
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
 	public Event getEvent(long id) throws SQLException {
 		Event _event = new Event();
-		Cursor mCursor = this.mDb.query(true, "event", null, "id = " + id, null, null, null, null, null, null);
+		Cursor mCursor = mDb.query(true, "event", null, "id = " + id, null, null, null, null, null, null);
 		
 		if (mCursor.getCount() > 0) {
 			while (mCursor.moveToNext()) {
@@ -85,17 +129,31 @@ public class EventRepo {
 				_event.info_dates = mCursor.getString(6);
 				_event.info_hours = mCursor.getString(7);
 				_event.info_locale = mCursor.getString(8);
+				_event.image_list = mCursor.getString(9);
+				_event.image_single = mCursor.getString(10);
 			}
 		}
-		 return _event;
+		return _event;
 	}
 	
-	// delete
-	public boolean delete(long id){
-		return this.mDb.delete("event", "id = " +id, null) > 0;
+	/**
+	 * Delete.
+	 * 
+	 * @param id
+	 * 
+	 * @return
+	 */
+	public boolean delete(long id) {
+		return mDb.delete("event", "id = " + id, null) > 0;
 	}
 	
-	// update
+	/**
+	 * Update.
+	 * 
+	 * @param event
+	 * 
+	 * @return
+	 */
 	public boolean update(Event event) {
 		ContentValues value = new ContentValues();
 		value.put("id", event.id);
@@ -106,11 +164,17 @@ public class EventRepo {
 		value.put("info_dates", event.info_dates);
 		value.put("info_hours", event.info_hours);
 		value.put("info_locale", event.info_locale);
-		return this.mDb.update("event", value, "id = " + event.id, null) > 0;
+		value.put("image_list", event.image_list);
+		value.put("image_single", event.image_single);
+		return mDb.update("event", value, "id = " + event.id, null) > 0;
 	}
 
+	/**
+	 * Delete all.
+	 * 
+	 * @return
+	 */
 	public boolean deleteAll() {
-		// TODO Auto-generated method stub
-		return this.mDb.delete("event", null, null) > 0;
+		return mDb.delete("event", null, null) > 0;
 	}
 }

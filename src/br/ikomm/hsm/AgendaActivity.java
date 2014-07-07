@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.adapter.AgendaAdapter;
 

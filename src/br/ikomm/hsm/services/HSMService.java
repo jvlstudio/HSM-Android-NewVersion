@@ -1,12 +1,18 @@
 package br.ikomm.hsm.services;
 
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.IBinder;
 import br.ikomm.hsm.model.Agenda;
 import br.ikomm.hsm.model.AgendaRepo;
 import br.ikomm.hsm.model.Book;
 import br.ikomm.hsm.model.BookRepo;
 import br.ikomm.hsm.model.Event;
 import br.ikomm.hsm.model.EventRepo;
-import br.ikomm.hsm.model.Home;
 import br.ikomm.hsm.model.HomeRepo;
 import br.ikomm.hsm.model.Magazine;
 import br.ikomm.hsm.model.MagazineRepo;
@@ -21,13 +27,6 @@ import br.ikomm.hsm.model.ws.HomeWS;
 import br.ikomm.hsm.model.ws.MagazineWS;
 import br.ikomm.hsm.model.ws.PanelistWS;
 import br.ikomm.hsm.model.ws.PasseWS;
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.IBinder;
 
 public class HSMService extends Service implements Runnable{
 	
@@ -156,8 +155,7 @@ public class HSMService extends Service implements Runnable{
 	private boolean wsAgenda() {
 		// TODO Auto-generated method stub
 		try {
-//			AgendaWS lista = wsCommunication.wsAgenda();
-			AgendaWS lista = wsCommunication.wsFakeAgenda();
+			AgendaWS lista = wsCommunication.wsAgenda();
 			if(!lista.data.isEmpty()){
 				AgendaRepo _ar = new AgendaRepo(getApplicationContext());
 				_ar.open();
