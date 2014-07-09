@@ -27,7 +27,7 @@
 	            android:layout_marginTop="20dp"
 	            android:layout_marginBottom="10dp"
 	            android:adjustViewBounds="true"
-	            android:src="@drawable/hsm_mag_jan_fev"/>
+	            android:src="@drawable/hsm_placeholder_small"/>
             
             <TextView
 		        android:layout_width="wrap_content"

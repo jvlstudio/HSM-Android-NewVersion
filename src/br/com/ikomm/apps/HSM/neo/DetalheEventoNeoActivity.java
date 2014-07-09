@@ -4,17 +4,16 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.AgendaActivity;
-import br.ikomm.hsm.PacoteActivity;
-import br.ikomm.hsm.PalestrantesActivity;
+import br.ikomm.hsm.activity.AgendaActivity;
+import br.ikomm.hsm.activity.PacoteActivity;
+import br.ikomm.hsm.activity.PalestrantesActivity;
 import br.ikomm.hsm.model.Event;
-import br.ikomm.hsm.model.EventRepo;
+import br.ikomm.hsm.repo.EventRepo;
 
 /**
  * DetalheEventoNeoActivity.java class.
@@ -60,16 +59,6 @@ public class DetalheEventoNeoActivity extends FragmentActivity {
 		addListenerButton();
 	}
 
-	//--------------------------------------------------
-	// Menu Methods
-	//--------------------------------------------------
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.detalhe_evento_neo, menu);
-		return false;
-	}
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------

@@ -7,7 +7,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import br.ikomm.hsm.model.Book;
-import br.ikomm.hsm.model.BookRepo;
+import br.ikomm.hsm.repo.BookRepo;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -22,64 +22,74 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Build;
 
+/**
+ * LivrosAdapter.java class.
+ * Modified by Rodrigo Cericatto at July 9, 2014.
+ */
 public class LivrosAdapter extends BaseAdapter {
 
-	private Activity activity;
-	private LayoutInflater inflater;
-	private List<Book> books;
-	private BookRepo _br;
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private Activity mActivity;
+	private LayoutInflater mInflater;
+	private List<Book> mBookList;
+	private BookRepo mBookRepo;
+	
+	//--------------------------------------------------
+	// Constructor
+	//--------------------------------------------------
 	
 	public LivrosAdapter(Activity activity) {
 		super();
-		this.activity = activity;
-		inflater = LayoutInflater.from(activity);
+		mActivity = activity;
+		mInflater = LayoutInflater.from(activity);
 		
-		_br = new BookRepo(activity);
-		_br.open();
-		books = _br.getAllBook();
-		_br.close();
+		mBookRepo = new BookRepo(activity);
+		mBookRepo.open();
+		mBookList = mBookRepo.getAllBook();
+		mBookRepo.close();
 	}
 
+	//--------------------------------------------------
+	// Adapter
+	//--------------------------------------------------
+	
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return books.size();
+		return mBookList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		Book _item = books.get(position); 
-		return _item.id;
+		Book item = mBookList.get(position); 
+		return item.id;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_livros_adapter, parent, false);
+		View view = mInflater.inflate(R.layout.fragment_livros_adapter, parent, false);
 		
-		Book _book = books.get(position);
+		Book book = mBookList.get(position);
 		TextView nameBook = (TextView) view.findViewById(R.id.txtNameBook);
 		TextView descBook = (TextView) view.findViewById(R.id.txtDescBook);
 		ImageView imgBook = (ImageView) view.findViewById(R.id.imgBook);
 		
-		nameBook.setText(_book.name);
-		descBook.setText(_book.author_name);
+		nameBook.setText(book.name);
+		descBook.setText(book.author_name);
 		
-		String imageUri = "http://apps.ikomm.com.br/hsm5/uploads/books/"+_book.picture;
+		String imageUri = "http://apps.ikomm.com.br/hsm5/uploads/mBookList/"+book.picture;
 		DisplayImageOptions _cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.init(ImageLoaderConfiguration.createDefault(activity));
-	
+		imageLoader.init(ImageLoaderConfiguration.createDefault(mActivity));
 		imageLoader.displayImage(imageUri, imgBook, _cache);
 		
 		return view;
-	}
-	
+	}	
 }

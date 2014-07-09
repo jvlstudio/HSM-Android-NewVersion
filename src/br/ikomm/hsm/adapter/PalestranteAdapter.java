@@ -3,6 +3,7 @@ package br.ikomm.hsm.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Agenda;
-import br.ikomm.hsm.model.AgendaRepo;
 import br.ikomm.hsm.model.Panelist;
-import br.ikomm.hsm.model.PanelistRepo;
+import br.ikomm.hsm.repo.AgendaRepo;
+import br.ikomm.hsm.repo.PanelistRepo;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -73,23 +74,6 @@ public class PalestranteAdapter extends BaseAdapter {
 	}
 	
 	//--------------------------------------------------
-	// Methods
-	//--------------------------------------------------
-	
-	/**
-	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
-	 *  
-	 * @param url The url of the image.
-	 * @param imageView The {@link ImageView} which will receive the image.
-	 */
-	public void setUniversalImage(String url, ImageView imageView) {
-		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.init(ImageLoaderConfiguration.createDefault(mActivity));
-		imageLoader.displayImage(url, imageView, cache);
-	}
-	
-	//--------------------------------------------------
 	// Adapter
 	//--------------------------------------------------
 
@@ -109,20 +93,37 @@ public class PalestranteAdapter extends BaseAdapter {
 		return item.id;
 	}
 
+	@SuppressLint({ "ViewHolder", "InflateParams" })
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = mInflater.inflate(R.layout.adapter_palestrante, null);
-		ImageView picture = (ImageView) view.findViewById(R.id.imagemPalestrante);
 		TextView name = (TextView) view.findViewById(R.id.nomePalestrante);
 		 
 		Panelist panelist = mPanelistList.get(position);
 		name.setText(panelist.name);
 		
-		// Cria a URL para a imagem.
-		if (!panelist.picture.isEmpty()) {
-			String completeUrl = URL + panelist.picture;
-			setUniversalImage(completeUrl, picture);
-		}
+		// Creates URL fr the image.
+		String completeUrl = URL + panelist.picture;
+		setUniversalImage(completeUrl, view);
+		
 		return view;
+	}
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 *  
+	 * @param url The url of the image.
+	 * @param imageView The {@link ImageView} which will receive the image.
+	 */
+	public void setUniversalImage(String url, View view) {
+		ImageView imageView = (ImageView)view.findViewById(R.id.imagemPalestrante);
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(mActivity));
+		imageLoader.displayImage(url, imageView, cache);
 	}
 }

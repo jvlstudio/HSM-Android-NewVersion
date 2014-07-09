@@ -14,7 +14,7 @@
 	        	android:id="@+id/imgEventoDet"
 	        	android:layout_width="match_parent"
 	        	android:layout_height="300dp"
-	        	android:background="@drawable/hsm_events_expo13"/>
+	        	android:background="@drawable/hsm_placeholder_small"/>
 		
 		<FrameLayout 
 		    android:layout_width="fill_parent"

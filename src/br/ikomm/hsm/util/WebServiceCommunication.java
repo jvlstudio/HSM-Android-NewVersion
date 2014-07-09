@@ -8,7 +8,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import br.ikomm.hsm.model.BannerRepository;
+import br.ikomm.hsm.repo.BannerRepository;
 
 import android.content.Context;
 

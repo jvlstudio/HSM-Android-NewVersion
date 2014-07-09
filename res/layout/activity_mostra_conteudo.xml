@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/hsm_banner_mdc_2" />
+        android:src="@drawable/hsm_placeholder_small" />
     
         <FrameLayout 
             android:layout_width="match_parent"

@@ -22,7 +22,7 @@
 		            android:layout_width="100dp"
 		            android:layout_height="wrap_content"
 		            android:adjustViewBounds="true"
-		            android:src="@drawable/p_marco_tulio_zanini_large"/>
+		            android:src="@drawable/hsm_placeholder_small"/>
 	        </FrameLayout>
 	        
 	     	<FrameLayout 

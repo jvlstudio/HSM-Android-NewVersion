@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context=".SplashScreen"
+    tools:context=".SplashScreenActivity"
     android:background="@drawable/ad_ios_superstitial_1394890700" >
 
     

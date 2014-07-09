@@ -4,6 +4,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@drawable/default_splash"
-    tools:context=".SplashScreen" >
+    tools:context=".SplashScreenActivity" >
 
 </LinearLayout>

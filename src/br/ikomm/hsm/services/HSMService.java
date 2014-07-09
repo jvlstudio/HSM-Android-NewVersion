@@ -8,18 +8,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
 import br.ikomm.hsm.model.Agenda;
-import br.ikomm.hsm.model.AgendaRepo;
 import br.ikomm.hsm.model.Book;
-import br.ikomm.hsm.model.BookRepo;
 import br.ikomm.hsm.model.Event;
-import br.ikomm.hsm.model.EventRepo;
-import br.ikomm.hsm.model.HomeRepo;
 import br.ikomm.hsm.model.Magazine;
-import br.ikomm.hsm.model.MagazineRepo;
 import br.ikomm.hsm.model.Panelist;
-import br.ikomm.hsm.model.PanelistRepo;
 import br.ikomm.hsm.model.Passe;
-import br.ikomm.hsm.model.PasseRepo;
 import br.ikomm.hsm.model.ws.AgendaWS;
 import br.ikomm.hsm.model.ws.BookWS;
 import br.ikomm.hsm.model.ws.EventWS;
@@ -27,6 +20,13 @@ import br.ikomm.hsm.model.ws.HomeWS;
 import br.ikomm.hsm.model.ws.MagazineWS;
 import br.ikomm.hsm.model.ws.PanelistWS;
 import br.ikomm.hsm.model.ws.PasseWS;
+import br.ikomm.hsm.repo.AgendaRepo;
+import br.ikomm.hsm.repo.BookRepo;
+import br.ikomm.hsm.repo.EventRepo;
+import br.ikomm.hsm.repo.HomeRepo;
+import br.ikomm.hsm.repo.MagazineRepo;
+import br.ikomm.hsm.repo.PanelistRepo;
+import br.ikomm.hsm.repo.PasseRepo;
 
 public class HSMService extends Service implements Runnable{
 	

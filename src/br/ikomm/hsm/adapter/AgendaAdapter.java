@@ -3,7 +3,7 @@ package br.ikomm.hsm.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import br.ikomm.hsm.fragment.Data1Fragment;
+import br.ikomm.hsm.fragment.AgendaFragment;
 
 /**
  * AgendaAdapter.java class.
@@ -35,13 +35,13 @@ public class AgendaAdapter extends FragmentPagerAdapter {
 	/*
 	@Override
 	public Fragment getItem(int position) {
-		return new Data1Fragment(mEventId, mPosition);
+		return new AgendaFragment(mEventId, mPosition);
 	}
 	*/
 	
     @Override
     public Fragment getItem(int position) {
-        return Data1Fragment.create(position, mEventId);
+        return AgendaFragment.create(position, mEventId);
     }
 
 	@Override

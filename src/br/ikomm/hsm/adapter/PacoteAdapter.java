@@ -14,7 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Passe;
-import br.ikomm.hsm.model.PasseRepo;
+import br.ikomm.hsm.repo.PasseRepo;
 import br.ikomm.hsm.util.StringUtils;
 
 /**

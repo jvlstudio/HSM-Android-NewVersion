@@ -3,7 +3,6 @@ package br.com.ikomm.apps.HSM;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.Window;
 import android.widget.ImageView;
 import br.ikomm.hsm.model.Cartao;
@@ -27,35 +26,21 @@ public class QRCodeActivity extends Activity {
 		
 		Intent intent = getIntent();
 		final String jsonCartao = intent.getStringExtra("jsonCartao");
-		
-		if (!jsonCartao.isEmpty())
+		if (!jsonCartao.isEmpty()) {
 			contato = gson.fromJson(jsonCartao, Cartao.class);
+		}
 		
 		ImageView qrCode = (ImageView) findViewById(R.id.idQRCodeGrande);
-		DisplayImageOptions cache = new DisplayImageOptions.Builder()
-				.cacheInMemory(true).cacheOnDisc(true).build();
-
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.init(ImageLoaderConfiguration
-				.createDefault(QRCodeActivity.this));
+		imageLoader.init(ImageLoaderConfiguration.createDefault(QRCodeActivity.this));
 
 		String imageUri = "http://chart.apis.google.com/chart?cht=qr&chs=500x500&chld=H|0&chl=";
 		//String imageUri = "http://chart.apis.google.com/chart?cht=qr&chs=350x350&chld=L&choe=UTF-8&chl=";
 		
 		CartaoConverter convert = new CartaoConverter();
 		String textCode = convert.CartaoToString(contato);
-		
 		imageUri = imageUri + textCode;
-
 		imageLoader.displayImage(imageUri, qrCode, cache);
-		
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.qrcode, menu);
-		return false;
-	}
-
 }

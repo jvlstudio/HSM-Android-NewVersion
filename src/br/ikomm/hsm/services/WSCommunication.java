@@ -11,7 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
-import br.ikomm.hsm.SplashScreen;
+import br.ikomm.hsm.activity.SplashScreenActivity;
 import br.ikomm.hsm.model.ws.AgendaWS;
 import br.ikomm.hsm.model.ws.BookWS;
 import br.ikomm.hsm.model.ws.EventWS;
@@ -105,7 +105,7 @@ public class WSCommunication {
 
 			String responseBody = reader.readLine();
 			AgendaWS list = gson.fromJson(responseBody, AgendaWS.class);
-//			AgendaWS list = gson.fromJson(SplashScreen.FAKE_AGENDA_JSON, AgendaWS.class);
+//			AgendaWS list = gson.fromJson(SplashScreenActivity.FAKE_AGENDA_JSON, AgendaWS.class);
 
 			return list;
 		} catch (Exception ex) {
@@ -208,7 +208,7 @@ public class WSCommunication {
 		try {
 			HttpClient _httpClient = new DefaultHttpClient();
 			Gson gson = new Gson();
-			String url = URL_SERVER + "/magazines.php";
+			String url = URL_SERVER + "/mMagazineList.php";
 
 			HttpGet _httpGet = new HttpGet(url);
 			HttpResponse _httpResponse = _httpClient.execute(_httpGet);

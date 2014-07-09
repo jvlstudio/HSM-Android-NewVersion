@@ -15,7 +15,7 @@ import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Agenda;
 import br.ikomm.hsm.model.Panelist;
-import br.ikomm.hsm.model.PanelistRepo;
+import br.ikomm.hsm.repo.PanelistRepo;
 
 /**
  * Data1Adapter.java class.

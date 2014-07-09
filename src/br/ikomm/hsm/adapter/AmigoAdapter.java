@@ -12,7 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Cartao;
-import br.ikomm.hsm.model.CartaoRepositorio;
+import br.ikomm.hsm.repo.CartaoRepositorio;
 
 public class AmigoAdapter extends BaseAdapter {
 

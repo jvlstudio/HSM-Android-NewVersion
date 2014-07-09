@@ -52,7 +52,7 @@
             android:id="@+id/imgPalestranteAgendaD1"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/p_andrew_mcafee" />
+            android:src="@drawable/hsm_placeholder_small" />
     </FrameLayout>
 
     <FrameLayout

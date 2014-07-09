@@ -26,6 +26,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  */
 public class EventosAdapter extends BaseAdapter {
 
+	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
 	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/events/";
 	
 	//--------------------------------------------------
