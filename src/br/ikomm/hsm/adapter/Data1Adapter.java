@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -163,6 +164,10 @@ public class Data1Adapter extends BaseAdapter {
 			mPalestranteImageView.setImageBitmap(bitmap);
 		}
 	}
+	
+	//--------------------------------------------------
+	// Other Methods
+	//--------------------------------------------------
 	
 	/**
 	 * Gets the {@link Panelist} name.

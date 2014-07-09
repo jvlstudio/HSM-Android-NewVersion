@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,6 +111,7 @@ public class EventosAdapter extends BaseAdapter {
 		viewHolder.mSubtitleTextView.setText(event.description);
 		viewHolder.mDateTextView.setText(formatDates(event.info_dates));
 		viewHolder.mPlaceTextView.setText(event.info_locale);
+		setFonts(viewHolder);
 		
 		return convertView;
 	}
@@ -117,6 +119,17 @@ public class EventosAdapter extends BaseAdapter {
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
+	
+	/**
+	* Sets fonts of all view components.
+	*/
+	public void setFonts(ViewHolder viewHolder) {
+		Typeface caecilia = Typeface.createFromAsset(mContext.getAssets(), "fonts/CaeciliaLTStd-Roman.otf");
+		viewHolder.mTitleTextView.setTypeface(caecilia);
+		viewHolder.mSubtitleTextView.setTypeface(caecilia);
+		viewHolder.mDateTextView.setTypeface(caecilia);
+		viewHolder.mPlaceTextView.setTypeface(caecilia);
+	}
 	
 	/**
 	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
