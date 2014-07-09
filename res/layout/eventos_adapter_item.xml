@@ -8,16 +8,17 @@
     
     <!-- Image and Titles -->
     <LinearLayout
+        android:id="@+id/id_panelist_layout_eventos_adapter_item"
         android:layout_width="match_parent"
     	android:layout_height="match_parent"
     	android:orientation="horizontal"
+    	android:src="@drawable/hsm_placeholder_big"
     	android:layout_weight="1" >
         
 		<ImageView
 		    android:id="@+id/id_panelist_image_eventos_adapter_item"
 	        android:layout_width="160dp"
-	        android:layout_height="120dp"
-	        android:src="@drawable/hsm_placeholder_big" />
+	        android:layout_height="120dp" />
 	    
 	    <LinearLayout
 	        android:layout_width="match_parent"
@@ -39,7 +40,7 @@
 	        	android:layout_width="match_parent"
 	    		android:layout_height="wrap_content"
 	    		android:textSize="18dp"
-	    		android:textColor="#FFFF00"
+	    		android:textColor="#ffCC00"
 	            android:text="Subtítulo" />
 	        
 	    </LinearLayout>        
@@ -54,7 +55,7 @@
     	android:layout_marginRight="5dp"
     	android:layout_marginBottom="10dp"
     	android:gravity="center"
-    	android:background="#656565"
+    	android:background="#23232E"
     	android:layout_weight="1"
     	android:weightSum="5" >
         
@@ -63,14 +64,14 @@
 	        android:layout_width="30dp"
 	        android:layout_height="30dp"
 	        android:layout_weight="1"
-	        android:src="@drawable/hsm_agenda_id_coffee" />
+	        android:src="@drawable/ic_schedule" />
 	    
         <TextView
             android:id="@+id/id_date_eventos_adapter_item"
         	android:layout_width="72dp"
     		android:layout_height="wrap_content"
     		android:layout_weight="1"
-    		android:textColor="#BABACA"
+    		android:textColor="#7F7F94"
     		android:textSize="18dp"
             android:text="27 e 28 mar" />
         
@@ -79,13 +80,13 @@
 	        android:layout_width="30dp"
 	        android:layout_height="30dp"
 	        android:layout_weight="1"
-	        android:src="@drawable/hsm_agenda_id_coffee" />
+	        android:src="@drawable/ic_checkin" />
 	    
         <TextView
             android:id="@+id/id_address_eventos_adapter_item"
         	android:layout_width="100dp"
     		android:layout_height="wrap_content"
-    		android:textColor="#BABACA"
+    		android:textColor="#7F7F94"
     		android:layout_weight="1"    
     		android:textSize="18dp"
             android:text="WTC Torre Empresarial" />
@@ -93,14 +94,14 @@
         <ImageView
 	        android:layout_width="1dp"
 	        android:layout_height="match_parent"
-	        android:padding="3dp"
-	        android:background="#BABACA" />
+	        android:layout_margin="3dp"
+	        android:background="#7F7F94" />
         
 		<ImageView
 		    android:id="@+id/id_plus_button_eventos_adapter_item"
 	        android:layout_width="30dp"
 	        android:layout_height="30dp"
 	        android:layout_weight="1"
-	        android:src="@drawable/hsm_but_plus" />
+	        android:src="@drawable/ic_plus" />
     </LinearLayout>
 </LinearLayout>

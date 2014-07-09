@@ -2,12 +2,14 @@ package br.ikomm.hsm.adapter;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Event;
@@ -47,6 +49,7 @@ public class EventosAdapter extends BaseAdapter {
 	//--------------------------------------------------
 	
 	static class ViewHolder {
+//		private LinearLayout mPanelistLinearLayout;
 		private ImageView mPanelistImageView;
 		private TextView mTitleTextView;
 		private TextView mSubtitleTextView;
@@ -84,6 +87,7 @@ public class EventosAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.eventos_adapter_item, null);
 			viewHolder = new ViewHolder();
 			
+//			viewHolder.mPanelistLinearLayout = (LinearLayout)convertView.findViewById(R.id.id_panelist_layout_eventos_adapter_item);
 			viewHolder.mPanelistImageView = (ImageView)convertView.findViewById(R.id.id_panelist_image_eventos_adapter_item);
 			viewHolder.mTitleTextView = (TextView)convertView.findViewById(R.id.id_title_eventos_adapter_item);
 			viewHolder.mSubtitleTextView = (TextView)convertView.findViewById(R.id.id_subtitle_eventos_adapter_item);
@@ -96,6 +100,7 @@ public class EventosAdapter extends BaseAdapter {
 		
 		// Populates adapter.
 		String imageUrl = URL + event.image_list;
+//		setUniversalImage(imageUrl, viewHolder.mPanelistLinearLayout);
 		setUniversalImage(imageUrl, viewHolder.mPanelistImageView);
 		viewHolder.mTitleTextView.setText(event.name);
 		viewHolder.mSubtitleTextView.setText(event.description);
@@ -113,13 +118,24 @@ public class EventosAdapter extends BaseAdapter {
 	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
 	 *  
 	 * @param url The url of the image.
-	 * @param imageView The {@link ImageView} which will receive the image.
+	 * @param linearLayout The {@link LinearLayout} which will receive the image.
 	 */
+	@SuppressLint("NewApi")
 	public void setUniversalImage(String url, ImageView imageView) {
+//		DownloadAsyncTask task = new DownloadAsyncTask(url, linearLayout);
+//		task.execute();
+	
+//	public void setUniversalImage(String url, LinearLayout layout) {
+		// Sets image view bitmap, getting it from web or from cache. 
 		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
 		imageLoader.displayImage(url, imageView, cache);
+		
+		// Get the bitmap from the image view and put in into the image view.
+//		Bitmap bitmap = viewHolder.mPanelistImageView.getDrawingCache();
+//		Drawable drawable = new BitmapDrawable(mContext.getResources(), bitmap);
+//		layout.setBackground(drawable);
 	}
 	
 	/**
