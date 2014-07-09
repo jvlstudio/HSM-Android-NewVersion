@@ -13,7 +13,8 @@
         android:layout_height="60dp"
         android:layout_marginLeft="15dp"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/hsm_placeholder_small"/>
+        android:src="@drawable/hsm_placeholder_small"
+        android:background="@android:color/transparent" />
     
     <TextView 
         android:id="@+id/nomePalestrante"

@@ -2,94 +2,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/hsm_background">
-    
-    <LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    tools:context=".DetalheEventoActivity"
-	    android:orientation="vertical" >
+    android:background="@drawable/hsm_background" >
 
-        <ImageView 
-	        	android:id="@+id/imgEventoDet"
-	        	android:layout_width="match_parent"
-	        	android:layout_height="300dp"
-	        	android:background="@drawable/hsm_placeholder_small"/>
-		
-		<FrameLayout 
-		    android:layout_width="fill_parent"
-		    android:layout_height="0dp"
-		    android:layout_weight="2">
-			
-			<TextView 
-			    android:id="@+id/textEvent"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center_vertical"
-		        android:layout_margin="10dp"
-		        android:textColor="#ecd900"
-		        android:textSize="24dp"
-		        android:text="O melhor do management espera por você."/>
-		</FrameLayout>
-		<FrameLayout 
-		    android:layout_width="fill_parent"
-		    android:layout_height="0dp"
-		    android:layout_weight="5">
-			
-		   	<TextView 
-		   	    android:id="@+id/textDescriptionEvent"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:padding="10dp"
-		        android:textColor="#FFFFFF"
-		        android:text="Vem aí o maior encontro de gestão da América Latina que reúne executivos e empresas dos mais diversos setores da economia, de todo país.
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".DetalheEventoActivity" >
+
+        <ImageView
+            android:id="@+id/imgEventoDet"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/hsm_placeholder_small" />
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" >
+
+            <TextView
+                android:id="@+id/textEvent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:text="O melhor do management espera por você."
+                android:textColor="#ecd900"
+                android:textSize="24dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5" >
+
+            <TextView
+                android:id="@+id/textDescriptionEvent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="Vem aí o maior encontro de gestão da América Latina que reúne executivos e empresas dos mais diversos setores da economia, de todo país.
 
 De um lado, os maiores nomes do management mundial. De outro, os mais influentes executivos e líderes de todo o país.
 
-HSM ExpoManagement: o encontro de conhecimento em gestão que traz as melhores oportunidades, os conceitos mais atuais e os exemplos mais inspiradores, para que você possa tomar sempre as melhores decisões e se manter preparado para os novos desafios e as mudanças no mundo dos negócios."/>
-		</FrameLayout>
-		<FrameLayout 
-		    android:layout_width="fill_parent"
-		    android:layout_height="0dp"
-		    android:layout_margin="10dp"
-		    android:layout_weight="1">
-		    <Button 
-		   	    android:id="@+id/btnPalestrante"
-		   	    android:layout_width="130dp"
-		   	    android:layout_height="wrap_content"
-		   	    android:layout_gravity="right|bottom"
-		   	    android:padding="10dp"
-		   	    android:textColor="#FFFFFF"
-		   	    android:background="@drawable/hsm_bt_tiny_clear"
-		   	    android:text="@string/palestrantes"/>
+HSM ExpoManagement: o encontro de conhecimento em gestão que traz as melhores oportunidades, os conceitos mais atuais e os exemplos mais inspiradores, para que você possa tomar sempre as melhores decisões e se manter preparado para os novos desafios e as mudanças no mundo dos negócios."
+                android:textColor="#FFFFFF" />
+        </FrameLayout>
 
-		    <Button
-		        android:id="@+id/btnAgenda"
-		        android:layout_width="130dp"
-		        android:layout_height="wrap_content"
-		        android:background="@drawable/hsm_bt_tiny_clear"
-		        android:padding="10dp"
-		        android:text="@string/agenda"
-		        android:textColor="#FFFFFF" />
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1" >
 
-		</FrameLayout>
-		
-		<Button 
-		   	    android:id="@+id/btnPasses"
-		   	    android:layout_width="wrap_content"
-		   	    android:layout_height="wrap_content"
-		   	    android:layout_gravity="center"
-		   	    android:layout_margin="5dp"
-		   	    android:textColor="#FFFFFF"
-		   	    android:background="@drawable/hsm_bt_large_purple"
-		   	    android:text="@string/passes"/>
-		
-		<fragment 
-				     android:id="@+id/footerFragment"
-				     android:layout_width="match_parent"
-				     android:layout_height="wrap_content"
-				     class="br.ikomm.hsm.fragment.BannerFragment"/>
-	</LinearLayout>
+            <Button
+                android:id="@+id/btnPalestrante"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:background="@drawable/hsm_bt_tiny_clear"
+                android:padding="10dp"
+                android:text="@string/palestrantes"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/btnAgenda"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/hsm_bt_tiny_clear"
+                android:padding="10dp"
+                android:text="@string/agenda"
+                android:textColor="#FFFFFF" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btnPasses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@drawable/hsm_bt_large_purple"
+            android:text="@string/passes"
+            android:textColor="#FFFFFF" />
+
+        <fragment
+            android:id="@+id/footerFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="br.ikomm.hsm.fragment.BannerFragment" />
+    </LinearLayout>
 </ScrollView>
-	
