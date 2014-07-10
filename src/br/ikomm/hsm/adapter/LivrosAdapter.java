@@ -1,26 +1,21 @@
-package br.com.ikomm.apps.HSM;
+package br.ikomm.hsm.adapter;
 
 import java.util.List;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
-import br.ikomm.hsm.model.Book;
-import br.ikomm.hsm.repo.BookRepo;
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
-import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.os.Build;
+import br.com.ikomm.apps.HSM.R;
+import br.ikomm.hsm.model.Book;
+import br.ikomm.hsm.repo.BookRepo;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * LivrosAdapter.java class.
@@ -84,12 +79,26 @@ public class LivrosAdapter extends BaseAdapter {
 		nameBook.setText(book.name);
 		descBook.setText(book.author_name);
 		
-		String imageUri = "http://apps.ikomm.com.br/hsm5/uploads/mBookList/"+book.picture;
-		DisplayImageOptions _cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.init(ImageLoaderConfiguration.createDefault(mActivity));
-		imageLoader.displayImage(imageUri, imgBook, _cache);
+		String url = "http://apps.ikomm.com.br/hsm5/uploads/books/" + book.picture;
+		setUniversalImage(url, imgBook);
 		
 		return view;
-	}	
+	}
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 *  
+	 * @param url The url of the image.
+	 * @param imageView The {@link ImageView} which will receive the image.
+	 */
+	public void setUniversalImage(String url, ImageView imageView) {
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(mActivity));
+		imageLoader.displayImage(url, imageView, cache);
+	}
 }

@@ -13,7 +13,7 @@
         android:layout_height="60dp"
         android:layout_marginLeft="15dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/hsm_placeholder_small"
+        android:src="@drawable/hsm_placeholder_panelist"
         android:background="@android:color/transparent" />
     
     <TextView 

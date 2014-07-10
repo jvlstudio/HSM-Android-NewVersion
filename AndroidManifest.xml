@@ -197,7 +197,7 @@
             android:label="@string/title_activity_detalhe_palestra_neo" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.LivrosAdapter"
+            android:name="br.ikomm.hsm.adapter.LivrosAdapter"
             android:label="@string/title_activity_livros_adapter" >
         </activity>
         

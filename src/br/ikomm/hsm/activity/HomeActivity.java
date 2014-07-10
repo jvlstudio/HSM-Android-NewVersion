@@ -36,6 +36,17 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  * Modified by Rodrigo Cericatto at July 3, 2014.
  */
 public class HomeActivity extends FragmentActivity {
+
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+
+	public static final Integer HOME = 0;
+	public static final Integer EVENTOS = 1;
+	public static final Integer LIVROS = 2;
+	public static final Integer NETWORK = 3;
+	public static final Integer REVISTAS = 4;
+	public static final Integer HSM_TV = 5;
 	
 	//--------------------------------------------------
 	// Methods
@@ -173,22 +184,17 @@ public class HomeActivity extends FragmentActivity {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView parent, View view, int position, long id) {
-			if (id == 0) {
+			if (id == HOME) {
 				startActivity(new Intent(HomeActivity.this, HomeActivity.class));
-				finish();
-			} else if (id == 1) {
+			} else if (id == EVENTOS) {
 				startActivity(new Intent(HomeActivity.this, EventosNovaActivity.class));
-				finish();
-			} else if (id == 2) {
+			} else if (id == LIVROS) {
 				startActivity(new Intent(HomeActivity.this, ListaLivrosActivity.class));
-				finish();
-			} else if (id == 3) {
+			} else if (id == NETWORK) {
 				startActivity(new Intent(HomeActivity.this, ListaNetworkingActivity.class));
-				finish();
-			} else if (id == 4) {
+			} else if (id == REVISTAS) {
 				startActivity(new Intent(HomeActivity.this, RevistaActivity.class));
-				finish();
-			} else if (id == 5) {
+			} else if (id == HSM_TV) {
 				Uri uri = Uri.parse("http://www.youtube.com/watch?v=ZHolmn4LBzg");
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);

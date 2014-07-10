@@ -11,11 +11,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import br.com.ikomm.apps.HSM.LivrosAdapter;
 import br.com.ikomm.apps.HSM.R;
+import br.ikomm.hsm.adapter.LivrosAdapter;
 
+/**
+ * ListaLivrosActivity.java class.
+ * Modified by Rodrigo Cericatto at July 10, 2014.
+ */
 public class ListaLivrosActivity extends FragmentActivity {
 
+	//--------------------------------------------------
+	// Activity Life Cycle
+	//--------------------------------------------------
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,11 +31,14 @@ public class ListaLivrosActivity extends FragmentActivity {
 
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
-		
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
+	
+	//--------------------------------------------------
+	// Fragment
+	//--------------------------------------------------
 
 	/**
 	 * A placeholder fragment containing a simple view.
@@ -40,7 +51,6 @@ public class ListaLivrosActivity extends FragmentActivity {
 			View rootView = inflater.inflate(R.layout.fragment_lista_livros, container, false);
 			ListView listaLivros = (ListView) rootView.findViewById(R.id.listBooks);
 			listaLivros.setAdapter(new LivrosAdapter(getActivity()));
-			
 			listaLivros.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {

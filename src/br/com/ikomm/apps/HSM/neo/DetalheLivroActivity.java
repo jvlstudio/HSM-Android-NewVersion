@@ -22,9 +22,21 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+/**
+ * DetalheLivroActivity.java class.
+ * Modified by Rodrigo Cericatto at July 10, 2014.
+ */
 public class DetalheLivroActivity extends Activity {
 
-	private static Long id;
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private static Long mLivroId;
+	
+	//--------------------------------------------------
+	// Activity Life Cycle
+	//--------------------------------------------------
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +47,7 @@ public class DetalheLivroActivity extends Activity {
 		action.setLogo(R.drawable.hsm_logo);
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null){
-			id = extras.getLong("id");
+			mLivroId = extras.getLong("id");
 		}
 		
 		if (savedInstanceState == null) {
@@ -43,12 +55,16 @@ public class DetalheLivroActivity extends Activity {
 		}
 	}
 
+	//--------------------------------------------------
+	// Fragment
+	//--------------------------------------------------
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class PlaceholderFragment extends Fragment {
-		private String URL;
-		private Book _book;
+		private String mUrl;
+		private Book mBook;
 		
 		public PlaceholderFragment() {}
 
@@ -56,29 +72,31 @@ public class DetalheLivroActivity extends Activity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_detalhe_livro, container, false);
 			
-			BookRepo _br = new BookRepo(getActivity());
-			_br.open();
-			_book = _br.getBook(id);
-			_br.close();
-			
-			if (_book != null) {
-				carregarCampos(rootView);
+			BookRepo bookRepo = new BookRepo(getActivity());
+			bookRepo.open();
+			mBook = bookRepo.getBook(mLivroId);
+			bookRepo.close();
+			if (mBook != null) {
+				loadFields(rootView);
 				addListenerButton(rootView);
 			}
-			
 			return rootView;
 		}
 
+		/**
+		 * Adds {@link Button} listeners.
+		 * 
+		 * @param rootView
+		 */
 		private void addListenerButton(View rootView) {
-			TextView tS = (TextView) rootView.findViewById(R.id.tS);
-			TextView tE = (TextView) rootView.findViewById(R.id.tE);
-			TextView tA = (TextView) rootView.findViewById(R.id.tA);
+			TextView sinopseTextView = (TextView) rootView.findViewById(R.id.id_sinopse_text_view);
+			TextView autorTextView = (TextView) rootView.findViewById(R.id.id_autor_text_view);
 			
 			final LinearLayout ll1 = (LinearLayout) rootView.findViewById(R.id.llSinopse);
 			final LinearLayout ll2 = (LinearLayout) rootView.findViewById(R.id.llEspec);
 			final LinearLayout ll3 = (LinearLayout) rootView.findViewById(R.id.llAutor);
 			
-			tS.setOnClickListener(new OnClickListener() {
+			sinopseTextView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					ll1.setVisibility(View.VISIBLE);
@@ -86,17 +104,7 @@ public class DetalheLivroActivity extends Activity {
 					ll3.setVisibility(View.GONE);
 				}
 			});
-			
-			tE.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					ll1.setVisibility(View.GONE);
-					ll2.setVisibility(View.VISIBLE);
-					ll3.setVisibility(View.GONE);
-				}
-			});
-
-			tA.setOnClickListener(new OnClickListener() {
+			autorTextView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					ll1.setVisibility(View.GONE);
@@ -110,13 +118,22 @@ public class DetalheLivroActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
-			        intent.setData(Uri.parse(URL));
+			        intent.setData(Uri.parse(mUrl));
 			        startActivity(intent);
 				}
 			});
 		}
+		
+		//--------------------------------------------------
+		// Methods
+		//--------------------------------------------------
 
-		private void carregarCampos(View rootView) {
+		/**
+		 * Loads all fields.
+		 * 
+		 * @param rootView
+		 */
+		private void loadFields(View rootView) {
 			ImageView img = (ImageView) rootView.findViewById(R.id.imgLivroDet);
 			TextView textTitulo = (TextView) rootView.findViewById(R.id.txtTituloDet);
 			TextView textDescricao = (TextView) rootView.findViewById(R.id.txtDescricaoDet);
@@ -128,23 +145,32 @@ public class DetalheLivroActivity extends Activity {
 			TextView textAutor = (TextView) rootView.findViewById(R.id.textNomeAutor);
 			TextView textHistoria = (TextView) rootView.findViewById(R.id.textDescricaoAutor);
 			
-			URL = _book.link;
-			textTitulo.setText(_book.name);
+			mUrl = mBook.link;
+			textTitulo.setText(mBook.name);
 			textDescricao.setText("");
-			textSinopse.setText(_book.description);
+			textSinopse.setText(mBook.description);
 			textTamanho.setText("-");
 			textPagina.setText("-");
 			textCodigo.setText("-");
 			textISBM.setText("-");
-			textAutor.setText(_book.author_name);
-			textHistoria.setText(_book.author_description);
+			textAutor.setText(mBook.author_name);
+			textHistoria.setText(mBook.author_description);
 			
-			String imageUri = "http://apps.ikomm.com.br/hsm5/uploads/books/"+_book.picture;
-			DisplayImageOptions _cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+			String url = "http://apps.ikomm.com.br/hsm5/uploads/books/" + mBook.picture;
+			setUniversalImage(url, img);
+		}
+		
+		/**
+		 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+		 *  
+		 * @param url The url of the image.
+		 * @param imageView The {@link ImageView} which will receive the image.
+		 */
+		public void setUniversalImage(String url, ImageView imageView) {
+			DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
 			ImageLoader imageLoader = ImageLoader.getInstance();
 			imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
-		
-			imageLoader.displayImage(imageUri, img, _cache);
+			imageLoader.displayImage(url, imageView, cache);
 		}
 	}
 }
