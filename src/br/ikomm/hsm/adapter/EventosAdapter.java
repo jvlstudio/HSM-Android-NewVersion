@@ -2,22 +2,20 @@ package br.ikomm.hsm.adapter;
 
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Event;
-
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import br.ikomm.hsm.tasks.DownloadAsyncTask;
+import br.ikomm.hsm.util.AsyncTaskUtils;
 
 /**
  * EventosAdapter.java class.
@@ -54,8 +52,7 @@ public class EventosAdapter extends BaseAdapter {
 	//--------------------------------------------------
 	
 	static class ViewHolder {
-//		private LinearLayout mPanelistLinearLayout;
-		private ImageView mPanelistImageView;
+		private LinearLayout mPanelistLinearLayout;
 		private TextView mTitleTextView;
 		private TextView mSubtitleTextView;
 		private TextView mDateTextView;
@@ -92,8 +89,7 @@ public class EventosAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.eventos_adapter_item, null);
 			viewHolder = new ViewHolder();
 			
-//			viewHolder.mPanelistLinearLayout = (LinearLayout)convertView.findViewById(R.id.id_panelist_layout_eventos_adapter_item);
-			viewHolder.mPanelistImageView = (ImageView)convertView.findViewById(R.id.id_panelist_image_eventos_adapter_item);
+			viewHolder.mPanelistLinearLayout = (LinearLayout)convertView.findViewById(R.id.id_panelist_layout_eventos_adapter_item);
 			viewHolder.mTitleTextView = (TextView)convertView.findViewById(R.id.id_title_eventos_adapter_item);
 			viewHolder.mSubtitleTextView = (TextView)convertView.findViewById(R.id.id_subtitle_eventos_adapter_item);
 			viewHolder.mDateTextView = (TextView)convertView.findViewById(R.id.id_date_eventos_adapter_item);
@@ -102,16 +98,7 @@ public class EventosAdapter extends BaseAdapter {
 		} else {
 			viewHolder = (ViewHolder)convertView.getTag(); 
 		}
-		
-		// Populates adapter.
-		String imageUrl = URL + event.image_list;
-//		setUniversalImage(imageUrl, viewHolder.mPanelistLinearLayout);
-		setUniversalImage(imageUrl, viewHolder.mPanelistImageView);
-		viewHolder.mTitleTextView.setText(event.name);
-		viewHolder.mSubtitleTextView.setText(event.description);
-		viewHolder.mDateTextView.setText(formatDates(event.info_dates));
-		viewHolder.mPlaceTextView.setText(event.info_locale);
-		setFonts(viewHolder);
+		populatesAdapter(viewHolder, event);
 		
 		return convertView;
 	}
@@ -119,6 +106,83 @@ public class EventosAdapter extends BaseAdapter {
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
+	
+	/**
+	 * Populates the item adapter.
+	 * 
+	 * @param viewHolder
+	 * @param event
+	 */
+	public void populatesAdapter(ViewHolder viewHolder, Event event) {
+		// Sets the image URL.
+		String imageUrl = URL + event.image_list;
+		setLinearLayoutBitmap(viewHolder.mPanelistLinearLayout, imageUrl);
+		
+		// Sets the text views.
+		viewHolder.mTitleTextView.setText(event.name);
+		cutSubtitleText(viewHolder, event.name, event.description);
+		viewHolder.mDateTextView.setText(formatDates(event.info_dates));
+		
+		// Cuts the info locale.
+		String locale = event.info_locale;
+		if (locale.length() > 20) {
+			locale = locale.substring(0, 20);
+		}
+		viewHolder.mPlaceTextView.setText(locale + "...");
+		
+		// Sets the fonts.
+		setFonts(viewHolder);
+	}
+	
+	/**
+	 * Cuts the subtitle text.
+	 * 
+	 * @param viewHolder
+	 * @param title
+	 * @param subtitle
+	 */
+	public void cutSubtitleText(ViewHolder viewHolder, String title, String subtitle) {
+		Integer titleSize = title.length();
+		Integer subtitleSize = subtitle.length();
+		String cuttedText = subtitle;
+		
+		// Cuts the subtitle.
+		if (titleSize < 20) {
+			if (subtitleSize > 40) {
+				cuttedText = subtitle.substring(0, 40);
+			}
+		} else if (titleSize > 20 && titleSize < 30) {
+			if (subtitleSize > 30) {
+				cuttedText = subtitle.substring(0, 30);
+			}
+		} else if (titleSize > 30 && titleSize < 40) {
+			if (subtitleSize > 30) {
+				cuttedText = subtitle.substring(0, 25);
+			}
+		} else if (titleSize > 40) {
+			if (subtitleSize > 20) {
+				cuttedText = subtitle.substring(0, 15);
+			}
+		}
+		subtitle = cuttedText + "...";
+		viewHolder.mSubtitleTextView.setText(subtitle);
+	}
+	
+	/**
+	 * Downloads an image.
+	 * 
+	 * @param layout The layout to be updated.
+	 * @param url The image url. 
+	 */
+	public void setLinearLayoutBitmap(final LinearLayout layout, String url) {
+		DownloadAsyncTask task = new DownloadAsyncTask(url) {
+			protected void onPostExecute(Bitmap result) {
+				BitmapDrawable drawable = new BitmapDrawable(result);
+				layout.setBackgroundDrawable(drawable);
+			};
+		};
+		AsyncTaskUtils.execute(task, new String[] {});
+	}
 	
 	/**
 	* Sets fonts of all view components.
@@ -129,30 +193,6 @@ public class EventosAdapter extends BaseAdapter {
 		viewHolder.mSubtitleTextView.setTypeface(caecilia);
 		viewHolder.mDateTextView.setTypeface(caecilia);
 		viewHolder.mPlaceTextView.setTypeface(caecilia);
-	}
-	
-	/**
-	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
-	 *  
-	 * @param url The url of the image.
-	 * @param linearLayout The {@link LinearLayout} which will receive the image.
-	 */
-	@SuppressLint("NewApi")
-	public void setUniversalImage(String url, ImageView imageView) {
-//		DownloadAsyncTask task = new DownloadAsyncTask(url, linearLayout);
-//		task.execute();
-	
-//	public void setUniversalImage(String url, LinearLayout layout) {
-		// Sets image view bitmap, getting it from web or from cache. 
-		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
-		imageLoader.displayImage(url, imageView, cache);
-		
-		// Get the bitmap from the image view and put in into the image view.
-//		Bitmap bitmap = viewHolder.mPanelistImageView.getDrawingCache();
-//		Drawable drawable = new BitmapDrawable(mContext.getResources(), bitmap);
-//		layout.setBackground(drawable);
 	}
 	
 	/**
@@ -177,7 +217,6 @@ public class EventosAdapter extends BaseAdapter {
 		
 		// Apply the logic.
 		String formattedDate = "";
-		
 		if (length == 1) {
 			formattedDate = days[0] + " " + getMonth(Integer.valueOf(months[0]));
 		} else {

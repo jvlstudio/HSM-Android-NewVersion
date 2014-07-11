@@ -3,23 +3,23 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="5dp"
-    android:padding="5dp"
-    android:weightSum="2" >
+    android:padding="5dp" >
     
     <!-- Image and Titles -->
     <LinearLayout
         android:id="@+id/id_panelist_layout_eventos_adapter_item"
         android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
+    	android:layout_height="124dp"
+    	android:layout_marginRight="5dp"
     	android:orientation="horizontal"
     	android:src="@drawable/hsm_placeholder_big"
-    	android:background="@drawable/event_item_background"
-    	android:layout_weight="1" >
+    	android:background="@drawable/event_item_background" >
         
 		<ImageView
 		    android:id="@+id/id_panelist_image_eventos_adapter_item"
-	        android:layout_width="160dp"
-	        android:layout_height="120dp" />
+	        android:layout_width="124dp"
+	        android:layout_height="124dp"
+	        android:visibility="invisible" />
 	    
 	    <LinearLayout
 	        android:layout_width="match_parent"
@@ -38,7 +38,7 @@
 	            android:id="@+id/id_subtitle_eventos_adapter_item"
 	        	android:layout_width="match_parent"
 	    		android:layout_height="wrap_content"
-	    		android:textSize="18dp"
+	    		android:textSize="16dp"
 	    		android:textColor="#ffCC00"
 	            android:text="Subtítulo" />
 	    </LinearLayout>        
@@ -47,14 +47,13 @@
     <!-- Last Row -->
     <LinearLayout
         android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
+    	android:layout_height="56dp"
     	android:orientation="horizontal"
     	android:layout_marginLeft="5dp"
-    	android:layout_marginRight="5dp"
+    	android:layout_marginRight="10dp"
     	android:layout_marginBottom="5dp"
     	android:gravity="center"
     	android:background="@drawable/event_item_footer_background"
-    	android:layout_weight="1"
     	android:weightSum="5" >
         
 		<ImageView
@@ -65,7 +64,7 @@
 	        android:src="@drawable/ic_schedule" />
         <TextView
             android:id="@+id/id_date_eventos_adapter_item"
-        	android:layout_width="72dp"
+        	android:layout_width="68dp"
     		android:layout_height="wrap_content"
     		android:padding="3dp"
     		android:layout_weight="1"
