@@ -3,9 +3,7 @@ package br.com.ikomm.apps.HSM.neo;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,6 +16,9 @@ import br.ikomm.hsm.activity.PalestrantesActivity;
 import br.ikomm.hsm.model.Event;
 import br.ikomm.hsm.repo.EventRepo;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -26,7 +27,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  * DetalheEventoNeoActivity.java class.
  * Modified by Rodrigo Cericatto at July 4, 2014.
  */
-public class DetalheEventoNeoActivity extends FragmentActivity {
+public class DetalheEventoNeoActivity extends SherlockFragmentActivity {
 
 	//--------------------------------------------------
 	// Constants
@@ -55,6 +56,10 @@ public class DetalheEventoNeoActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalhe_evento);
 		
+		ActionBar action = getActionBar();
+		action.setLogo(R.drawable.hsm_logo);
+		action.setDisplayHomeAsUpEnabled(true);
+		
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null) {
 			mId = extras.getLong("id");
@@ -67,9 +72,29 @@ public class DetalheEventoNeoActivity extends FragmentActivity {
 		if (mEvent != null) {
 			loadFields();
 		}
-		ActionBar action = getActionBar();
-		action.setLogo(R.drawable.hsm_logo);		
+		
 		addListenerButton();
+	}
+	
+	//--------------------------------------------------
+	// Menu
+	//--------------------------------------------------
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu. This code adds items to the action bar.
+		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	//--------------------------------------------------

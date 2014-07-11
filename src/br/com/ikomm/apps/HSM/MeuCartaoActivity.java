@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,10 +13,26 @@ import android.widget.Toast;
 import br.ikomm.hsm.model.Cartao;
 import br.ikomm.hsm.repo.CartaoRepositorio;
 
-public class MeuCartaoActivity extends Activity {
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
-	CartaoRepositorio cartaoRepo;
+/**
+ * MeuCartaoActivity.java class.
+ * Modified by Rodrigo Cericatto at July 10, 2014.
+ */
+public class MeuCartaoActivity extends SherlockActivity {
 
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private CartaoRepositorio mCartaoRepo;
+
+	//--------------------------------------------------
+	// Activity Life Cycle
+	//--------------------------------------------------
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,10 +40,36 @@ public class MeuCartaoActivity extends Activity {
 
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
-		cartaoRepo = new CartaoRepositorio(MeuCartaoActivity.this);
+		action.setDisplayHomeAsUpEnabled(true);
+		
+		mCartaoRepo = new CartaoRepositorio(MeuCartaoActivity.this);
 		addListenerButton();
 	}
-
+	
+	//--------------------------------------------------
+	// Menu
+	//--------------------------------------------------
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
 	private void addListenerButton() {
 		findViewById(R.id.btnCriarMeuCartao).setOnClickListener( new OnClickListener() {
 			@Override
@@ -66,11 +107,11 @@ public class MeuCartaoActivity extends Activity {
 					meuCartao.website = website.getText().toString();
 
 					// Refreshes list.
-					List<Cartao> lista = cartaoRepo.getMeusContatos();
+					List<Cartao> lista = mCartaoRepo.getMeusContatos();
 					if (lista == null) {
 						lista = new ArrayList<Cartao>();
 						lista.add(meuCartao);
-						cartaoRepo.setMeusContatos(lista);
+						mCartaoRepo.setMeusContatos(lista);
 					}
 					Intent intent = new Intent(MeuCartaoActivity.this, ListaNetworkingActivity.class);
 					startActivity(intent);

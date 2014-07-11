@@ -37,8 +37,8 @@ public class PacoteAdapter extends BaseAdapter {
 	
 	public PacoteAdapter(Activity activity, Context context, int id) {
 		super();
-		mInflater = LayoutInflater.from(activity);
 		
+		mInflater = LayoutInflater.from(activity);
 		mPasseRepo = new PasseRepo(context);
 		mPasseRepo.open();
 		mPasseList = mPasseRepo.byEvent(id);
@@ -55,8 +55,8 @@ public class PacoteAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
-		return position;
+	public Passe getItem(int position) {
+		return mPasseList.get(position);
 	}
 
 	@Override
@@ -70,23 +70,23 @@ public class PacoteAdapter extends BaseAdapter {
 		View view = convertView;
 		view = mInflater.inflate(R.layout.adapter_pacote, parent, false);
 		
-		Passe item = mPasseList.get(position);
-
+		Passe item = getItem(position);
+		
 		TextView titulo = (TextView) view.findViewById(R.id.tTituloPacote);
 		// Event name.
-		if (!StringUtils.isEmpty(item.event_name)) {
-			if (item.event_name.length() > 20) {
-				titulo.setText(item.event_name.subSequence(0, 19));
+		if (!StringUtils.isEmpty(item.name)) {
+			if (item.name.length() > 20) {
+				titulo.setText(item.name.subSequence(0, 19));
 			} else {
-				titulo.setText(item.event_name);
+				titulo.setText(item.name);
 				titulo.setText("< Cadastrar T’tulo do Evento >");
 			}
 		}
 
 		// Valid To.
 		TextView validade = (TextView) view.findViewById(R.id.tValidade);
-		if (!StringUtils.isEmpty(item.valid_to)) {
-			validade.setText(item.valid_to);
+		if (!StringUtils.isEmpty(item.description)) {
+			validade.setText(item.description);
 			validade.setText("< Cadastrar Validade >");
 		}
 
@@ -110,7 +110,7 @@ public class PacoteAdapter extends BaseAdapter {
 		
 		// Pass Color.
 		FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.framePasseDescricao);
-		if (item.color.equals("green")){
+		if (item.color.equals("green")) {
 			frameLayout.setBackgroundColor(Color.parseColor("#00a180"));
 		}
 		if (item.color.equals("gold")){

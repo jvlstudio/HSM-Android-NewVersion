@@ -3,7 +3,6 @@
     <!-- the theme applied to the application or activity -->
     <style name="CustomActionBarTheme"
            parent="@style/Theme.Sherlock.Light.DarkActionBar">
-        
     </style>
 
     <!-- ActionBar styles -->

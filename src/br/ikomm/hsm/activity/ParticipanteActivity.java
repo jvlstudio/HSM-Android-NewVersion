@@ -1,17 +1,16 @@
 package br.ikomm.hsm.activity;
 
-import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.model.Participante;
-import br.ikomm.hsm.util.StringUtils;
-import android.os.Bundle;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
+import br.com.ikomm.apps.HSM.R;
+import br.ikomm.hsm.model.Participante;
+import br.ikomm.hsm.util.StringUtils;
 
 /**
  * ParticipanteActivity.java class.
@@ -38,6 +37,7 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
+		action.setDisplayHomeAsUpEnabled(true);
 
 		findViewById(R.id.btnVoltar).setOnClickListener(this);
 		Intent intent = getIntent();

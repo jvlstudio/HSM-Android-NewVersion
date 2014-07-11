@@ -1,7 +1,6 @@
 package br.com.ikomm.apps.HSM.neo;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +17,9 @@ import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Book;
 import br.ikomm.hsm.repo.BookRepo;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -26,7 +28,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  * DetalheLivroActivity.java class.
  * Modified by Rodrigo Cericatto at July 10, 2014.
  */
-public class DetalheLivroActivity extends Activity {
+public class DetalheLivroActivity extends SherlockActivity {
 
 	//--------------------------------------------------
 	// Attributes
@@ -45,6 +47,8 @@ public class DetalheLivroActivity extends Activity {
 		
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
+		action.setDisplayHomeAsUpEnabled(true);
+		
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null){
 			mLivroId = extras.getLong("id");
@@ -54,7 +58,28 @@ public class DetalheLivroActivity extends Activity {
 			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
-
+	
+	//--------------------------------------------------
+	// Menu
+	//--------------------------------------------------
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu. This code adds items to the action bar.
+		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 	//--------------------------------------------------
 	// Fragment
 	//--------------------------------------------------

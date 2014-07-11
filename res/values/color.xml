@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="hsm_color_gray_normal">#2F2F3E</color>
+    <color name="hsm_color_gray_clicked">#23232F</color>
+    <color name="hsm_color_purple_normal">#481F77</color>
+    <color name="hsm_color_purple_clicked">#311F46</color>
+    <color name="hsm_color_blue_normal">#0088DD</color>
+    <color name="hsm_color_blue_clicked">#336699</color>
+</resources>

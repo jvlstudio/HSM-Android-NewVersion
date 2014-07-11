@@ -1,17 +1,31 @@
 package br.ikomm.hsm.services;
 
-import java.util.Date;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * DatabaseManager.java class.
+ * Modified by Rodrigo Cericatto at July 10, 2014.
+ */
 public class DatabaseManager extends SQLiteOpenHelper{
-	 
-	private static DatabaseManager sInstance;
+	
+	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+
 	private static final String DATABASE_NAME = "hsm.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final Integer DATABASE_VERSION = 1;
+	
+	//--------------------------------------------------
+	// Statics
+	//--------------------------------------------------
+	
+	private static DatabaseManager sInstance;
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
 	
 	/*
 	 * CAMPOS TABELA AGENDA
@@ -30,8 +44,8 @@ public class DatabaseManager extends SQLiteOpenHelper{
 	 * [12] - image
 	 */
 	 private static final String DATABASE_AGENDA = "create table agenda(_id integer primary key autoincrement, id integer, "
-	 		+ "type text, event_id integer, panelist_id integer, date integer, date_start text, date_end text, theme_title text, theme_description text, "
-	 		+ "label text, sublabel text, image text);";
+ 		+ "type text, event_id integer, panelist_id integer, date integer, date_start text, date_end text, theme_title text, theme_description text, "
+ 		+ "label text, sublabel text, image text);";
 	 
 	 /*
 	  * CAMPOS TABELA BOOK
@@ -45,7 +59,7 @@ public class DatabaseManager extends SQLiteOpenHelper{
 	  * [7] - link
 	  */
 	 private static final String DATABASE_BOOK = "create table book(_id integer primary key autoincrement, id integer, name text, picture text, "
-	 		+ "description text, author_name text, author_description text, link text);";
+ 		+ "description text, author_name text, author_description text, link text);";
 	 	
 	 /*
 	  * CAMPOS TABELA EVENT
@@ -62,7 +76,7 @@ public class DatabaseManager extends SQLiteOpenHelper{
 	  * [10] - image_single
 	  */
 	 private static final String DATABASE_EVENT = "create table event(_id integer primary key autoincrement, id integer, name text, slug text, "
-	 		+ "description text, tiny_description text, info_dates text, info_hours text, info_locale text, image_list text, image_single text);";
+ 		+ "description text, tiny_description text, info_dates text, info_hours text, info_locale text, image_list text, image_single text);";
 
 	 /*
 	  * CAMPOS TABELA HOME
@@ -80,8 +94,8 @@ public class DatabaseManager extends SQLiteOpenHelper{
 	  * [11] - books_image_android
 	  */
 	 private static final String DATABASE_HOME = "create table home(_id integer primary key autoincrement, id integer, events_title text, events_image_android text, "
-	 		+ "education_title text, education_image_android text, videos_title text, videos_image_android text, magazines_title text, "
-	 		+ "magazines_image_android text, books_title text, books_image_android text);";
+ 		+ "education_title text, education_image_android text, videos_title text, videos_image_android text, magazines_title text, "
+ 		+ "magazines_image_android text, books_title text, books_image_android text);";
 		
 	 /*
 	  * CAMPOS TABELA MAGAZINE
@@ -93,7 +107,7 @@ public class DatabaseManager extends SQLiteOpenHelper{
 	  * [5] - link
 	  */
 	 private static final String DATABASE_MAGAZINE = "create table magazine(_id integer primary key autoincrement, id integer, name text, "
-	 		+ "picture text, description text, link text);";
+ 		+ "picture text, description text, link text);";
 	 
 	 /*
 	  * CAMPOS TABELA PANELIST
@@ -105,31 +119,28 @@ public class DatabaseManager extends SQLiteOpenHelper{
 	  * [5] - picture
 	  */
 	 private static final String DATABASE_PANELIST = "create table panelist(_id integer primary key autoincrement, id integer, name text, "
-	 		+ "slug text, description text, picture text);";
+ 		+ "slug text, description text, picture text);";
 	 
 	 /*
 	  * CAMPOS TABELA PASSE
 	  * [0] - _id
 	  * [1] - id
 	  * [2] - event_id
-	  * [3] - event_name
-	  * [4] - event_slug
-	  * [5] - color
-	  * [6] - name
-	  * [7] - slug
-	  * [8] - price_from
-	  * [9] - price_to
-	  * [10] - valid_to
-	  * [11] - email
-	  * [12] - description
-	  * [13] - days
-	  * [14] - mDates
-	  * [15] - show_dates
-	  * [16] - is_multiple
+	  * [3] - color
+	  * [4] - name
+	  * [5] - slug
+	  * [6] - price_from
+	  * [7] - price_to
+	  * [8] - valid_to
+	  * [9] - email
+	  * [10] - description
+	  * [11] - days
+	  * [12] - show_dates
+	  * [13] - is_multiple
 	  */
 	 private static final String DATABASE_PASSE = "create table passe(_id integer primary key autoincrement, id integer, event_id integer, "
-	 		+ "event_name text, event_slug text, color text, name text, slug text, price_from text, price_to text, "
-	 		+ "valid_to text, email text, description text, days text, mDates text, show_dates text, is_multiple text);";
+ 		+ "color text, name text, slug text, price_from text, price_to text, "
+ 		+ "valid_to text, email text, description text, days text, show_dates text, is_multiple text);";
 	  
 	public static DatabaseManager getInstance(Context context){
 		if (sInstance == null){
@@ -141,12 +152,10 @@ public class DatabaseManager extends SQLiteOpenHelper{
 	 
 	private DatabaseManager(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
 		db.execSQL(DATABASE_AGENDA);
 		db.execSQL(DATABASE_BOOK);
 		db.execSQL(DATABASE_EVENT);

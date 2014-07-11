@@ -3,8 +3,6 @@ package br.ikomm.hsm.activity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -16,11 +14,15 @@ import br.ikomm.hsm.model.Passe;
 import br.ikomm.hsm.repo.PasseRepo;
 import br.ikomm.hsm.util.WebServiceCommunication;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 /**
  * PagamentoActivity.java class.
  * Modified by Rodrigo Cericatto at July 4, 2014.
  */
-public class PagamentoActivity extends FragmentActivity {
+public class PagamentoActivity extends SherlockFragmentActivity {
 
 	//--------------------------------------------------
 	// Attributes
@@ -73,6 +75,7 @@ public class PagamentoActivity extends FragmentActivity {
 
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
+		action.setDisplayHomeAsUpEnabled(true);
 
 		ImageView imgView = (ImageView) findViewById(R.id.imgPagamento);
 		TextView tData = (TextView) findViewById(R.id.lbDias);
@@ -98,6 +101,26 @@ public class PagamentoActivity extends FragmentActivity {
 		addListenerOnButton();
 	}
 
+	//--------------------------------------------------
+	// Menu
+	//--------------------------------------------------
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 	//--------------------------------------------------
 	// Listeners
 	//--------------------------------------------------

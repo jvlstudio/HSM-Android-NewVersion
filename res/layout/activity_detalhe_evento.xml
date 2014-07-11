@@ -1,5 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/hsm_background" >
@@ -7,13 +6,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".DetalheEventoActivity" >
+        android:orientation="vertical" >
 
         <ImageView
             android:id="@+id/imgEventoDet"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:src="@drawable/hsm_placeholder_small" />
 
@@ -52,18 +50,21 @@ HSM ExpoManagement: o encontro de conhecimento em gestão que traz as melhores o
                 android:textColor="#FFFFFF" />
         </FrameLayout>
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_margin="10dp"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:weightSum="2" >
 
             <Button
                 android:id="@+id/btnPalestrante"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="20dp"
                 android:layout_gravity="right|bottom"
-                android:background="@drawable/hsm_bt_tiny_clear"
+                android:background="@drawable/button_background_behavior"
                 android:padding="10dp"
                 android:text="@string/palestrantes"
                 android:textColor="#FFFFFF" />
@@ -72,19 +73,23 @@ HSM ExpoManagement: o encontro de conhecimento em gestão que traz as melhores o
                 android:id="@+id/btnAgenda"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/hsm_bt_tiny_clear"
+                android:layout_weight="1"
+                android:background="@drawable/button_background_behavior"
                 android:padding="10dp"
                 android:text="@string/agenda"
                 android:textColor="#FFFFFF" />
-        </FrameLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnPasses"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:background="@drawable/hsm_bt_large_purple"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_passe_background_behavior"
             android:text="@string/passes"
             android:textColor="#FFFFFF" />
 

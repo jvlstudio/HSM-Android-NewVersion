@@ -105,7 +105,7 @@ public class WSCommunication {
 
 			String responseBody = reader.readLine();
 			AgendaWS list = gson.fromJson(responseBody, AgendaWS.class);
-//			AgendaWS list = gson.fromJson(SplashScreenActivity.FAKE_AGENDA_JSON, AgendaWS.class);
+//			AgendaWS list = mGson.fromJson(SplashScreenActivity.FAKE_AGENDA_JSON, AgendaWS.class);
 
 			return list;
 		} catch (Exception ex) {

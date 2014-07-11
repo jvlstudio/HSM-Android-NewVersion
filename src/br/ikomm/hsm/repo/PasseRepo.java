@@ -3,7 +3,6 @@ package br.ikomm.hsm.repo;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,34 +11,54 @@ import android.database.sqlite.SQLiteDatabase;
 import br.ikomm.hsm.model.Passe;
 import br.ikomm.hsm.services.DatabaseManager;
 
+/**
+ * PasseRepo.java class.
+ * Modified by Rodrigo Cericatto at July 10, 2014.
+ */
 public class PasseRepo {
-	private final Context Ctx;
+	
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private final Context mContext;
 	private SQLiteDatabase mDb;
 	private DatabaseManager mDbManager;
 	
+	//--------------------------------------------------
+	// Constructor
+	//--------------------------------------------------
 	
 	public PasseRepo(Context context) {
 		super();
-		this.Ctx = context;
+		mContext = context;
 	}
 	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
 	public PasseRepo open() throws SQLException{
-		this.mDbManager = DatabaseManager.getInstance(this.Ctx);
-		this.mDb = this.mDbManager.getWritableDatabase();
+		mDbManager = DatabaseManager.getInstance(mContext);
+		mDb = mDbManager.getWritableDatabase();
 		return this;
 	}
 	
 	public void close(){
-		this.mDbManager.close();
+		mDbManager.close();
 	}
 	
-	// insert 
+	/**
+	 * Insert a {@link Passe}.
+	 * 
+	 * @param passe
+	 * 
+	 * @return
+	 */
 	public long insertPasse(Passe passe) {
 		ContentValues value = new ContentValues();
 		value.put("id", passe.id);
 		value.put("event_id", passe.event_id);
-		value.put("event_name", passe.event_name);
-		value.put("event_slug", passe.event_slug);
 		value.put("color", passe.color);
 		value.put("name", passe.name);
 		value.put("slug", passe.slug);
@@ -49,119 +68,131 @@ public class PasseRepo {
 		value.put("email", passe.email);
 		value.put("description", passe.description);
 		value.put("days", passe.days);
-		value.put("mDates", passe.dates);
 		value.put("show_dates", passe.show_dates);
 		value.put("is_multiple", passe.is_multiple);
-		return this.mDb.insert("passe", null, value);
+		return mDb.insert("passe", null, value);
 	}
 	
-	// getAll
+	/**
+	 * Get all occurrences of a {@link Passe}.
+	 * 
+	 * @return
+	 */
 	public List<Passe> getAllPasse() {
 		List<Passe> passes = new ArrayList<Passe>();
-		Passe _passe;
+		Passe passe;
 		
-		Cursor mCursor = this.mDb.query("passe", null, null, null, null, null, null);
-		
-		if(mCursor.getCount() > 0) {
+		Cursor mCursor = mDb.query("passe", null, null, null, null, null, null);
+		if (mCursor.getCount() > 0) {
 			while (mCursor.moveToNext()) {
-				_passe = new Passe();
-				_passe.id = mCursor.getInt(1);
-				_passe.event_id = mCursor.getInt(2);
-				_passe.event_name = mCursor.getString(3);
-				_passe.event_slug = mCursor.getString(4);
-				_passe.color = mCursor.getString(5);
-				_passe.name = mCursor.getString(6);
-				_passe.slug = mCursor.getString(7);
-				_passe.price_from = mCursor.getString(8);
-				_passe.price_to = mCursor.getString(9);
-				_passe.valid_to = mCursor.getString(10);
-				_passe.email = mCursor.getString(11);
-				_passe.description = mCursor.getString(12);
-				_passe.days = mCursor.getString(13);
-				_passe.dates = mCursor.getString(14);
-				_passe.show_dates = mCursor.getString(15);
-				_passe.is_multiple = mCursor.getString(16);
-				passes.add(_passe);
+				passe = new Passe();
+				passe.id = mCursor.getInt(1);
+				passe.event_id = mCursor.getInt(2);
+				passe.color = mCursor.getString(3);
+				passe.name = mCursor.getString(4);
+				passe.slug = mCursor.getString(5);
+				passe.price_from = mCursor.getString(6);
+				passe.price_to = mCursor.getString(7);
+				passe.valid_to = mCursor.getString(8);
+				passe.email = mCursor.getString(9);
+				passe.description = mCursor.getString(10);
+				passe.days = mCursor.getString(11);
+				passe.show_dates = mCursor.getString(12);
+				passe.is_multiple = mCursor.getString(13);
+				passes.add(passe);
 			}
 		}
-		
 		return passes;
 	}
 	
-	// byEvent
-	public List<Passe> byEvent(long event_id) {
+	/**
+	 * Search a {@link Passe} by an {@link Event}.
+	 * 
+	 * @param eventId
+	 * 
+	 * @return
+	 */
+	public List<Passe> byEvent(long eventId) {
 		List<Passe> passes = new ArrayList<Passe>();
-		Passe _passe;
+		Passe passe;
 			
-		Cursor mCursor = this.mDb.query("passe", null, "event_id = "+event_id, null, null, null, null);
+		Cursor mCursor = mDb.query("passe", null, "event_id = " + eventId, null, null, null, null);
 			
-		if(mCursor.getCount() > 0) {
+		if (mCursor.getCount() > 0) {
 			while (mCursor.moveToNext()) {
-				_passe = new Passe();
-				_passe.id = mCursor.getInt(1);
-				_passe.event_id = mCursor.getInt(2);
-				_passe.event_name = mCursor.getString(3);
-				_passe.event_slug = mCursor.getString(4);
-				_passe.color = mCursor.getString(5);
-				_passe.name = mCursor.getString(6);
-				_passe.slug = mCursor.getString(7);
-				_passe.price_from = mCursor.getString(8);
-				_passe.price_to = mCursor.getString(9);
-				_passe.valid_to = mCursor.getString(10);
-				_passe.email = mCursor.getString(11);
-				_passe.description = mCursor.getString(12);
-				_passe.days = mCursor.getString(13);
-				_passe.dates = mCursor.getString(14);
-				_passe.show_dates = mCursor.getString(15);
-				_passe.is_multiple = mCursor.getString(16);
-				passes.add(_passe);
+				passe = new Passe();
+				passe.id = mCursor.getInt(1);
+				passe.event_id = mCursor.getInt(2);
+				passe.color = mCursor.getString(3);
+				passe.name = mCursor.getString(4);
+				passe.slug = mCursor.getString(5);
+				passe.price_from = mCursor.getString(6);
+				passe.price_to = mCursor.getString(7);
+				passe.valid_to = mCursor.getString(8);
+				passe.email = mCursor.getString(9);
+				passe.description = mCursor.getString(10);
+				passe.days = mCursor.getString(11);
+				passe.show_dates = mCursor.getString(12);
+				passe.is_multiple = mCursor.getString(13);
+				passes.add(passe);
 			}
 		}
-			
 		return passes;
 	}
 	
-	// getSingle
+	/**
+	 * Gets a single {@link Passe}.
+	 *  
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
 	public Passe getPasse(long id) throws SQLException {
-		Passe _passe = new Passe();
+		Passe passe = new Passe();
 		
-		Cursor mCursor = this.mDb.query("passe", null, "id = " +id, null, null, null, null);
+		Cursor mCursor = mDb.query("passe", null, "id = " + id, null, null, null, null);
 		
-		if(mCursor.getCount() > 0) {
+		if (mCursor.getCount() > 0) {
 			while (mCursor.moveToNext()) {
-				_passe.id = mCursor.getInt(1);
-				_passe.event_id = mCursor.getInt(2);
-				_passe.event_name = mCursor.getString(3);
-				_passe.event_slug = mCursor.getString(4);
-				_passe.color = mCursor.getString(5);
-				_passe.name = mCursor.getString(6);
-				_passe.slug = mCursor.getString(7);
-				_passe.price_from = mCursor.getString(8);
-				_passe.price_to = mCursor.getString(9);
-				_passe.valid_to = mCursor.getString(10);
-				_passe.email = mCursor.getString(11);
-				_passe.description = mCursor.getString(12);
-				_passe.days = mCursor.getString(13);
-				_passe.dates = mCursor.getString(14);
-				_passe.show_dates = mCursor.getString(15);
-				_passe.is_multiple = mCursor.getString(16);
+				passe.id = mCursor.getInt(1);
+				passe.event_id = mCursor.getInt(2);
+				passe.color = mCursor.getString(3);
+				passe.name = mCursor.getString(4);
+				passe.slug = mCursor.getString(5);
+				passe.price_from = mCursor.getString(6);
+				passe.price_to = mCursor.getString(7);
+				passe.valid_to = mCursor.getString(8);
+				passe.email = mCursor.getString(9);
+				passe.description = mCursor.getString(10);
+				passe.days = mCursor.getString(11);
+				passe.show_dates = mCursor.getString(12);
+				passe.is_multiple = mCursor.getString(13);
 			}
 		}
-		return _passe;
+		return passe;
 	}
 	
-	// delete
+	/**
+	 * Deletes a {@link Passe}.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public boolean delete(long id){
-		return this.mDb.delete("passe", "id = " +id, null) > 0;
+		return mDb.delete("passe", "id = " + id, null) > 0;
 	}
 	
-	// update
+	/**
+	 * Updates a {@link Passe}.
+	 * 
+	 * @param passe
+	 * 
+	 * @return
+	 */
 	public boolean update(Passe passe) {
 		ContentValues value = new ContentValues();
 		value.put("id", passe.id);
 		value.put("event_id", passe.event_id);
-		value.put("event_name", passe.event_name);
-		value.put("event_slug", passe.event_slug);
 		value.put("color", passe.color);
 		value.put("name", passe.name);
 		value.put("slug", passe.slug);
@@ -171,14 +202,17 @@ public class PasseRepo {
 		value.put("email", passe.email);
 		value.put("description", passe.description);
 		value.put("days", passe.days);
-		value.put("mDates", passe.dates);
 		value.put("show_dates", passe.show_dates);
 		value.put("is_multiple", passe.is_multiple);
-		return this.mDb.update("passe", value, "id = " + passe.id, null) > 0;
+		return mDb.update("passe", value, "id = " + passe.id, null) > 0;
 	}
 
+	/**
+	 * Deletes all instances of {@link Passe}.
+	 * 
+	 * @return
+	 */
 	public boolean deleteAll() {
-		// TODO Auto-generated method stub
-		return this.mDb.delete("passe", null, null) > 0;
+		return mDb.delete("passe", null, null) > 0;
 	}
 }

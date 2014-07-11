@@ -9,28 +9,50 @@ import android.database.sqlite.SQLiteDatabase;
 import br.ikomm.hsm.model.Home;
 import br.ikomm.hsm.services.DatabaseManager;
 
+/**
+ * HomeActivity.java class.
+ * Modified by Rodrigo Cericatto at July 10, 2014.
+ */
 public class HomeRepo {
-	private final Context Ctx;
+	
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private final Context mContext;
 	private SQLiteDatabase mDb;
 	private DatabaseManager mDbManager;
 	
+	//--------------------------------------------------
+	// Constructor
+	//--------------------------------------------------
 	
 	public HomeRepo(Context context) {
 		super();
-		this.Ctx = context;
+		mContext = context;
 	}
 	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
 	public HomeRepo open() throws SQLException{
-		this.mDbManager = DatabaseManager.getInstance(this.Ctx);
-		this.mDb = this.mDbManager.getWritableDatabase();
+		mDbManager = DatabaseManager.getInstance(mContext);
+		mDb = mDbManager.getWritableDatabase();
 		return this;
 	}
 	
 	public void close(){
-		this.mDbManager.close();
+		mDbManager.close();
 	}
 	
-	// insert 
+	/**
+	 * Inserts a {@link Home}.
+	 *  
+	 * @param home
+	 * 
+	 * @return
+	 */
 	public long insertHome(Home home) {
 		ContentValues value = new ContentValues();
 		value.put("id", home.id);
@@ -44,18 +66,29 @@ public class HomeRepo {
 		value.put("magazines_image_android", home.magazines_image_android);
 		value.put("books_title", home.books_title);
 		value.put("books_image_android", home.books_image_android);
-		return this.mDb.insert("home", null, value);
+		return mDb.insert("home", null, value);
 	}
 	
-	// getAll
+	/**
+	 * Gets all {@link Home}.
+	 * 
+	 * @return
+	 */
 	public Cursor getAllHome() {
-		return this.mDb.query("home", null, null, null, null, null, null);
+		return mDb.query("home", null, null, null, null, null, null);
 	}
 	
-	// getSingle
+	/**
+	 * Gets a single {@link Home}.
+	 * 
+	 * @param id
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
 	@SuppressLint("NewApi")
 	public Cursor getHome(long id) throws SQLException {
-		Cursor mCursor = this.mDb.query(true, "home", null, "id = " + id, null, null, null, null, null, null);
+		Cursor mCursor = mDb.query(true, "home", null, "id = " + id, null, null, null, null, null, null);
 		
 		 if (mCursor != null) {
 	            mCursor.moveToFirst();
@@ -63,7 +96,12 @@ public class HomeRepo {
 		 return mCursor;
 	}
 	
-	// getSingle
+	/**
+	 * Gets a single {@link Home} from a {@link Cursor}.
+	 * 
+	 * @param cursor
+	 * @return
+	 */
 	public Home getHomeFromCursor(Cursor cursor) {
 		Home home = new Home();
 		home.id = cursor.getInt(0);
@@ -80,12 +118,22 @@ public class HomeRepo {
 		return home;
 	}
 	
-	// delete
+	/**
+	 * Deletes a {@link Home}.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public boolean delete(long id){
-		return this.mDb.delete("home", "id = " +id, null) > 0;
+		return mDb.delete("home", "id = " +id, null) > 0;
 	}
 	
-	// update
+	/**
+	 * Updates a {@link Home}.
+	 * 
+	 * @param home
+	 * @return
+	 */
 	public boolean update(Home home) {
 		ContentValues value = new ContentValues();
 		value.put("id", home.id);
@@ -102,8 +150,12 @@ public class HomeRepo {
 		return this.mDb.update("home", value, "id = " + home.id, null) > 0;
 	}
 
+	/**
+	 * Deletes all instances of {@link Home}.
+	 * 
+	 * @return
+	 */
 	public boolean deleteAll() {
-		// TODO Auto-generated method stub
-		return this.mDb.delete("home", null, null) > 0;
+		return mDb.delete("home", null, null) > 0;
 	}
 }

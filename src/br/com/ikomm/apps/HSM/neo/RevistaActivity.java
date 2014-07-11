@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
@@ -22,12 +21,23 @@ import br.ikomm.hsm.adapter.RevistaAdapter;
 import br.ikomm.hsm.model.Magazine;
 import br.ikomm.hsm.repo.MagazineRepo;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-public class RevistaActivity extends Activity {
+/**
+ * DetalheLivroActivity.java class.
+ * Modified by Rodrigo Cericatto at July 10, 2014.
+ */
+public class RevistaActivity extends SherlockActivity {
 
+	//--------------------------------------------------
+	// Activity Life Cycle
+	//--------------------------------------------------
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,10 +45,36 @@ public class RevistaActivity extends Activity {
 		
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
+		action.setDisplayHomeAsUpEnabled(true);
+		
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
+	
+	//--------------------------------------------------
+	// Menu
+	//--------------------------------------------------
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	//--------------------------------------------------
+	// Fragment
+	//--------------------------------------------------
 
 	/**
 	 * A placeholder fragment containing a simple view.

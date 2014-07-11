@@ -13,6 +13,8 @@ import br.ikomm.hsm.adapter.AgendaAdapter;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
 /**
  * AgendaAdapter.java class.
@@ -39,6 +41,7 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 		
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
+		action.setDisplayHomeAsUpEnabled(true);
 		
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null) {
@@ -64,6 +67,27 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 				}
 			}
 		);
+	}
+	
+	//--------------------------------------------------
+	// Menu
+	//--------------------------------------------------
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu. This code adds items to the action bar.
+		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	//--------------------------------------------------
