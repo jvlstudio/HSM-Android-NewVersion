@@ -3,8 +3,8 @@ package br.ikomm.hsm.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +22,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
- * PalestranteAdapter.java class.
- * Modified by Rodrigo Cericatto at July 4, 2014.
+ * PalestrantesGridViewAdapter.java class.
+ * 
+ * @author Rodrigo Cericatto
+ * @since July 11, 2014
  */
-public class PalestranteAdapter extends BaseAdapter {
+public class PalestrantesGridViewAdapter extends BaseAdapter {
 
 	//--------------------------------------------------
 	// Constants
@@ -38,22 +40,28 @@ public class PalestranteAdapter extends BaseAdapter {
 	//--------------------------------------------------
 	
 	private Activity mActivity;
-	private LayoutInflater mInflater;
-	
 	private List<Panelist> mPanelistList = new ArrayList<Panelist>();
 	private PanelistRepo mPanelistRepo;
 	private AgendaRepo mAgendaRepo;
 	private List<Agenda> mAgendaList = new ArrayList<Agenda>();
 	private String mAgendaData = "";
+
+	//--------------------------------------------------
+	// View Holder
+	//--------------------------------------------------
+	
+	static class ViewHolder {
+		private TextView nameTextView;
+		private ImageView pictureImageView;
+	}
 	
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public PalestranteAdapter(Activity activity, long eventId) {
+	public PalestrantesGridViewAdapter(Activity activity, long eventId) {
 		super();
 		mActivity = activity;
-		mInflater = LayoutInflater.from(activity);
 		
 		mAgendaRepo = new AgendaRepo(activity);
 		mAgendaRepo.open();
@@ -63,7 +71,7 @@ public class PalestranteAdapter extends BaseAdapter {
 			if (mAgendaData.isEmpty()) {
 				mAgendaData = String.valueOf(item.panelist_id);
 			} else {
-				mAgendaData = mAgendaData + "," + String.valueOf(item.panelist_id);
+				mAgendaData += "," + String.valueOf(item.panelist_id);
 			}
 		}
 		mAgendaRepo.close();
@@ -72,7 +80,7 @@ public class PalestranteAdapter extends BaseAdapter {
 		mPanelistList = mPanelistRepo.getAllbyEvent(mAgendaData);
 		mPanelistRepo.close();
 	}
-	
+
 	//--------------------------------------------------
 	// Adapter
 	//--------------------------------------------------
@@ -93,20 +101,31 @@ public class PalestranteAdapter extends BaseAdapter {
 		return item.id;
 	}
 
-	@SuppressLint({ "ViewHolder", "InflateParams" })
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.adapter_palestrante, null);
-		TextView name = (TextView) view.findViewById(R.id.nomePalestrante);
-		 
+		ViewHolder viewHolder = new ViewHolder();
+
+		if (convertView == null) {
+			// Sets layout.
+			LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.adapter_palestrante, parent, false);
+
+			// Set views.
+			viewHolder.nameTextView = (TextView)convertView.findViewById(R.id.nomePalestrante);
+			viewHolder.pictureImageView = (ImageView)convertView.findViewById(R.id.imagemPalestrante);
+			convertView.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder)convertView.getTag();
+		}
+		
+		// Gets data.
 		Panelist panelist = mPanelistList.get(position);
-		name.setText(panelist.name);
-		
-		// Creates URL fr the image.
+		viewHolder.nameTextView.setText(panelist.name);
+
+		// Creates URL for the image.
 		String completeUrl = URL + panelist.picture;
-		setUniversalImage(completeUrl, view);
+		setUniversalImage(completeUrl, viewHolder.pictureImageView);
 		
-		return view;
+		return convertView;
 	}
 	
 	//--------------------------------------------------
@@ -119,8 +138,7 @@ public class PalestranteAdapter extends BaseAdapter {
 	 * @param url The url of the image.
 	 * @param imageView The {@link ImageView} which will receive the image.
 	 */
-	public void setUniversalImage(String url, View view) {
-		ImageView imageView = (ImageView)view.findViewById(R.id.imagemPalestrante);
+	public void setUniversalImage(String url, ImageView imageView) {
 		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.init(ImageLoaderConfiguration.createDefault(mActivity));

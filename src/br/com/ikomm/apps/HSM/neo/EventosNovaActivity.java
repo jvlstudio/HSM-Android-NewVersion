@@ -62,7 +62,6 @@ public class EventosNovaActivity extends SherlockActivity implements OnItemClick
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu. This code adds items to the action bar.
 		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
 		return true;
 	}
@@ -81,6 +80,7 @@ public class EventosNovaActivity extends SherlockActivity implements OnItemClick
 	// Listeners
 	//--------------------------------------------------
 
+	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent intent = new Intent(this, DetalheEventoNeoActivity.class);
 		intent.putExtra("id", id);

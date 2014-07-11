@@ -1,11 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listaPalestrantes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/hsm_bg_c_blur"
-    android:orientation="vertical" >
-    
-    <ListView 
-        android:id="@+id/listaPalestrantes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>        
-</LinearLayout>
+    android:columnWidth="150dp"
+    android:gravity="center"
+    android:numColumns="3"
+    android:stretchMode="columnWidth">
+</GridView>

@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import android.widget.GridView;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.adapter.PalestranteAdapter;
+import br.ikomm.hsm.adapter.PalestrantesGridViewAdapter;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -43,7 +43,7 @@ public class PalestrantesActivity extends SherlockActivity implements OnItemClic
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
 		action.setDisplayHomeAsUpEnabled(true);
-		carregarCampos();
+		loadGridView();
 	}
 	
 	//--------------------------------------------------
@@ -52,7 +52,6 @@ public class PalestrantesActivity extends SherlockActivity implements OnItemClic
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu. This code adds items to the action bar.
 		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
 		return true;
 	}
@@ -71,14 +70,17 @@ public class PalestrantesActivity extends SherlockActivity implements OnItemClic
 	// Methods
 	//--------------------------------------------------
 	
-	private void carregarCampos() {
-		ListView lista = (ListView) findViewById(R.id.listaPalestrantes);
-		lista.setAdapter(new PalestranteAdapter(this, mEventId));
-		lista.setOnItemClickListener(this);
+	/**
+	 * Loads the {@link GridView}.
+	 */
+	private void loadGridView() {
+		GridView gridView = (GridView)findViewById(R.id.listaPalestrantes);
+		gridView.setAdapter(new PalestrantesGridViewAdapter(this, mEventId));
+		gridView.setOnItemClickListener(this);
 	}
 	
 	//--------------------------------------------------
-	// Liste
+	// Listeners
 	//--------------------------------------------------
 	
 	@Override
