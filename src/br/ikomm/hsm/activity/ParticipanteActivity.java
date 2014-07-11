@@ -3,7 +3,6 @@ package br.ikomm.hsm.activity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -12,11 +11,15 @@ import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Participante;
 import br.ikomm.hsm.util.StringUtils;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 /**
  * ParticipanteActivity.java class.
  * Modified by Rodrigo Cericatto at July 4, 2014.
  */
-public class ParticipanteActivity extends FragmentActivity implements OnClickListener {
+public class ParticipanteActivity extends SherlockFragmentActivity implements OnClickListener {
 
 	//--------------------------------------------------
 	// Attributes
@@ -43,6 +46,27 @@ public class ParticipanteActivity extends FragmentActivity implements OnClickLis
 		Intent intent = getIntent();
 		mVariavelBanner = intent.getIntExtra("var", -1);
 		mEventId = intent.getLongExtra("event_id", -1);
+	}
+
+	//--------------------------------------------------
+	// Menu
+	//--------------------------------------------------
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu. This code adds items to the action bar.
+		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	//--------------------------------------------------

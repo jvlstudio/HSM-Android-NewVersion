@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Passe;
@@ -71,7 +71,6 @@ public class PacoteAdapter extends BaseAdapter {
 		view = mInflater.inflate(R.layout.adapter_pacote, parent, false);
 		
 		Passe item = getItem(position);
-		
 		TextView titulo = (TextView) view.findViewById(R.id.tTituloPacote);
 		// Event name.
 		if (!StringUtils.isEmpty(item.name)) {
@@ -79,14 +78,16 @@ public class PacoteAdapter extends BaseAdapter {
 				titulo.setText(item.name.subSequence(0, 19));
 			} else {
 				titulo.setText(item.name);
-				titulo.setText("< Cadastrar T’tulo do Evento >");
 			}
+		} else {
+			titulo.setText("< Cadastrar T’tulo do Evento >");
 		}
 
 		// Valid To.
 		TextView validade = (TextView) view.findViewById(R.id.tValidade);
 		if (!StringUtils.isEmpty(item.description)) {
 			validade.setText(item.description);
+		} else {
 			validade.setText("< Cadastrar Validade >");
 		}
 
@@ -105,19 +106,20 @@ public class PacoteAdapter extends BaseAdapter {
 		TextView precoApp = (TextView) view.findViewById(R.id.tValor);
 		if (!StringUtils.isEmpty(item.price_to)) {
 			precoApp.setText("R$ " + item.price_to);
+		} else {
 			precoNormal.setText("< Cadastrar Preo Novo >");
 		}
 		
 		// Pass Color.
-		FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.framePasseDescricao);
+		LinearLayout layout = (LinearLayout)view.findViewById(R.id.id_linear_layout);
 		if (item.color.equals("green")) {
-			frameLayout.setBackgroundColor(Color.parseColor("#00a180"));
+			layout.setBackgroundColor(Color.parseColor("#00a180"));
 		}
 		if (item.color.equals("gold")){
-			frameLayout.setBackgroundColor(Color.parseColor("#dca85c"));
+			layout.setBackgroundColor(Color.parseColor("#dca85c"));
 		}
 		if (item.color.equals("red")){
-			frameLayout.setBackgroundColor(Color.parseColor("#d04840"));
+			layout.setBackgroundColor(Color.parseColor("#d04840"));
 		}
 		return view;
 	}
