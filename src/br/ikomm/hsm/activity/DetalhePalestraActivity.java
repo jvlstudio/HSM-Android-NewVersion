@@ -2,9 +2,9 @@ package br.ikomm.hsm.activity;
 
 import android.app.ActionBar;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,11 +14,18 @@ import br.ikomm.hsm.model.Panelist;
 import br.ikomm.hsm.repo.AgendaRepo;
 import br.ikomm.hsm.repo.PanelistRepo;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 /**
  * DetalhePalestraActivity.java class.
  * Modified by Rodrigo Cericatto at July 9, 2014.
  */
-public class DetalhePalestraActivity extends FragmentActivity {
+public class DetalhePalestraActivity extends SherlockFragmentActivity implements OnClickListener {
 	
 	//--------------------------------------------------
 	// Attributes
@@ -26,10 +33,12 @@ public class DetalhePalestraActivity extends FragmentActivity {
 	
 	private Long mPanelistId;
 	private int mEventId = 0;
-	private Panelist mPanelist;
-	private Agenda mAgenda;
+	
 	private PanelistRepo mPanelistRepo;
+	private Panelist mPanelist;
+	
 	private AgendaRepo mAgendaRepo;
+	private Agenda mAgenda;
 	
 	//--------------------------------------------------
 	// Attributes
@@ -40,7 +49,6 @@ public class DetalhePalestraActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalhe_palestra);
 
-		addListenerOnButton();
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null){
 			mPanelistId = extras.getLong("panelist_id");
@@ -56,20 +64,63 @@ public class DetalhePalestraActivity extends FragmentActivity {
 			mAgendaRepo.open();
 			mAgenda = mAgendaRepo.detailAgenda(mPanelistId, mEventId);
 			
-			if(mPanelist != null){
-				carregaCampos();
+			if (mPanelist != null) {
+				loadFields();
 			}
 			mAgendaRepo.close();
 			mPanelistRepo.close();
+			
+			// Sets ActionBar.
+			ActionBar action = getActionBar();
+			action.setLogo(R.drawable.hsm_logo);
+			action.setTitle(mPanelist.name);
+			action.setDisplayHomeAsUpEnabled(true);
 		}
+	}
+	
+	//--------------------------------------------------
+	// Menu
+	//--------------------------------------------------
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
 	
-	private void carregaCampos() {
+	/**
+	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 *  
+	 * @param url The url of the image.
+	 * @param imageView The {@link ImageView} which will receive the image.
+	 */
+	public void setUniversalImage(String url, ImageView imageView) {
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
+		imageLoader.displayImage(url, imageView, cache);
+	}
+	
+	/**
+	 * Load fields.
+	 */
+	private void loadFields() {
 		ImageView imagem = (ImageView) findViewById(R.id.imgPalestranteDetalhe);
+		setUniversalImage("http://static.tumblr.com/4f4c4d16d483a9db26dd3617ac92601b/c3ujeqe/mk7myuhwp/tumblr_static_istock-potato.jpg", imagem);
 
 		TextView nomePalestrante = (TextView) findViewById(R.id.tDetNomePalestrante);
 		nomePalestrante.setText(mPanelist.name);
@@ -81,10 +132,9 @@ public class DetalhePalestraActivity extends FragmentActivity {
 		String[] dt_start = mAgenda.date_start.split(" ");
 		String[] dt_end = mAgenda.date_end.split(" ");
 		String[] date_start_format = dt_start[0].split("-"); 
-		dt_start[0] = date_start_format[2]+"/"+date_start_format[1]+"/"+date_start_format[0];
+		dt_start[0] = date_start_format[2]  +"/" + date_start_format[1]  +"/" + date_start_format[0];
 		String[] date_end_format = dt_end[0].split("-");
-		dt_end[0] = date_end_format[2]+"/"+date_end_format[1]+"/"+date_end_format[0];
-		
+		dt_end[0] = date_end_format[2] + "/"+date_end_format[1]+"/" + date_end_format[0];
 
 		TextView data = (TextView) findViewById(R.id.tDetData);
 		data.setText(dt_start[0] + " - " + dt_end[0]);
@@ -98,24 +148,12 @@ public class DetalhePalestraActivity extends FragmentActivity {
 		TextView content = (TextView) findViewById(R.id.tDetalhesPalestra);
 		content.setText(mAgenda.theme_description);
 		
-		ActionBar action = getActionBar();
-		action.setLogo(R.drawable.hsm_logo);
-		action.setTitle(mPanelist.name);
+		Button scheduleButton = (Button)findViewById(R.id.btnAgendar);
+		scheduleButton.setOnClickListener(this);
 	}
 
-	private void addListenerOnButton() {
-		findViewById(R.id.btnAgendar).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-//				addEvent();
-				Toast.makeText(DetalhePalestraActivity.this, "Palestra agendada com sucesso", Toast.LENGTH_SHORT).show();
-			}
-		});
-	}
-	
 	/**
 	 * REMOVIDO TEMPORARIAMENTE.
-	
 	@SuppressLint("NewApi")
 	protected void addEvent() {
 		try {
@@ -174,4 +212,13 @@ public class DetalhePalestraActivity extends FragmentActivity {
 		}
 	}
 	 */
+	
+	//--------------------------------------------------
+	// Listeners
+	//--------------------------------------------------
+	
+	@Override
+	public void onClick(View view) {
+		Toast.makeText(DetalhePalestraActivity.this, "Palestra agendada com sucesso", Toast.LENGTH_SHORT).show();
+	}	
 }

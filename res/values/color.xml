@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="hsm_color_black">#000000</color>
+    <color name="hsm_color_white">#FFFFFF</color>
     
     <color name="hsm_color_gray">#4F4F5E</color>
     <color name="hsm_color_gray_dark">#484857</color>
@@ -12,4 +13,6 @@
     
     <color name="hsm_color_blue_normal">#0088DD</color>
     <color name="hsm_color_blue_clicked">#336699</color>
+    
+    <color name="hsm_color_yellow">#ECD900</color>
 </resources>

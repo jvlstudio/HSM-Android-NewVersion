@@ -144,11 +144,12 @@
 	    
 	        <Button 
 	            android:id="@+id/btnAgendar"
-	            android:layout_width="wrap_content"
+	            android:layout_width="match_parent"
 	            android:layout_height="50dp"
 	            android:layout_gravity="center"
+	            android:layout_margin="10dp"
 	            android:textColor="#FFFFFF"
-	            android:background="@drawable/hsm_bt_tiny_clear"
+	            android:background="@drawable/button_background_behavior"
 	            android:text="Agendar"/>
 		</FrameLayout>
     
