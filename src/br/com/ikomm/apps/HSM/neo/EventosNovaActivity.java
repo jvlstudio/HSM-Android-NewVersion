@@ -14,6 +14,7 @@ import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.adapter.EventosAdapter;
 import br.ikomm.hsm.model.Event;
 import br.ikomm.hsm.repo.EventRepo;
+import br.ikomm.hsm.util.FileUtils;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -30,6 +31,7 @@ public class EventosNovaActivity extends SherlockActivity implements OnItemClick
 	//--------------------------------------------------
 	
 	private ListView mListView;
+	private FileUtils mFileManager = new FileUtils();
 
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -42,18 +44,7 @@ public class EventosNovaActivity extends SherlockActivity implements OnItemClick
 		
 		ActionBar action = getActionBar();
 		action.setDisplayHomeAsUpEnabled(true);
-		
-		
-		EventRepo eventRepo = new EventRepo(getBaseContext());
-		List<Event> list = new ArrayList<Event>();
-		eventRepo.open();
-		list = eventRepo.getAllEvent();
-		eventRepo.close();
-		
-		EventosAdapter adapter = new EventosAdapter(this, list);
-		mListView = (ListView) findViewById(R.id.id_list_view);
-		mListView.setAdapter(adapter);
-		mListView.setOnItemClickListener(this);
+		setAdapter();
 	}
 	
 	//--------------------------------------------------
@@ -74,6 +65,36 @@ public class EventosNovaActivity extends SherlockActivity implements OnItemClick
 				return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Sets the list adapter.
+	 */
+	public void setAdapter() {
+		String path = mFileManager.createDir(FileUtils.CACHE_DIR);
+		EventosAdapter adapter = new EventosAdapter(this, getEventList(), path);
+		mListView = (ListView) findViewById(R.id.id_list_view);
+		mListView.setAdapter(adapter);
+		mListView.setOnItemClickListener(this);
+	}
+	
+	/**
+	 * Gets the {@link Event} list.
+	 * 
+	 * @return
+	 */
+	public List<Event> getEventList() {
+		EventRepo eventRepo = new EventRepo(getBaseContext());
+		List<Event> list = new ArrayList<Event>();
+		eventRepo.open();
+		list = eventRepo.getAllEvent();
+		eventRepo.close();
+		
+		return list;
 	}
 	
 	//--------------------------------------------------

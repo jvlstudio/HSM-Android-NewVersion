@@ -5,23 +5,20 @@ import java.io.IOException;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import br.ikomm.hsm.util.BitmapUtils;
 import br.ikomm.hsm.util.FileUtils;
-import br.ikomm.hsm.util.StringUtils;
 
 /**
- * DownloadAsyncTask class.
+ * ReadImageAsyncTask class.
  * 
  * @author Rodrigo Cericatto
- * @since Apr 4, 2014
+ * @since July 15, 2014
  */
-public class DownloadAsyncTask extends AsyncTask<String, Void, Bitmap> {
+public class ReadImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
 	
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
 	
-	private String mUrl;
     protected FileUtils mFileManager;
     protected String mFilePath;
 
@@ -29,8 +26,7 @@ public class DownloadAsyncTask extends AsyncTask<String, Void, Bitmap> {
 	// Constructor
 	//--------------------------------------------------
 	
-	public DownloadAsyncTask(String url, FileUtils fileManager, String filePath) {
-		mUrl = url;
+	public ReadImageAsyncTask(FileUtils fileManager, String filePath) {
 	    mFileManager = fileManager;
 	    mFilePath = filePath;
 	}
@@ -44,8 +40,8 @@ public class DownloadAsyncTask extends AsyncTask<String, Void, Bitmap> {
 		Bitmap bitmap = null;
 		
 		// Gets the bitmap from web or from disk.
-		if (!mFileManager.fileExists(file)) {
-			bitmap = getBitmapFromWeb(file);
+		if (mFileManager.fileExists(file)) {
+			bitmap = getBitmapFromDisk();
 		}
 		
 		return bitmap;
@@ -56,25 +52,14 @@ public class DownloadAsyncTask extends AsyncTask<String, Void, Bitmap> {
 	//--------------------------------------------------
 	
 	/**
-	 * Gets the {@link Bitmap} from the web.
+	 * Gets the {@link Bitmap} from the disk.
 	 * 
-	 * @param file The file to be created.
-	 * 
-	 * @return The {@link Bitmap} from the web.
+	 * @retun The {@link Bitmap} from the disk.
 	 */
-	public Bitmap getBitmapFromWeb(File file) {
+	public Bitmap getBitmapFromDisk() {
 		Bitmap bitmap = null;
-		
-		// Check if the URL is null.
-		if (!StringUtils.isEmpty(mUrl)) {
-			bitmap = BitmapUtils.downloadBitmap(mUrl);
-		}
-		
-		// Gets the Bitmap from the web.
 		try {
-			if (bitmap != null) {
-				file = mFileManager.createFile(mFilePath, bitmap);
-			}
+			bitmap = mFileManager.readFile(mFilePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

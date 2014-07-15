@@ -10,12 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Event;
-import br.ikomm.hsm.tasks.DownloadAsyncTask;
+import br.ikomm.hsm.tasks.ReadImageAsyncTask;
 import br.ikomm.hsm.util.AsyncTaskUtils;
+import br.ikomm.hsm.util.FileUtils;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * EventosAdapter.java class.
@@ -37,14 +43,19 @@ public class EventosAdapter extends BaseAdapter {
 	
 	private Context mContext;
 	private List<Event> mList;
+	private FileUtils mFileManager = new FileUtils();
+	private String mPath;
+	
+	private ViewHolder mViewHolder;
 
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public EventosAdapter(Context context, List<Event> list) {
+	public EventosAdapter(Context context, List<Event> list, String path) {
 		mContext = context;
 		mList = list;
+		mPath = path;
 	}
 	
 	//--------------------------------------------------
@@ -83,22 +94,21 @@ public class EventosAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// Gets the Unity of the current position.
 		Event event = (Event) getItem(position);
-		ViewHolder viewHolder;
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.eventos_adapter_item, null);
-			viewHolder = new ViewHolder();
+			mViewHolder = new ViewHolder();
 			
-			viewHolder.mPanelistLinearLayout = (LinearLayout)convertView.findViewById(R.id.id_panelist_layout_eventos_adapter_item);
-			viewHolder.mTitleTextView = (TextView)convertView.findViewById(R.id.id_title_eventos_adapter_item);
-			viewHolder.mSubtitleTextView = (TextView)convertView.findViewById(R.id.id_subtitle_eventos_adapter_item);
-			viewHolder.mDateTextView = (TextView)convertView.findViewById(R.id.id_date_eventos_adapter_item);
-			viewHolder.mPlaceTextView = (TextView)convertView.findViewById(R.id.id_address_eventos_adapter_item);
-			convertView.setTag(viewHolder);
+			mViewHolder.mPanelistLinearLayout = (LinearLayout)convertView.findViewById(R.id.id_panelist_layout_eventos_adapter_item);
+			mViewHolder.mTitleTextView = (TextView)convertView.findViewById(R.id.id_title_eventos_adapter_item);
+			mViewHolder.mSubtitleTextView = (TextView)convertView.findViewById(R.id.id_subtitle_eventos_adapter_item);
+			mViewHolder.mDateTextView = (TextView)convertView.findViewById(R.id.id_date_eventos_adapter_item);
+			mViewHolder.mPlaceTextView = (TextView)convertView.findViewById(R.id.id_address_eventos_adapter_item);
+			convertView.setTag(mViewHolder);
 		} else {
-			viewHolder = (ViewHolder)convertView.getTag(); 
+			mViewHolder = (ViewHolder)convertView.getTag(); 
 		}
-		populatesAdapter(viewHolder, event);
+		populatesAdapter(event);
 		
 		return convertView;
 	}
@@ -110,28 +120,57 @@ public class EventosAdapter extends BaseAdapter {
 	/**
 	 * Populates the item adapter.
 	 * 
-	 * @param viewHolder
 	 * @param event
 	 */
-	public void populatesAdapter(ViewHolder viewHolder, Event event) {
+	public void populatesAdapter(Event event) {
 		// Sets the image URL.
-		String imageUrl = URL + event.image_list;
-		setLinearLayoutBitmap(viewHolder.mPanelistLinearLayout, imageUrl);
+		String path = mPath + event.image_list;
+		setLinearLayoutBitmap(path);
 		
 		// Sets the text views.
-		viewHolder.mTitleTextView.setText(event.name);
-		cutSubtitleText(viewHolder, event.name, event.description);
-		viewHolder.mDateTextView.setText(formatDates(event.info_dates));
+		mViewHolder.mTitleTextView.setText(event.name);
+		cutSubtitleText(mViewHolder, event.name, event.description);
+		mViewHolder.mDateTextView.setText(formatDates(event.info_dates));
 		
 		// Cuts the info locale.
 		String locale = event.info_locale;
 		if (locale.length() > 20) {
 			locale = locale.substring(0, 20);
 		}
-		viewHolder.mPlaceTextView.setText(locale + "...");
+		mViewHolder.mPlaceTextView.setText(locale + "...");
 		
 		// Sets the fonts.
-		setFonts(viewHolder);
+		setFonts();
+	}
+	
+	/**
+	 * Downloads an image.
+	 * 
+	 * @param path The image path into the disk.
+	 * @ 
+	 */
+	public void setLinearLayoutBitmap(String path) {
+		ReadImageAsyncTask task = new ReadImageAsyncTask(mFileManager, path) {
+			@SuppressWarnings("deprecation")
+			protected void onPostExecute(Bitmap bitmap) {
+				BitmapDrawable drawable = new BitmapDrawable(bitmap);
+				mViewHolder.mPanelistLinearLayout.setBackgroundDrawable(drawable);
+			};
+		};
+		AsyncTaskUtils.execute(task, new String[] {});
+	}
+	
+	/**
+	* Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	*  
+	* @param url The url of the image.
+	* @param imageView The {@link ImageView} which will receive the image.
+	*/
+	public void setUniversalImage(String url, ImageView imageView) {
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
+		imageLoader.displayImage(url, imageView, cache);
 	}
 	
 	/**
@@ -169,30 +208,14 @@ public class EventosAdapter extends BaseAdapter {
 	}
 	
 	/**
-	 * Downloads an image.
-	 * 
-	 * @param layout The layout to be updated.
-	 * @param url The image url. 
-	 */
-	public void setLinearLayoutBitmap(final LinearLayout layout, String url) {
-		DownloadAsyncTask task = new DownloadAsyncTask(url) {
-			protected void onPostExecute(Bitmap result) {
-				BitmapDrawable drawable = new BitmapDrawable(result);
-				layout.setBackgroundDrawable(drawable);
-			};
-		};
-		AsyncTaskUtils.execute(task, new String[] {});
-	}
-	
-	/**
 	* Sets fonts of all view components.
 	*/
-	public void setFonts(ViewHolder viewHolder) {
+	public void setFonts() {
 		Typeface caecilia = Typeface.createFromAsset(mContext.getAssets(), "fonts/CaeciliaLTStd-Roman.otf");
-		viewHolder.mTitleTextView.setTypeface(caecilia);
-		viewHolder.mSubtitleTextView.setTypeface(caecilia);
-		viewHolder.mDateTextView.setTypeface(caecilia);
-		viewHolder.mPlaceTextView.setTypeface(caecilia);
+		mViewHolder.mTitleTextView.setTypeface(caecilia);
+		mViewHolder.mSubtitleTextView.setTypeface(caecilia);
+		mViewHolder.mDateTextView.setTypeface(caecilia);
+		mViewHolder.mPlaceTextView.setTypeface(caecilia);
 	}
 	
 	/**
