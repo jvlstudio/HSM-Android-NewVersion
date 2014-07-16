@@ -25,7 +25,7 @@ public class PacoteActivity extends SherlockFragmentActivity implements OnItemCl
 	// Attributes
 	//--------------------------------------------------
 	
-	private int mEventId;
+	private Integer mEventId;
 	
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -78,7 +78,8 @@ public class PacoteActivity extends SherlockFragmentActivity implements OnItemCl
 	@Override
 	public void onItemClick(AdapterView<?> s, View view, int position, long id) {
 		Intent intent = new Intent(this, PagamentoActivity.class);
-		intent.putExtra("passe", id);
+		intent.putExtra("passe_id", id);
+		intent.putExtra("event_id", mEventId);
 		startActivity(intent);
 	}
 }

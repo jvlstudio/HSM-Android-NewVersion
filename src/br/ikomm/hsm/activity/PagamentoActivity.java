@@ -1,16 +1,21 @@
 package br.ikomm.hsm.activity;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
+import br.ikomm.hsm.model.Event;
 import br.ikomm.hsm.model.Passe;
+import br.ikomm.hsm.repo.EventRepo;
 import br.ikomm.hsm.repo.PasseRepo;
 import br.ikomm.hsm.util.WebServiceCommunication;
 
@@ -22,14 +27,15 @@ import com.actionbarsherlock.view.MenuItem;
  * PagamentoActivity.java class.
  * Modified by Rodrigo Cericatto at July 4, 2014.
  */
-public class PagamentoActivity extends SherlockFragmentActivity {
+public class PagamentoActivity extends SherlockFragmentActivity implements OnClickListener {
 
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 
-	private int mIcCadastro = 0;
-	private int mBanners = -1;
+	private Integer mIcCadastro = 0;
+	private Integer mBanners = -1;
+	
 	private String mNome = "";
 	private String mEmail = "";
 	private String mCpf = "";
@@ -37,10 +43,13 @@ public class PagamentoActivity extends SherlockFragmentActivity {
 	private String mCargo = "";
 	private String mCor = "";
 	private String mDia = "";
-	private Long mEventId;
 	
-	private PasseRepo mPasseRepo;
+	private Long mPasseId;
+	private Integer mEventId;
 	private Passe mPasse = new Passe();
+	
+	private TextView mDaysTextView;
+	private Spinner mQuantitySpinner;
 
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -51,54 +60,11 @@ public class PagamentoActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pagamento);
 
-		Bundle extras = getIntent().getExtras();
-		Intent intent = getIntent();
-		if (extras != null) {
-			mEventId = extras.getLong("passe");
-			if (mEventId != null) {
-				// Gets user info.
-				mNome = intent.getStringExtra("nome");
-				mEmail = intent.getStringExtra("email");
-				mCpf = intent.getStringExtra("cpf");
-				mEmpresa = intent.getStringExtra("empresa");
-				mCargo = intent.getStringExtra("cargo");
-				
-				// Gets the current passe.
-				mPasseRepo = new PasseRepo(getBaseContext());
-				mPasseRepo.open();
-				mPasse = mPasseRepo.getPasse(mEventId);
-				mPasseRepo.close();
-			}
-		}
-		mIcCadastro = intent.getIntExtra("ok", 0);
-		mBanners = intent.getIntExtra("banner", -1);
-
-		ActionBar action = getActionBar();
-		action.setLogo(R.drawable.hsm_logo);
-		action.setDisplayHomeAsUpEnabled(true);
-
-		ImageView imgView = (ImageView) findViewById(R.id.imgPagamento);
-		TextView tData = (TextView) findViewById(R.id.lbDias);
-		
-		// Quantidade Spinner.
-		Spinner dias = (Spinner) findViewById(R.id.spinerQuantidade);
-
-		// Colorizes the image view.
-		if (mPasse.color.equals("green")) {
-			mCor = mPasse.color;
-			imgView.setImageResource(R.drawable.hsm_passes_title_green);
-			tData.setVisibility(View.VISIBLE);
-			dias.setVisibility(View.VISIBLE);
-		}
-		if (mPasse.color.equals("gold")) {
-			mCor = mPasse.color;
-			imgView.setImageResource(R.drawable.hsm_passes_title_gold);
-		}
-		if (mPasse.color.equals("red")) {
-			mCor = mPasse.color;
-			imgView.setImageResource(R.drawable.hsm_passes_title_red);
-		}
-		addListenerOnButton();
+		getExtras();
+		setActionBar();
+		hide();
+		colorizeLinearLayout();
+		initializeButtons();
 	}
 
 	//--------------------------------------------------
@@ -122,44 +88,175 @@ public class PagamentoActivity extends SherlockFragmentActivity {
 	}
 	
 	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Sets the {@link ActionBar}.
+	 */
+	public void setActionBar() {
+		ActionBar action = getActionBar();
+		action.setLogo(R.drawable.hsm_logo);
+		action.setDisplayHomeAsUpEnabled(true);
+	}
+	
+	/**
+	 * Gets the {@link Activity} extras.
+	 */
+	public void getExtras() {
+		Bundle extras = getIntent().getExtras();
+		Intent intent = getIntent();
+		if (extras != null) {
+			mPasseId = extras.getLong("passe_id");
+			mEventId = extras.getInt("event_id");
+			if (mEventId != null) {
+				getUserInfo(intent);
+				getCurrentPasse();
+			}
+		}
+		mIcCadastro = intent.getIntExtra("ok", 0);
+		mBanners = intent.getIntExtra("banner", -1);
+	}
+	
+	/**
+	 * Hides components.
+	 */
+	public void hide() {
+		mQuantitySpinner = (Spinner)findViewById(R.id.id_quantity_spinner);
+		mQuantitySpinner.setVisibility(View.GONE);
+		mDaysTextView = (TextView)findViewById(R.id.id_days_text_view);
+		mDaysTextView.setVisibility(View.GONE);
+	}
+	
+	/**
+	 * Colorizes the {@link LinearLayout}.
+	 */
+	public void colorizeLinearLayout() {
+		LinearLayout paymentLinearLayout = (LinearLayout)findViewById(R.id.id_payment_linear_layout);
+		
+		if (mPasse.color.equals("green")) {
+			mCor = mPasse.color;
+			paymentLinearLayout.setBackgroundResource(R.drawable.hsm_passes_title_green);
+			setSpinner();
+		}
+		if (mPasse.color.equals("gold")) {
+			mCor = mPasse.color;
+			paymentLinearLayout.setBackgroundResource(R.drawable.hsm_passes_title_gold);
+		}
+		if (mPasse.color.equals("red")) {
+			mCor = mPasse.color;
+			paymentLinearLayout.setBackgroundResource(R.drawable.hsm_passes_title_red);
+		}
+		
+		TextView textView = (TextView)findViewById(R.id.id_title_text_view);
+		textView.setText(mPasse.name);
+	}
+	
+	/**
+	 * Initializes all {@link Button}.
+	 */
+	public void initializeButtons() {
+		Button purchaseButton = (Button)findViewById(R.id.id_purchase_button);
+		purchaseButton.setOnClickListener(this);
+		
+		Button participantButton = (Button)findViewById(R.id.id_participant_button);
+		participantButton.setOnClickListener(this);
+	}
+	
+	/**
+	 * Gets the user info.
+	 * 
+	 * @param intent The parent {@link Intent}. 
+	 */
+	public void getUserInfo(Intent intent) {
+		mNome = intent.getStringExtra("nome");
+		mEmail = intent.getStringExtra("email");
+		mCpf = intent.getStringExtra("cpf");
+		mEmpresa = intent.getStringExtra("empresa");
+		mCargo = intent.getStringExtra("cargo");
+	}
+	
+	/**
+	 * Gets the current {@link Passe}.
+	 */
+	public void getCurrentPasse() {
+		PasseRepo passeRepo = new PasseRepo(getBaseContext());
+		passeRepo.open();
+		mPasse = passeRepo.getPasse(mPasseId);
+		passeRepo.close();
+	}
+	
+	/**
+	 * Sets the {@link Spinner}.
+	 */
+	public void setSpinner() {
+	    String[] dates = getEventDates();
+	    if (dates.length > 1) {
+			// Initializes the spinner.
+	    	
+//			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_color, dates);
+//			arrayAdapter.setDropDownViewResource(R.layout.spinner_text_color);
+	    	ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_color /*simple_spinner_item*/, dates);
+	    	arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			mQuantitySpinner.setVisibility(View.VISIBLE);
+			mQuantitySpinner.setAdapter(arrayAdapter);
+			mDaysTextView.setVisibility(View.VISIBLE);
+	    }
+	}
+	
+	/**
+	 * Gets all {@link Event} dates.
+	 * 
+	 * @return
+	 */
+	public String[] getEventDates() {
+		// Gets the event dates.
+		EventRepo eventRepo = new EventRepo(this);
+		eventRepo.open();
+		Event event = eventRepo.getEvent(mEventId);
+		String infoDates = event.info_dates;
+		eventRepo.close();
+		
+		// Gets each date.
+		String[] dates = infoDates.replace("|", "-").split("-");
+		String[] datesTrim = new String[dates.length];
+		for (int i = 0; i < dates.length; i++) {
+			datesTrim[i] = dates[i].trim();
+		}
+		
+		return datesTrim;
+	}
+	
+	//--------------------------------------------------
 	// Listeners
 	//--------------------------------------------------
 
-	private void addListenerOnButton() {
-		findViewById(R.id.btnComprar).setOnClickListener(
-			new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (mIcCadastro == 1) {
-						startActivity(new Intent(PagamentoActivity.this, AgradecimentoActivity.class));
-						WebServiceCommunication ws = new WebServiceCommunication();
-						if (mCor.equals("green")) {
-							Spinner SpinnerDia = (Spinner) findViewById(R.id.spinerQuantidade);
-							if (SpinnerDia.getSelectedItem() != null) {
-								mDia = SpinnerDia.getSelectedItem().toString();
-							}
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()) {
+			case R.id.id_purchase_button:
+				if (mIcCadastro == 1) {
+					startActivity(new Intent(PagamentoActivity.this, AgradecimentoActivity.class));
+					WebServiceCommunication ws = new WebServiceCommunication();
+					if (mCor.equals("green")) {
+						if (mQuantitySpinner.getSelectedItem() != null) {
+							mDia = mQuantitySpinner.getSelectedItem().toString();
 						}
-						if (!mCor.isEmpty() && !mNome.isEmpty() && !mEmail.isEmpty() && !mEmpresa.isEmpty() && !mCargo.isEmpty()  && !mCpf.isEmpty()) {
-							ws.sendFormularioCompra(mCor, mDia, mNome, mEmail, mEmpresa, mCargo, mCpf);
-						}
-						finish();
-					} else {
-						Toast.makeText(PagamentoActivity.this, "Cadastro com dados inv‡lidos.", Toast.LENGTH_LONG).show();
 					}
+					if (!mCor.isEmpty() && !mNome.isEmpty() && !mEmail.isEmpty() && !mEmpresa.isEmpty() && !mCargo.isEmpty()  && !mCpf.isEmpty()) {
+						ws.sendFormularioCompra(mCor, mDia, mNome, mEmail, mEmpresa, mCargo, mCpf);
+					}
+					finish();
+				} else {
+					Toast.makeText(PagamentoActivity.this, "Cadastro com dados inv‡lidos.", Toast.LENGTH_LONG).show();
 				}
-			}
-		);
-
-		findViewById(R.id.btnParticipante).setOnClickListener(
-			new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(PagamentoActivity.this, ParticipanteActivity.class);
-					intent.putExtra("var", mBanners);
-					intent.putExtra("event_id", mEventId);
-					startActivity(intent);
-				}
-			}
-		);
+				break;
+			case R.id.id_participant_button:
+				Intent intent = new Intent(PagamentoActivity.this, ParticipanteActivity.class);
+				intent.putExtra("var", mBanners);
+				intent.putExtra("event_id", mEventId);
+				startActivity(intent);
+				break;
+		}		
 	}
 }

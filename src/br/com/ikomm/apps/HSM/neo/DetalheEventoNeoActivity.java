@@ -164,7 +164,9 @@ public class DetalheEventoNeoActivity extends SherlockFragmentActivity implement
 		mInfoButton.setOnClickListener(this);
 		
 		mAboutImageView = (ImageView)findViewById(R.id.id_about_image);
+		mAboutImageView.setOnClickListener(this);
 		mInfoImageView = (ImageView)findViewById(R.id.id_info_image);
+		mInfoImageView.setOnClickListener(this);
 	}
 	
 	/**
@@ -238,6 +240,12 @@ public class DetalheEventoNeoActivity extends SherlockFragmentActivity implement
 				showAboutLinearLayout();
 				break;
 			case R.id.id_info_button:
+				showInfoLinearLayout();
+				break;
+			case R.id.id_about_image:
+				showAboutLinearLayout();
+				break;
+			case R.id.id_info_image:
 				showInfoLinearLayout();
 				break;
 		}
