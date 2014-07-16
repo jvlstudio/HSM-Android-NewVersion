@@ -1,7 +1,69 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.ikomm.apps.HSM.neo.RevistaActivity"
-    tools:ignore="MergeRootFrame" />
+    android:background="@drawable/hsm_background"
+    android:orientation="vertical" >
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/hsm_color_gray_normal"
+        android:orientation="horizontal" >
+
+        <!-- Image -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/id_magazine_image_view"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/hsm_placeholder_small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:text="ASSINE AGORA"
+                android:textColor="@color/hsm_color_gray_light"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <!-- Texts -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/id_last_magazine_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/hsm_color_green"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/id_last_magazine_description_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/hsm_color_gray_light"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- LIST VIEW -->
+    <ListView
+        android:id="@+id/id_magazine_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

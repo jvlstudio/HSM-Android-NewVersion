@@ -26,12 +26,17 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 public class RevistaAdapter extends BaseAdapter{
 
 	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/magazines/";
+	
+	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
 	
 	private Activity mActivity;
 	private LayoutInflater mInflater;
-	private MagazineRepo mMagazineRepo;
 	private List<Magazine> mMagazineList = new ArrayList<Magazine>();
 	
 	//--------------------------------------------------
@@ -42,11 +47,7 @@ public class RevistaAdapter extends BaseAdapter{
 		super();
 		mActivity = activity;
 		mInflater = LayoutInflater.from(activity);
-		
-		mMagazineRepo = new MagazineRepo(activity);
-		mMagazineRepo.open();
-		mMagazineList = mMagazineRepo.getAllMagazine();
-		mMagazineRepo.close();
+		getMagazineList();
 	}
 
 	//--------------------------------------------------
@@ -59,8 +60,8 @@ public class RevistaAdapter extends BaseAdapter{
 	}
 
 	@Override
-	public Object getItem(int position) {
-		return position;
+	public Magazine getItem(int position) {
+		return mMagazineList.get(position);
 	}
 
 	@Override
@@ -72,22 +73,48 @@ public class RevistaAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = mInflater.inflate(R.layout.adapter_lista_revista, parent, false);
-		Magazine magazine = mMagazineList.get(position);
 		
-		ImageView img = (ImageView) view.findViewById(R.id.imgRevista);
-		TextView titulo = (TextView) view.findViewById(R.id.txtTituloRevista);
-		TextView descricao = (TextView) view.findViewById(R.id.txtDescricaoRevista);
+		// Initializes the components.
+		ImageView magazineImageView = (ImageView)view.findViewById(R.id.id_magazine_image_view);
+		TextView magazineTitleTextView = (TextView) view.findViewById(R.id.id_magazine_title_text_view);
+		TextView magazineDescriptionTextView = (TextView) view.findViewById(R.id.id_magazine_description_text_view);
 		
-		titulo.setText(magazine.name);
-		descricao.setText(magazine.description);
+		// Sets the components.
+		Magazine magazine = getItem(position);
+		magazineTitleTextView.setText(magazine.name);
+		magazineDescriptionTextView.setText(magazine.description);
 		
 		// Creates URL for the image.
-		String imageUri = "http://apps.ikomm.com.br/hsm5/uploads/mMagazineList/" + magazine.picture;
+		String url = URL + magazine.picture;
+		setUniversalImage(url, magazineImageView);
+		
+		return view;
+	}
+
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Gets the {@link Magazine} list.
+	 */
+	public void getMagazineList() {
+		MagazineRepo magazineRepo = new MagazineRepo(mActivity);
+		magazineRepo.open();
+		mMagazineList = magazineRepo.getAllMagazine();
+		magazineRepo.close();
+	}
+	
+	/**
+	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 *  
+	 * @param url The url of the image.
+	 * @param imageView The {@link ImageView} which will receive the image.
+	 */
+	public void setUniversalImage(String url, ImageView imageView) {
 		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.init(ImageLoaderConfiguration.createDefault(mActivity));
-		imageLoader.displayImage(imageUri, img, cache);
-		
-		return view;
+		imageLoader.displayImage(url, imageView, cache);
 	}
 }

@@ -6,7 +6,7 @@
     android:orientation="horizontal" >
     
 	<ImageView 
-	    android:id="@+id/imgRevista"
+	    android:id="@+id/id_magazine_image_view"
 	    android:layout_width="100dp"
 	    android:layout_height="100dp"
 	    android:layout_margin="10dp"
@@ -14,33 +14,32 @@
 	    android:src="@drawable/hsm_placeholder_book"/>
 	
 	<LinearLayout 
-	    android:layout_width="100dp"
+	    android:layout_width="80dp"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="10dp"
 	    android:orientation="vertical">
 	    
 	    <TextView 
-	        android:id="@+id/txtTituloRevista"
+	        android:id="@+id/id_magazine_title_text_view"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textColor="#ababc7"
+	        android:textColor="@color/hsm_color_gray_light"
 	        android:textStyle="bold"
 	        android:layout_marginTop="30dp"
 	        android:text="TITULO"/>
-	    
 	    <TextView 
-	        android:id="@+id/txtDescricaoRevista"
+	        android:id="@+id/id_magazine_description_text_view"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textColor="#ababc7"
+	        android:textColor="@color/hsm_color_gray_light"
 	        android:maxLines="2"
 	        android:textSize="12dp"
 	        android:text="DESCRICAO"/>
 	</LinearLayout>
 	
 	<Button 
-	    android:id="@+id/btnRevistaMais"
-	    android:layout_width="wrap_content"
+	    android:id="@+id/id_magazine_plus_button"
+	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="40dp"
 	    android:layout_marginLeft="30dp"
@@ -48,6 +47,6 @@
 	    android:textColor="#FFFFFF"
 	    android:textSize="12dp"
 	    android:focusable="false"
-	    android:background="@drawable/hsm_bt_tiny_clear"
+	    android:background="@drawable/button_background_behavior"
 	    android:text="VER MAIS"/>
 </LinearLayout>

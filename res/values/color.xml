@@ -4,9 +4,12 @@
     <color name="hsm_color_white">#FFFFFF</color>
     
     <color name="hsm_color_gray">#4F4F5E</color>
+    <color name="hsm_color_gray_light">#7F7F94</color>
     <color name="hsm_color_gray_dark">#484857</color>
     <color name="hsm_color_gray_normal">#2F2F3E</color>
     <color name="hsm_color_gray_clicked">#23232F</color>
+    
+    <color name="hsm_color_green">#53BD7A</color>
 
     <color name="hsm_color_purple_normal">#481F77</color>
     <color name="hsm_color_purple_clicked">#311F46</color>

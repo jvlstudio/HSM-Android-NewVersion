@@ -1,25 +1,23 @@
 package br.com.ikomm.apps.HSM.neo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.adapter.RevistaAdapter;
 import br.ikomm.hsm.model.Magazine;
 import br.ikomm.hsm.repo.MagazineRepo;
+import br.ikomm.hsm.util.StringUtils;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -32,8 +30,20 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  * DetalheLivroActivity.java class.
  * Modified by Rodrigo Cericatto at July 10, 2014.
  */
-public class RevistaActivity extends SherlockActivity {
+public class RevistaActivity extends SherlockActivity implements OnItemClickListener {
 
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/magazines/";
+	
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------	
+	
+	private Magazine mMagazine = new Magazine();
+	
 	//--------------------------------------------------
 	// Activity Life Cycle
 	//--------------------------------------------------
@@ -43,13 +53,8 @@ public class RevistaActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_revista);
 		
-		ActionBar action = getActionBar();
-		action.setLogo(R.drawable.hsm_logo);
-		action.setDisplayHomeAsUpEnabled(true);
-		
-		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		setActionBar();
+		loadFields();
 	}
 	
 	//--------------------------------------------------
@@ -73,70 +78,93 @@ public class RevistaActivity extends SherlockActivity {
 	}
 	
 	//--------------------------------------------------
-	// Fragment
+	// Methods
 	//--------------------------------------------------
 
 	/**
-	 * A placeholder fragment containing a simple view.
+	 * Sets the {@link ActionBar}.
 	 */
-	public static class PlaceholderFragment extends Fragment implements OnItemClickListener {
-		public Magazine mMagazine = new Magazine();
-		public List<Magazine> mMagazineList = new ArrayList<Magazine>();
+	public void setActionBar() {
+		ActionBar action = getActionBar();
+		action.setLogo(R.drawable.hsm_logo);
+		action.setDisplayHomeAsUpEnabled(true);
+	}
+	
+	/**
+	 * Loads all fields.
+	 */
+	private void loadFields() {
+		getLastMagazine();
+		setUniversalImage(URL + mMagazine.picture);
+		setListView();
+	}
+
+	/**
+	 * Gets the {@link Magazine} list.
+	 * 
+	 * @return
+	 */
+	public List<Magazine> getMagazineList() {
+		MagazineRepo magazineRepo = new MagazineRepo(this);
+		magazineRepo.open();
+		List<Magazine> list = magazineRepo.getAllMagazine();
+		return list;
+	}
+	
+	/**
+	 * Gets the last {@link Magazine}.
+	 */
+	public void getLastMagazine() {
+		TextView lastMagazineNameTextView = (TextView)findViewById(R.id.id_last_magazine_name_text_view);
+		TextView lastMagazineDescriptionTextView = (TextView)findViewById(R.id.id_last_magazine_description_text_view);
 		
-		public PlaceholderFragment() {}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_revista, container, false);
-			ListView revistas = (ListView) rootView.findViewById(R.id.lvRevistas);
-			revistas.setAdapter(new RevistaAdapter(getActivity()));
-			
-			carregarCampos(rootView);
-			addListener(rootView);
-			
-			return rootView;
+		// Gets the last Magazine.
+		for (Magazine magazine : getMagazineList()) {
+			mMagazine.id = magazine.id;
+			mMagazine.name = magazine.name;
+			mMagazine.picture = magazine.picture;
+			mMagazine.description = magazine.description;
+			mMagazine.link = magazine.link;
 		}
+		lastMagazineNameTextView.setText(mMagazine.name);
+		lastMagazineDescriptionTextView.setText(mMagazine.description);
+	}
+	
+	/**
+	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 *  
+	 * @param url The url of the image.
+	 */
+	public void setUniversalImage(String url) {
+		ImageView imageView = (ImageView)findViewById(R.id.id_magazine_image_view);
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
+		imageLoader.displayImage(url, imageView, cache);
+	}
+	
+	/**
+	 * Sets the {@link ListView} adapter.
+	 */
+	public void setListView() {
+		ListView revistas = (ListView)findViewById(R.id.id_magazine_list_view);
+		revistas.setAdapter(new RevistaAdapter(this));
+		revistas.setOnItemClickListener(this);
+	}
 
-		private void carregarCampos(View rootView) {
-			// Elementos da tela.
-			TextView magName = (TextView) rootView.findViewById(R.id.magazineName);
-			TextView magDescription = (TextView) rootView.findViewById(R.id.magazineDescription);
-			ImageView magPicture = (ImageView) rootView.findViewById(R.id.magazinePicture);
-			
-			// Recuperando a ultima revista cadastrada.
-			MagazineRepo magazineRepo = new MagazineRepo(getActivity());
-			magazineRepo.open();
-			mMagazineList = magazineRepo.getAllMagazine();
-			
-			for (Magazine _mag : mMagazineList) {
-				mMagazine.id = _mag.id;
-				mMagazine.name = _mag.name;
-				mMagazine.picture = _mag.picture;
-				mMagazine.description = _mag.description;
-				mMagazine.link = _mag.link;
-			}
-			magName.setText(mMagazine.name);
-			magDescription.setText(mMagazine.description);
-			
-			String imageUri = "http://apps.ikomm.com.br/hsm5/uploads/mMagazineList/"+mMagazine.picture;
-			DisplayImageOptions _cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
-			ImageLoader imageLoader = ImageLoader.getInstance();
-			imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
-		
-			imageLoader.displayImage(imageUri, magPicture, _cache);	
-		}
-
-		private void addListener(View rootView) {
-			ListView revistas = (ListView) rootView.findViewById(R.id.lvRevistas);
-			revistas.setOnItemClickListener(this);
-		}
-
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			String URL = mMagazine.link;
+	//--------------------------------------------------
+	// Listeners
+	//--------------------------------------------------
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		String url = mMagazine.link;
+		if (!StringUtils.isEmpty(url)) {
 			Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
-	        intent.setData(Uri.parse(URL));
-	        this.startActivity(intent);
+	        intent.setData(Uri.parse(url));
+	        startActivity(intent);
+		} else {
+			Toast.makeText(this, "Favor pedir para alguém me cadastrar no Backend!", Toast.LENGTH_LONG).show();
 		}
 	}
 }

@@ -28,49 +28,55 @@ import br.ikomm.hsm.repo.MagazineRepo;
 import br.ikomm.hsm.repo.PanelistRepo;
 import br.ikomm.hsm.repo.PasseRepo;
 
-public class HSMService extends Service implements Runnable{
+/**
+ * HSMService.java class.
+ * Modified by Rodrigo Cericatto at July 16, 2014.
+ */
+public class HSMService extends Service implements Runnable {
 	
-	private boolean ativo;
-	private WSCommunication wsCommunication = new WSCommunication();
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private boolean mActive;
+	private WSCommunication mWsCommunication = new WSCommunication();
 
+	//--------------------------------------------------
+	// Service Life Cycle
+	//--------------------------------------------------
+	
 	@Override
 	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		// TODO Auto-generated method stub
-		ativo = true;
+		mActive = true;
 		new Thread(this, "HSMService"+ startId).start();
 		return super.onStartCommand(intent, flags, startId);
 	}
 	
 	@Override
+	public void onDestroy() {
+		mActive = false;
+		super.onDestroy();
+	}
+	
+	//--------------------------------------------------
+	// Runnable
+	//--------------------------------------------------
+	
+	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		if(ativo){
-			if(hasConnection()){
-				// ACESSO AO WS END-POINT HOME.
+		if (mActive) {
+			if (hasConnection()) {
 				wsHome();
-				
-				// ACESSO AO WS END-POINT EVENT.
 				wsEvent();
-				
-				// ACESSO AO WS END-POIN AGENDA
 				wsAgenda();
-				
-				// ACESSO AO WS END-POINT PANELIST
 				wsPanelist();
-				
-				// ACESSO AO WS END-POINT PASSES
 				wsPasse();
-				
-				// ACESSO AO WS END-POINT MAGAZINES
 				wsMagazine();
-				
-				// ACESSO AO WS END-POINT BOOKS
 				wsBook();
 				
 				stopSelf();
@@ -82,197 +88,209 @@ public class HSMService extends Service implements Runnable{
 		}
 	}
 	
-	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		ativo = false;
-		super.onDestroy();
-	}
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
 
-	private boolean hasConnection() {
-		// TODO Auto-generated method stub
-		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		
-		NetworkInfo ni = connMgr.getActiveNetworkInfo();
-		if (ni == null){
+	/**
+	 * Checks if we have Internet connection.
+	 * 
+	 * @return
+	 */
+	public boolean hasConnection() {
+		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+		if (networkInfo == null){
 			return false;
 		} else {
 			return true;
 		}
 	}
 	
-	
 	/**
-	 * CHAMADA PARA CONSUMO DO WEB SERVICE E INCLUSÌO DOS DADOS.
+	 * Call the webservice and inserts data of {@link Home} model into the database.
+	 * 
 	 * @return
 	 */
-	private boolean wsHome() {
-		// TODO Auto-generated method stub
+	public boolean wsHome() {
 		try {
-			HomeWS lista = wsCommunication.wsHome();
-			if(lista.data != null){
-				HomeRepo _hr = new HomeRepo(getApplicationContext());
-				_hr.open();
-				_hr.deleteAll();
-				Cursor _c = _hr.getHome(lista.data.id);
-				if (_c.getCount() == 0) {
-					_hr.insertHome(lista.data);
+			HomeWS list = mWsCommunication.wsHome();
+			if (list.data != null) {
+				HomeRepo homeRepo = new HomeRepo(getApplicationContext());
+				homeRepo.open();
+				homeRepo.deleteAll();
+				Cursor cursor = homeRepo.getHome(list.data.id);
+				if (cursor.getCount() == 0) {
+					homeRepo.insertHome(list.data);
 				}
-				_hr.close();
+				homeRepo.close();
 			}
-			
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			return false;
 		}
 	}
 	
-	private boolean wsEvent() {
-		// TODO Auto-generated method stub
+	/**
+	 * Call the webservice and inserts data of {@link Event} model into the database.
+	 * 
+	 * @return
+	 */
+	public boolean wsEvent() {
 		try {
-			EventWS lista = wsCommunication.wsEvent();
-			if(!lista.data.isEmpty()){
-				EventRepo _er = new EventRepo(getApplicationContext());
-				_er.open();
-				_er.deleteAll();
-				for(Event item : lista.data){
-					Event _event = _er.getEvent(item.id);
-					if (_event.id == 0){
-						_er.insertEvent(item);
+			EventWS list = mWsCommunication.wsEvent();
+			if (!list.data.isEmpty()) {
+				EventRepo eventRepo = new EventRepo(getApplicationContext());
+				eventRepo.open();
+				eventRepo.deleteAll();
+				for (Event item : list.data) {
+					Event event = eventRepo.getEvent(item.id);
+					if (event.id == 0){
+						eventRepo.insertEvent(item);
 					}
 				}
-				_er.close();
+				eventRepo.close();
 			}
-			
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			return false;
 		}
 	}
 	
-	private boolean wsAgenda() {
-		// TODO Auto-generated method stub
+	/**
+	 * Call the webservice and inserts data of {@link Agenda} model into the database.
+	 * 
+	 * @return
+	 */
+	public boolean wsAgenda() {
 		try {
-			AgendaWS lista = wsCommunication.wsAgenda();
-			if(!lista.data.isEmpty()){
-				AgendaRepo _ar = new AgendaRepo(getApplicationContext());
-				_ar.open();
-				_ar.deleteAll();
-				for(Agenda item : lista.data){
-					Agenda _agenda = _ar.getAgenda(item.id);
-					if(_agenda.id == 0){
-						// TODO: Delete this, later.
-						if (item.id == 27 || item.id == 28 || item.id == 29 || item.id == 31) {
-							item.date_start = "2014-08-23 22:00:00";
-							item.date_end = "2014-08-23 24:00:00";
-						}
-						_ar.insertAgenda(item);
+			AgendaWS lista = mWsCommunication.wsAgenda();
+			if (!lista.data.isEmpty()) {
+				AgendaRepo agendaRepo = new AgendaRepo(getApplicationContext());
+				agendaRepo.open();
+				agendaRepo.deleteAll();
+				for (Agenda item : lista.data) {
+					Agenda agenda = agendaRepo.getAgenda(item.id);
+					if (agenda.id == 0) {
+						agendaRepo.insertAgenda(item);
 					}
 				}
-				_ar.close();
+				agendaRepo.close();
 			}
-			
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			return false;
 		}
 	}
 	
-	private boolean wsPanelist() {
-		// TODO Auto-generated method stub
+	/**
+	 * Call the webservice and inserts data of {@link Panelist} model into the database.
+	 * 
+	 * @return
+	 */
+	public boolean wsPanelist() {
 		try {
-			PanelistWS lista = wsCommunication.wsPanelist();
-			if(!lista.data.isEmpty()){
-				PanelistRepo _pr = new PanelistRepo(getApplicationContext());
-				_pr.open();
-				_pr.deleteAll();
-				for(Panelist item : lista.data){
-					Panelist _pan = _pr.getPanelist(item.id);
-					if(_pan.id == 0){
-						_pr.insertPanelist(item);
+			PanelistWS list = mWsCommunication.wsPanelist();
+			if (!list.data.isEmpty()) {
+				PanelistRepo panelistRepo = new PanelistRepo(getApplicationContext());
+				panelistRepo.open();
+				panelistRepo.deleteAll();
+				for (Panelist item : list.data) {
+					Panelist panelist = panelistRepo.getPanelist(item.id);
+					if (panelist.id == 0) {
+						panelistRepo.insertPanelist(item);
 					}
 				}
-				_pr.close();
+				panelistRepo.close();
 			}
 			
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			return false;
 		}
 	}
 	
-	private boolean wsPasse() {
-		// TODO Auto-generated method stub
+	/**
+	 * Call the webservice and inserts data of {@link Passe} model into the database.
+	 * 
+	 * @return
+	 */
+	public boolean wsPasse() {
 		try {
-			PasseWS lista = wsCommunication.wsPasse();
-			if(!lista.data.isEmpty()){
-				PasseRepo _pr = new PasseRepo(getApplicationContext());
-				_pr.open();
-				_pr.deleteAll();
-				for(Passe item : lista.data){
-					Passe _passe = _pr.getPasse(item.id);
-					if (_passe.id == 0) {
-						_pr.insertPasse(item);
+			PasseWS list = mWsCommunication.wsPasse();
+			if (!list.data.isEmpty()) {
+				PasseRepo passeRepo = new PasseRepo(getApplicationContext());
+				passeRepo.open();
+				passeRepo.deleteAll();
+				for (Passe item : list.data) {
+					Passe passe = passeRepo.getPasse(item.id);
+					if (passe.id == 0) {
+						passeRepo.insertPasse(item);
 					}
 				}
-				_pr.close();
+				passeRepo.close();
 			}
-			
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			return false;
 		}
 	}
 	
-	private boolean wsMagazine() {
-		// TODO Auto-generated method stub
+	/**
+	 * Call the webservice and inserts data of {@link Magazine} model into the database.
+	 * 
+	 * @return
+	 */
+	public boolean wsMagazine() {
 		try {
-			MagazineWS lista = wsCommunication.wsMagazine();
-			if(!lista.data.isEmpty()){
-				MagazineRepo _mr = new MagazineRepo(getApplicationContext());
-				_mr.open();
-				_mr.deleteAll();
-				for(Magazine item : lista.data){
-					Magazine _mag = _mr.getMagazine(item.id);
-					if(_mag.id == 0){
-						_mr.insertMagazine(item);
+			MagazineWS list = mWsCommunication.wsMagazine();
+			if (!list.data.isEmpty()) {
+				MagazineRepo magazineRepo = new MagazineRepo(getApplicationContext());
+				magazineRepo.open();
+				magazineRepo.deleteAll();
+				for (Magazine item : list.data) {
+					Magazine magazine = magazineRepo.getMagazine(item.id);
+					if (magazine.id == 0) {
+						magazineRepo.insertMagazine(item);
 					}
 				}
-				_mr.close();
+				magazineRepo.close();
 			}
-			
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			return false;
 		}
 	}
 	
-	private boolean wsBook() {
-		// TODO Auto-generated method stub
+	/**
+	 * Call the webservice and inserts data of {@link Book} model into the database.
+	 * 
+	 * @return
+	 */
+	public boolean wsBook() {
 		try {
-			BookWS lista = wsCommunication.wsBook();
-			if(!lista.data.isEmpty()){
-				BookRepo _br = new BookRepo(getApplicationContext());
-				_br.open();
-				_br.deleteAll();
-				for(Book item : lista.data){
-					Book book = _br.getBook(item.id);
-					if (book.id == 0){
-						_br.insertBook(item);
+			BookWS list = mWsCommunication.wsBook();
+			if (!list.data.isEmpty()) {
+				BookRepo bookRepo = new BookRepo(getApplicationContext());
+				bookRepo.open();
+				bookRepo.deleteAll();
+				for (Book item : list.data) {
+					Book book = bookRepo.getBook(item.id);
+					if (book.id == 0) {
+						bookRepo.insertBook(item);
 					}
 				}
-				_br.close();
+				bookRepo.close();
 			}
-			
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			return false;
 		}
 	}
