@@ -28,16 +28,19 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 public class DetalhePalestraActivity extends SherlockFragmentActivity implements OnClickListener {
 	
 	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/panelists/";
+	
+	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
 	private Long mPanelistId;
-	private int mEventId = 0;
+	private Integer mEventId = 0;
 	
-	private PanelistRepo mPanelistRepo;
 	private Panelist mPanelist;
-	
-	private AgendaRepo mAgendaRepo;
 	private Agenda mAgenda;
 	
 	//--------------------------------------------------
@@ -49,33 +52,8 @@ public class DetalhePalestraActivity extends SherlockFragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalhe_palestra);
 
-		Bundle extras = getIntent().getExtras(); 
-		if (extras != null){
-			mPanelistId = extras.getLong("panelist_id");
-			mEventId = extras.getInt("event_id");
-		}
-		
-		if (mEventId > 0 && mPanelistId > 0) {
-			mPanelistRepo = new PanelistRepo(getApplication());
-			mPanelistRepo.open();
-			mPanelist = mPanelistRepo.getPanelist(mPanelistId);
-			
-			mAgendaRepo = new AgendaRepo(getApplication());
-			mAgendaRepo.open();
-			mAgenda = mAgendaRepo.detailAgenda(mPanelistId, mEventId);
-			
-			if (mPanelist != null) {
-				loadFields();
-			}
-			mAgendaRepo.close();
-			mPanelistRepo.close();
-			
-			// Sets ActionBar.
-			ActionBar action = getActionBar();
-			action.setLogo(R.drawable.hsm_logo);
-			action.setTitle(mPanelist.name);
-			action.setDisplayHomeAsUpEnabled(true);
-		}
+		getExtras();
+		getData();
 	}
 	
 	//--------------------------------------------------
@@ -103,6 +81,63 @@ public class DetalhePalestraActivity extends SherlockFragmentActivity implements
 	//--------------------------------------------------
 	
 	/**
+	 * Gets the current {@link Panelist} and {@link Agenda}. 
+	 */
+	public void getData() {
+		if (mEventId > 0 && mPanelistId > 0) {
+			getCurrentPanelist();
+			getCurrentAgenda();
+			
+			if (mPanelist != null) {
+				loadFields();
+			}
+			
+			setActionBar();
+		}
+	}
+	
+	/**
+	 * Gets the current {@link Panelist}.
+	 */
+	public void getCurrentPanelist() {
+		PanelistRepo panelistRepo = new PanelistRepo(getApplication());
+		panelistRepo.open();
+		mPanelist = panelistRepo.getPanelist(mPanelistId);
+		panelistRepo.close();
+	}
+	
+	/**
+	 * Gets the current {@link Agenda}.
+	 */
+	public void getCurrentAgenda() {
+		AgendaRepo agendaRepo = new AgendaRepo(getApplication());
+		agendaRepo.open();
+		mAgenda = agendaRepo.detailAgenda(mPanelistId, mEventId);
+		agendaRepo.close();
+	}
+	
+	/**
+	 * Gets the extras.
+	 */
+	public void getExtras() {
+		Bundle extras = getIntent().getExtras(); 
+		if (extras != null){
+			mPanelistId = extras.getLong("panelist_id");
+			mEventId = extras.getInt("event_id");
+		}
+	}
+	
+	/**
+	 * Sets the {@link ActionBar}.
+	 */
+	public void setActionBar() {
+		ActionBar action = getActionBar();
+		action.setLogo(R.drawable.hsm_logo);
+		action.setTitle(mPanelist.name);
+		action.setDisplayHomeAsUpEnabled(true);
+	}
+	
+	/**
 	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
 	 *  
 	 * @param url The url of the image.
@@ -119,36 +154,37 @@ public class DetalhePalestraActivity extends SherlockFragmentActivity implements
 	 * Load fields.
 	 */
 	private void loadFields() {
-		ImageView imagem = (ImageView) findViewById(R.id.imgPalestranteDetalhe);
-		setUniversalImage("http://static.tumblr.com/4f4c4d16d483a9db26dd3617ac92601b/c3ujeqe/mk7myuhwp/tumblr_static_istock-potato.jpg", imagem);
+		// Format dates.
+		String[] dateStart = mAgenda.date_start.split(" ");
+		String[] dateEnd = mAgenda.date_end.split(" ");
+		String[] dateStartFormat = dateStart[0].split("-"); 
+		dateStart[0] = dateStartFormat[2]  + "/" + dateStartFormat[1]  + "/" + dateStartFormat[0];
+		String[] dateEndFormat = dateEnd[0].split("-");
+		dateEnd[0] = dateEndFormat[2] + "/" + dateEndFormat[1] + "/" + dateEndFormat[0];
 
-		TextView nomePalestrante = (TextView) findViewById(R.id.tDetNomePalestrante);
-		nomePalestrante.setText(mPanelist.name);
+		// Load fields.
+		TextView dateTextView = (TextView)findViewById(R.id.id_date_text_view);
+		dateTextView.setText(dateStart[0] + " - " + dateEnd[0]);
 
-		TextView especialidade = (TextView) findViewById(R.id.tDetEspecialidade);
-		especialidade.setText(mPanelist.name);
+		TextView timeTextView = (TextView)findViewById(R.id.id_time_text_view);
+		timeTextView.setText(dateStart[1] + " - " + dateEnd[1]);
+
+		ImageView panelistImageView = (ImageView)findViewById(R.id.id_panelist_image_view);
+		setUniversalImage(URL + mPanelist.picture, panelistImageView);
+
+		TextView panelistNameTextView = (TextView)findViewById(R.id.id_panelist_name_text_view);
+		panelistNameTextView.setText(mPanelist.name);
+
+		TextView specialtyTextView = (TextView)findViewById(R.id.id_specialty_text_view);
+		specialtyTextView.setText(mPanelist.name);
 		
-		// Tratamento de data para utilização na Interface.
-		String[] dt_start = mAgenda.date_start.split(" ");
-		String[] dt_end = mAgenda.date_end.split(" ");
-		String[] date_start_format = dt_start[0].split("-"); 
-		dt_start[0] = date_start_format[2]  +"/" + date_start_format[1]  +"/" + date_start_format[0];
-		String[] date_end_format = dt_end[0].split("-");
-		dt_end[0] = date_end_format[2] + "/"+date_end_format[1]+"/" + date_end_format[0];
+		TextView abstractTextView = (TextView)findViewById(R.id.id_abstract_text_view);
+		abstractTextView.setText(mAgenda.theme_title);
 
-		TextView data = (TextView) findViewById(R.id.tDetData);
-		data.setText(dt_start[0] + " - " + dt_end[0]);
-
-		TextView horario = (TextView) findViewById(R.id.tDetHorario);
-		horario.setText(dt_start[1] + " - " + dt_end[1]);
-
-		TextView resumo = (TextView) findViewById(R.id.tResumoPalestra);
-		resumo.setText(mAgenda.theme_title);
-
-		TextView content = (TextView) findViewById(R.id.tDetalhesPalestra);
-		content.setText(mAgenda.theme_description);
+		TextView contentTextView = (TextView)findViewById(R.id.id_content_text_view);
+		contentTextView.setText(mAgenda.theme_description);
 		
-		Button scheduleButton = (Button)findViewById(R.id.btnAgendar);
+		Button scheduleButton = (Button)findViewById(R.id.id_schedule_button);
 		scheduleButton.setOnClickListener(this);
 	}
 
