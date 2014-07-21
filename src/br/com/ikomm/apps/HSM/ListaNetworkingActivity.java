@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import br.ikomm.hsm.adapter.AmigoAdapter;
 import br.ikomm.hsm.model.Cartao;
-import br.ikomm.hsm.repo.CartaoRepositorio;
+import br.ikomm.hsm.repo.CartaoRepository;
 import br.ikomm.hsm.util.CartaoConverter;
 import br.ikomm.hsm.util.IntentIntegrator;
 
@@ -35,7 +35,7 @@ public class ListaNetworkingActivity extends FragmentActivity {
 	// Attributes
 	//--------------------------------------------------
 	
-	private CartaoRepositorio cartaoRepo;
+	private CartaoRepository cartaoRepo;
 	private List<Cartao> mCartaoList;
 
 	//--------------------------------------------------
@@ -51,7 +51,7 @@ public class ListaNetworkingActivity extends FragmentActivity {
 		action.setLogo(R.drawable.hsm_logo);
 		action.setDisplayHomeAsUpEnabled(true);
 		
-		cartaoRepo = new CartaoRepositorio(ListaNetworkingActivity.this);
+		cartaoRepo = new CartaoRepository(ListaNetworkingActivity.this);
 		mCartaoList = cartaoRepo.getMeusContatos();
 		boolean temContato = mCartaoList != null && mCartaoList.size() > 0;
 		Activity context = this;

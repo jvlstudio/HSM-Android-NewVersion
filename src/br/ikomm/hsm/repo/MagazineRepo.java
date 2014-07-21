@@ -12,28 +12,60 @@ import android.database.sqlite.SQLiteDatabase;
 import br.ikomm.hsm.model.Magazine;
 import br.ikomm.hsm.services.DatabaseManager;
 
+/**
+ * MagazineRepo.java class.
+ * Modified by Rodrigo Cericatto at July 21, 2014.
+ */
 public class MagazineRepo {
-	private final Context Ctx;
+	
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private final Context mContext;
 	private SQLiteDatabase mDb;
 	private DatabaseManager mDbManager;
 	
+	//--------------------------------------------------
+	// Constructor
+	//--------------------------------------------------
 	
 	public MagazineRepo(Context context) {
 		super();
-		this.Ctx = context;
+		mContext = context;
 	}
 	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+
+	/**
+	 * Opens the database.
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
 	public MagazineRepo open() throws SQLException{
-		this.mDbManager = DatabaseManager.getInstance(this.Ctx);
-		this.mDb = this.mDbManager.getWritableDatabase();
+		mDbManager = DatabaseManager.getInstance(mContext);
+		mDb = mDbManager.getWritableDatabase();
 		return this;
 	}
 	
-	public void close(){
-		this.mDbManager.close();
+	/**
+	 * Closes the database.
+	 */
+	public void close() {
+		mDbManager.close();
 	}
 	
-	// insert 
+	/**
+	 * Inserts a specific {@link Magazine}.
+	 * 
+	 * @param magazine
+	 * 
+	 * @return
+	 */
 	public long insertMagazine(Magazine magazine) {
 		ContentValues value = new ContentValues();
 		value.put("id", magazine.id);
@@ -41,55 +73,77 @@ public class MagazineRepo {
 		value.put("picture", magazine.picture);
 		value.put("description", magazine.description);
 		value.put("link", magazine.link);
-		return this.mDb.insert("magazine", null, value);
+		return mDb.insert("magazine", null, value);
 	}
 	
-	// getAll
+	/**
+	 * Gets all {@link Magazine}.
+	 * 
+	 * @return
+	 */
 	public List<Magazine> getAllMagazine() {
-		List<Magazine> _magazines = new ArrayList<Magazine>();
-		Magazine _magazine;
-		Cursor mCursor = this.mDb.query("magazine", null, null, null, null, null, null);
+		List<Magazine> magazineList = new ArrayList<Magazine>();
+		Magazine magazine;
 		
-		if (mCursor.getCount() > 0) {
-			while (mCursor.moveToNext()) {
-				_magazine = new Magazine();
-				_magazine.id = mCursor.getInt(1);
-				_magazine.name = mCursor.getString(2);
-				_magazine.picture = mCursor.getString(3);
-				_magazine.description = mCursor.getString(4);
-				_magazine.link = mCursor.getString(5);
-				_magazines.add(_magazine);
+		Cursor cursor = mDb.query("magazine", null, null, null, null, null, null);
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				magazine = new Magazine();
+				magazine.id = cursor.getInt(1);
+				magazine.name = cursor.getString(2);
+				magazine.picture = cursor.getString(3);
+				magazine.description = cursor.getString(4);
+				magazine.link = cursor.getString(5);
+				magazineList.add(magazine);
 			}
 		}
-		
-		return _magazines;
+		return magazineList;
 	}
 	
-	// getSingle
+	/**
+	 * Gets a specific {@link Magazine}.
+	 * 
+	 * @param id
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
 	@SuppressLint("NewApi")
 	public Magazine getMagazine(long id) throws SQLException {
-		Cursor mCursor = this.mDb.query("magazine", null, "id = "+id, null, null, null, null);
-		Magazine _magazine = new Magazine();
+		Magazine magazine = new Magazine();
 	
-		if(mCursor.getCount() > 0){
-			while (mCursor.moveToNext()) {
-				_magazine.id = mCursor.getInt(1);
-				_magazine.name = mCursor.getString(2);
-				_magazine.picture = mCursor.getString(3);
-				_magazine.description = mCursor.getString(4);
-				_magazine.link = mCursor.getString(5);
+		Cursor cursor = mDb.query("magazine", null, "id = "+id, null, null, null, null);
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				magazine.id = cursor.getInt(1);
+				magazine.name = cursor.getString(2);
+				magazine.picture = cursor.getString(3);
+				magazine.description = cursor.getString(4);
+				magazine.link = cursor.getString(5);
 			}
 		}
-		
-		return _magazine;
+		return magazine;
 	}
 	
-	// delete
+	/**
+	 * Deletes a specific {@link Magazine}.
+	 * 
+	 * @param id
+	 * 
+	 * @return
+	 */
 	public boolean delete(long id){
-		return this.mDb.delete("magazine", "id = " +id, null) > 0;
+		return mDb.delete("magazine", "id = " +id, null) > 0;
 	}
 	
-	// update
+	/**
+	 * Updates a specific {@link Magazine}.
+	 * 
+	 * @param magazine
+	 * 
+	 * @return
+	 */
 	public boolean update(Magazine magazine) {
 		ContentValues value = new ContentValues();
 		value.put("id", magazine.id);
@@ -97,11 +151,15 @@ public class MagazineRepo {
 		value.put("picture", magazine.picture);
 		value.put("description", magazine.description);
 		value.put("link", magazine.link);
-		return this.mDb.update("magazine", value, "id = " + magazine.id, null) > 0;
+		return mDb.update("magazine", value, "id = " + magazine.id, null) > 0;
 	}
 
+	/**
+	 * Deletes all {@link Magazine}.
+	 * 
+	 * @return
+	 */
 	public boolean deleteAll() {
-		// TODO Auto-generated method stub
-		return this.mDb.delete("magazine", null, null) > 0;
+		return mDb.delete("magazine", null, null) > 0;
 	}	
 }

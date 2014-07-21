@@ -112,7 +112,7 @@ public class DetalhePalestraActivity extends SherlockFragmentActivity implements
 	public void getCurrentAgenda() {
 		AgendaRepo agendaRepo = new AgendaRepo(getApplication());
 		agendaRepo.open();
-		mAgenda = agendaRepo.detailAgenda(mPanelistId, mEventId);
+		mAgenda = agendaRepo.byEventAndPanelist(mPanelistId, mEventId);
 		agendaRepo.close();
 	}
 	

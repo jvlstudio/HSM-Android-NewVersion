@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.ikomm.hsm.model.Cartao;
-import br.ikomm.hsm.repo.CartaoRepositorio;
+import br.ikomm.hsm.repo.CartaoRepository;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -27,7 +27,7 @@ public class MeuCartaoActivity extends SherlockActivity {
 	// Attributes
 	//--------------------------------------------------
 	
-	private CartaoRepositorio mCartaoRepo;
+	private CartaoRepository mCartaoRepo;
 
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -42,7 +42,7 @@ public class MeuCartaoActivity extends SherlockActivity {
 		action.setLogo(R.drawable.hsm_logo);
 		action.setDisplayHomeAsUpEnabled(true);
 		
-		mCartaoRepo = new CartaoRepositorio(MeuCartaoActivity.this);
+		mCartaoRepo = new CartaoRepository(MeuCartaoActivity.this);
 		addListenerButton();
 	}
 	

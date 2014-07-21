@@ -33,7 +33,7 @@ public class EventRepo {
 	
 	public EventRepo(Context context) {
 		super();
-		this.mContext = context;
+		mContext = context;
 	}
 	
 	//--------------------------------------------------
@@ -41,7 +41,7 @@ public class EventRepo {
 	//--------------------------------------------------
 	
 	/**
-	 * Open database.
+	 * Opens the database.
 	 * 
 	 * @return
 	 * @throws SQLException
@@ -53,14 +53,14 @@ public class EventRepo {
 	}
 	
 	/**
-	 * Close database.
+	 * Closes the database.
 	 */
 	public void close(){
 		mDbManager.close();
 	}
 	
 	/**
-	 * Insert.
+	 * Insert a specific {@link Event}.
 	 * 
 	 * @param event
 	 * @return
@@ -81,64 +81,64 @@ public class EventRepo {
 	}
 	
 	/**
-	 * Get all.
+	 * Gets all {@link Event}.
 	 * 
 	 * @return
 	 */
 	public List<Event> getAllEvent() {
 		List<Event> events = new ArrayList<Event>();
-		Event _event;
-		Cursor mCursor = mDb.query("event", null, null, null, null, null, null);
+		Event event;
+		Cursor cursor = mDb.query("event", null, null, null, null, null, null);
 		
-		if (mCursor.getCount() > 0) {
-			while (mCursor.moveToNext()) {
-				_event = new Event();
-				_event.id = mCursor.getInt(1);
-				_event.name = mCursor.getString(2);
-				_event.slug = mCursor.getString(3);
-				_event.description = mCursor.getString(4);
-				_event.tiny_description = mCursor.getString(5);
-				_event.info_dates = mCursor.getString(6);
-				_event.info_hours = mCursor.getString(7);
-				_event.info_locale = mCursor.getString(8);
-				_event.image_list = mCursor.getString(9);
-				_event.image_single = mCursor.getString(10);
-				events.add(_event);
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				event = new Event();
+				event.id = cursor.getInt(1);
+				event.name = cursor.getString(2);
+				event.slug = cursor.getString(3);
+				event.description = cursor.getString(4);
+				event.tiny_description = cursor.getString(5);
+				event.info_dates = cursor.getString(6);
+				event.info_hours = cursor.getString(7);
+				event.info_locale = cursor.getString(8);
+				event.image_list = cursor.getString(9);
+				event.image_single = cursor.getString(10);
+				events.add(event);
 			}
 		}
 		return events;
 	}
 	
 	/**
-	 * Get single.
+	 * Gets a specific {@link Event}.
 	 * 
 	 * @param id
 	 * @return
 	 * @throws SQLException
 	 */
 	public Event getEvent(long id) throws SQLException {
-		Event _event = new Event();
-		Cursor mCursor = mDb.query(true, "event", null, "id = " + id, null, null, null, null, null, null);
+		Event event = new Event();
+		Cursor cursor = mDb.query(true, "event", null, "id = " + id, null, null, null, null, null, null);
 		
-		if (mCursor.getCount() > 0) {
-			while (mCursor.moveToNext()) {
-				_event.id = mCursor.getInt(1);
-				_event.name = mCursor.getString(2);
-				_event.slug = mCursor.getString(3);
-				_event.description = mCursor.getString(4);
-				_event.tiny_description = mCursor.getString(5);
-				_event.info_dates = mCursor.getString(6);
-				_event.info_hours = mCursor.getString(7);
-				_event.info_locale = mCursor.getString(8);
-				_event.image_list = mCursor.getString(9);
-				_event.image_single = mCursor.getString(10);
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				event.id = cursor.getInt(1);
+				event.name = cursor.getString(2);
+				event.slug = cursor.getString(3);
+				event.description = cursor.getString(4);
+				event.tiny_description = cursor.getString(5);
+				event.info_dates = cursor.getString(6);
+				event.info_hours = cursor.getString(7);
+				event.info_locale = cursor.getString(8);
+				event.image_list = cursor.getString(9);
+				event.image_single = cursor.getString(10);
 			}
 		}
-		return _event;
+		return event;
 	}
 	
 	/**
-	 * Delete.
+	 * Delete a specific {@link Event}.
 	 * 
 	 * @param id
 	 * 
@@ -149,7 +149,7 @@ public class EventRepo {
 	}
 	
 	/**
-	 * Update.
+	 * Update a specific {@link Event}.
 	 * 
 	 * @param event
 	 * 
@@ -171,7 +171,7 @@ public class EventRepo {
 	}
 
 	/**
-	 * Delete all.
+	 * Delete all {@link Event}.
 	 * 
 	 * @return
 	 */

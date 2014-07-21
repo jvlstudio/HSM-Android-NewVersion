@@ -1,5 +1,8 @@
 package br.ikomm.hsm.repo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -36,18 +39,28 @@ public class HomeRepo {
 	// Methods
 	//--------------------------------------------------
 	
+	/**
+	 * Opens the database.
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
 	public HomeRepo open() throws SQLException{
 		mDbManager = DatabaseManager.getInstance(mContext);
 		mDb = mDbManager.getWritableDatabase();
 		return this;
 	}
 	
+	/**
+	 * Closes the database.
+	 */
 	public void close(){
 		mDbManager.close();
 	}
 	
 	/**
-	 * Inserts a {@link Home}.
+	 * Inserts a specific {@link Home}.
 	 *  
 	 * @param home
 	 * 
@@ -74,12 +87,33 @@ public class HomeRepo {
 	 * 
 	 * @return
 	 */
-	public Cursor getAllHome() {
-		return mDb.query("home", null, null, null, null, null, null);
+	public List<Home> getAllHome() {
+		List<Home> homes = new ArrayList<Home>();
+		Home home;
+		Cursor cursor = mDb.query("home", null, null, null, null, null, null);
+		
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				home = new Home();
+				home.id = cursor.getInt(1);
+				home.events_title = cursor.getString(2);
+				home.events_image_android = cursor.getString(3);
+				home.education_title = cursor.getString(4);
+				home.education_image_android = cursor.getString(5);
+				home.videos_title = cursor.getString(6);
+				home.videos_image_android = cursor.getString(7);
+				home.magazines_title = cursor.getString(8);
+				home.magazines_image_android = cursor.getString(9);
+				home.books_title = cursor.getString(10);
+				home.books_image_android = cursor.getString(11);
+				homes.add(home);
+			}
+		}
+		return homes;
 	}
 	
 	/**
-	 * Gets a single {@link Home}.
+	 * Gets a specific {@link Home}.
 	 * 
 	 * @param id
 	 * 
@@ -88,16 +122,16 @@ public class HomeRepo {
 	 */
 	@SuppressLint("NewApi")
 	public Cursor getHome(long id) throws SQLException {
-		Cursor mCursor = mDb.query(true, "home", null, "id = " + id, null, null, null, null, null, null);
+		Cursor cursor = mDb.query(true, "home", null, "id = " + id, null, null, null, null, null, null);
 		
-		 if (mCursor != null) {
-	            mCursor.moveToFirst();
+		 if (cursor != null) {
+			 cursor.moveToFirst();
 	     }
-		 return mCursor;
+		 return cursor;
 	}
 	
 	/**
-	 * Gets a single {@link Home} from a {@link Cursor}.
+	 * Gets a {@link Home} from a {@link Cursor}.
 	 * 
 	 * @param cursor
 	 * @return
@@ -119,7 +153,7 @@ public class HomeRepo {
 	}
 	
 	/**
-	 * Deletes a {@link Home}.
+	 * Deletes a specific {@link Home}.
 	 * 
 	 * @param id
 	 * @return
@@ -129,7 +163,7 @@ public class HomeRepo {
 	}
 	
 	/**
-	 * Updates a {@link Home}.
+	 * Updates a specific {@link Home}.
 	 * 
 	 * @param home
 	 * @return
@@ -151,7 +185,7 @@ public class HomeRepo {
 	}
 
 	/**
-	 * Deletes all instances of {@link Home}.
+	 * Deletes all {@link Home}.
 	 * 
 	 * @return
 	 */

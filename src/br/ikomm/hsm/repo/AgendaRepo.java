@@ -3,39 +3,71 @@ package br.ikomm.hsm.repo;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ikomm.hsm.model.Agenda;
-import br.ikomm.hsm.services.DatabaseManager;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import br.ikomm.hsm.model.Agenda;
+import br.ikomm.hsm.model.Event;
+import br.ikomm.hsm.model.Panelist;
+import br.ikomm.hsm.services.DatabaseManager;
 
-@SuppressLint("NewApi")
+/**
+ * AgendaRepo.java class.
+ * Modified by Rodrigo Cericatto at July 21, 2014.
+ */
 public class AgendaRepo {
+	
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
 
-	private final Context Ctx;
+	private Context mContext;
 	private SQLiteDatabase mDb;
 	private DatabaseManager mDbManager;
 	
+	//--------------------------------------------------
+	// Constructor
+	//--------------------------------------------------
 	
 	public AgendaRepo(Context context) {
 		super();
-		this.Ctx = context;
+		mContext = context;
 	}
 	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Opens the database.
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
 	public AgendaRepo open() throws SQLException{
-		this.mDbManager = DatabaseManager.getInstance(this.Ctx);
-		this.mDb = this.mDbManager.getWritableDatabase();
+		mDbManager = DatabaseManager.getInstance(mContext);
+		mDb = mDbManager.getWritableDatabase();
 		return this;
 	}
 	
+	/**
+	 * Closes the database
+	 */
 	public void close(){
-		this.mDbManager.close();
+		mDbManager.close();
 	}
 	
-	// insert 
+	/**
+	 * Inserts a specific {@link Agenda}.
+	 * 
+	 * @param agenda
+	 * 
+	 * @return
+	 */
 	public long insertAgenda(Agenda agenda) {
 		ContentValues value = new ContentValues();
 		value.put("id", agenda.id);
@@ -50,69 +82,92 @@ public class AgendaRepo {
 		value.put("label", agenda.label);
 		value.put("sublabel", agenda.sublabel);
 		value.put("image", agenda.image);
-		return this.mDb.insert("agenda", null, value);
+		return mDb.insert("agenda", null, value);
 	}
 	
-	// getAll
+	/**
+	 * Gets all {@link Agenda}.
+	 * 
+	 * @return
+	 */
 	public List<Agenda> getAllAgenda() {
-		List<Agenda> agendas = new ArrayList<Agenda>();
-		Agenda _agenda;
-		Cursor mCursor = this.mDb.query("agenda", null, null, null, null, null, null); 
+		List<Agenda> agendaList = new ArrayList<Agenda>();
+		Agenda agenda;
 		
-		if (mCursor.getCount() > 0){
-			while (mCursor.moveToNext()) {
-				_agenda = new Agenda();
-				_agenda.id = mCursor.getInt(1);
-				_agenda.type = mCursor.getString(2);
-				_agenda.event_id = mCursor.getInt(3);
-				_agenda.panelist_id = mCursor.getInt(4);
-				_agenda.date = mCursor.getInt(5);
-				_agenda.date_start = mCursor.getString(6);
-				_agenda.date_end = mCursor.getString(7);
-				_agenda.theme_title = mCursor.getString(8);
-				_agenda.theme_description = mCursor.getString(9);
-				_agenda.label = mCursor.getString(10);
-				_agenda.sublabel = mCursor.getString(11);
-				_agenda.image = mCursor.getString(12);
-				agendas.add(_agenda);
+		Cursor cursor = mDb.query("agenda", null, null, null, null, null, null); 
+		if (cursor.getCount() > 0){
+			while (cursor.moveToNext()) {
+				agenda = new Agenda();
+				agenda.id = cursor.getInt(1);
+				agenda.type = cursor.getString(2);
+				agenda.event_id = cursor.getInt(3);
+				agenda.panelist_id = cursor.getInt(4);
+				agenda.date = cursor.getInt(5);
+				agenda.date_start = cursor.getString(6);
+				agenda.date_end = cursor.getString(7);
+				agenda.theme_title = cursor.getString(8);
+				agenda.theme_description = cursor.getString(9);
+				agenda.label = cursor.getString(10);
+				agenda.sublabel = cursor.getString(11);
+				agenda.image = cursor.getString(12);
+				agendaList.add(agenda);
 			}
 		}
-		
-		return agendas;
+		return agendaList;
 	}
 	
-	// getSingle
+	/**
+	 * Gets a specific {@link Agenda}.
+	 * 
+	 * @param id
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
+	@SuppressLint("NewApi")
 	public Agenda getAgenda(long id) throws SQLException {
-		Agenda _agenda = new Agenda();
+		Agenda agenda = new Agenda();
 		
-		Cursor mCursor = this.mDb.query(true, "agenda", null, "id = " + id, null, null, null, null, null, null);
-		if(mCursor.getCount() > 0){
-			while (mCursor.moveToNext()) {
-				_agenda = new Agenda();
-				_agenda.id = mCursor.getInt(1);
-				_agenda.type = mCursor.getString(2);
-				_agenda.event_id = mCursor.getInt(3);
-				_agenda.panelist_id = mCursor.getInt(4);
-				_agenda.date = mCursor.getInt(5);
-				_agenda.date_start = mCursor.getString(6);
-				_agenda.date_end = mCursor.getString(7);
-				_agenda.theme_title = mCursor.getString(8);
-				_agenda.theme_description = mCursor.getString(9);
-				_agenda.label = mCursor.getString(10);
-				_agenda.sublabel = mCursor.getString(11);
-				_agenda.image = mCursor.getString(12);
+		Cursor cursor = mDb.query(true, "agenda", null, "id = " + id, null, null, null, null, null, null);
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				agenda = new Agenda();
+				agenda.id = cursor.getInt(1);
+				agenda.type = cursor.getString(2);
+				agenda.event_id = cursor.getInt(3);
+				agenda.panelist_id = cursor.getInt(4);
+				agenda.date = cursor.getInt(5);
+				agenda.date_start = cursor.getString(6);
+				agenda.date_end = cursor.getString(7);
+				agenda.theme_title = cursor.getString(8);
+				agenda.theme_description = cursor.getString(9);
+				agenda.label = cursor.getString(10);
+				agenda.sublabel = cursor.getString(11);
+				agenda.image = cursor.getString(12);
 			}
 		}
-		
-		return _agenda;
+		return agenda;
 	}
 	
-	// delete
+	/**
+	 * Deletes a specific {@link Agenda}.
+	 * 
+	 * @param id
+	 * 
+	 * @return
+	 */
 	public boolean delete(long id){
-		return this.mDb.delete("agenda", "id = " +id, null) > 0;
+		return mDb.delete("agenda", "id = " +id, null) > 0;
 	}
 	
-	// update
+	/**
+	 * Updates a specific {@link Agenda}.
+	 * 
+	 * @param agenda
+	 * 
+	 * @return
+	 */
 	public boolean update(Agenda agenda) {
 		ContentValues value = new ContentValues();
 		value.put("id", agenda.id);
@@ -127,120 +182,126 @@ public class AgendaRepo {
 		value.put("label", agenda.label);
 		value.put("sublabel", agenda.sublabel);
 		value.put("image", agenda.image);
-		return this.mDb.update("agenda", value, "id = " + agenda.id, null) > 0;
+		return mDb.update("agenda", value, "id = " + agenda.id, null) > 0;
 	}
 
-	// byEvent
+	/**
+	 * Gets a specific {@link Agenda} from an {@link Event}.
+	 * 
+	 * @param event_id
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	@SuppressLint("NewApi")
 	public List<Agenda> byEvent(long event_id) throws SQLException {
-		List<Agenda> agendas = new ArrayList<Agenda>();
-		Agenda _agenda;
+		List<Agenda> agendaList = new ArrayList<Agenda>();
+		Agenda agenda;
 		
-		Cursor mCursor = this.mDb.query(true, "agenda", null, "event_id = " + event_id, null, null, null, null, null, null); 
-		if(mCursor.getCount() > 0){
-			while (mCursor.moveToNext()) {
-				_agenda = new Agenda();
-				_agenda.id = mCursor.getInt(1);
-				_agenda.type = mCursor.getString(2);
-				_agenda.event_id = mCursor.getInt(3);
-				_agenda.panelist_id = mCursor.getInt(4);
-				_agenda.date = mCursor.getInt(5);
-				_agenda.date_start = mCursor.getString(6);
-				_agenda.date_end = mCursor.getString(7);
-				_agenda.theme_title = mCursor.getString(8);
-				_agenda.theme_description = mCursor.getString(9);
-				_agenda.label = mCursor.getString(10);
-				_agenda.sublabel = mCursor.getString(11);
-				_agenda.image = mCursor.getString(12);
-				agendas.add(_agenda);
+		Cursor cursor = mDb.query(true, "agenda", null, "event_id = " + event_id, null, null, null, null, null, null); 
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				agenda = new Agenda();
+				agenda.id = cursor.getInt(1);
+				agenda.type = cursor.getString(2);
+				agenda.event_id = cursor.getInt(3);
+				agenda.panelist_id = cursor.getInt(4);
+				agenda.date = cursor.getInt(5);
+				agenda.date_start = cursor.getString(6);
+				agenda.date_end = cursor.getString(7);
+				agenda.theme_title = cursor.getString(8);
+				agenda.theme_description = cursor.getString(9);
+				agenda.label = cursor.getString(10);
+				agenda.sublabel = cursor.getString(11);
+				agenda.image = cursor.getString(12);
+				agendaList.add(agenda);
 			}
 		}
-
-		return  agendas;
+		return  agendaList;
 	}
 	
-	// byEvent
+	/**
+	 * Gets a specific {@link Agenda} from an {@link Event} and a date.
+	 *  
+	 * @param event_id
+	 * @param currentDate
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
+	@SuppressLint("NewApi")
 	public List<Agenda> byEventAndDate(long event_id, String currentDate) throws SQLException {
-		List<Agenda> agendas = new ArrayList<Agenda>();
-		Agenda _agenda;
+		List<Agenda> agendaList = new ArrayList<Agenda>();
+		Agenda agenda;
 		
-		Cursor mCursor = this.mDb.query(true, "agenda", null, "event_id = " + event_id, null, null, null, null, null, null); 
-		if (mCursor.getCount() > 0) {
-			while (mCursor.moveToNext()) {
+		Cursor cursor = mDb.query(true, "agenda", null, "event_id = " + event_id, null, null, null, null, null, null); 
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
 				// Adds to the correct date tab.
-				String dateStart[] = mCursor.getString(6).split(" ");
+				String dateStart[] = cursor.getString(6).split(" ");
 				String dateFromDatabase = dateStart[0];
 				if (currentDate.equals(dateFromDatabase)) {
-					_agenda = new Agenda();
-					_agenda.id = mCursor.getInt(1);
-					_agenda.type = mCursor.getString(2);
-					_agenda.event_id = mCursor.getInt(3);
-					_agenda.panelist_id = mCursor.getInt(4);
-					_agenda.date = mCursor.getInt(5);
-					_agenda.date_start = mCursor.getString(6);
-					_agenda.date_end = mCursor.getString(7);
-					_agenda.theme_title = mCursor.getString(8);
-					_agenda.theme_description = mCursor.getString(9);
-					_agenda.label = mCursor.getString(10);
-					_agenda.sublabel = mCursor.getString(11);
-					_agenda.image = mCursor.getString(12);
-					agendas.add(_agenda);
+					agenda = new Agenda();
+					agenda.id = cursor.getInt(1);
+					agenda.type = cursor.getString(2);
+					agenda.event_id = cursor.getInt(3);
+					agenda.panelist_id = cursor.getInt(4);
+					agenda.date = cursor.getInt(5);
+					agenda.date_start = cursor.getString(6);
+					agenda.date_end = cursor.getString(7);
+					agenda.theme_title = cursor.getString(8);
+					agenda.theme_description = cursor.getString(9);
+					agenda.label = cursor.getString(10);
+					agenda.sublabel = cursor.getString(11);
+					agenda.image = cursor.getString(12);
+					agendaList.add(agenda);
 				}
 			}
 		}
-
-		return  agendas;
+		return  agendaList;
 	}
 	
-	// detailAgenda
-	public Agenda detailAgenda(long panelist_id, long event_id) throws SQLException {
-		Agenda _agenda = new Agenda();
+	/**
+	 * Gets a specific {@link Agenda} from an {@link Event} and a {@link Panelist}.
+	 * 
+	 * @param panelist_id
+	 * @param event_id
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
+	@SuppressLint("NewApi")
+	public Agenda byEventAndPanelist(long panelist_id, long event_id) throws SQLException {
+		Agenda agenda = new Agenda();
 		
-		Cursor mCursor = this.mDb.query(true, "agenda", null, "panelist_id = " + panelist_id + " AND  event_id = " + event_id, null, null, null, null, null, null); 
-		if(mCursor.getCount() > 0){
-			while (mCursor.moveToNext()) {
-				_agenda.id = mCursor.getInt(1);
-				_agenda.type = mCursor.getString(2);
-				_agenda.event_id = mCursor.getInt(3);
-				_agenda.panelist_id = mCursor.getInt(4);
-				_agenda.date = mCursor.getInt(5);
-				_agenda.date_start = mCursor.getString(6);
-				_agenda.date_end = mCursor.getString(7);
-				_agenda.theme_title = mCursor.getString(8);
-				_agenda.theme_description = mCursor.getString(9);
-				_agenda.label = mCursor.getString(10);
-				_agenda.sublabel = mCursor.getString(11);
-				_agenda.image = mCursor.getString(12);
+		Cursor cursor = mDb.query(true, "agenda", null, "panelist_id = " + panelist_id + " AND  event_id = " + event_id, null, null, null, null, null, null); 
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				agenda.id = cursor.getInt(1);
+				agenda.type = cursor.getString(2);
+				agenda.event_id = cursor.getInt(3);
+				agenda.panelist_id = cursor.getInt(4);
+				agenda.date = cursor.getInt(5);
+				agenda.date_start = cursor.getString(6);
+				agenda.date_end = cursor.getString(7);
+				agenda.theme_title = cursor.getString(8);
+				agenda.theme_description = cursor.getString(9);
+				agenda.label = cursor.getString(10);
+				agenda.sublabel = cursor.getString(11);
+				agenda.image = cursor.getString(12);
 			}
 		}
-
-		return  _agenda;
+		return  agenda;
 	}
 
+	/**
+	 * Deletes all {@link Agenda}.
+	 * 
+	 * @return
+	 */
 	public boolean deleteAll() {
-		// TODO Auto-generated method stub
-		return this.mDb.delete("agenda", null, null) > 0;
-	}
-	
-	public void specialUpdate() {
-		List<Agenda> list = getAllAgenda();
-		
-		// Updates the Agenda list.
-		Agenda agenda = list.get(3);
-		agenda.date_start = "2014-08-23 10:00:00";
-		agenda.date_end = "2014-08-23 12:00:00";
-		agenda.id = 27;
-        update(agenda);
-		
-        agenda = list.get(4);
-		agenda.date_start = "2014-08-23 12:00:00";
-		agenda.date_end = "2014-08-23 14:00:00";
-		agenda.id = 28;
-        update(agenda);
-        
-        agenda = list.get(5);
-		agenda.date_start = "2014-08-23 14:00:00";
-		agenda.date_end = "2014-08-23 16:00:00";
-		agenda.id = 28;
-        update(agenda);
+		return mDb.delete("agenda", null, null) > 0;
 	}
 }

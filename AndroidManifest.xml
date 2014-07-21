@@ -83,11 +83,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.InformativoActivity"
-            android:label="@string/title_activity_informativo"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="br.ikomm.hsm.adapter.SimplesAdapter"
             android:label="@string/title_activity_simples_adapter"
             android:screenOrientation="portrait" >

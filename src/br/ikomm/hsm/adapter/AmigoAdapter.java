@@ -12,20 +12,20 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Cartao;
-import br.ikomm.hsm.repo.CartaoRepositorio;
+import br.ikomm.hsm.repo.CartaoRepository;
 
 public class AmigoAdapter extends BaseAdapter {
 
 	private Context context;
 	private LayoutInflater inflater;
-	CartaoRepositorio cartaoRepo;
+	CartaoRepository cartaoRepo;
 	List<Cartao> cartoes;
 
 	public AmigoAdapter(Activity activity, Context context) {
 		super();
 		this.context = context;
 		inflater = LayoutInflater.from(activity);
-		cartaoRepo = new CartaoRepositorio(context);
+		cartaoRepo = new CartaoRepository(context);
 		cartoes = cartaoRepo.getMeusContatos();
 		if (cartoes == null) {
 			cartoes = new ArrayList<Cartao>();

@@ -12,28 +12,60 @@ import android.database.sqlite.SQLiteDatabase;
 import br.ikomm.hsm.model.Panelist;
 import br.ikomm.hsm.services.DatabaseManager;
 
+/**
+ * PanelistRepo.java class.
+ * Modified by Rodrigo Cericatto at July 21, 2014.
+ */
 public class PanelistRepo {
-	private final Context Ctx;
+	
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private Context mContext;
 	private SQLiteDatabase mDb;
 	private DatabaseManager mDbManager;
 	
+	//--------------------------------------------------
+	// Constructor
+	//--------------------------------------------------
 	
 	public PanelistRepo(Context context) {
 		super();
-		this.Ctx = context;
+		mContext = context;
 	}
 	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Opens the database.
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
 	public PanelistRepo open() throws SQLException{
-		this.mDbManager = DatabaseManager.getInstance(this.Ctx);
-		this.mDb = this.mDbManager.getWritableDatabase();
+		mDbManager = DatabaseManager.getInstance(mContext);
+		mDb = mDbManager.getWritableDatabase();
 		return this;
 	}
 	
-	public void close(){
-		this.mDbManager.close();
+	/**
+	 * Closes the database.
+	 */
+	public void close() {
+		mDbManager.close();
 	}
 	
-	// insert 
+	/**
+	 * Inserts a specific {@link Panelist}.
+	 * 
+	 * @param panelist
+	 * 
+	 * @return
+	 */
 	public long insertPanelist(Panelist panelist) {
 		ContentValues value = new ContentValues();
 		value.put("id", panelist.id);
@@ -41,74 +73,103 @@ public class PanelistRepo {
 		value.put("slug", panelist.slug);
 		value.put("description", panelist.description);
 		value.put("picture", panelist.picture);
-		return this.mDb.insert("panelist", null, value);
+		return mDb.insert("panelist", null, value);
 	}
 	
-	// getAll
+	/**
+	 * Gets all {@link Panelist}.
+	 * 
+	 * @return
+	 */
 	public List<Panelist> getAllPanelist() {
-		List<Panelist> panelists = new ArrayList<Panelist>();
-		Panelist _panelist;
+		List<Panelist> panelistList = new ArrayList<Panelist>();
+		Panelist panelist;
 		
-		Cursor mCursor = this.mDb.query("panelist", null, null, null, null, null, null);
-		
-		if(mCursor.getCount() > 0){
-			while (mCursor.moveToNext()) {
-				_panelist = new Panelist();
-				_panelist.id = mCursor.getInt(1);
-				_panelist.name = mCursor.getString(2);
-				_panelist.slug = mCursor.getString(3);
-				_panelist.description = mCursor.getString(4);
-				_panelist.picture = mCursor.getString(5);
-				panelists.add(_panelist);
+		Cursor cursor = mDb.query("panelist", null, null, null, null, null, null);
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				panelist = new Panelist();
+				panelist.id = cursor.getInt(1);
+				panelist.name = cursor.getString(2);
+				panelist.slug = cursor.getString(3);
+				panelist.description = cursor.getString(4);
+				panelist.picture = cursor.getString(5);
+				panelistList.add(panelist);
 			}
 		}
-		return panelists;
+		return panelistList;
 	}
 	
-	// getAllbyEvent
+	/**
+	 * Gets all {@link Panelist} from an {@link Event}.
+	 * 
+	 * @param listAgenda
+	 * 
+	 * @return
+	 */
 	public List<Panelist> getAllbyEvent(String listAgenda) {
-		List<Panelist> _panelists = new ArrayList<Panelist>();
-		Panelist _panelist;
+		List<Panelist> panelistList = new ArrayList<Panelist>();
+		Panelist panelist;
 		
-		Cursor mCursor = this.mDb.query("panelist", null, "id in ("+listAgenda+")", null, null, null, null);
-		if (mCursor.getCount() > 0) {
-			while (mCursor.moveToNext()) {
-				_panelist = new Panelist();
-				_panelist.id = mCursor.getInt(1);
-				_panelist.name = mCursor.getString(2);
-				_panelist.slug = mCursor.getString(3);
-				_panelist.description = mCursor.getString(4);
-				_panelist.picture = mCursor.getString(5);
-				_panelists.add(_panelist);
+		Cursor cursor = mDb.query("panelist", null, "id in ("+listAgenda+")", null, null, null, null);
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				panelist = new Panelist();
+				panelist.id = cursor.getInt(1);
+				panelist.name = cursor.getString(2);
+				panelist.slug = cursor.getString(3);
+				panelist.description = cursor.getString(4);
+				panelist.picture = cursor.getString(5);
+				panelistList.add(panelist);
 			}
 		}
-		return _panelists;
+		return panelistList;
 	}
 	
-	// getSingle
+	/**
+	 * Gets a specific {@link Panelist}.
+	 *  
+	 * @param id
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
 	@SuppressLint("NewApi")
 	public Panelist getPanelist(long id) throws SQLException {
-		Panelist _panelist = new Panelist();
-		Cursor mCursor = this.mDb.query("panelist", null, "id = "+id, null, null, null, null);
+		Panelist panelist = new Panelist();
 		
-		if(mCursor.getCount() > 0){
-			while (mCursor.moveToNext()) {
-				_panelist.id = mCursor.getInt(1);
-				_panelist.name = mCursor.getString(2);
-				_panelist.slug = mCursor.getString(3);
-				_panelist.description = mCursor.getString(4);
-				_panelist.picture = mCursor.getString(5);
+		Cursor cursor = mDb.query("panelist", null, "id = "+id, null, null, null, null);
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				panelist.id = cursor.getInt(1);
+				panelist.name = cursor.getString(2);
+				panelist.slug = cursor.getString(3);
+				panelist.description = cursor.getString(4);
+				panelist.picture = cursor.getString(5);
 			}
 		}
-		return _panelist;
+		return panelist;
 	}
 	
-	// delete
+	/**
+	 * Deletes a specific {@link Panelist}.
+	 * 
+	 * @param id
+	 * 
+	 * @return
+	 */
 	public boolean delete(long id){
-		return this.mDb.delete("panelist", "id = " +id, null) > 0;
+		return mDb.delete("panelist", "id = " +id, null) > 0;
 	}
 	
-	// update
+	/**
+	 * Updates a specific {@link Panelist}.
+	 * 
+	 * @param panelist
+	 * 
+	 * @return
+	 */
 	public boolean update(Panelist panelist) {
 		ContentValues value = new ContentValues();
 		value.put("id", panelist.id);
@@ -116,11 +177,15 @@ public class PanelistRepo {
 		value.put("slug", panelist.slug);
 		value.put("description", panelist.description);
 		value.put("picture", panelist.picture);
-		return this.mDb.update("panelist", value, "id = " + panelist.id, null) > 0;
+		return mDb.update("panelist", value, "id = " + panelist.id, null) > 0;
 	}
 
+	/**
+	 * Deletes all {@link Panelist}.
+	 * 
+	 * @return
+	 */
 	public boolean deleteAll() {
-		// TODO Auto-generated method stub
-		return this.mDb.delete("panelist", null, null) > 0;
+		return mDb.delete("panelist", null, null) > 0;
 	}
 }
