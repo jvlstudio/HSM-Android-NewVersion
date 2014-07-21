@@ -58,7 +58,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
-	
+	 
 	private String[] mPlanetTitles;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -156,12 +156,16 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		// Initializes layout components.
 		ImageView homeEventsImageView = (ImageView)findViewById(R.id.id_events_image_button);
 		homeEventsImageView.setOnClickListener(this);
+		
 		ImageView educationImageView = (ImageView)findViewById(R.id.id_future_content_image_button);
 		educationImageView.setOnClickListener(this);
+		
 		ImageView homeTvImageView = (ImageView)findViewById(R.id.id_home_tv_image_button);
 		homeTvImageView.setOnClickListener(this);
+		
 		ImageView issuesImageView = (ImageView)findViewById(R.id.id_magazines_image_button);
 		issuesImageView.setOnClickListener(this);
+		
 		ImageView booksImageView = (ImageView)findViewById(R.id.id_books_image_button);
 		booksImageView.setOnClickListener(this);
 		
