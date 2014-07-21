@@ -3,13 +3,13 @@ package br.ikomm.hsm.services;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
 import br.ikomm.hsm.model.Agenda;
 import br.ikomm.hsm.model.Book;
 import br.ikomm.hsm.model.Event;
+import br.ikomm.hsm.model.Home;
 import br.ikomm.hsm.model.Magazine;
 import br.ikomm.hsm.model.Panelist;
 import br.ikomm.hsm.model.Passe;
@@ -119,9 +119,11 @@ public class HSMService extends Service implements Runnable {
 				HomeRepo homeRepo = new HomeRepo(getApplicationContext());
 				homeRepo.open();
 				homeRepo.deleteAll();
-				Cursor cursor = homeRepo.getHome(list.data.id);
-				if (cursor.getCount() == 0) {
-					homeRepo.insertHome(list.data);
+				for (Home item : list.data) {
+					Home home = homeRepo.getHome(item.id);
+					if (home.id == 0) {
+						homeRepo.insertHome(item);
+					}
 				}
 				homeRepo.close();
 			}
@@ -166,12 +168,12 @@ public class HSMService extends Service implements Runnable {
 	 */
 	public boolean wsAgenda() {
 		try {
-			AgendaWS lista = mWsCommunication.wsAgenda();
-			if (!lista.data.isEmpty()) {
+			AgendaWS list = mWsCommunication.wsAgenda();
+			if (!list.data.isEmpty()) {
 				AgendaRepo agendaRepo = new AgendaRepo(getApplicationContext());
 				agendaRepo.open();
 				agendaRepo.deleteAll();
-				for (Agenda item : lista.data) {
+				for (Agenda item : list.data) {
 					Agenda agenda = agendaRepo.getAgenda(item.id);
 					if (agenda.id == 0) {
 						agendaRepo.insertAgenda(item);

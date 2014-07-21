@@ -1,7 +1,10 @@
 package br.ikomm.hsm.manager;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import br.ikomm.hsm.model.Agenda;
 import br.ikomm.hsm.model.Book;
 import br.ikomm.hsm.model.Event;
@@ -16,8 +19,6 @@ import br.ikomm.hsm.repo.HomeRepo;
 import br.ikomm.hsm.repo.MagazineRepo;
 import br.ikomm.hsm.repo.PanelistRepo;
 import br.ikomm.hsm.repo.PasseRepo;
-
-import java.util.ArrayList;
 
 /**
  * ContentManager.java class.
@@ -41,7 +42,7 @@ public class ContentManager {
 	// The application context.
 	private Context mContext;
 	
-	// Cached values.
+	// Cached list values.
 	private List<Agenda> mAgendaList = new ArrayList<Agenda>();
 	private List<Book> mBookList = new ArrayList<Book>();
 	private List<Event> mEventList = new ArrayList<Event>();
@@ -49,6 +50,9 @@ public class ContentManager {
 	private List<Magazine> mMagazineList = new ArrayList<Magazine>();
 	private List<Panelist> mPanelistList = new ArrayList<Panelist>();
 	private List<Passe> mPasseList = new ArrayList<Passe>();
+	
+	// Bitmap values.
+	private List<Bitmap> mLinearLayoutBitmapList = new ArrayList<Bitmap>();
 	
 	//----------------------------------------------
 	// Constructor
@@ -86,7 +90,36 @@ public class ContentManager {
 	 * Cleans all cached content.
 	 */
 	public void clean() {
-		
+		mAgendaList = null;
+		mBookList = null;
+		mEventList = null;
+		mHomeList = null;
+		mMagazineList = null;
+		mPanelistList = null;
+		mPasseList = null;
+		mLinearLayoutBitmapList = null;
+	}
+	
+	//----------------------------------------------
+	// Bitmap
+	//----------------------------------------------
+	
+	/**
+	 * Adds a {@link Bitmap} to the {@link Bitmap} list.
+	 * 
+	 * @param bitmap
+	 */
+	public void addBitmap(Bitmap bitmap) {
+		mLinearLayoutBitmapList.add(bitmap);
+	}
+	
+	/**
+	 * Gets the {@link Bitmap} list.
+	 * 
+	 * @return
+	 */
+	public List<Bitmap> getBitmapList() {
+		return mLinearLayoutBitmapList;
 	}
 	
 	//----------------------------------------------
@@ -177,7 +210,7 @@ public class ContentManager {
 		List<Home> list = null;
 		
 		// Checks if is null.
-		if (mHomeList == null) {
+		if (mHomeList.size() <= 0 ||  mHomeList == null) {
 			HomeRepo repo = new HomeRepo(mContext);
 			repo.open();
 			list = repo.getAllHome();

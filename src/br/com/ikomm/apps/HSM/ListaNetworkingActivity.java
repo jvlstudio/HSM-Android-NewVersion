@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,7 +34,7 @@ public class ListaNetworkingActivity extends FragmentActivity {
 	// Attributes
 	//--------------------------------------------------
 	
-	private CartaoRepository cartaoRepo;
+	private CartaoRepository mCartaoRepo;
 	private List<Cartao> mCartaoList;
 
 	//--------------------------------------------------
@@ -51,17 +50,16 @@ public class ListaNetworkingActivity extends FragmentActivity {
 		action.setLogo(R.drawable.hsm_logo);
 		action.setDisplayHomeAsUpEnabled(true);
 		
-		cartaoRepo = new CartaoRepository(ListaNetworkingActivity.this);
-		mCartaoList = cartaoRepo.getMeusContatos();
+		mCartaoRepo = new CartaoRepository(ListaNetworkingActivity.this);
+		mCartaoList = mCartaoRepo.getMeusContatos();
 		boolean temContato = mCartaoList != null && mCartaoList.size() > 0;
-		Activity context = this;
 
 		ListView listView = (ListView) findViewById(R.id.listViewNetworking);
 		if (!temContato) {
 			listView.setVisibility(View.GONE);
 		} else {
 			findViewById(R.id.frameButtonNet).setVisibility(View.GONE);
-			listView.setAdapter(new AmigoAdapter(context, this));
+			listView.setAdapter(new AmigoAdapter(this));
 			listView.setOnItemClickListener(onItemClick());
 		}
 		addListenerButton();
@@ -79,11 +77,11 @@ public class ListaNetworkingActivity extends FragmentActivity {
 					return;
 				}
 			}
-			List<Cartao> contatos = cartaoRepo.getMeusContatos();
+			List<Cartao> contatos = mCartaoRepo.getMeusContatos();
 			List<Cartao> novoContatos = new ArrayList<Cartao>();
 			novoContatos.addAll(contatos);
 			novoContatos.add(novoContato);
-			cartaoRepo.setMeusContatos(novoContatos);
+			mCartaoRepo.setMeusContatos(novoContatos);
 		} catch (Exception e) {
 			Toast.makeText(ListaNetworkingActivity.this, "Ocorreu um erro na leitura do QRCode, por favor tente novamente.", Toast.LENGTH_LONG).show();
 			return;

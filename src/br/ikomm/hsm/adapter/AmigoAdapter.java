@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,54 +13,63 @@ import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Cartao;
 import br.ikomm.hsm.repo.CartaoRepository;
 
+/**
+ * AmigoAdapter.java class.
+ * Modified by Rodrigo Cericatto at July 21, 2014.
+ */
 public class AmigoAdapter extends BaseAdapter {
 
-	private Context context;
-	private LayoutInflater inflater;
-	CartaoRepository cartaoRepo;
-	List<Cartao> cartoes;
-
-	public AmigoAdapter(Activity activity, Context context) {
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private LayoutInflater mInflater;
+	private CartaoRepository mCartaoRepo;
+	private List<Cartao> mCartaoList;
+	
+	//--------------------------------------------------
+	// Constructor
+	//--------------------------------------------------
+	
+	public AmigoAdapter(Activity activity) {
 		super();
-		this.context = context;
-		inflater = LayoutInflater.from(activity);
-		cartaoRepo = new CartaoRepository(context);
-		cartoes = cartaoRepo.getMeusContatos();
-		if (cartoes == null) {
-			cartoes = new ArrayList<Cartao>();
+		mInflater = LayoutInflater.from(activity);
+		mCartaoRepo = new CartaoRepository(activity);
+		mCartaoList = mCartaoRepo.getMeusContatos();
+		if (mCartaoList == null) {
+			mCartaoList = new ArrayList<Cartao>();
 		}
 	}
 
+	//--------------------------------------------------
+	// Adapter
+	//--------------------------------------------------
+	
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return cartoes.size();
+		return mCartaoList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
-		Cartao cartaoAtual = cartoes.get(position);
+		Cartao cartaoAtual = mCartaoList.get(position);
 
 		View view = convertView;
-		view = inflater.inflate(R.layout.adapter_amigo, parent, false);
+		view = mInflater.inflate(R.layout.adapter_amigo, parent, false);
 
 		TextView nome = (TextView) view.findViewById(R.id.lNomeNet);
 		nome.setText(cartaoAtual.nome);
 
 		return view;
 	}
-
 }

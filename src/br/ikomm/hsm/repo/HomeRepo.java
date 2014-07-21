@@ -88,7 +88,7 @@ public class HomeRepo {
 	 * @return
 	 */
 	public List<Home> getAllHome() {
-		List<Home> homes = new ArrayList<Home>();
+		List<Home> homeList = new ArrayList<Home>();
 		Home home;
 		Cursor cursor = mDb.query("home", null, null, null, null, null, null);
 		
@@ -106,49 +106,39 @@ public class HomeRepo {
 				home.magazines_image_android = cursor.getString(9);
 				home.books_title = cursor.getString(10);
 				home.books_image_android = cursor.getString(11);
-				homes.add(home);
+				homeList.add(home);
 			}
 		}
-		return homes;
+		return homeList;
 	}
 	
 	/**
 	 * Gets a specific {@link Home}.
 	 * 
 	 * @param id
-	 * 
 	 * @return
 	 * @throws SQLException
 	 */
 	@SuppressLint("NewApi")
-	public Cursor getHome(long id) throws SQLException {
-		Cursor cursor = mDb.query(true, "home", null, "id = " + id, null, null, null, null, null, null);
-		
-		 if (cursor != null) {
-			 cursor.moveToFirst();
-	     }
-		 return cursor;
-	}
-	
-	/**
-	 * Gets a {@link Home} from a {@link Cursor}.
-	 * 
-	 * @param cursor
-	 * @return
-	 */
-	public Home getHomeFromCursor(Cursor cursor) {
+	public Home getHome(long id) throws SQLException {
 		Home home = new Home();
-		home.id = cursor.getInt(0);
-		home.events_title = cursor.getString(1);
-		home.events_image_android = cursor.getString(2);
-		home.education_title = cursor.getString(3);
-		home.education_image_android = cursor.getString(4);
-		home.videos_title = cursor.getString(5);
-		home.videos_image_android = cursor.getString(6);
-		home.magazines_title = cursor.getString(7);
-		home.magazines_image_android = cursor.getString(8);
-		home.books_title = cursor.getString(9);
-		home.books_image_android = cursor.getString(10);
+		
+		Cursor cursor = mDb.query(true, "home", null, "id = " + id, null, null, null, null, null, null);
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				home.id = cursor.getInt(1);
+				home.events_title = cursor.getString(2);
+				home.events_image_android = cursor.getString(3);
+				home.education_title = cursor.getString(4);
+				home.education_image_android = cursor.getString(5);
+				home.videos_title = cursor.getString(6);
+				home.videos_image_android = cursor.getString(7);
+				home.magazines_title = cursor.getString(8);
+				home.magazines_image_android = cursor.getString(9);
+				home.books_title = cursor.getString(10);
+				home.books_image_android = cursor.getString(11);
+			}
+		}
 		return home;
 	}
 	

@@ -1,10 +1,11 @@
 package br.ikomm.hsm.activity;
 
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -23,8 +24,8 @@ import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.neo.EventosNovaActivity;
 import br.com.ikomm.apps.HSM.neo.ListaLivrosActivity;
 import br.com.ikomm.apps.HSM.neo.RevistaActivity;
+import br.ikomm.hsm.manager.ContentManager;
 import br.ikomm.hsm.model.Home;
-import br.ikomm.hsm.repo.HomeRepo;
 import br.ikomm.hsm.util.WebServiceCommunication;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -35,8 +36,14 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  * HomeActivity.java class.
  * Modified by Rodrigo Cericatto at July 3, 2014.
  */
-public class HomeActivity extends FragmentActivity {
+public class HomeActivity extends FragmentActivity implements OnClickListener {
 
+	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/home/";
+	
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
@@ -70,9 +77,10 @@ public class HomeActivity extends FragmentActivity {
 
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
+		
+		ContentManager.getInstance().setContext(this);
 
 		addImages();
-		addListenerOnButton();
 
 		mPlanetTitles = getResources().getStringArray(R.array.menuList);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -134,13 +142,9 @@ public class HomeActivity extends FragmentActivity {
 	 * Adds images to the {@link ImageView}.
 	 */
 	private void addImages() {
-        // Get repo.
-        HomeRepo repo = new HomeRepo(this);
-        repo.open();
-        
         // Get Home.
-		Cursor cursor = repo.getHome(1);
-		Home home = repo.getHomeFromCursor(cursor);
+		List<Home> list = ContentManager.getInstance().getAllHome();
+		Home home = list.get(0);
 		
 		// Get URL's.
 		String homeEventsUrl = home.events_image_android;
@@ -150,18 +154,23 @@ public class HomeActivity extends FragmentActivity {
 		String booksUrl = home.books_image_android;
 		
 		// Initializes layout components.
-		ImageView homeEventsImageView = (ImageView)findViewById(R.id.ibtnGrande);
-		ImageView educationImageView = (ImageView)findViewById(R.id.ibtn14o);
-		ImageView homeTvImageView = (ImageView)findViewById(R.id.ibtn24o);
-		ImageView issuesImageView = (ImageView)findViewById(R.id.ibtn34o);
-		ImageView booksImageView = (ImageView)findViewById(R.id.ibtn44o);
+		ImageView homeEventsImageView = (ImageView)findViewById(R.id.id_events_image_button);
+		homeEventsImageView.setOnClickListener(this);
+		ImageView educationImageView = (ImageView)findViewById(R.id.id_future_content_image_button);
+		educationImageView.setOnClickListener(this);
+		ImageView homeTvImageView = (ImageView)findViewById(R.id.id_home_tv_image_button);
+		homeTvImageView.setOnClickListener(this);
+		ImageView issuesImageView = (ImageView)findViewById(R.id.id_magazines_image_button);
+		issuesImageView.setOnClickListener(this);
+		ImageView booksImageView = (ImageView)findViewById(R.id.id_books_image_button);
+		booksImageView.setOnClickListener(this);
 		
 		// Set image views and its contents.
-		setUniversalImage(homeEventsUrl, homeEventsImageView);
-		setUniversalImage(educationUrl, educationImageView);
-		setUniversalImage(homeTvUrl, homeTvImageView);
-		setUniversalImage(issuesUrl, issuesImageView);
-		setUniversalImage(booksUrl, booksImageView);
+		setUniversalImage(URL + homeEventsUrl, homeEventsImageView);
+		setUniversalImage(URL + educationUrl, educationImageView);
+		setUniversalImage(URL + homeTvUrl, homeTvImageView);
+		setUniversalImage(URL + issuesUrl, issuesImageView);
+		setUniversalImage(URL + booksUrl, booksImageView);
 	}
 	
 	/**
@@ -243,48 +252,29 @@ public class HomeActivity extends FragmentActivity {
 	}
 	
 	//--------------------------------------------------
-	// Click Listeners
+	// Listeners
 	//--------------------------------------------------
 
-	/**
-	 * Click listeners.
-	 */
-	private void addListenerOnButton() {
-		findViewById(R.id.ibtnGrande).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()) {
+			case R.id.id_events_image_button:
 				startActivity(new Intent(HomeActivity.this, EventosNovaActivity.class));
-			}
-		});
-
-		findViewById(R.id.ibtn14o).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				showDialogClick(v);
-			}
-		});
-
-		findViewById(R.id.ibtn24o).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
+				break;
+			case R.id.id_future_content_image_button:
+				showDialogClick(view);
+				break;
+			case R.id.id_home_tv_image_button:
 				Uri uri = Uri.parse("https://www.youtube.com/channel/UCszAA4rqXiFw8WO_UUq_sAg");
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
-			}
-		});
-
-		findViewById(R.id.ibtn34o).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
+				break;
+			case R.id.id_magazines_image_button:
 				startActivity(new Intent(HomeActivity.this, RevistaActivity.class));
-			}
-		});
-
-		findViewById(R.id.ibtn44o).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
+				break;
+			case R.id.id_books_image_button:
 				startActivity(new Intent(HomeActivity.this, ListaLivrosActivity.class));
-			}
-		});
+				break;
+		}
 	}
 }
