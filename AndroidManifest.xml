@@ -68,26 +68,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.adapter.Data1Adapter"
-            android:label="@string/title_activity_data1_adapter"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.fragment.AgendaFragment"
-            android:label="@string/title_activity_data1_fragment"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.adapter.AgendaAdapter"
-            android:label="@string/title_activity_agenda_adapter"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.adapter.PacoteAdapter"
-            android:label="@string/title_activity_pacote_adapter"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="br.ikomm.hsm.activity.SplashScreen2Activity"
             android:label="@string/title_activity_splash_screen2"
             android:screenOrientation="portrait" >
@@ -123,28 +103,8 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.adapter.BDWAgendaAdapter"
-            android:label="@string/title_activity_bdwagenda_adapter"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.adapter.PalestranteAdapter"
-            android:label="@string/title_activity_palestrante_adapter"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.fragment.BannerFragment"
-            android:label="@string/title_activity_banner_fragment"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="br.com.ikomm.apps.HSM.ListaNetworkingActivity"
             android:label="@string/title_activity_lista_networking"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.adapter.AmigoAdapter"
-            android:label="@string/title_activity_amigo_adapter"
             android:screenOrientation="portrait" >
         </activity>
         <activity

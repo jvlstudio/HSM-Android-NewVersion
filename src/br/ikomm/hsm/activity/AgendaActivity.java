@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.adapter.AgendaAdapter;
+import br.ikomm.hsm.adapter.AgendaPagerAdapter;
 
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
@@ -17,7 +17,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
- * AgendaAdapter.java class.
+ * AgendaPagerAdapter.java class.
  * Modified by Rodrigo Cericatto at June 30, 2014.
  */
 public class AgendaActivity extends SherlockFragmentActivity implements OnClickListener, TabListener {
@@ -50,7 +50,7 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 		}
 		
 		mViewPager = (ViewPager) findViewById(R.id.viewPagerAgenda);
-		mViewPager.setAdapter(new AgendaAdapter(getSupportFragmentManager(), mEventId, mDates.length));
+		mViewPager.setAdapter(new AgendaPagerAdapter(getSupportFragmentManager(), mEventId, mDates.length));
 		
 		final com.actionbarsherlock.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

@@ -12,11 +12,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.activity.DetalhePalestraActivity;
-import br.ikomm.hsm.adapter.Data1Adapter;
+import br.ikomm.hsm.adapter.AgendaAdapter;
 import br.ikomm.hsm.model.Agenda;
 import br.ikomm.hsm.model.Event;
 import br.ikomm.hsm.repo.AgendaRepo;
 import br.ikomm.hsm.repo.EventRepo;
+import br.ikomm.hsm.util.StringUtils;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
@@ -129,7 +130,7 @@ public class AgendaFragment extends SherlockFragment {
 		mAgendaList = null;
 		mAgendaList = repo.byEventAndDate(mEventId, currentDate);
 		repo.close();
-		mListView.setAdapter(new Data1Adapter(getActivity(), mAgendaList));
+		mListView.setAdapter(new AgendaAdapter(getActivity(), mAgendaList));
 	}
 	
 	/**
@@ -150,10 +151,13 @@ public class AgendaFragment extends SherlockFragment {
 		currentDate = currentDate.trim();
 		
 		// Formats the date.
-		String day = currentDate.substring(0, 2);
-		String month = currentDate.substring(3, 5);
-		String year = currentDate.substring(6, 10);
-		String formattedDate = year + "-" + month + "-" + day;
+		String formattedDate = "Data vazia";
+		if (!StringUtils.isEmpty(currentDate)) {
+			String day = currentDate.substring(0, 2);
+			String month = currentDate.substring(3, 5);
+			String year = currentDate.substring(6, 10);
+			formattedDate = year + "-" + month + "-" + day;
+		}
 		
 		return formattedDate;
 	}
