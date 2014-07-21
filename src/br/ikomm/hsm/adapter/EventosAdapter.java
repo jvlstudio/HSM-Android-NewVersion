@@ -18,6 +18,7 @@ import br.ikomm.hsm.model.Event;
 import br.ikomm.hsm.tasks.ReadImageAsyncTask;
 import br.ikomm.hsm.util.AsyncTaskUtils;
 import br.ikomm.hsm.util.FileUtils;
+import br.ikomm.hsm.util.StringUtils;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -233,9 +234,11 @@ public class EventosAdapter extends BaseAdapter {
 		// Get days and months from each date.
 		for (int i = 0; i < length; i++) {
 			String trimmed = dates[i].trim();
-			String parts[] = trimmed.split("/");
-			months[i] = parts[1];
-			days[i] = parts[0];
+			if (!StringUtils.isEmpty(trimmed)) {
+				String parts[] = trimmed.split("/");
+				months[i] = parts[1];
+				days[i] = parts[0];
+			}
 		}
 		
 		// Apply the logic.
