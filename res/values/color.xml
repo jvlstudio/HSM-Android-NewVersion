@@ -8,6 +8,9 @@
     <color name="hsm_color_gray_dark">#484857</color>
     <color name="hsm_color_gray_normal">#2F2F3E</color>
     <color name="hsm_color_gray_clicked">#23232F</color>
+    <color name="hsm_color_gray_blue">#B3B3C7</color>
+    <color name="hsm_color_gray_break">#38384A</color>
+    <color name="hsm_color_gray_break_text">#575773</color>
     
     <color name="hsm_color_green">#53BD7A</color>
 

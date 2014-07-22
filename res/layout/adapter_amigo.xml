@@ -19,14 +19,14 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/hsm_panelist_noimage"/>
+        android:src="@drawable/hsm_placeholder_panelist"/>
     
     <TextView 
         android:id="@+id/lNomeNet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:textColor="#191970"
+        android:textColor="@color/hsm_color_gray_break_text"
         android:textStyle="bold"
         android:text="NOME DO FULANO"/>
 </LinearLayout>

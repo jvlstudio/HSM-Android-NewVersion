@@ -14,10 +14,8 @@
         <ListView 
             android:id="@+id/listViewNetworking"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
-        
+            android:layout_height="wrap_content"/>
     </FrameLayout>
-    
     <FrameLayout 
         android:id="@+id/frameButtonNet"
         android:layout_width="match_parent"
@@ -34,6 +32,4 @@
 	        android:background="@drawable/hsm_bt_large_blue"
 	        android:text="Criar meu cartão"/>
     </FrameLayout>
-    
-
 </LinearLayout>

@@ -1,8 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/id_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/hsm_color_gray_normal"
+    android:background="@color/hsm_color_gray_break"
     android:orientation="horizontal"
     android:padding="10dp" >
 
@@ -32,7 +31,7 @@
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:layout_marginLeft="25dp"
-        android:src="@drawable/hsm_agenda_id_coffee" />
+        android:src="@drawable/hsm_agenda_coffee" />
 
     <TextView
         android:id="@+id/id_description_text_view"
@@ -41,7 +40,7 @@
         android:layout_gravity="center"
         android:layout_marginLeft="25dp"
         android:text="Break"
-        android:textColor="@color/hsm_color_white"
+        android:textColor="@color/hsm_color_gray_break_text"
         android:textSize="14dp"
         android:textStyle="bold" />
 </LinearLayout>

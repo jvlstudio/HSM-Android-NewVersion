@@ -118,7 +118,7 @@ public class ListaNetworkingActivity extends FragmentActivity {
 		findViewById(R.id.btnCriarCartao).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent( ListaNetworkingActivity.this, MeuCartaoActivity.class);
+				Intent intent = new Intent(ListaNetworkingActivity.this, MeuCartaoActivity.class);
 				startActivity(intent);
 			}
 		});

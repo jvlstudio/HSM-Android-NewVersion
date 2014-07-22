@@ -4,13 +4,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Agenda;
@@ -40,8 +40,6 @@ public class AgendaAdapter extends BaseAdapter {
 	private Activity mActivity;
 	private LayoutInflater mInflater;
 	private List<Agenda> mAgendaList;
-	
-	private LinearLayout mLinearLayout;
 	
 	private TextView mHoraInicioTextView;
 	private TextView mHoraFimTextView;
@@ -136,7 +134,6 @@ public class AgendaAdapter extends BaseAdapter {
 	 * @param view
 	 */
 	public void createBreakComponents(View view) {
-		mLinearLayout = (LinearLayout) view.findViewById(R.id.id_linear_layout);
 		mHoraInicioTextView = (TextView)view.findViewById(R.id.id_start_time_text_view);
 		mHoraFimTextView = (TextView)view.findViewById(R.id.id_end_time_text_view);
 		
@@ -150,10 +147,8 @@ public class AgendaAdapter extends BaseAdapter {
 	 * 
 	 * @param agenda
 	 */
+	@SuppressLint("ResourceAsColor")
 	public void populateBreakComponents(Agenda agenda, Integer position) {
-		Integer grayLight = mActivity.getResources().getColor(R.color.hsm_color_gray_light);
-		mLinearLayout.setBackgroundColor(grayLight);
-		
 		formatDate(agenda);
 		
 		if (mDescriptionTextView != null) {
@@ -275,7 +270,7 @@ public class AgendaAdapter extends BaseAdapter {
 	 */
 	public void setBreakImage(Agenda currentAgenda) {
 		if (currentAgenda.type.contains("coffee-break") || currentAgenda.type.contains("coffe break")) {
-			mImageView.setBackgroundResource(R.drawable.hsm_agenda_id_coffee);
+			mImageView.setBackgroundResource(R.drawable.hsm_agenda_coffee);
 		} else if (currentAgenda.type.contains("almoço")) {
 			mImageView.setBackgroundResource(R.drawable.hsm_agenda_id_lunch);
 		} else if (currentAgenda.type.contains("happy-hour")) {
@@ -296,7 +291,7 @@ public class AgendaAdapter extends BaseAdapter {
 		String startParts[] = startHour.split(":");
 		mHoraInicioTextView.setText(startParts[0] + ":" + startParts[1]);
 		
-		String fieldEnd[] = agenda.date_start.split(" ");
+		String fieldEnd[] = agenda.date_end.split(" ");
 		String endHour = fieldEnd[1];
 		String endParts[] = endHour.split(":");
 		mHoraFimTextView.setText(endParts[0] + ":" + endParts[1]);
