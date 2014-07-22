@@ -1,70 +1,47 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:background="#2f2f3d"
-    tools:context=".BreakAdapter" >
+    android:background="@color/hsm_color_gray_normal"
+    android:orientation="horizontal"
+    android:padding="10dp" >
 
-    <FrameLayout 
-        android:id="@+id/frameLayoutHorario"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp">
-        
-        <TextView 
-            android:id="@+id/tHorarioInicioD1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:maxLines="1"
-            android:textColor="#69697a"
-            android:text="11h00"/>
-        
-        <TextView 
-            android:id="@+id/tHorarioFimD1"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"
-            android:textColor="#69697a"
-            android:layout_gravity="center"
-            android:maxLines="1"
-            android:text="12h00"/>
-    </FrameLayout>
-    
-    <FrameLayout 
-        android:id="@+id/frameLayoutPalestrante"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_alignBottom="@+id/frameLayoutHorario"
-        android:layout_toRightOf="@+id/frameLayoutHorario">
-    	
-        <ImageView 
-            android:id="@+id/imgPalestranteAgendaB"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/hsm_agenda_id_coffee"/>
-    </FrameLayout>
-    
-    <FrameLayout 
-        android:id="@+id/frameLayoutDadosPalestrante"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_alignBottom="@+id/frameLayoutPalestrante"
-        android:layout_toRightOf="@+id/frameLayoutPalestrante">
+        android:layout_gravity="center"
+        android:orientation="vertical" >
         
-        <TextView 
-            android:id="@+id/tIntervalo"
-            android:layout_width="150dp"
-            android:textSize="13dp"
-            android:textColor="#b3b3c7"
+        <TextView
+            android:id="@+id/id_start_time_text_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:text="Break"/>
-    </FrameLayout>
+            android:text="11h00"
+            android:textColor="@color/hsm_color_gray_light" />
+        <TextView
+            android:id="@+id/id_end_time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12h00"
+            android:textColor="@color/hsm_color_gray_light" />
+    </LinearLayout>
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/id_image_view"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dp"
+        android:src="@drawable/hsm_agenda_id_coffee" />
+
+    <TextView
+        android:id="@+id/id_description_text_view"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dp"
+        android:text="Break"
+        android:textColor="@color/hsm_color_white"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+</LinearLayout>

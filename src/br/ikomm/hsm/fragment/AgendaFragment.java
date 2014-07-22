@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.activity.DetalhePalestraActivity;
 import br.ikomm.hsm.adapter.AgendaAdapter;
@@ -91,18 +92,27 @@ public class AgendaFragment extends SherlockFragment {
 	private OnItemClickListener onItemClickData1() {
 		return new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> adpterView, View view, int pos, long id) {
+			public void onItemClick(AdapterView<?> adpterView, View view, int position, long id) {
 				if (id == 0) {
 					return;
 				}
-				Intent intent = new Intent(getActivity(), DetalhePalestraActivity.class);
-				Agenda agenda = mAgendaList.get(pos);
-				Long panelistId = (long)agenda.panelist_id;
-				Integer eventId = agenda.event_id;
-				// Extras.
-				intent.putExtra("panelist_id", panelistId);
-				intent.putExtra("event_id", eventId);
-				startActivity(intent);
+				// Check if is Break.
+				Agenda currentAgenda = mAgendaList.get(position);
+				String type = currentAgenda.type;
+				if (!type.equals("break")) {
+					if (type.equals("session")) {
+						Toast.makeText(getActivity(), "Que est-ce ici?", Toast.LENGTH_LONG).show();
+					} else {
+						Intent intent = new Intent(getActivity(), DetalhePalestraActivity.class);
+						Agenda agenda = mAgendaList.get(position);
+						Long panelistId = (long)agenda.panelist_id;
+						Integer eventId = agenda.event_id;
+						// Extras.
+						intent.putExtra("panelist_id", panelistId);
+						intent.putExtra("event_id", eventId);
+						startActivity(intent);
+					}
+				}
 			}
 		};
 	}

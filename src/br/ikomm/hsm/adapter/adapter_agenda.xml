@@ -1,0 +1,81 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="horizontal"
+    android:padding="5dp" >
+
+    <!-- Date and Time -->
+    <LinearLayout
+        android:id="@+id/frameLayoutHorario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_hsm_clock" />
+        <TextView
+            android:id="@+id/id_start_time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:text="11h00"
+            android:textColor="@color/hsm_color_gray_light" />
+        <TextView
+            android:id="@+id/id_end_time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:text="12h00"
+            android:textColor="@color/hsm_color_gray_light" />
+    </LinearLayout>
+
+    <!-- Picture -->
+    <ImageView
+        android:id="@+id/id_panelist_image_view"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/hsm_placeholder_small" />
+
+    <!-- Names -->
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/id_panelist_name_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Nome do Palestrante"
+            android:textColor="@color/hsm_color_gray_light"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/id_lecture_type_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:text="Tipo de Palestra"
+            android:textColor="@color/hsm_color_gray_light" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:src="@drawable/hsm_id_plus2" />
+</LinearLayout>

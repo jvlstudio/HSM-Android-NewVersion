@@ -1,96 +1,81 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rlLayout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="5dp"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".AgendaAdapter" >
+    android:background="@color/hsm_color_gray_normal"
+    android:padding="10dp" >
 
-    <FrameLayout
-        android:id="@+id/frameLayoutHorario"
+    <!-- Time and Hour -->
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="60dp" >
-
+        android:layout_height="60dp"
+        android:orientation="vertical" >
         <ImageView
-            android:id="@+id/imgStatusPalestraD1"
+            android:id="@+id/imgStatusPalestra"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/hsm_tick" />
+            android:src="@drawable/ic_hsm_clock" />
         <TextView
-            android:id="@+id/tHorarioInicioD1"
+            android:id="@+id/id_start_time_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:maxLines="1"
             android:text="11h00"
-            android:textColor="#69697a" />
+            android:textColor="@color/hsm_color_gray_light" />
         <TextView
-            android:id="@+id/tHorarioFimD1"
+            android:id="@+id/id_end_time_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:maxLines="1"
             android:text="12h00"
-            android:textColor="#69697a" />
-    </FrameLayout>
+            android:textColor="@color/hsm_color_gray_light" />
+    </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/frameLayoutPalestrante"
-        android:layout_width="wrap_content"
+    <!-- Panelist Image -->
+    <ImageView
+        android:id="@+id/id_panelist_image_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="25dp"
+        android:src="@drawable/hsm_placeholder_panelist" />
+    
+    <!-- Name and Type -->
+	<LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/frameLayoutHorario"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/frameLayoutHorario" >
-
-        <ImageView
-            android:id="@+id/imgPalestranteAgendaD1"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/hsm_placeholder_small" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/frameLayoutDadosPalestrante"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_alignBottom="@+id/frameLayoutPalestrante"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/frameLayoutPalestrante" >
-
-        <TextView
-            android:id="@+id/tNomePalestranteD1"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Nome do Palestrante"
-            android:textColor="#b3b3c7"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/tTipoPalestraD1"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
-            android:text="Tipo de Palestra"
-            android:textColor="#69697a" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:layout_alignBottom="@+id/frameLayoutDadosPalestrante"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/frameLayoutDadosPalestrante" >
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:src="@drawable/hsm_id_plus2" />
-    </FrameLayout>
-</RelativeLayout>
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dp"
+        android:orientation="horizontal" >
+    
+	    <LinearLayout
+	        android:layout_width="150dp"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:orientation="vertical" >
+		    <TextView
+		        android:id="@+id/id_panelist_name_text_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Nome do Palestrante"
+		        android:textColor="@color/hsm_color_gray_light" />
+		    <TextView
+		        android:id="@+id/id_lecture_type_text_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Tipo de Palestra"
+		        android:textColor="@color/hsm_color_gray" />
+		</LinearLayout>
+	
+	    <!-- Plus Button -->
+	    <ImageView
+	        android:layout_width="30dp"
+	        android:layout_height="30dp"
+	        android:layout_weight="1"
+	        android:layout_marginLeft="25dp"
+	        android:layout_gravity="center"
+	        android:src="@drawable/hsm_id_plus2" />
+	</LinearLayout>
+</LinearLayout>

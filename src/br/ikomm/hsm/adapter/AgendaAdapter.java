@@ -5,18 +5,21 @@ import java.util.Comparator;
 import java.util.List;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Agenda;
 import br.ikomm.hsm.model.Panelist;
 import br.ikomm.hsm.repo.PanelistRepo;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * AgendaAdapter.java class.
@@ -25,6 +28,12 @@ import br.ikomm.hsm.repo.PanelistRepo;
 public class AgendaAdapter extends BaseAdapter {
 
 	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/panelists/";
+	
+	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
@@ -32,11 +41,16 @@ public class AgendaAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private List<Agenda> mAgendaList;
 	
+	private LinearLayout mLinearLayout;
+	
 	private TextView mHoraInicioTextView;
 	private TextView mHoraFimTextView;
+	private ImageView mPalestranteImageView;
 	private TextView mNomePalestranteTextView;
 	private TextView mTipoPalestraTextView;
-	private ImageView mPalestranteImageView;
+	
+	private ImageView mImageView;
+	private TextView mDescriptionTextView;
 
 	//--------------------------------------------------
 	// Constructor
@@ -72,7 +86,6 @@ public class AgendaAdapter extends BaseAdapter {
 			return Long.valueOf(mAgendaList.get(position).id);
 		}
 		return 0;
-
 	}
 
 	@Override
@@ -82,44 +95,90 @@ public class AgendaAdapter extends BaseAdapter {
 
 		if (currentAgenda.panelist_id == 0) {
 			view = mInflater.inflate(R.layout.adapter_break, parent, false);
-			initializeComponents(view);
-			
-			populateComponents(currentAgenda);
-			if (currentAgenda.type.contains("coffe-break") || currentAgenda.type.contains("coffe break")) {
-				mPalestranteImageView.setBackgroundResource(R.drawable.hsm_agenda_id_coffee);
-			} else if (currentAgenda.type.contains("almoço")) {
-				mPalestranteImageView.setBackgroundResource(R.drawable.hsm_agenda_id_lunch);
-			} else if (currentAgenda.type.contains("happy-hour")) {
-				mPalestranteImageView.setBackgroundResource(R.drawable.hsm_agenda_id_happyhour);
-			} else if (currentAgenda.type.contains("credenciamento") || currentAgenda.type.contains("abertura")) {
-				mPalestranteImageView.setBackgroundResource(R.drawable.hsm_agenda_id_credential);
-			}
+			initializeBreakComponents(view);
+			populateBreakComponents(currentAgenda, position);
+			setBreakImage(currentAgenda);
 		} else {
 			view = mInflater.inflate(R.layout.adapter_agenda, parent, false);
-			initializeComponents(view);
-			populateComponents(currentAgenda);
+			initializePanelistComponents(view);
+			populatePanelistComponents(currentAgenda, position);
 		}
 		return view;
 	}
 
 	//--------------------------------------------------
-	// Layout Methods
+	// Break Layout Methods
 	//--------------------------------------------------
 	
 	/**
-	 * Initializes layout components. 
+	 * Initializes Break layout components.
+	 *  
 	 * @param view
-	 * 
 	 */
-	public void initializeComponents(View view) {
-		eraseComponents();
-		createComponents(view);
+	public void initializeBreakComponents(View view) {
+		eraseBreakComponents();
+		createBreakComponents(view);
 	}
 	
 	/**
-	 * Erase layout components.
+	 * Erases Break layout components.
 	 */
-	public void eraseComponents() {
+	public void eraseBreakComponents() {
+		mHoraInicioTextView = null;
+		mHoraFimTextView = null;
+		mImageView = null;
+		mDescriptionTextView = null;
+	}
+	
+	/**
+	 * Creates Break layout components.
+	 * 
+	 * @param view
+	 */
+	public void createBreakComponents(View view) {
+		mLinearLayout = (LinearLayout) view.findViewById(R.id.id_linear_layout);
+		mHoraInicioTextView = (TextView)view.findViewById(R.id.id_start_time_text_view);
+		mHoraFimTextView = (TextView)view.findViewById(R.id.id_end_time_text_view);
+		
+		mImageView = (ImageView)view.findViewById(R.id.id_image_view);
+		
+		mDescriptionTextView = (TextView)view.findViewById(R.id.id_description_text_view);
+	}
+
+	/**
+	 * Populates Break layout components. 
+	 * 
+	 * @param agenda
+	 */
+	public void populateBreakComponents(Agenda agenda, Integer position) {
+		Integer grayLight = mActivity.getResources().getColor(R.color.hsm_color_gray_light);
+		mLinearLayout.setBackgroundColor(grayLight);
+		
+		formatDate(agenda);
+		
+		if (mDescriptionTextView != null) {
+			mDescriptionTextView.setText(agenda.type);
+		}
+	}
+	
+	//--------------------------------------------------
+	// Panelist Layout Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Initializes  {@link Panelist} layout components.
+	 *  
+	 * @param view
+	 */
+	public void initializePanelistComponents(View view) {
+		erasePanelistComponents();
+		createPanelistComponents(view);
+	}
+	
+	/**
+	 * Erases {@link Panelist} layout components.
+	 */
+	public void erasePanelistComponents() {
 		mHoraInicioTextView = null;
 		mHoraFimTextView = null;
 		mNomePalestranteTextView = null;
@@ -128,30 +187,27 @@ public class AgendaAdapter extends BaseAdapter {
 	}
 	
 	/**
-	 * Creates layout components.
+	 * Creates {@link Panelist} layout components.
 	 * 
 	 * @param view
 	 */
-	public void createComponents(View view) {
-		mHoraInicioTextView = (TextView) view.findViewById(R.id.tHorarioInicioD1);
-		mHoraFimTextView = (TextView) view.findViewById(R.id.tHorarioFimD1);
+	public void createPanelistComponents(View view) {
+		mHoraInicioTextView = (TextView) view.findViewById(R.id.id_start_time_text_view);
+		mHoraFimTextView = (TextView) view.findViewById(R.id.id_end_time_text_view);
+
+		mPalestranteImageView = (ImageView) view.findViewById(R.id.id_panelist_image_view);
 		
-		mNomePalestranteTextView = (TextView) view.findViewById(R.id.tNomePalestranteD1);
-		mTipoPalestraTextView = (TextView) view.findViewById(R.id.tTipoPalestraD1);
-		
-		mPalestranteImageView = (ImageView) view.findViewById(R.id.imgPalestranteAgendaD1);
+		mNomePalestranteTextView = (TextView) view.findViewById(R.id.id_panelist_name_text_view);
+		mTipoPalestraTextView = (TextView) view.findViewById(R.id.id_lecture_type_text_view);
 	}
 
 	/**
-	 * Populates layout components. 
+	 * Populates the {@link Panelist} layout components. 
 	 * 
 	 * @param agenda
 	 */
-	public void populateComponents(Agenda agenda) {
-		String start[] = agenda.date_start.split(" ");
-		mHoraInicioTextView.setText(start[1]);
-		String end[] = agenda.date_end.split(" ");
-		mHoraFimTextView.setText(end[1]);
+	public void populatePanelistComponents(Agenda agenda, Integer position) {
+		formatDate(agenda);
 		
 		if (mNomePalestranteTextView != null) {
 			mNomePalestranteTextView.setText(getPanelistName(agenda));
@@ -159,10 +215,7 @@ public class AgendaAdapter extends BaseAdapter {
 		if (mTipoPalestraTextView != null) {
 			mTipoPalestraTextView.setText(agenda.type);
 		}
-		Bitmap bitmap = null;
-		if (mPalestranteImageView != null) {
-			mPalestranteImageView.setImageBitmap(bitmap);
-		}
+		setUniversalImage(URL + getPanelistUrl(position), mPalestranteImageView);
 	}
 	
 	//--------------------------------------------------
@@ -184,14 +237,79 @@ public class AgendaAdapter extends BaseAdapter {
 		return name;
 	}
 	
+	/**
+	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 *  
+	 * @param url The url of the image.
+	 * @param imageView The {@link ImageView} which will receive the image.
+	 */
+	public void setUniversalImage(String url, ImageView imageView) {
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(mActivity));
+		imageLoader.displayImage(url, imageView, cache);
+	}
+	
+	/**
+	 * Gets the {@link Panelist} picture URL.
+	 * 
+	 * @param position
+	 * @return
+	 */
+	public String getPanelistUrl(Integer position) {
+		Integer panelistId = mAgendaList.get(position).panelist_id;
+
+		PanelistRepo repo = new PanelistRepo(mActivity);
+		repo.open();
+		Panelist panelist = repo.getPanelist((long)panelistId);
+		repo.close();
+		
+		String url = panelist.picture;
+		return url;
+	}
+	
+	/**
+	 * Sets the Break image.
+	 * 
+	 * @param currentAgenda
+	 */
+	public void setBreakImage(Agenda currentAgenda) {
+		if (currentAgenda.type.contains("coffee-break") || currentAgenda.type.contains("coffe break")) {
+			mImageView.setBackgroundResource(R.drawable.hsm_agenda_id_coffee);
+		} else if (currentAgenda.type.contains("almoço")) {
+			mImageView.setBackgroundResource(R.drawable.hsm_agenda_id_lunch);
+		} else if (currentAgenda.type.contains("happy-hour")) {
+			mImageView.setBackgroundResource(R.drawable.hsm_agenda_id_happyhour);
+		} else if (currentAgenda.type.contains("credenciamento") || currentAgenda.type.contains("abertura")) {
+			mImageView.setBackgroundResource(R.drawable.hsm_agenda_id_credential);
+		}
+	}
+	
+	/**
+	 * Formats the date.
+	 * 
+	 * @param agenda
+	 */
+	public void formatDate(Agenda agenda) {
+		String fieldStart[] = agenda.date_start.split(" ");
+		String startHour = fieldStart[1];
+		String startParts[] = startHour.split(":");
+		mHoraInicioTextView.setText(startParts[0] + ":" + startParts[1]);
+		
+		String fieldEnd[] = agenda.date_start.split(" ");
+		String endHour = fieldEnd[1];
+		String endParts[] = endHour.split(":");
+		mHoraFimTextView.setText(endParts[0] + ":" + endParts[1]);
+	}
+	
 	//--------------------------------------------------
 	// Comparator
 	//--------------------------------------------------
 	
 	public class HoraComparator implements Comparator<Agenda> {
 		@Override
-		public int compare(Agenda o1, Agenda o2) {
-			return o1.date_start.compareTo(o2.date_start);
+		public int compare(Agenda agenda, Agenda agenda2) {
+			return agenda.date_start.compareTo(agenda2.date_start);
 		}
 	}
 }

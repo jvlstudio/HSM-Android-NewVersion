@@ -29,5 +29,4 @@
         android:textColor="#191970"
         android:textStyle="bold"
         android:text="NOME DO FULANO"/>
-
 </LinearLayout>
