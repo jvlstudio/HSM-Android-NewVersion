@@ -1,4 +1,4 @@
-package br.ikomm.hsm.util;
+package br.ikomm.hsm.qr_code;
 
 public final class IntentResult {
 

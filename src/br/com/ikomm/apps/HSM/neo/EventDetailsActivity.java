@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.activity.AgendaActivity;
-import br.ikomm.hsm.activity.PalestrantesActivity;
+import br.ikomm.hsm.activity.PanelistActivity;
 import br.ikomm.hsm.activity.PassesActivity;
 import br.ikomm.hsm.model.Event;
 import br.ikomm.hsm.repo.EventRepo;
@@ -247,7 +247,7 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 				startActivity(intent);
 				break;
 			case R.id.btnPalestrante:
-				intent = new Intent(EventDetailsActivity.this, PalestrantesActivity.class);
+				intent = new Intent(EventDetailsActivity.this, PanelistActivity.class);
 				intent.putExtra("event_id", mEvent.id);
 				startActivity(intent);
 				break;

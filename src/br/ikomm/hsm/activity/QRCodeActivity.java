@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.R.id;
 import br.com.ikomm.apps.HSM.R.layout;
-import br.ikomm.hsm.model.Cartao;
+import br.ikomm.hsm.model.Card;
 import br.ikomm.hsm.util.CartaoConverter;
 
 import com.google.gson.Gson;
@@ -27,7 +27,7 @@ public class QRCodeActivity extends Activity {
 	//--------------------------------------------------
 	
 	private Gson mGson = new Gson();
-	private Cartao mContato;
+	private Card mContato;
 	
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -42,7 +42,7 @@ public class QRCodeActivity extends Activity {
 		Intent intent = getIntent();
 		final String jsonCartao = intent.getStringExtra("jsonCartao");
 		if (!jsonCartao.isEmpty()) {
-			mContato = mGson.fromJson(jsonCartao, Cartao.class);
+			mContato = mGson.fromJson(jsonCartao, Card.class);
 		}
 		
 		ImageView qrCode = (ImageView) findViewById(R.id.idQRCodeGrande);

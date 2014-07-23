@@ -22,10 +22,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
- * DetalhePalestraActivity.java class.
+ * LectureDetailsActivity.java class.
  * Modified by Rodrigo Cericatto at July 9, 2014.
  */
-public class DetalhePalestraActivity extends SherlockFragmentActivity implements OnClickListener {
+public class LectureDetailsActivity extends SherlockFragmentActivity implements OnClickListener {
 	
 	//--------------------------------------------------
 	// Constants
@@ -50,7 +50,7 @@ public class DetalhePalestraActivity extends SherlockFragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_detalhe_palestra);
+		setContentView(R.layout.activity_lecture_details);
 
 		getExtras();
 		getData();
@@ -260,6 +260,6 @@ public class DetalhePalestraActivity extends SherlockFragmentActivity implements
 	
 	@Override
 	public void onClick(View view) {
-		Toast.makeText(DetalhePalestraActivity.this, "Palestra agendada com sucesso", Toast.LENGTH_SHORT).show();
+		Toast.makeText(LectureDetailsActivity.this, "Lecture agendada com sucesso", Toast.LENGTH_SHORT).show();
 	}	
 }

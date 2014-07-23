@@ -1,7 +1,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/hsm_background">
     
     <LinearLayout
@@ -11,8 +10,7 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context=".AgradecimentoActivity" >
+        android:paddingTop="@dimen/activity_vertical_margin" >
 
 	    <ImageView
 	        android:layout_width="wrap_content"
@@ -36,7 +34,7 @@
 	        android:layout_marginTop="20dp"
 	        android:layout_marginLeft="30dp"
 	        android:layout_marginRight="30dp"
-	        android:textColor="#FFFFFF"
+	        android:textColor="@color/hsm_color_white"
 	        android:text="Sua solicitação de compra dos passes foi realizada com sucesso."/>
 	    
 	    <TextView 
@@ -47,18 +45,19 @@
 	        android:layout_marginTop="30dp"
 			android:layout_marginLeft="30dp"
 	        android:layout_marginRight="30dp"
+	        android:layout_marginBottom="50dp"
 	        android:textColor="#535361"
 	        android:maxLines="4"
 	        android:text="Aguarde um de nossos consultores entrar em contato para confirmar os dados e finalizar a compra."/>
 	
 	    <Button 
 	        android:id="@+id/btnVoltar"
-	        android:layout_width="wrap_content"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="50dp"
+	        android:layout_margin="10dp"
 	        android:layout_gravity="center_horizontal"
-	        android:textColor="#FFFFFF"
-	        android:background="@drawable/hsm_bt_large_purple"
+	        android:textColor="@color/hsm_color_white"
+	        android:background="@drawable/button_passe_background_behavior"
 	        android:text="@string/voltar"/>
 	</LinearLayout>
 </ScrollView>

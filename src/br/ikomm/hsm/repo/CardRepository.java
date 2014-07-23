@@ -7,15 +7,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import br.ikomm.hsm.model.Cartao;
+import br.ikomm.hsm.model.Card;
 
 import com.google.gson.Gson;
 
 /**
- * CartaoRepository.java class.
+ * CardRepository.java class.
  * Modified by Rodrigo Cericatto at July 21, 2014.
  */
-public class CartaoRepository {
+public class CardRepository {
 	
 	//--------------------------------------------------
 	// Constants
@@ -37,7 +37,7 @@ public class CartaoRepository {
 	// Constructor
 	//--------------------------------------------------
 	
-	public CartaoRepository(Context context) {
+	public CardRepository(Context context) {
 		mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 	}
 
@@ -45,7 +45,7 @@ public class CartaoRepository {
 	// Methods
 	//--------------------------------------------------
 	
-	public Cartao getMeuCartao() {
+	public Card getMeuCartao() {
 		try {
 			mJsonMeuCartao = getMeuCartaoFromShared();
 			if (mJsonMeuCartao.isEmpty()) {
@@ -53,7 +53,7 @@ public class CartaoRepository {
 				return null;
 			}
 			Log.e("MEU_CARTAO", "getMeuCartao = " + mJsonMeuCartao);
-			Cartao meuCartao = mGson.fromJson(mJsonMeuCartao, Cartao.class);
+			Card meuCartao = mGson.fromJson(mJsonMeuCartao, Card.class);
 			
 			return meuCartao;
 		} catch (Exception e) {
@@ -62,7 +62,7 @@ public class CartaoRepository {
 		}
 	}
 
-	public List<Cartao> getMeusContatos() {
+	public List<Card> getMeusContatos() {
 		try {
 			mJsonMeusContatos = getMeusContatosFromShared();
 			if (mJsonMeusContatos.isEmpty()) {
@@ -70,7 +70,7 @@ public class CartaoRepository {
 				return null;
 			}
 			Log.e("MEUS_CONTATOS", "getMeusContatos = " + mJsonMeusContatos);
-			Cartao[] meusContatos = mGson.fromJson(mJsonMeusContatos, Cartao[].class);
+			Card[] meusContatos = mGson.fromJson(mJsonMeusContatos, Card[].class);
 			
 			return Arrays.asList(meusContatos);
 		} catch (Exception e) {
@@ -79,15 +79,15 @@ public class CartaoRepository {
 		}
 	}
 
-	public void setMeuCartao(Cartao cartao) {
+	public void setMeuCartao(Card card) {
 		try {
-			if (cartao == null) {
-				Log.e("Cartao", "setMeuCartao = Null");
+			if (card == null) {
+				Log.e("Card", "setMeuCartao = Null");
 				return;
 			} else {
-				String jsonCartao = mGson.toJson(cartao);
+				String jsonCartao = mGson.toJson(card);
 				SharedPreferences.Editor editor = mPreferences.edit();
-				Log.e("Cartao", "setMeuCartao = " + jsonCartao);
+				Log.e("Card", "setMeuCartao = " + jsonCartao);
 				editor.putString(MEU_CARTAO, jsonCartao);
 				editor.commit();
 			}
@@ -96,7 +96,7 @@ public class CartaoRepository {
 		}
 	}
 
-	public void setMeusContatos(List<Cartao> contatos) {
+	public void setMeusContatos(List<Card> contatos) {
 		try {
 			if (contatos == null) {
 				Log.e("Contatos", "setMeusContatos = Null");

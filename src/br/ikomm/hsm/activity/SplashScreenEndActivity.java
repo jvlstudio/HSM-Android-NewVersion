@@ -15,10 +15,10 @@ import br.ikomm.hsm.util.AsyncTaskUtils;
 import br.ikomm.hsm.util.FileUtils;
 
 /**
- * SplashScreen2Activity.java class.
+ * SplashScreenEndActivity.java class.
  * Modified by Rodrigo Cericatto at July 9, 2014.
  */
-public class SplashScreen2Activity extends Activity {
+public class SplashScreenEndActivity extends Activity {
 	
 	//--------------------------------------------------
 	// Constants
@@ -31,7 +31,8 @@ public class SplashScreen2Activity extends Activity {
 	//--------------------------------------------------
 	
 	private FileUtils mFileManager = new FileUtils();
-	private Integer mEventsSize = 0;
+	private List<Event> mEventList;
+	private Integer mEventListSize = 0;
 	private Integer mCount = 0;
 	
 	//--------------------------------------------------
@@ -42,19 +43,26 @@ public class SplashScreen2Activity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_splash_screen2);
+        setContentView(R.layout.activity_splash_screen_end);
         
-        // Gets the Event list.
-        EventRepo repo = new EventRepo(this);
-        repo.open();
-        List<Event> list = repo.getAllEvent();
-        mEventsSize = list.size();
-        repo.close();
-        
-        // Sets the image URL.
+        downloadEventImages();
+    }
+
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+    
+    /**
+     * Download all {@link Event} images.
+     */
+    public void downloadEventImages() {
+    	// Gets Event list.
+    	getEventListSize();
+    	
+    	// Sets the image URL.
         String path = mFileManager.createDir(FileUtils.CACHE_DIR);
-        if (list != null) {
-	        for (Event event : list) {
+        if (mEventList != null) {
+	        for (Event event : mEventList) {
 	        	String imageUrl = URL + event.image_list;
 	    		String completePath = path + event.image_list;
 	    		// Checks the image URL.
@@ -64,10 +72,17 @@ public class SplashScreen2Activity extends Activity {
 	        }
         }
     }
-
-	//--------------------------------------------------
-	// Methods
-	//--------------------------------------------------
+    
+    /**
+     * Gets the {@link Event} list size.
+     */
+    public void getEventListSize() {
+        EventRepo repo = new EventRepo(this);
+        repo.open();
+        mEventList = repo.getAllEvent();
+        mEventListSize = mEventList.size();
+        repo.close();
+    }
     
 	/**
 	 * Downloads an image.
@@ -82,7 +97,7 @@ public class SplashScreen2Activity extends Activity {
 				mCount++;
 				
 				// Checks the number of images downloaded.
-				if (mCount == mEventsSize) {
+				if (mCount == mEventListSize) {
 					callHomeActivity();
 				}
 			};

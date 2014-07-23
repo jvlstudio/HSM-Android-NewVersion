@@ -1,6 +1,6 @@
 package br.ikomm.hsm.model;
 
-public class Participante {
+public class Participant {
 
 	public String Nome;
 	public String Email;

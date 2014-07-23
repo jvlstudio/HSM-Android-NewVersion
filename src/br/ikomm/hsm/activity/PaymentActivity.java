@@ -17,7 +17,7 @@ import br.ikomm.hsm.model.Event;
 import br.ikomm.hsm.model.Passe;
 import br.ikomm.hsm.repo.EventRepo;
 import br.ikomm.hsm.repo.PasseRepo;
-import br.ikomm.hsm.util.WebServiceCommunication;
+import br.ikomm.hsm.services.WebServiceCommunication;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -236,7 +236,7 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 		switch (view.getId()) {
 			case R.id.id_purchase_button:
 				if (mIcCadastro == 1) {
-					startActivity(new Intent(PaymentActivity.this, AgradecimentoActivity.class));
+					startActivity(new Intent(PaymentActivity.this, GreetingsActivity.class));
 					WebServiceCommunication ws = new WebServiceCommunication();
 					if (mCor.equals("green")) {
 						if (mQuantitySpinner.getSelectedItem() != null) {

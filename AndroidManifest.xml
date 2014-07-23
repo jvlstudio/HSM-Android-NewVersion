@@ -32,6 +32,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+		<activity
+            android:name="br.ikomm.hsm.activity.SplashScreenEndActivity"
+            android:label="@string/title_activity_splash_screen2"
+            android:screenOrientation="portrait" >
+        </activity>
+        
         <activity
             android:name="br.ikomm.hsm.activity.HomeActivity"
             android:label="@string/title_activity_home"
@@ -43,7 +50,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.DetalhePalestraActivity"
+            android:name="br.ikomm.hsm.activity.LectureDetailsActivity"
             android:label="@string/title_activity_detalhe_palestra"
             android:screenOrientation="portrait" >
         </activity>
@@ -58,18 +65,8 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.AgradecimentoActivity"
+            android:name="br.ikomm.hsm.activity.GreetingsActivity"
             android:label="@string/title_activity_agradecimento"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.DetalheEventoActivity"
-            android:label="@string/title_activity_detalhe_evento"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.activity.SplashScreen2Activity"
-            android:label="@string/title_activity_splash_screen2"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -78,22 +75,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.EventosActivity"
-            android:label="@string/title_activity_eventos"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.adapter.SimplesAdapter"
-            android:label="@string/title_activity_simples_adapter"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.com.ikomm.apps.HSM.MostraConteudoActivity"
-            android:label="@string/title_activity_mostra_conteudo"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.activity.PalestrantesActivity"
+            android:name="br.ikomm.hsm.activity.PanelistActivity"
             android:label="@string/title_activity_palestrantes"
             android:screenOrientation="portrait" >
         </activity>
@@ -103,12 +85,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.MeuCartaoActivity"
+            android:name="br.ikomm.hsm.activity.AddCardActivity"
             android:label="@string/title_activity_meu_cartao"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.ContatoActivity"
+            android:name="br.ikomm.hsm.activity.ContactActivity"
             android:label="@string/title_activity_contato"
             android:screenOrientation="portrait" >
         </activity>
@@ -141,19 +123,6 @@
             android:name="br.com.ikomm.apps.HSM.neo.EventDetailsActivity"
             android:label="@string/title_activity_detalhe_evento_neo"
             android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.com.ikomm.apps.HSM.neo.DetalhePalestraNEOActivity"
-            android:label="@string/title_activity_detalhe_evento_neo"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.com.ikomm.apps.HSM.DetalhePalestraNeoActivity"
-            android:label="@string/title_activity_detalhe_palestra_neo" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.adapter.LivrosAdapter"
-            android:label="@string/title_activity_livros_adapter" >
         </activity>
         
         <!-- Services -->

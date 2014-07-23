@@ -1,4 +1,4 @@
-package br.ikomm.hsm.util;
+package br.ikomm.hsm.services;
 
 import java.net.URI;
 
@@ -17,7 +17,7 @@ public class WebServiceCommunication {
 		try {
 			HttpClient httpClient = new DefaultHttpClient();
 			String url = "http://apps.ikomm.com.br/hsm/graph/pass-add.php?";
-			String pagamento = "Cartao de Credito";
+			String pagamento = "Card de Credito";
 
 			if (!cor.isEmpty()) {
 				url = url.concat("color=");

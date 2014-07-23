@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.model.Cartao;
+import br.ikomm.hsm.model.Card;
 import br.ikomm.hsm.util.CartaoConverter;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -27,14 +27,14 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  * HomeActivity.java class.
  * Modified by Rodrigo Cericatto at July 10, 2014.
  */
-public class ContatoActivity extends SherlockActivity implements OnClickListener {
+public class ContactActivity extends SherlockActivity implements OnClickListener {
 	
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
 	private Gson mGson = new Gson();
-	private Cartao mContato;
+	private Card mContato;
 	
 	private String mJsonCard;
 	
@@ -47,7 +47,7 @@ public class ContatoActivity extends SherlockActivity implements OnClickListener
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_contato);
+		setContentView(R.layout.activity_contact);
 
 		setActionBar();
 		getContact();
@@ -132,7 +132,7 @@ public class ContatoActivity extends SherlockActivity implements OnClickListener
 		mJsonCard = intent.getStringExtra("jsonCartao");
 
 		if (!mJsonCard.isEmpty()) {
-			mContato = mGson.fromJson(mJsonCard, Cartao.class);
+			mContato = mGson.fromJson(mJsonCard, Card.class);
 		}
 	}
 	
@@ -180,7 +180,7 @@ public class ContatoActivity extends SherlockActivity implements OnClickListener
 				startActivity(addContactIntent);
 				break;
 			case R.id.id_qr_code_image_view:
-				Intent intent = new Intent(ContatoActivity.this, QRCodeActivity.class);
+				Intent intent = new Intent(ContactActivity.this, QRCodeActivity.class);
 				intent.putExtra("jsonCartao", mJsonCard);
 				startActivity(intent);
 				break;
@@ -191,7 +191,7 @@ public class ContatoActivity extends SherlockActivity implements OnClickListener
 				try {
 					startActivity(Intent.createChooser(i, "Enviar email..."));
 				} catch (android.content.ActivityNotFoundException ex) {
-					Toast.makeText(ContatoActivity.this, "Você não possui cliente de email instalado.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(ContactActivity.this, "Você não possui cliente de email instalado.", Toast.LENGTH_SHORT).show();
 				}
 				break;
 		}

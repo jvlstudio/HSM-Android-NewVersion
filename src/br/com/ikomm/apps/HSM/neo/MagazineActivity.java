@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.adapter.RevistaAdapter;
+import br.ikomm.hsm.adapter.MagazineAdapter;
 import br.ikomm.hsm.model.Magazine;
 import br.ikomm.hsm.repo.MagazineRepo;
 import br.ikomm.hsm.util.StringUtils;
@@ -148,7 +148,7 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 	 */
 	public void setListView() {
 		ListView magazineList = (ListView)findViewById(R.id.id_magazine_list_view);
-		magazineList.setAdapter(new RevistaAdapter(this));
+		magazineList.setAdapter(new MagazineAdapter(this));
 		magazineList.setOnItemClickListener(this);
 	}
 

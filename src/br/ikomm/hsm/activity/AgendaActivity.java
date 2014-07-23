@@ -95,7 +95,7 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 	
 	@Override
 	public void onClick(View view) {
-		startActivity(new Intent(this, DetalhePalestraActivity.class));
+		startActivity(new Intent(this, LectureDetailsActivity.class));
 	}
 	
 	//--------------------------------------------------

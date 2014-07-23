@@ -97,7 +97,7 @@ public class EventosAdapter extends BaseAdapter {
 		Event event = (Event) getItem(position);
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.eventos_adapter_item, null);
+			convertView = inflater.inflate(R.layout.adapter_event_item, null);
 			mViewHolder = new ViewHolder();
 			
 			mViewHolder.mPanelistLinearLayout = (LinearLayout)convertView.findViewById(R.id.id_panelist_layout_eventos_adapter_item);

@@ -12,7 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.activity.DetalhePalestraActivity;
+import br.ikomm.hsm.activity.LectureDetailsActivity;
 import br.ikomm.hsm.adapter.AgendaAdapter;
 import br.ikomm.hsm.model.Agenda;
 import br.ikomm.hsm.model.Event;
@@ -96,23 +96,9 @@ public class AgendaFragment extends SherlockFragment {
 				if (id == 0) {
 					return;
 				}
-				// Check if is Break.
 				Agenda currentAgenda = mAgendaList.get(position);
 				String type = currentAgenda.type;
-				if (!type.equals("break")) {
-					if (type.equals("session")) {
-						Toast.makeText(getActivity(), "Que est-ce ici?", Toast.LENGTH_LONG).show();
-					} else {
-						Intent intent = new Intent(getActivity(), DetalhePalestraActivity.class);
-						Agenda agenda = mAgendaList.get(position);
-						Long panelistId = (long)agenda.panelist_id;
-						Integer eventId = agenda.event_id;
-						// Extras.
-						intent.putExtra("panelist_id", panelistId);
-						intent.putExtra("event_id", eventId);
-						startActivity(intent);
-					}
-				}
+				filterByType(position, type);
 			}
 		};
 	}
@@ -168,7 +154,29 @@ public class AgendaFragment extends SherlockFragment {
 			String year = currentDate.substring(6, 10);
 			formattedDate = year + "-" + month + "-" + day;
 		}
-		
 		return formattedDate;
+	}
+	
+	/**
+	 * Filter by type.
+	 * 
+	 * @param position
+	 * @param type
+	 */
+	public void filterByType(Integer position, String type) {
+		if (!type.equals("break")) {
+			if (type.equals("session")) {
+				Toast.makeText(getActivity(), "Que est-ce ici?", Toast.LENGTH_LONG).show();
+			} else {
+				Intent intent = new Intent(getActivity(), LectureDetailsActivity.class);
+				Agenda agenda = mAgendaList.get(position);
+				Long panelistId = (long)agenda.panelist_id;
+				Integer eventId = agenda.event_id;
+				// Extras.
+				intent.putExtra("panelist_id", panelistId);
+				intent.putExtra("event_id", eventId);
+				startActivity(intent);
+			}
+		}
 	}
 }

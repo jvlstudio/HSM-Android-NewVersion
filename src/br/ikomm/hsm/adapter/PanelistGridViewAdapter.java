@@ -22,12 +22,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
- * PalestrantesGridViewAdapter.java class.
+ * PanelistGridViewAdapter.java class.
  * 
  * @author Rodrigo Cericatto
  * @since July 11, 2014
  */
-public class PalestrantesGridViewAdapter extends BaseAdapter {
+public class PanelistGridViewAdapter extends BaseAdapter {
 
 	//--------------------------------------------------
 	// Constants
@@ -59,7 +59,7 @@ public class PalestrantesGridViewAdapter extends BaseAdapter {
 	// Constructor
 	//--------------------------------------------------
 	
-	public PalestrantesGridViewAdapter(Activity activity, long eventId) {
+	public PanelistGridViewAdapter(Activity activity, long eventId) {
 		super();
 		mActivity = activity;
 		
@@ -107,7 +107,7 @@ public class PalestrantesGridViewAdapter extends BaseAdapter {
 		if (convertView == null) {
 			// Sets layout.
 			LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.adapter_palestrante, parent, false);
+			convertView = inflater.inflate(R.layout.adapter_panelist, parent, false);
 
 			// Set views.
 			viewHolder.nameTextView = (TextView)convertView.findViewById(R.id.nomePalestrante);

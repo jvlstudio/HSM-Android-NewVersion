@@ -1,6 +1,6 @@
 package br.ikomm.hsm.model;
 
-public class Cartao {
+public class Card {
 	public String nome;
 	public String email;
 	public String telefone;
@@ -11,7 +11,7 @@ public class Cartao {
 	
 	@Override
 	public String toString() {
-		return "Cartao [nome=" + nome + ", email=" + email + ", telefone="
+		return "Card [nome=" + nome + ", email=" + email + ", telefone="
 				+ telefone + ", celular=" + celular + ", empresa=" + empresa
 				+ ", cargo=" + cargo + ", website=" + website + "]";
 	}	

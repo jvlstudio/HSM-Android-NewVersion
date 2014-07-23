@@ -1,9 +1,7 @@
 package br.ikomm.hsm.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,42 +10,41 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.model.Magazine;
-import br.ikomm.hsm.repo.MagazineRepo;
+import br.ikomm.hsm.model.Book;
+import br.ikomm.hsm.repo.BookRepo;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
- * RevistaAdapter.java class.
+ * BookAdapter.java class.
  * Modified by Rodrigo Cericatto at July 9, 2014.
  */
-public class RevistaAdapter extends BaseAdapter{
+public class BookAdapter extends BaseAdapter {
 
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
-	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/magazines/";
-	
-	//--------------------------------------------------
-	// Methods
-	//--------------------------------------------------
-	
 	private Activity mActivity;
 	private LayoutInflater mInflater;
-	private List<Magazine> mMagazineList = new ArrayList<Magazine>();
+	private List<Book> mBookList;
+	private BookRepo mBookRepo;
 	
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public RevistaAdapter(Activity activity) {
+	public BookAdapter(Activity activity) {
 		super();
 		mActivity = activity;
 		mInflater = LayoutInflater.from(activity);
-		getMagazineList();
+		
+		mBookRepo = new BookRepo(activity);
+		mBookRepo.open();
+		mBookList = mBookRepo.getAllBook();
+		mBookRepo.close();
 	}
 
 	//--------------------------------------------------
@@ -56,54 +53,41 @@ public class RevistaAdapter extends BaseAdapter{
 	
 	@Override
 	public int getCount() {
-		return mMagazineList.size();
+		return mBookList.size();
 	}
 
 	@Override
-	public Magazine getItem(int position) {
-		return mMagazineList.get(position);
+	public Object getItem(int position) {
+		return position;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return position;
+		Book item = mBookList.get(position); 
+		return item.id;
 	}
 
-	@SuppressLint("ViewHolder")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.adapter_lista_revista, parent, false);
+		View view = mInflater.inflate(R.layout.adapter_book, parent, false);
 		
-		// Initializes the components.
-		ImageView magazineImageView = (ImageView)view.findViewById(R.id.id_magazine_image_view);
-		TextView magazineTitleTextView = (TextView) view.findViewById(R.id.id_magazine_title_text_view);
-		TextView magazineDescriptionTextView = (TextView) view.findViewById(R.id.id_magazine_description_text_view);
+		Book book = mBookList.get(position);
+		TextView nameBook = (TextView) view.findViewById(R.id.txtNameBook);
+		TextView descBook = (TextView) view.findViewById(R.id.txtDescBook);
+		ImageView imgBook = (ImageView) view.findViewById(R.id.imgBook);
 		
-		// Sets the components.
-		Magazine magazine = getItem(position);
-		magazineTitleTextView.setText(magazine.name);
-		magazineDescriptionTextView.setText(magazine.description);
+		nameBook.setText(book.name);
+		descBook.setText(book.author_name);
 		
-		// Creates URL for the image.
-		String url = URL + magazine.picture;
-		setUniversalImage(url, magazineImageView);
+		String url = "http://apps.ikomm.com.br/hsm5/uploads/books/" + book.picture;
+		setUniversalImage(url, imgBook);
 		
 		return view;
 	}
-
+	
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
-	
-	/**
-	 * Gets the {@link Magazine} list.
-	 */
-	public void getMagazineList() {
-		MagazineRepo magazineRepo = new MagazineRepo(mActivity);
-		magazineRepo.open();
-		mMagazineList = magazineRepo.getAllMagazine();
-		magazineRepo.close();
-	}
 	
 	/**
 	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.

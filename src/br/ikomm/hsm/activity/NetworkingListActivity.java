@@ -18,11 +18,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.adapter.AmigoAdapter;
-import br.ikomm.hsm.model.Cartao;
-import br.ikomm.hsm.repo.CartaoRepository;
+import br.ikomm.hsm.adapter.NetworkFriendsAdapter;
+import br.ikomm.hsm.model.Card;
+import br.ikomm.hsm.qr_code.IntentIntegrator;
+import br.ikomm.hsm.repo.CardRepository;
 import br.ikomm.hsm.util.CartaoConverter;
-import br.ikomm.hsm.util.IntentIntegrator;
 
 import com.google.gson.Gson;
 
@@ -36,8 +36,8 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 	// Attributes
 	//--------------------------------------------------
 	
-	private CartaoRepository mCartaoRepo;
-	private List<Cartao> mCartaoList;
+	private CardRepository mCartaoRepo;
+	private List<Card> mCartaoList;
 	
 	private Button mCreateCardButton;
 
@@ -127,7 +127,7 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 	 * Sets the {@link ListView}.
 	 */
 	public void setAdapter() {
-		mCartaoRepo = new CartaoRepository(NetworkingListActivity.this);
+		mCartaoRepo = new CardRepository(NetworkingListActivity.this);
 		mCartaoList = mCartaoRepo.getMeusContatos();
 		boolean hasContact = mCartaoList != null && mCartaoList.size() > 0;
 
@@ -137,7 +137,7 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 			listView.setVisibility(View.GONE);
 		} else {
 			mCreateCardButton.setVisibility(View.GONE);
-			listView.setAdapter(new AmigoAdapter(this));
+			listView.setAdapter(new NetworkFriendsAdapter(this));
 			listView.setOnItemClickListener(this);
 		}
 	}
@@ -150,15 +150,15 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 	public void setCard(Intent data) {
 		String contents = data.getStringExtra("SCAN_RESULT");
 		CartaoConverter converter = new CartaoConverter();
-		Cartao novoContato = converter.CartaoFromString(contents);
-		for (Cartao cartao : mCartaoList) {
-			if (cartao.nome.equals(novoContato.nome) && cartao.email.equals(novoContato.email)) {
+		Card novoContato = converter.CartaoFromString(contents);
+		for (Card card : mCartaoList) {
+			if (card.nome.equals(novoContato.nome) && card.email.equals(novoContato.email)) {
 				Toast.makeText(NetworkingListActivity.this, "Você já possui um contato com este nome e email.", Toast.LENGTH_LONG).show();
 				return;
 			}
 		}
-		List<Cartao> contatos = mCartaoRepo.getMeusContatos();
-		List<Cartao> novoContatos = new ArrayList<Cartao>();
+		List<Card> contatos = mCartaoRepo.getMeusContatos();
+		List<Card> novoContatos = new ArrayList<Card>();
 		novoContatos.addAll(contatos);
 		novoContatos.add(novoContato);
 		mCartaoRepo.setMeusContatos(novoContatos);
@@ -179,8 +179,8 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Intent intent = new Intent(NetworkingListActivity.this, ContatoActivity.class);
-		Cartao cartaoClick = mCartaoList.get(position);
+		Intent intent = new Intent(NetworkingListActivity.this, ContactActivity.class);
+		Card cartaoClick = mCartaoList.get(position);
 		Gson gson = new Gson();
 		intent.putExtra("jsonCartao", gson.toJson(cartaoClick));
 		startActivity(intent);
@@ -188,7 +188,7 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 
 	@Override
 	public void onClick(View view) {
-		Intent intent = new Intent(NetworkingListActivity.this, MeuCartaoActivity.class);
+		Intent intent = new Intent(NetworkingListActivity.this, AddCardActivity.class);
 		startActivity(intent);
 	}
 }

@@ -16,24 +16,24 @@ import br.com.ikomm.apps.HSM.R.drawable;
 import br.com.ikomm.apps.HSM.R.id;
 import br.com.ikomm.apps.HSM.R.layout;
 import br.com.ikomm.apps.HSM.R.menu;
-import br.ikomm.hsm.model.Cartao;
-import br.ikomm.hsm.repo.CartaoRepository;
+import br.ikomm.hsm.model.Card;
+import br.ikomm.hsm.repo.CardRepository;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
- * MeuCartaoActivity.java class.
+ * AddCardActivity.java class.
  * Modified by Rodrigo Cericatto at July 10, 2014.
  */
-public class MeuCartaoActivity extends SherlockActivity implements OnClickListener {
+public class AddCardActivity extends SherlockActivity implements OnClickListener {
 
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
-	private CartaoRepository mCartaoRepo;
+	private CardRepository mCartaoRepo;
 	
 	private TextView mName;
 	private TextView mEmail;
@@ -50,7 +50,7 @@ public class MeuCartaoActivity extends SherlockActivity implements OnClickListen
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_meu_cartao);
+		setContentView(R.layout.activity_add_card);
 
 		setActionBar();
 		setButton();
@@ -95,7 +95,7 @@ public class MeuCartaoActivity extends SherlockActivity implements OnClickListen
 	 */
 	public void setButton() {
 		// Gets the CartaoRepo.
-		mCartaoRepo = new CartaoRepository(MeuCartaoActivity.this);
+		mCartaoRepo = new CardRepository(AddCardActivity.this);
 		
 		Button createCardButton = (Button)findViewById(R.id.id_create_card_button);
 		createCardButton.setOnClickListener(this);
@@ -116,19 +116,19 @@ public class MeuCartaoActivity extends SherlockActivity implements OnClickListen
 	 */
 	public void setErrorMessages() {
 		if (mName.getText().toString().isEmpty()) {
-			Toast.makeText(MeuCartaoActivity.this, "Por favor, preencha seu nome.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, preencha seu nome.", Toast.LENGTH_SHORT).show();
 		} else if (mEmail.getText().toString().isEmpty()) {
-			Toast.makeText(MeuCartaoActivity.this, "Por favor, insira um e-mail v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, insira um e-mail v‡lido.", Toast.LENGTH_SHORT).show();
 		} else if (mPhone.getText().toString().isEmpty()) {
-			Toast.makeText(MeuCartaoActivity.this, "Por favor, insira um telefone v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, insira um telefone v‡lido.", Toast.LENGTH_SHORT).show();
 		} else if (mMobilePhone.getText().toString().isEmpty()) {
-			Toast.makeText(MeuCartaoActivity.this, "Por favor, insira um celular v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, insira um celular v‡lido.", Toast.LENGTH_SHORT).show();
 		} else if (mCompany.getText().toString().isEmpty()) {
-			Toast.makeText(MeuCartaoActivity.this, "Por favor, insira uma empresa v‡lida.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, insira uma empresa v‡lida.", Toast.LENGTH_SHORT).show();
 		} else if (mRole.getText().toString().isEmpty()) {
-			Toast.makeText(MeuCartaoActivity.this, "Por favor, insira um cargo v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, insira um cargo v‡lido.", Toast.LENGTH_SHORT).show();
 		} else if (mWebsite.getText().toString().isEmpty()) {
-			Toast.makeText(MeuCartaoActivity.this, "Por favor, insira um website v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, insira um website v‡lido.", Toast.LENGTH_SHORT).show();
 		} else {
 			setContacts();
 		}
@@ -139,7 +139,7 @@ public class MeuCartaoActivity extends SherlockActivity implements OnClickListen
 	 */
 	public void setContacts() {
 		// Gets the current card.
-		Cartao card = new Cartao();
+		Card card = new Card();
 		card.nome = mName.getText().toString();
 		card.email = mEmail.getText().toString();
 		card.telefone = mPhone.getText().toString();
@@ -149,15 +149,15 @@ public class MeuCartaoActivity extends SherlockActivity implements OnClickListen
 		card.website = mWebsite.getText().toString();
 
 		// Refreshes list.
-		List<Cartao> lista = mCartaoRepo.getMeusContatos();
+		List<Card> lista = mCartaoRepo.getMeusContatos();
 		if (lista == null) {
-			lista = new ArrayList<Cartao>();
+			lista = new ArrayList<Card>();
 			lista.add(card);
 			mCartaoRepo.setMeusContatos(lista);
 		}
 		
 		// Calls NetworkingListActivity.
-		Intent intent = new Intent(MeuCartaoActivity.this, NetworkingListActivity.class);
+		Intent intent = new Intent(AddCardActivity.this, NetworkingListActivity.class);
 		startActivity(intent);
 	}
 

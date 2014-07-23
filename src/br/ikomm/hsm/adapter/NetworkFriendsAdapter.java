@@ -10,34 +10,34 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.model.Cartao;
-import br.ikomm.hsm.repo.CartaoRepository;
+import br.ikomm.hsm.model.Card;
+import br.ikomm.hsm.repo.CardRepository;
 
 /**
- * AmigoAdapter.java class.
+ * NetworkFriendsAdapter.java class.
  * Modified by Rodrigo Cericatto at July 21, 2014.
  */
-public class AmigoAdapter extends BaseAdapter {
+public class NetworkFriendsAdapter extends BaseAdapter {
 
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
 	private LayoutInflater mInflater;
-	private CartaoRepository mCartaoRepo;
-	private List<Cartao> mCartaoList;
+	private CardRepository mCartaoRepo;
+	private List<Card> mCartaoList;
 	
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public AmigoAdapter(Activity activity) {
+	public NetworkFriendsAdapter(Activity activity) {
 		super();
 		mInflater = LayoutInflater.from(activity);
-		mCartaoRepo = new CartaoRepository(activity);
+		mCartaoRepo = new CardRepository(activity);
 		mCartaoList = mCartaoRepo.getMeusContatos();
 		if (mCartaoList == null) {
-			mCartaoList = new ArrayList<Cartao>();
+			mCartaoList = new ArrayList<Card>();
 		}
 	}
 
@@ -62,10 +62,10 @@ public class AmigoAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Cartao cartaoAtual = mCartaoList.get(position);
+		Card cartaoAtual = mCartaoList.get(position);
 
 		View view = convertView;
-		view = mInflater.inflate(R.layout.adapter_amigo, parent, false);
+		view = mInflater.inflate(R.layout.adapter_network_friends, parent, false);
 
 		TextView nome = (TextView) view.findViewById(R.id.lNomeNet);
 		nome.setText(cartaoAtual.nome);

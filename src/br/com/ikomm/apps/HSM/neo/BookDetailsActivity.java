@@ -44,7 +44,7 @@ public class BookDetailsActivity extends SherlockActivity implements OnClickList
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.book_details_activity);
+		setContentView(R.layout.activity_book_details);
 		
 		setActionBar();
 		getExtras();

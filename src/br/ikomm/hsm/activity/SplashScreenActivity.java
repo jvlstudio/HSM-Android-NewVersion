@@ -43,7 +43,7 @@ public class SplashScreenActivity extends Activity implements Runnable {
 	@Override
 	public void run() {
 		if (mSplash2){
-			startActivity(new Intent(this, SplashScreen2Activity.class));
+			startActivity(new Intent(this, SplashScreenEndActivity.class));
 			finish();
 		} else {
 			startActivity(new Intent(this, HomeActivity.class));

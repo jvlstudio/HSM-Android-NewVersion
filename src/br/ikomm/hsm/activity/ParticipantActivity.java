@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.model.Participante;
+import br.ikomm.hsm.model.Participant;
 import br.ikomm.hsm.util.StringUtils;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -25,7 +25,7 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 	// Attributes
 	//--------------------------------------------------
 	
-	public static Participante mParticipante = new Participante();
+	public static Participant mParticipante = new Participant();
 	int mVariavelBanner;
 	private Long mEventId;
 

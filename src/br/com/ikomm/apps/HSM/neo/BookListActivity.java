@@ -1,17 +1,14 @@
 package br.com.ikomm.apps.HSM.neo;
 
 import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.adapter.LivrosAdapter;
+import br.ikomm.hsm.adapter.BookAdapter;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -21,7 +18,7 @@ import com.actionbarsherlock.view.MenuItem;
  * BookListActivity.java class.
  * Modified by Rodrigo Cericatto at July 10, 2014.
  */
-public class BookListActivity extends SherlockFragmentActivity {
+public class BookListActivity extends SherlockFragmentActivity implements OnItemClickListener {
 
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -32,13 +29,8 @@ public class BookListActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_book_list);
 
-		ActionBar action = getActionBar();
-		action.setLogo(R.drawable.hsm_logo);
-		action.setDisplayHomeAsUpEnabled(true);
-		
-		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		setActionBar();
+		setAdapter();
 	}
 	
 	//--------------------------------------------------
@@ -63,29 +55,35 @@ public class BookListActivity extends SherlockFragmentActivity {
 	}
 	
 	//--------------------------------------------------
-	// Fragment
+	// Methods
 	//--------------------------------------------------
-
+	
 	/**
-	 * A placeholder fragment containing a simple view.
+	 * Sets the {@link ActionBar}.
 	 */
-	public static class PlaceholderFragment extends Fragment{
-		public PlaceholderFragment() {}
+	public void setActionBar() {
+		ActionBar action = getActionBar();
+		action.setLogo(R.drawable.hsm_logo);
+		action.setDisplayHomeAsUpEnabled(true);
+	}
+	
+	/**
+	 * Sets the {@link ListView}.
+	 */
+	public void setAdapter() {
+		ListView listaLivros = (ListView)findViewById(R.id.id_book_list_view);
+		listaLivros.setAdapter(new BookAdapter(this));
+		listaLivros.setOnItemClickListener(this);
+	}
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_lista_livros, container, false);
-			ListView listaLivros = (ListView) rootView.findViewById(R.id.listBooks);
-			listaLivros.setAdapter(new LivrosAdapter(getActivity()));
-			listaLivros.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-					Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
-					intent.putExtra("id", id);
-					startActivity(intent);
-				}
-			});
-			return rootView;
-		}
+	//--------------------------------------------------
+	// Listeners
+	//--------------------------------------------------
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent intent = new Intent(this, BookDetailsActivity.class);
+		intent.putExtra("id", id);
+		startActivity(intent);
 	}
 }

@@ -15,7 +15,7 @@ import com.actionbarsherlock.view.MenuItem;
  * HomeActivity.java class.
  * Modified by Rodrigo Cericatto at July 10, 2014.
  */
-public class AgradecimentoActivity extends SherlockActivity implements OnClickListener {
+public class GreetingsActivity extends SherlockActivity implements OnClickListener {
 
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -25,7 +25,7 @@ public class AgradecimentoActivity extends SherlockActivity implements OnClickLi
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_agradecimento);
+		setContentView(R.layout.activity_greetings);
 		
 		findViewById(R.id.btnVoltar).setOnClickListener(this);
 	}

@@ -25,7 +25,7 @@ import br.com.ikomm.apps.HSM.neo.BookListActivity;
 import br.com.ikomm.apps.HSM.neo.MagazineActivity;
 import br.ikomm.hsm.manager.ContentManager;
 import br.ikomm.hsm.model.Home;
-import br.ikomm.hsm.util.WebServiceCommunication;
+import br.ikomm.hsm.services.WebServiceCommunication;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
