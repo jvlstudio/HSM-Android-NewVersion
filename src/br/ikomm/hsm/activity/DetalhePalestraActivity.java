@@ -93,6 +93,11 @@ public class DetalhePalestraActivity extends SherlockFragmentActivity implements
 			}
 			
 			setActionBar();
+		} else {
+			ActionBar action = getActionBar();
+			action.setLogo(R.drawable.hsm_logo);
+			action.setTitle("Esperar Cezar...");
+			action.setDisplayHomeAsUpEnabled(true);
 		}
 	}
 	

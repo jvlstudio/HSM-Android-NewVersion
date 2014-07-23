@@ -56,7 +56,7 @@ public class WSCommunication {
 
 			String responseBody = reader.readLine();
 			HomeWS list = gson.fromJson(responseBody, HomeWS.class);
-
+			
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();

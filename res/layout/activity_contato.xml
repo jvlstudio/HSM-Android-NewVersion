@@ -1,11 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/hsm_bg_c_blur"
-    android:orientation="vertical"
-    tools:context=".ContatoActivity" >
+    android:background="@color/hsm_color_gray_dark"
+    android:orientation="vertical" >
 
+    <!-- FIRST ROW -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -14,102 +13,84 @@
         android:padding="10dp" >
 
         <ImageView
-            android:id="@+id/imgPacoteNet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/hsm_ball_gold" />
-
         <ImageView
             android:id="@+id/imgPacoteNet"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/hsm_panelist_noimage" />
-
+            android:src="@drawable/hsm_placeholder_panelist" />
         <TextView
             android:id="@+id/lNomeTop"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="nome top"
-            android:textColor="#ecd900"
+            android:textColor="@color/hsm_color_yellow"
             android:textSize="12dp"
             android:textStyle="bold" />
-
         <ImageButton
             android:id="@+id/imgAddNet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@null"
-            android:src="@drawable/hsm_but_plus" />
+            android:src="@drawable/ic_plus" />
     </LinearLayout>
 
-    <RelativeLayout
+    <!-- SECOND ROW -->
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="30dp"
-        android:background="@drawable/hsm_bg_light"
-        android:paddingLeft="20dp"
-        android:paddingTop="30dp" >
+        android:background="@color/hsm_color_gray_light"
+        android:orientation="horizontal" >
 
-        <FrameLayout
-            android:id="@+id/frameLayoutNome"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="30dp"
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/lNomeNet"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|left"
+                android:layout_marginTop="40dp"
                 android:text="nome"
                 android:textColor="#ecd900"
                 android:textSize="12dp"
                 android:textStyle="bold" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/frameLayoutEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/frameLayoutNome"
-            android:paddingTop="50dp" >
-
             <TextView
                 android:id="@+id/lEmailNet"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|left"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
                 android:text="email"
-                android:textColor="#ecd900"
+                android:textColor="@color/hsm_color_yellow"
                 android:textSize="10dp" />
-        </FrameLayout>
+        </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/frameLayoutEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@+id/frameLayoutNome" >
+        <ImageView
+            android:id="@+id/imgQrcodeNet"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="20dp" />
+    </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imgQrcodeNet"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:clickable="true"/>
-        </FrameLayout>
-    </RelativeLayout>
-
+    <!-- E-MAIL BUTTON -->
     <Button
         android:id="@+id/btnEnviarEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/hsm_bt_tiny_clear"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_background_behavior"
         android:text="Enviar e-mail"
-        android:textColor="#FFFFFF" />
-
+        android:textColor="@color/hsm_color_white" />
 </LinearLayout>
