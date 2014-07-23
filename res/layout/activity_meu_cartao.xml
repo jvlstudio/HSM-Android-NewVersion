@@ -13,7 +13,7 @@
         android:paddingTop="20dp" >
 
         <EditText
-            android:id="@+id/tNomeNet"
+            android:id="@+id/id_complete_name_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nome Completo *"
@@ -23,7 +23,7 @@
             android:textColorHint="@color/hsm_color_gray_light" />
 
         <EditText
-            android:id="@+id/tEmailNet"
+            android:id="@+id/id_email_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email *"
@@ -33,7 +33,7 @@
             android:textColorHint="@color/hsm_color_gray_light" />
 
         <EditText
-            android:id="@+id/tTelefoneNet"
+            android:id="@+id/id_phone_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Telefone *"
@@ -43,7 +43,7 @@
             android:textColorHint="@color/hsm_color_gray_light" />
 
         <EditText
-            android:id="@+id/tCelularNet"
+            android:id="@+id/id_mobile_phone_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Celular *"
@@ -53,7 +53,7 @@
             android:textColorHint="@color/hsm_color_gray_light" />
 
         <EditText
-            android:id="@+id/tEmpresaNet"
+            android:id="@+id/id_company_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Empresa *"
@@ -63,7 +63,7 @@
             android:textColorHint="@color/hsm_color_gray_light" />
 
         <EditText
-            android:id="@+id/tCargoNet"
+            android:id="@+id/id_role_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Cargo *"
@@ -73,7 +73,7 @@
             android:textColorHint="@color/hsm_color_gray_light" />
 
         <EditText
-            android:id="@+id/tWebsiteNet"
+            android:id="@+id/id_website_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Website *"
@@ -84,7 +84,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnCriarMeuCartao"
+        android:id="@+id/id_create_card_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

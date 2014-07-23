@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/hsm_bg_c_blur"
+    android:background="@color/hsm_color_gray_dark"
     android:orientation="vertical" >
 
     <TextView 
@@ -14,7 +14,7 @@
         android:text="Ao comprar pelo aplicativo oficial da HSM, você tem um desconto exclusivo em qualquer um dos passes"/>
     
     <ListView 
-        android:id="@+id/listViewPacotes"
+        android:id="@+id/id_passes_list_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>

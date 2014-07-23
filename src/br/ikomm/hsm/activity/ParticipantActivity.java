@@ -16,10 +16,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
- * ParticipanteActivity.java class.
+ * ParticipantActivity.java class.
  * Modified by Rodrigo Cericatto at July 4, 2014.
  */
-public class ParticipanteActivity extends SherlockFragmentActivity implements OnClickListener {
+public class ParticipantActivity extends SherlockFragmentActivity implements OnClickListener {
 
 	//--------------------------------------------------
 	// Attributes
@@ -36,7 +36,7 @@ public class ParticipanteActivity extends SherlockFragmentActivity implements On
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_participante);
+		setContentView(R.layout.activity_participant);
 
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
@@ -75,7 +75,7 @@ public class ParticipanteActivity extends SherlockFragmentActivity implements On
 
 	@Override
 	public void onClick(View arg0) {
-		Intent intent = new Intent(getApplicationContext(), PagamentoActivity.class);
+		Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
 		if (validar()) {
 			intent.putExtra("ok", 1);
 		}else{

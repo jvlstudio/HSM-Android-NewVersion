@@ -60,7 +60,5 @@
 	        android:textColor="#FFFFFF"
 	        android:background="@drawable/hsm_bt_large_purple"
 	        android:text="@string/voltar"/>
-	    
-	    
 	</LinearLayout>
 </ScrollView>

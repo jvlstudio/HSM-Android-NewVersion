@@ -1,0 +1,131 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/hsm_color_gray_dark"
+    android:orientation="vertical" >
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+        
+        <ImageView
+            android:id="@+id/id_book_image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/hsm_placeholder_book"
+            android:background="@android:color/transparent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/id_title_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="TITULO DO LIVRO"
+                android:textColor="@color/hsm_color_yellow"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/id_purchase_button"
+                android:layout_width="100dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_background_behavior"
+                android:text="Comprar"
+                android:textColor="@color/hsm_color_white" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- SINOPSE / AUTHOR -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/id_sinopse_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:text="SINOPSE  |"
+            android:textColor="#ffcc00"
+            android:textSize="12dp" />
+        <TextView
+            android:id="@+id/id_author_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:text="AUTOR"
+            android:textColor="#ffcc00"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <!-- DATA LAYOUT -->
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <!-- Sinopse -->
+            <LinearLayout
+                android:id="@+id/id_sinopse_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible" >
+                <TextView
+                    android:id="@+id/id_book_description_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Descrição do Livro"
+                    android:textColor="@color/hsm_color_gray_light" />
+            </LinearLayout>
+
+            <!-- Author -->
+            <LinearLayout
+                android:id="@+id/id_author_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@+id/id_author_name_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Nome do Autor"
+                    android:textColor="@color/hsm_color_yellow" />
+                <TextView
+                    android:id="@+id/id_author_description_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Descrição do Autor"
+                    android:textColor="@color/hsm_color_gray_light" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

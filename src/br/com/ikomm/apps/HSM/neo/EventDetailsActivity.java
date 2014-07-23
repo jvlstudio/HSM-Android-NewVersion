@@ -1,7 +1,6 @@
 package br.com.ikomm.apps.HSM.neo;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.activity.AgendaActivity;
-import br.ikomm.hsm.activity.PacoteActivity;
 import br.ikomm.hsm.activity.PalestrantesActivity;
+import br.ikomm.hsm.activity.PassesActivity;
 import br.ikomm.hsm.model.Event;
 import br.ikomm.hsm.repo.EventRepo;
 
@@ -25,10 +24,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
- * DetalheEventoNeoActivity.java class.
+ * EventDetailsActivity.java class.
  * Modified by Rodrigo Cericatto at July 4, 2014.
  */
-public class DetalheEventoNeoActivity extends SherlockFragmentActivity implements OnClickListener {
+public class EventDetailsActivity extends SherlockFragmentActivity implements OnClickListener {
 
 	//--------------------------------------------------
 	// Constants
@@ -69,27 +68,11 @@ public class DetalheEventoNeoActivity extends SherlockFragmentActivity implement
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_detalhe_evento);
+		setContentView(R.layout.activity_event_details);
 		
-		// Gets ActionBar.
-		ActionBar action = getActionBar();
-		action.setLogo(R.drawable.hsm_logo);
-		action.setDisplayHomeAsUpEnabled(true);
-		
-		// Gets extras.
-		Bundle extras = getIntent().getExtras(); 
-		if (extras != null) {
-			mId = extras.getLong("id");
-		}
-		
-		// Gets current Event.
-		mEventRepo = new EventRepo(getBaseContext());
-		mEventRepo.open();
-		mEvent = mEventRepo.getEvent(mId);
-		if (mEvent != null) {
-			loadFields();
-			showAboutLinearLayout();
-		}
+		setActionBar();
+		getExtras();
+		getCurrentEvent();
 	}
 	
 	//--------------------------------------------------
@@ -117,6 +100,38 @@ public class DetalheEventoNeoActivity extends SherlockFragmentActivity implement
 	//--------------------------------------------------
 	
 	/**
+	 * Sets the {@link ActionBar}.
+	 */
+	public void setActionBar() {
+		ActionBar action = getActionBar();
+		action.setLogo(R.drawable.hsm_logo);
+		action.setDisplayHomeAsUpEnabled(true);
+	}
+	
+	/**
+	 * Gets the extras.
+	 */
+	public void getExtras() {
+		Bundle extras = getIntent().getExtras(); 
+		if (extras != null) {
+			mId = extras.getLong("id");
+		}
+	}
+	
+	/**
+	 * Gets the current {@link Event}.
+	 */
+	public void getCurrentEvent() {
+		mEventRepo = new EventRepo(getBaseContext());
+		mEventRepo.open();
+		mEvent = mEventRepo.getEvent(mId);
+		if (mEvent != null) {
+			setLayout();
+			showAboutLinearLayout();
+		}
+	}
+	
+	/**
 	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
 	 *  
 	 * @param url The url of the image.
@@ -131,9 +146,9 @@ public class DetalheEventoNeoActivity extends SherlockFragmentActivity implement
 	}
 	
 	/**
-	 * Load all fields of this {@link Activity}.
+	 * Sets the layout.
 	 */
-	public void loadFields() {
+	public void setLayout() {
 		// About LinearLayout.
 		mAboutLinearLayout = (LinearLayout)findViewById(R.id.id_about_linear_layout);
 		mTitleTextView = (TextView)findViewById(R.id.id_title_event);
@@ -221,18 +236,18 @@ public class DetalheEventoNeoActivity extends SherlockFragmentActivity implement
 		Intent intent = null;
 		switch (view.getId()) {
 			case R.id.btnAgenda:
-				intent = new Intent(DetalheEventoNeoActivity.this, AgendaActivity.class);
+				intent = new Intent(EventDetailsActivity.this, AgendaActivity.class);
 				intent.putExtra("event_id", mEvent.id);
 				intent.putExtra("dates", mEvent.info_dates);
 				startActivity(intent);
 				break;
 			case R.id.btnPasses:
-				intent = new Intent(DetalheEventoNeoActivity.this, PacoteActivity.class);
+				intent = new Intent(EventDetailsActivity.this, PassesActivity.class);
 				intent.putExtra("event_id", mEvent.id);
 				startActivity(intent);
 				break;
 			case R.id.btnPalestrante:
-				intent = new Intent(DetalheEventoNeoActivity.this, PalestrantesActivity.class);
+				intent = new Intent(EventDetailsActivity.this, PalestrantesActivity.class);
 				intent.putExtra("event_id", mEvent.id);
 				startActivity(intent);
 				break;

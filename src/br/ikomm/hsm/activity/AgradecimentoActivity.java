@@ -36,7 +36,6 @@ public class AgradecimentoActivity extends SherlockActivity implements OnClickLi
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu. This code adds items to the action bar.
 		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
 		return true;
 	}

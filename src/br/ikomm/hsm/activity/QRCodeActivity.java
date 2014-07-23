@@ -1,10 +1,13 @@
-package br.com.ikomm.apps.HSM;
+package br.ikomm.hsm.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ImageView;
+import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.R.id;
+import br.com.ikomm.apps.HSM.R.layout;
 import br.ikomm.hsm.model.Cartao;
 import br.ikomm.hsm.util.CartaoConverter;
 

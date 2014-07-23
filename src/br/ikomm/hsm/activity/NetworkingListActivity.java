@@ -1,4 +1,4 @@
-package br.com.ikomm.apps.HSM;
+package br.ikomm.hsm.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.adapter.AmigoAdapter;
 import br.ikomm.hsm.model.Cartao;
 import br.ikomm.hsm.repo.CartaoRepository;
@@ -27,9 +28,9 @@ import com.google.gson.Gson;
 
 /**
  * HomeActivity.java class.
- * Modified by Rodrigo ListaNetworkingActivity at July 10, 2014.
+ * Modified by Rodrigo NetworkingListActivity at July 10, 2014.
  */
-public class ListaNetworkingActivity extends FragmentActivity implements OnItemClickListener, OnClickListener {
+public class NetworkingListActivity extends FragmentActivity implements OnItemClickListener, OnClickListener {
 	
 	//--------------------------------------------------
 	// Attributes
@@ -47,7 +48,7 @@ public class ListaNetworkingActivity extends FragmentActivity implements OnItemC
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_lista_networking);
+		setContentView(R.layout.activity_networking_list);
 
 		setActionBar();
 		setLayout();
@@ -61,13 +62,13 @@ public class ListaNetworkingActivity extends FragmentActivity implements OnItemC
 			setCard(data);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Toast.makeText(ListaNetworkingActivity.this, "Ocorreu um erro na leitura do QRCode, por favor tente novamente.", Toast.LENGTH_LONG).show();
+			Toast.makeText(NetworkingListActivity.this, "Ocorreu um erro na leitura do QRCode, por favor tente novamente.", Toast.LENGTH_LONG).show();
 			return;
 		}
 
 		// QRCode error.
 		if (resultCode == RESULT_CANCELED) {
-			Toast.makeText(ListaNetworkingActivity.this, "Leitura de QRCode cancelada.", Toast.LENGTH_LONG).show();
+			Toast.makeText(NetworkingListActivity.this, "Leitura de QRCode cancelada.", Toast.LENGTH_LONG).show();
 			return;
 		}
 		recursiveCall();
@@ -91,7 +92,7 @@ public class ListaNetworkingActivity extends FragmentActivity implements OnItemC
 				return true;
 			case R.id.menu_qrcode:
 				try {
-					IntentIntegrator scan = new IntentIntegrator( ListaNetworkingActivity.this);
+					IntentIntegrator scan = new IntentIntegrator(NetworkingListActivity.this);
 					scan.initiateScan();
 				} catch (Exception e) {
 					Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
@@ -126,7 +127,7 @@ public class ListaNetworkingActivity extends FragmentActivity implements OnItemC
 	 * Sets the {@link ListView}.
 	 */
 	public void setAdapter() {
-		mCartaoRepo = new CartaoRepository(ListaNetworkingActivity.this);
+		mCartaoRepo = new CartaoRepository(NetworkingListActivity.this);
 		mCartaoList = mCartaoRepo.getMeusContatos();
 		boolean hasContact = mCartaoList != null && mCartaoList.size() > 0;
 
@@ -152,7 +153,7 @@ public class ListaNetworkingActivity extends FragmentActivity implements OnItemC
 		Cartao novoContato = converter.CartaoFromString(contents);
 		for (Cartao cartao : mCartaoList) {
 			if (cartao.nome.equals(novoContato.nome) && cartao.email.equals(novoContato.email)) {
-				Toast.makeText(ListaNetworkingActivity.this, "Você já possui um contato com este nome e email.", Toast.LENGTH_LONG).show();
+				Toast.makeText(NetworkingListActivity.this, "Você já possui um contato com este nome e email.", Toast.LENGTH_LONG).show();
 				return;
 			}
 		}
@@ -167,7 +168,7 @@ public class ListaNetworkingActivity extends FragmentActivity implements OnItemC
 	 * Recursive call.
 	 */
 	public void recursiveCall() {
-		Intent intent = new Intent(ListaNetworkingActivity.this, ListaNetworkingActivity.class);
+		Intent intent = new Intent(NetworkingListActivity.this, NetworkingListActivity.class);
 		startActivity(intent);
 		finish();
 	}
@@ -178,7 +179,7 @@ public class ListaNetworkingActivity extends FragmentActivity implements OnItemC
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Intent intent = new Intent(ListaNetworkingActivity.this, ContatoActivity.class);
+		Intent intent = new Intent(NetworkingListActivity.this, ContatoActivity.class);
 		Cartao cartaoClick = mCartaoList.get(position);
 		Gson gson = new Gson();
 		intent.putExtra("jsonCartao", gson.toJson(cartaoClick));
@@ -187,7 +188,7 @@ public class ListaNetworkingActivity extends FragmentActivity implements OnItemC
 
 	@Override
 	public void onClick(View view) {
-		Intent intent = new Intent(ListaNetworkingActivity.this, MeuCartaoActivity.class);
+		Intent intent = new Intent(NetworkingListActivity.this, MeuCartaoActivity.class);
 		startActivity(intent);
 	}
 }

@@ -8,42 +8,33 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:padding="10dp"
-	    android:background="#FF6633"
+	    android:background="@color/hsm_color_yellow"
 	    android:orientation="vertical"
 	    android:layout_margin="10dp" >
 	
 		<TextView
-		    android:id="@+id/tInscricoes"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="Inscrições"
-		    android:textColor="#FFFFFF"
+		    android:textColor="@color/hsm_color_white"
 		    android:textSize="12dp" />
 		
 		<TextView
-		    android:id="@+id/tTituloPacote"
+		    android:id="@+id/id_passe_title_text_view"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_marginTop="15dp"
 		    android:text="TITULO PACOTE"
-		    android:textColor="#FFFFFF"
+		    android:textColor="@color/hsm_color_white"
 		    android:textSize="26dp" />
 		
 		<TextView
-		    android:id="@+id/tValidade"
+		    android:id="@+id/id_validity_text_view"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_marginTop="15dp"
 		    android:text="Validade"
-		    android:textColor="#FFFFFF" />
-		
-		<TextView
-		    android:id="@+id/tLocais"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_marginTop="8dp"
-		    android:text="Locais de Acesso"
-		    android:textColor="#FFFFFF" />
+		    android:textColor="@color/hsm_color_white" />
 		
 		<LinearLayout
 		    android:layout_width="match_parent"
@@ -55,23 +46,23 @@
 			android:layout_weight="2" >
 		
 			<TextView
-			    android:id="@+id/tPrecoNormal"
+			    android:id="@+id/id_normal_price_text_view"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:gravity="center"
 			    android:layout_weight="1"
 			    android:text="R$ X.XXX,00 "
 			    android:textSize="16dp"
-			    android:textColor="#23232e" />
+			    android:textColor="@color/hsm_color_black" />
 			
 			<TextView
-			    android:id="@+id/tValor"
+			    android:id="@+id/id_new_price_text_view"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:gravity="center"
 			    android:layout_weight="1"
 			    android:text="R$ X.XXX,00"
-			    android:textColor="#23232e"
+			    android:textColor="@color/hsm_color_black"
 			    android:textSize="16dp" />
 		</LinearLayout>
 	</LinearLayout>

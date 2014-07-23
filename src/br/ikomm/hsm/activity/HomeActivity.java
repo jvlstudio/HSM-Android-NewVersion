@@ -19,11 +19,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-import br.com.ikomm.apps.HSM.ListaNetworkingActivity;
 import br.com.ikomm.apps.HSM.R;
-import br.com.ikomm.apps.HSM.neo.EventosNovaActivity;
-import br.com.ikomm.apps.HSM.neo.ListaLivrosActivity;
-import br.com.ikomm.apps.HSM.neo.RevistaActivity;
+import br.com.ikomm.apps.HSM.neo.EventListActivity;
+import br.com.ikomm.apps.HSM.neo.BookListActivity;
+import br.com.ikomm.apps.HSM.neo.MagazineActivity;
 import br.ikomm.hsm.manager.ContentManager;
 import br.ikomm.hsm.model.Home;
 import br.ikomm.hsm.util.WebServiceCommunication;
@@ -200,13 +199,13 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 			if (id == HOME) {
 				startActivity(new Intent(HomeActivity.this, HomeActivity.class));
 			} else if (id == EVENTOS) {
-				startActivity(new Intent(HomeActivity.this, EventosNovaActivity.class));
+				startActivity(new Intent(HomeActivity.this, EventListActivity.class));
 			} else if (id == LIVROS) {
-				startActivity(new Intent(HomeActivity.this, ListaLivrosActivity.class));
+				startActivity(new Intent(HomeActivity.this, BookListActivity.class));
 			} else if (id == NETWORK) {
-				startActivity(new Intent(HomeActivity.this, ListaNetworkingActivity.class));
+				startActivity(new Intent(HomeActivity.this, NetworkingListActivity.class));
 			} else if (id == REVISTAS) {
-				startActivity(new Intent(HomeActivity.this, RevistaActivity.class));
+				startActivity(new Intent(HomeActivity.this, MagazineActivity.class));
 			} else if (id == HSM_TV) {
 				Uri uri = Uri.parse("http://www.youtube.com/watch?v=ZHolmn4LBzg");
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -263,7 +262,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	public void onClick(View view) {
 		switch (view.getId()) {
 			case R.id.id_events_image_button:
-				startActivity(new Intent(HomeActivity.this, EventosNovaActivity.class));
+				startActivity(new Intent(HomeActivity.this, EventListActivity.class));
 				break;
 			case R.id.id_future_content_image_button:
 				showDialogClick(view);
@@ -274,10 +273,10 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 				startActivity(intent);
 				break;
 			case R.id.id_magazines_image_button:
-				startActivity(new Intent(HomeActivity.this, RevistaActivity.class));
+				startActivity(new Intent(HomeActivity.this, MagazineActivity.class));
 				break;
 			case R.id.id_books_image_button:
-				startActivity(new Intent(HomeActivity.this, ListaLivrosActivity.class));
+				startActivity(new Intent(HomeActivity.this, BookListActivity.class));
 				break;
 		}
 	}

@@ -24,10 +24,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
- * PagamentoActivity.java class.
+ * PaymentActivity.java class.
  * Modified by Rodrigo Cericatto at July 4, 2014.
  */
-public class PagamentoActivity extends SherlockFragmentActivity implements OnClickListener {
+public class PaymentActivity extends SherlockFragmentActivity implements OnClickListener {
 
 	//--------------------------------------------------
 	// Attributes
@@ -58,7 +58,7 @@ public class PagamentoActivity extends SherlockFragmentActivity implements OnCli
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_pagamento);
+		setContentView(R.layout.activity_payment);
 
 		getExtras();
 		setActionBar();
@@ -236,7 +236,7 @@ public class PagamentoActivity extends SherlockFragmentActivity implements OnCli
 		switch (view.getId()) {
 			case R.id.id_purchase_button:
 				if (mIcCadastro == 1) {
-					startActivity(new Intent(PagamentoActivity.this, AgradecimentoActivity.class));
+					startActivity(new Intent(PaymentActivity.this, AgradecimentoActivity.class));
 					WebServiceCommunication ws = new WebServiceCommunication();
 					if (mCor.equals("green")) {
 						if (mQuantitySpinner.getSelectedItem() != null) {
@@ -248,11 +248,11 @@ public class PagamentoActivity extends SherlockFragmentActivity implements OnCli
 					}
 					finish();
 				} else {
-					Toast.makeText(PagamentoActivity.this, "Cadastro com dados inv‡lidos.", Toast.LENGTH_LONG).show();
+					Toast.makeText(PaymentActivity.this, "Cadastro com dados inv‡lidos.", Toast.LENGTH_LONG).show();
 				}
 				break;
 			case R.id.id_participant_button:
-				Intent intent = new Intent(PagamentoActivity.this, ParticipanteActivity.class);
+				Intent intent = new Intent(PaymentActivity.this, ParticipantActivity.class);
 				intent.putExtra("var", mBanners);
 				intent.putExtra("event_id", mEventId);
 				startActivity(intent);

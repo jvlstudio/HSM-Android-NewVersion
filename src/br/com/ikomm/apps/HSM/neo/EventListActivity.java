@@ -21,10 +21,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
- * EventosNovaActivity.java class.
+ * EventListActivity.java class.
  * Modified by Rodrigo Cericatto at July 7, 2014.
  */
-public class EventosNovaActivity extends SherlockActivity implements OnItemClickListener {
+public class EventListActivity extends SherlockActivity implements OnItemClickListener {
 	
 	//--------------------------------------------------
 	// Attributes
@@ -40,7 +40,7 @@ public class EventosNovaActivity extends SherlockActivity implements OnItemClick
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		setContentView(R.layout.activity_eventos_nova);
+		setContentView(R.layout.activity_event_list);
 		
 		ActionBar action = getActionBar();
 		action.setDisplayHomeAsUpEnabled(true);
@@ -103,7 +103,7 @@ public class EventosNovaActivity extends SherlockActivity implements OnItemClick
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Intent intent = new Intent(this, DetalheEventoNeoActivity.class);
+		Intent intent = new Intent(this, EventDetailsActivity.class);
 		intent.putExtra("id", id);
 		startActivity(intent);
 	}

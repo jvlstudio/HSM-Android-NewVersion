@@ -48,12 +48,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.PacoteActivity"
+            android:name="br.ikomm.hsm.activity.PassesActivity"
             android:label="@string/title_activity_pacote"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.PagamentoActivity"
+            android:name="br.ikomm.hsm.activity.PaymentActivity"
             android:label="@string/title_activity_pagamento"
             android:screenOrientation="portrait" >
         </activity>
@@ -73,7 +73,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.ParticipanteActivity"
+            android:name="br.ikomm.hsm.activity.ParticipantActivity"
             android:label="@string/title_activity_participante"
             android:screenOrientation="portrait" >
         </activity>
@@ -98,47 +98,47 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.ListaNetworkingActivity"
+            android:name="br.ikomm.hsm.activity.NetworkingListActivity"
             android:label="@string/title_activity_lista_networking"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.MeuCartaoActivity"
+            android:name="br.ikomm.hsm.activity.MeuCartaoActivity"
             android:label="@string/title_activity_meu_cartao"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.ContatoActivity"
+            android:name="br.ikomm.hsm.activity.ContatoActivity"
             android:label="@string/title_activity_contato"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.QRCodeActivity"
+            android:name="br.ikomm.hsm.activity.QRCodeActivity"
             android:label="@string/title_activity_qrcode"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.neo.ListaLivrosActivity"
+            android:name="br.com.ikomm.apps.HSM.neo.BookListActivity"
             android:label="@string/title_activity_lista_livros"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.neo.DetalheLivroActivity"
+            android:name="br.com.ikomm.apps.HSM.neo.BookDetailsActivity"
             android:label="@string/title_activity_detalhe_livro"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.neo.EventosNovaActivity"
+            android:name="br.com.ikomm.apps.HSM.neo.EventListActivity"
             android:label="@string/title_activity_eventos_nova"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.neo.RevistaActivity"
+            android:name="br.com.ikomm.apps.HSM.neo.MagazineActivity"
             android:label="@string/title_activity_revista"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.neo.DetalheEventoNeoActivity"
+            android:name="br.com.ikomm.apps.HSM.neo.EventDetailsActivity"
             android:label="@string/title_activity_detalhe_evento_neo"
             android:screenOrientation="portrait" >
         </activity>

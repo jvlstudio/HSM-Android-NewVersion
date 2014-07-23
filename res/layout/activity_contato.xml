@@ -17,13 +17,12 @@
             android:layout_height="wrap_content"
             android:src="@drawable/hsm_ball_gold" />
         <ImageView
-            android:id="@+id/imgPacoteNet"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/hsm_placeholder_panelist" />
         <TextView
-            android:id="@+id/lNomeTop"
+            android:id="@+id/id_contact_name_top_text_view"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -32,7 +31,7 @@
             android:textSize="12dp"
             android:textStyle="bold" />
         <ImageButton
-            android:id="@+id/imgAddNet"
+            android:id="@+id/id_add_image_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -57,16 +56,16 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/lNomeNet"
+                android:id="@+id/id_contact_name_below_text_view"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:text="nome"
-                android:textColor="#ecd900"
+                android:textColor="@color/hsm_color_yellow"
                 android:textSize="12dp"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/lEmailNet"
+                android:id="@+id/id_contact_email_text_view"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -77,7 +76,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imgQrcodeNet"
+            android:id="@+id/id_qr_code_image_view"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="20dp" />
@@ -85,7 +84,7 @@
 
     <!-- E-MAIL BUTTON -->
     <Button
-        android:id="@+id/btnEnviarEmail"
+        android:id="@+id/id_send_email_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

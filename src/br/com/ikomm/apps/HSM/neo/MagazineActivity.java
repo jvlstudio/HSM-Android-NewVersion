@@ -27,10 +27,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
- * DetalheLivroActivity.java class.
+ * BookDetailsActivity.java class.
  * Modified by Rodrigo Cericatto at July 10, 2014.
  */
-public class RevistaActivity extends SherlockActivity implements OnItemClickListener {
+public class MagazineActivity extends SherlockActivity implements OnItemClickListener {
 
 	//--------------------------------------------------
 	// Attributes
@@ -51,7 +51,7 @@ public class RevistaActivity extends SherlockActivity implements OnItemClickList
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_revista);
+		setContentView(R.layout.activity_magazine);
 		
 		setActionBar();
 		loadFields();
@@ -147,9 +147,9 @@ public class RevistaActivity extends SherlockActivity implements OnItemClickList
 	 * Sets the {@link ListView} adapter.
 	 */
 	public void setListView() {
-		ListView revistas = (ListView)findViewById(R.id.id_magazine_list_view);
-		revistas.setAdapter(new RevistaAdapter(this));
-		revistas.setOnItemClickListener(this);
+		ListView magazineList = (ListView)findViewById(R.id.id_magazine_list_view);
+		magazineList.setAdapter(new RevistaAdapter(this));
+		magazineList.setOnItemClickListener(this);
 	}
 
 	//--------------------------------------------------

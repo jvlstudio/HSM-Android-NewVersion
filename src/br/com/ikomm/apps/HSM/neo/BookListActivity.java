@@ -18,10 +18,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
- * ListaLivrosActivity.java class.
+ * BookListActivity.java class.
  * Modified by Rodrigo Cericatto at July 10, 2014.
  */
-public class ListaLivrosActivity extends SherlockFragmentActivity {
+public class BookListActivity extends SherlockFragmentActivity {
 
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -30,7 +30,7 @@ public class ListaLivrosActivity extends SherlockFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_lista_livros);
+		setContentView(R.layout.activity_book_list);
 
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
@@ -80,7 +80,7 @@ public class ListaLivrosActivity extends SherlockFragmentActivity {
 			listaLivros.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-					Intent intent = new Intent(getActivity(), DetalheLivroActivity.class);
+					Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
 					intent.putExtra("id", id);
 					startActivity(intent);
 				}

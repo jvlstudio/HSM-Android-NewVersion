@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +17,10 @@ import br.ikomm.hsm.repo.PasseRepo;
 import br.ikomm.hsm.util.StringUtils;
 
 /**
- * PacoteAdapter.java class.
+ * PassesAdapter.java class.
  * Modified by Rodrigo Cericatto at July 3, 2014.
  */
-public class PacoteAdapter extends BaseAdapter {
+public class PassesAdapter extends BaseAdapter {
 
 	//--------------------------------------------------
 	// Attributes
@@ -31,15 +30,17 @@ public class PacoteAdapter extends BaseAdapter {
 	private PasseRepo mPasseRepo;
 	private List<Passe> mPasseList = new ArrayList<Passe>();
 
+	private TextView mPrecoNormal;
+	
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public PacoteAdapter(Activity activity, Context context, int id) {
+	public PassesAdapter(Activity activity, int id) {
 		super();
 		
 		mInflater = LayoutInflater.from(activity);
-		mPasseRepo = new PasseRepo(context);
+		mPasseRepo = new PasseRepo(activity);
 		mPasseRepo.open();
 		mPasseList = mPasseRepo.byEvent(id);
 		mPasseRepo.close();
@@ -71,46 +72,102 @@ public class PacoteAdapter extends BaseAdapter {
 		view = mInflater.inflate(R.layout.adapter_pacote, parent, false);
 		
 		Passe item = getItem(position);
-		TextView titulo = (TextView) view.findViewById(R.id.tTituloPacote);
-		// Event name.
+		getData(item, view);
+
+		return view;
+	}
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Gets all data.
+	 * 
+	 * @param item
+	 * @param view
+	 */
+	public void getData(Passe item, View view) {
+		TextView titulo = (TextView) view.findViewById(R.id.id_passe_title_text_view);
+		
+		setEventNameField(item, titulo);
+		setValidToField(item, view);
+
+		setPriceFromField(item, view);
+		setPriceToField(item, view);
+		setPassColorField(item, view);
+	}
+	
+	/**
+	 * Gets the field 'name'.
+	 * 
+	 * @param item
+	 * @param title
+	 */
+	public void setEventNameField(Passe item, TextView title) {
 		if (!StringUtils.isEmpty(item.name)) {
 			if (item.name.length() > 20) {
-				titulo.setText(item.name.subSequence(0, 19));
+				title.setText(item.name.subSequence(0, 19));
 			} else {
-				titulo.setText(item.name);
+				title.setText(item.name);
 			}
 		} else {
-			titulo.setText("< Cadastrar T’tulo do Evento >");
+			title.setText("< Cadastrar T’tulo do Evento >");
 		}
-
-		// Valid To.
-		TextView validade = (TextView) view.findViewById(R.id.tValidade);
+	}
+	
+	/**
+	 * Gets the field 'price_from'.
+	 * 
+	 * @param item
+	 * @param view
+	 */
+	public void setValidToField(Passe item, View view) {
+		TextView validade = (TextView)view.findViewById(R.id.id_validity_text_view);
 		if (!StringUtils.isEmpty(item.description)) {
 			validade.setText(item.description);
 		} else {
 			validade.setText("< Cadastrar Validade >");
 		}
-
-		TextView locais = (TextView) view.findViewById(R.id.tLocais);
-		locais.setText("");
-
-		// Price From.
-		TextView precoNormal = (TextView) view.findViewById(R.id.tPrecoNormal);
+	}
+	
+	/**
+	 * Gets the field 'price_from'.
+	 * 
+	 * @param item
+	 * @param view
+	 */
+	public void setPriceFromField(Passe item, View view) {
+		mPrecoNormal = (TextView) view.findViewById(R.id.id_normal_price_text_view);
 		if (!StringUtils.isEmpty(item.price_from)) {
-			precoNormal.setText("R$ " + item.price_from);
+			mPrecoNormal.setText("R$ " + item.price_from);
 		} else {
-			precoNormal.setText("< Cadastrar Preo Antigo >");
+			mPrecoNormal.setText("< Cadastrar Preo Antigo >");
 		}
-
-		// Price To.
-		TextView precoApp = (TextView) view.findViewById(R.id.tValor);
+	}
+	
+	/**
+	 * Gets the field 'price_to'.
+	 * 
+	 * @param item
+	 * @param view
+	 */
+	public void setPriceToField(Passe item, View view) {
+		TextView precoApp = (TextView) view.findViewById(R.id.id_new_price_text_view);
 		if (!StringUtils.isEmpty(item.price_to)) {
 			precoApp.setText("R$ " + item.price_to);
 		} else {
-			precoNormal.setText("< Cadastrar Preo Novo >");
+			mPrecoNormal.setText("< Cadastrar Preo Novo >");
 		}
-		
-		// Pass Color.
+	}
+	
+	/**
+	 * Gets the field 'color'.
+	 * 
+	 * @param item
+	 * @param view
+	 */
+	public void setPassColorField(Passe item, View view) {
 		LinearLayout layout = (LinearLayout)view.findViewById(R.id.id_linear_layout);
 		if (item.color.equals("green")) {
 			layout.setBackgroundColor(Color.parseColor("#00a180"));
@@ -121,6 +178,5 @@ public class PacoteAdapter extends BaseAdapter {
 		if (item.color.equals("red")){
 			layout.setBackgroundColor(Color.parseColor("#d04840"));
 		}
-		return view;
 	}
 }
