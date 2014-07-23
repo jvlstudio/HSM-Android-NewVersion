@@ -152,7 +152,7 @@ public class AgendaAdapter extends BaseAdapter {
 		formatDate(agenda);
 		
 		if (mDescriptionTextView != null) {
-			mDescriptionTextView.setText(agenda.type);
+			mDescriptionTextView.setText(agenda.label);
 		}
 	}
 	
