@@ -5,10 +5,14 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
@@ -23,13 +27,14 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  * MagazineAdapter.java class.
  * Modified by Rodrigo Cericatto at July 9, 2014.
  */
-public class MagazineAdapter extends BaseAdapter{
+public class MagazineAdapter extends BaseAdapter {
 
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
-	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/magazines/";
+	public static final String MAGAZINE_URL = "https://play.google.com/store/apps/details?id=com.hsm.management&hl=en";
+	public static final String IMAGE_URL = "http://apps.ikomm.com.br/hsm5/uploads/magazines/";
 	
 	//--------------------------------------------------
 	// Methods
@@ -72,12 +77,15 @@ public class MagazineAdapter extends BaseAdapter{
 	@SuppressLint("ViewHolder")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.adapter_lista_revista, parent, false);
+		View view = mInflater.inflate(R.layout.adapter_magazine_list, parent, false);
 		
 		// Initializes the components.
 		ImageView magazineImageView = (ImageView)view.findViewById(R.id.id_magazine_image_view);
 		TextView magazineTitleTextView = (TextView) view.findViewById(R.id.id_magazine_title_text_view);
 		TextView magazineDescriptionTextView = (TextView) view.findViewById(R.id.id_magazine_description_text_view);
+		
+		// Button.
+		setMoreButton(view);
 		
 		// Sets the components.
 		Magazine magazine = getItem(position);
@@ -85,7 +93,7 @@ public class MagazineAdapter extends BaseAdapter{
 		magazineDescriptionTextView.setText(magazine.description);
 		
 		// Creates URL for the image.
-		String url = URL + magazine.picture;
+		String url = IMAGE_URL + magazine.picture;
 		setUniversalImage(url, magazineImageView);
 		
 		return view;
@@ -116,5 +124,23 @@ public class MagazineAdapter extends BaseAdapter{
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.init(ImageLoaderConfiguration.createDefault(mActivity));
 		imageLoader.displayImage(url, imageView, cache);
+	}
+	
+	/**
+	 * Sets the More {@link Button}.
+	 * 
+	 * @param view
+	 */
+	public void setMoreButton(View view) {
+		Button seeMoreButton = (Button)view.findViewById(R.id.id_magazine_plus_button);
+		seeMoreButton.setClickable(true);
+		seeMoreButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+				intent.setData(Uri.parse(MAGAZINE_URL));
+				mActivity.startActivity(intent);
+			}
+		});
 	}
 }

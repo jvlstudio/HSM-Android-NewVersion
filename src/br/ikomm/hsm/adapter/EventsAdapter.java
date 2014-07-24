@@ -25,12 +25,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
- * EventosAdapter.java class.
+ * EventsAdapter.java class.
  * 
  * @author Rodrigo Cericatto
  * @since July 7, 2014
  */
-public class EventosAdapter extends BaseAdapter {
+public class EventsAdapter extends BaseAdapter {
 
 	//--------------------------------------------------
 	// Constants
@@ -53,7 +53,7 @@ public class EventosAdapter extends BaseAdapter {
 	// Constructor
 	//--------------------------------------------------
 	
-	public EventosAdapter(Context context, List<Event> list, String path) {
+	public EventsAdapter(Context context, List<Event> list, String path) {
 		mContext = context;
 		mList = list;
 		mPath = path;

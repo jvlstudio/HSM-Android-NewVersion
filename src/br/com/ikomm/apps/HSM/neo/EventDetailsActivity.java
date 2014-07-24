@@ -134,11 +134,10 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	/**
 	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
 	 *  
-	 * @param url The url of the image.
-	 * 
 	 * @param imageView The {@link ImageView} which will receive the image.
 	 */
-	public void setUniversalImage(String url) {
+	public void setUniversalImage() {
+		String url = URL + mEvent.image_single;
 		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
@@ -160,28 +159,9 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 		mTimeTextView = (TextView)findViewById(R.id.id_time_event);
 		mLocalTextView = (TextView)findViewById(R.id.id_local_event);
 		
-		// Event ImageView.
-		String url = URL + mEvent.image_single;
-		setUniversalImage(url);
-		
-		// Buttons.
-		mAgendaButton = (Button)findViewById(R.id.btnAgenda);
-		mAgendaButton.setOnClickListener(this);
-		mPassesButton = (Button)findViewById(R.id.btnPasses);
-		mPassesButton.setOnClickListener(this);
-		mPalestrantesButton = (Button) findViewById(R.id.btnPalestrante);
-		mPalestrantesButton.setOnClickListener(this);
-		
-		// View switch.
-		mAboutButton = (Button)findViewById(R.id.id_about_button);
-		mAboutButton.setOnClickListener(this);
-		mInfoButton = (Button) findViewById(R.id.id_info_button);
-		mInfoButton.setOnClickListener(this);
-		
-		mAboutImageView = (ImageView)findViewById(R.id.id_about_image);
-		mAboutImageView.setOnClickListener(this);
-		mInfoImageView = (ImageView)findViewById(R.id.id_info_image);
-		mInfoImageView.setOnClickListener(this);
+		setUniversalImage();
+		setButtons();
+		setViewSwitches();
 	}
 	
 	/**
@@ -225,6 +205,33 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 		// Sets icons.
 		mAboutImageView.setBackgroundResource(R.drawable.ic_hsm_about_normal);
 		mInfoImageView.setBackgroundResource(R.drawable.ic_hsm_info_clicked);
+	}
+	
+	/**
+	 * Sets the {@link Button}.
+	 */
+	public void setButtons() {
+		mAgendaButton = (Button)findViewById(R.id.btnAgenda);
+		mAgendaButton.setOnClickListener(this);
+		mPassesButton = (Button)findViewById(R.id.btnPasses);
+		mPassesButton.setOnClickListener(this);
+		mPalestrantesButton = (Button) findViewById(R.id.btnPalestrante);
+		mPalestrantesButton.setOnClickListener(this);
+	}
+	
+	/**
+	 * Sets all view switches.
+	 */
+	public void setViewSwitches() {
+		mAboutButton = (Button)findViewById(R.id.id_about_button);
+		mAboutButton.setOnClickListener(this);
+		mInfoButton = (Button) findViewById(R.id.id_info_button);
+		mInfoButton.setOnClickListener(this);
+		
+		mAboutImageView = (ImageView)findViewById(R.id.id_about_image);
+		mAboutImageView.setOnClickListener(this);
+		mInfoImageView = (ImageView)findViewById(R.id.id_info_image);
+		mInfoImageView.setOnClickListener(this);
 	}
 	
 	//--------------------------------------------------

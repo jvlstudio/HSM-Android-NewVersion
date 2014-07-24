@@ -12,6 +12,12 @@ import br.com.ikomm.apps.HSM.R;
  * Modified by Rodrigo Cericatto at July 9, 2014.
  */
 public class SplashScreenActivity extends Activity implements Runnable {
+
+	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String TAG = "hsm";
 	
 	//--------------------------------------------------
 	// Attributes

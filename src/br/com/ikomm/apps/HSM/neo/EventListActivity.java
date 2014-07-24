@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import br.com.ikomm.apps.HSM.R;
-import br.ikomm.hsm.adapter.EventosAdapter;
+import br.ikomm.hsm.adapter.EventsAdapter;
 import br.ikomm.hsm.model.Event;
 import br.ikomm.hsm.repo.EventRepo;
 import br.ikomm.hsm.util.FileUtils;
@@ -76,7 +76,7 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 	 */
 	public void setAdapter() {
 		String path = mFileManager.createDir(FileUtils.CACHE_DIR);
-		EventosAdapter adapter = new EventosAdapter(this, getEventList(), path);
+		EventsAdapter adapter = new EventsAdapter(this, getEventList(), path);
 		mListView = (ListView) findViewById(R.id.id_list_view);
 		mListView.setAdapter(adapter);
 		mListView.setOnItemClickListener(this);

@@ -66,6 +66,7 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Tipo de Palestra"
+		        android:drawableLeft="@drawable/ic_hsm_microfone"
 		        android:textColor="@color/hsm_color_gray" />
 		</LinearLayout>
 	

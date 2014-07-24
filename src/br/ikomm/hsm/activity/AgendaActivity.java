@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import br.com.ikomm.apps.HSM.R;
@@ -20,15 +21,17 @@ import com.actionbarsherlock.view.MenuItem;
  * AgendaPagerAdapter.java class.
  * Modified by Rodrigo Cericatto at June 30, 2014.
  */
-public class AgendaActivity extends SherlockFragmentActivity implements OnClickListener, TabListener {
+public class AgendaActivity extends SherlockFragmentActivity implements OnClickListener, TabListener, OnPageChangeListener {
 
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
 	
 	private ViewPager mViewPager;
-	private int mEventId = 0;
+	private Integer mEventId = 0;
 	private String[] mDates;
+	
+	private com.actionbarsherlock.app.ActionBar mSherlockActionBar;
 	
 	//--------------------------------------------------
 	// Methods
@@ -39,34 +42,9 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_agenda);
 		
-		ActionBar action = getActionBar();
-		action.setLogo(R.drawable.hsm_logo);
-		action.setDisplayHomeAsUpEnabled(true);
-		
-		Bundle extras = getIntent().getExtras(); 
-		if (extras != null) {
-			mEventId = extras.getInt("event_id");
-			mDates = extras.getString("dates").replace("|", "-").split("-");
-		}
-		
-		mViewPager = (ViewPager) findViewById(R.id.viewPagerAgenda);
-		mViewPager.setAdapter(new AgendaPagerAdapter(getSupportFragmentManager(), mEventId, mDates.length));
-		
-		final com.actionbarsherlock.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        for (int i = 0; i < mDates.length; i++) {
-			actionBar.addTab(actionBar.newTab().setText(mDates[i]).setTabListener(this));
-		}
-        
-		mViewPager.setOnPageChangeListener(
-			new ViewPager.SimpleOnPageChangeListener() {
-				@Override
-				public void onPageSelected(int position) {
-					actionBar.setSelectedNavigationItem(position);
-				}
-			}
-		);
+		getExtras();
+		setViewPager();
+		setActionBar();
 	}
 	
 	//--------------------------------------------------
@@ -90,16 +68,57 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 	}
 
 	//--------------------------------------------------
-	// Click Listener
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Gets the extras.
+	 */
+	public void getExtras() {
+		Bundle extras = getIntent().getExtras(); 
+		if (extras != null) {
+			mEventId = extras.getInt("event_id");
+			mDates = extras.getString("dates").replace("|", "-").split("-");
+		}
+	}
+	
+	/**
+	 * Sets the {@link ViewPager}.
+	 */
+	public void setViewPager() {
+		mViewPager = (ViewPager) findViewById(R.id.viewPagerAgenda);
+		mViewPager.setAdapter(new AgendaPagerAdapter(getSupportFragmentManager(), mEventId, mDates.length));
+		mViewPager.setOnPageChangeListener(this);
+	}
+	
+	/**
+	 * Sets the {@link ActionBar}.
+	 */
+	public void setActionBar() {
+		// Changes the current ActionBar.
+		ActionBar actionBar = getActionBar();
+		actionBar.setLogo(R.drawable.hsm_logo);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		// Changes the Sherlock ActionBar.
+		mSherlockActionBar = getSupportActionBar();
+		mSherlockActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        for (int i = 0; i < mDates.length; i++) {
+        	mSherlockActionBar.addTab(mSherlockActionBar.newTab().setText(mDates[i]).setTabListener(this));
+		}
+	}
+	
+	//--------------------------------------------------
+	// Click Listeners
 	//--------------------------------------------------
 	
 	@Override
 	public void onClick(View view) {
 		startActivity(new Intent(this, LectureDetailsActivity.class));
 	}
-	
+
 	//--------------------------------------------------
-	// Tab Listener
+	// Tab Listeners
 	//--------------------------------------------------
 	
 	@Override
@@ -112,4 +131,19 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {}
+
+	//--------------------------------------------------
+	// Page Changed Listeners
+	//--------------------------------------------------
+	
+	@Override
+	public void onPageScrollStateChanged(int state) {}
+
+	@Override
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+	@Override
+	public void onPageSelected(int position) {
+		mSherlockActionBar.setSelectedNavigationItem(position);
+	}
 }

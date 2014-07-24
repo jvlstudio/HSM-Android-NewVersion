@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import br.com.ikomm.apps.HSM.R;
 import br.ikomm.hsm.model.Event;
@@ -13,6 +14,7 @@ import br.ikomm.hsm.repo.EventRepo;
 import br.ikomm.hsm.tasks.DownloadAsyncTask;
 import br.ikomm.hsm.util.AsyncTaskUtils;
 import br.ikomm.hsm.util.FileUtils;
+import br.ikomm.hsm.util.Utils;
 
 /**
  * SplashScreenEndActivity.java class.
@@ -46,6 +48,7 @@ public class SplashScreenEndActivity extends Activity {
         setContentView(R.layout.activity_splash_screen_end);
         
         downloadEventImages();
+        Log.i(SplashScreenActivity.TAG, Utils.getClassName(SplashScreenEndActivity.class) + "onCreate().");
     }
 
 	//--------------------------------------------------
@@ -56,6 +59,8 @@ public class SplashScreenEndActivity extends Activity {
      * Download all {@link Event} images.
      */
     public void downloadEventImages() {
+    	Log.i(SplashScreenActivity.TAG, Utils.getClassName(SplashScreenEndActivity.class) + "downloadEventImages().");
+    	
     	// Gets Event list.
     	getEventListSize();
     	
@@ -65,6 +70,8 @@ public class SplashScreenEndActivity extends Activity {
 	        for (Event event : mEventList) {
 	        	String imageUrl = URL + event.image_list;
 	    		String completePath = path + event.image_list;
+	    		Log.i(SplashScreenActivity.TAG, Utils.getClassName(SplashScreenEndActivity.class) +
+	    			"downloadEventImages(). Image url is " + imageUrl + " and image path is " + completePath + ".");
 	    		// Checks the image URL.
 	    		if (imageUrl != null) {
 	    			downloadImage(imageUrl, completePath);
@@ -96,6 +103,8 @@ public class SplashScreenEndActivity extends Activity {
 				// Increments the counter.
 				mCount++;
 				
+				Log.i(SplashScreenActivity.TAG, Utils.getClassName(SplashScreenEndActivity.class) +
+		    		"downloadImage(). Count is " + mCount + " and Event List size is " + mEventListSize + ".");
 				// Checks the number of images downloaded.
 				if (mCount == mEventListSize) {
 					callHomeActivity();

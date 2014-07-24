@@ -27,6 +27,18 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  */
 public class AgendaAdapter extends BaseAdapter {
 
+	/**
+	 * - speech (mantém)
+	 * - session (mantém)
+	 * - break (xícara de café)
+	 * - coffebreak (xícara de café)
+	 * - credential (xícara de café com crachá)
+	 * - happyhour (taças)
+	 * - lunch (prato com garfo e colher)
+	 * 
+	 * OBS.: Speech tem que ter microfone.
+	 */
+	
 	//--------------------------------------------------
 	// Constants
 	//--------------------------------------------------
@@ -269,15 +281,20 @@ public class AgendaAdapter extends BaseAdapter {
 	 * @param currentAgenda
 	 */
 	public void setBreakImage(Agenda currentAgenda) {
-		if (currentAgenda.type.contains("coffee-break") || currentAgenda.type.contains("coffe break")) {
-			mImageView.setBackgroundResource(R.drawable.hsm_agenda_coffee);
-		} else if (currentAgenda.type.contains("almoço")) {
-			mImageView.setBackgroundResource(R.drawable.hsm_agenda_id_lunch);
-		} else if (currentAgenda.type.contains("happy-hour")) {
-			mImageView.setBackgroundResource(R.drawable.hsm_agenda_id_happyhour);
-		} else if (currentAgenda.type.contains("credenciamento") || currentAgenda.type.contains("abertura")) {
-			mImageView.setBackgroundResource(R.drawable.hsm_agenda_id_credential);
+		if (currentAgenda.type.contains("coffeebreak") || currentAgenda.type.contains("break")) {
+			mImageView.setBackgroundResource(R.drawable.ic_hsm_coffee);
+		} else if (currentAgenda.type.contains("lunch")) {
+			mImageView.setBackgroundResource(R.drawable.ic_hsm_lunch);
+		} else if (currentAgenda.type.contains("happyhour")) {
+			mImageView.setBackgroundResource(R.drawable.ic_hsm_happyhour);
+		} else if (currentAgenda.type.contains("credential")) {
+			mImageView.setBackgroundResource(R.drawable.ic_hsm_credential);
 		}
+		
+		/*
+		 * - speech (mantém)
+		 * - session (mantém)
+		 */
 	}
 	
 	/**

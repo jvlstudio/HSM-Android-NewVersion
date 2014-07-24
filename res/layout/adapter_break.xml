@@ -31,7 +31,7 @@
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:layout_marginLeft="25dp"
-        android:src="@drawable/hsm_agenda_coffee" />
+        android:src="@drawable/ic_hsm_coffee" />
 
     <TextView
         android:id="@+id/id_description_text_view"
