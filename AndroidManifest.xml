@@ -24,7 +24,7 @@
         
         <!-- Activity -->
         <activity
-            android:name="br.ikomm.hsm.activity.SplashScreenActivity"
+            android:name=".activity.SplashScreenActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -34,58 +34,53 @@
         </activity>
         
 		<activity
-            android:name="br.ikomm.hsm.activity.SplashScreenEndActivity"
+            android:name=".activity.SplashScreenEndActivity"
             android:label="@string/title_activity_splash_screen2"
             android:screenOrientation="portrait" >
         </activity>
         
         <activity
-            android:name="br.ikomm.hsm.activity.HomeActivity"
+        	android:name=".activity.HomeActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.AgendaActivity"
+            android:name=".activity.AgendaActivity"
             android:label="@string/title_activity_agenda"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.LectureDetailsActivity"
+        	android:name=".activity.LectureDetailsActivity"
             android:label="@string/title_activity_detalhe_palestra"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.PassesActivity"
+            android:name=".activity.PassesActivity"
             android:label="@string/title_activity_pacote"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.PaymentActivity"
+            android:name=".activity.PaymentActivity"
             android:label="@string/title_activity_pagamento"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.GreetingsActivity"
+            android:name=".activity.GreetingsActivity"
             android:label="@string/title_activity_agradecimento"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.ParticipantActivity"
+            android:name=".activity.ParticipantActivity"
             android:label="@string/title_activity_participante"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.PanelistActivity"
-            android:label="@string/title_activity_palestrantes"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="br.ikomm.hsm.activity.NetworkingListActivity"
+            android:name=".activity.NetworkingListActivity"
             android:label="@string/title_activity_lista_networking"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.AddCardActivity"
+            android:name=".activity.AddCardActivity"
             android:label="@string/title_activity_meu_cartao"
             android:screenOrientation="portrait" >
         </activity>
@@ -100,33 +95,33 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.neo.BookListActivity"
+            android:name="br.com.ikomm.apps.HSM.activity.BookListActivity"
             android:label="@string/title_activity_lista_livros"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.neo.BookDetailsActivity"
+            android:name="br.com.ikomm.apps.HSM.activity.BookDetailsActivity"
             android:label="@string/title_activity_detalhe_livro"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.neo.EventListActivity"
+            android:name="br.com.ikomm.apps.HSM.activity.EventListActivity"
             android:label="@string/title_activity_eventos_nova"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.neo.MagazineActivity"
+            android:name="br.com.ikomm.apps.HSM.activity.MagazineActivity"
             android:label="@string/title_activity_revista"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.neo.EventDetailsActivity"
+            android:name="br.com.ikomm.apps.HSM.activity.EventDetailsActivity"
             android:label="@string/title_activity_detalhe_evento_neo"
             android:screenOrientation="portrait" >
         </activity>
         
         <!-- Services -->
-        <service android:name="br.ikomm.hsm.services.HSMService" >
+        <service android:name="br.com.ikomm.apps.HSM.services.HSMService" >
             <intent-filter>
                 <action android:name="StartService" />
                 <category android:name="android.intent.category.DEFAULT" />

@@ -1,0 +1,7 @@
+<resources>
+    <!-- XXH DPI, used by GALAXY S4 -->
+    
+    <!-- Agenda Adapter -->
+    <dimen name="adapter_agenda_width">142dp</dimen>
+    <dimen name="adapter_break_width">227dp</dimen>
+</resources>

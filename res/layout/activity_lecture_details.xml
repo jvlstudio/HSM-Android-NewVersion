@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="128dp"
         android:orientation="horizontal"
         android:paddingTop="20dp" >
 
@@ -101,5 +101,5 @@
         android:id="@+id/footerFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        class="br.ikomm.hsm.fragment.BannerFragment" />
+        class="br.com.ikomm.apps.HSM.fragment.BannerFragment" />
 </LinearLayout>

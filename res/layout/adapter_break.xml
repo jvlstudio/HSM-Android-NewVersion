@@ -30,12 +30,11 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:layout_marginLeft="25dp"
-        android:src="@drawable/ic_hsm_coffee" />
+        android:layout_marginLeft="25dp" />
 
     <TextView
         android:id="@+id/id_description_text_view"
-        android:layout_width="230dp"
+        android:layout_width="@dimen/adapter_break_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="25dp"

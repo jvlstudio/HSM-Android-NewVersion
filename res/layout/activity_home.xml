@@ -113,7 +113,7 @@
             android:id="@+id/footerFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            class="br.ikomm.hsm.fragment.BannerFragment" />
+            class="br.com.ikomm.apps.HSM.fragment.BannerFragment" />
     </LinearLayout>
     
     <!-- The navigation drawer -->
