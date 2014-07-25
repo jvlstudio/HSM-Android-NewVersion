@@ -35,8 +35,7 @@
                             android:id="@+id/id_events_image_button"
                             android:layout_width="@dimen/home_activity_big_images_width"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="-5dp"
-                            android:src="@drawable/ic_hsm_event" />
+                            android:layout_marginLeft="-5dp" />
                         <ImageView
                             android:layout_width="@dimen/home_activity_big_images_width"
                             android:layout_height="match_parent"
