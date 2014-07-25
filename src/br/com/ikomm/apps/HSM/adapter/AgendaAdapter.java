@@ -92,7 +92,7 @@ public class AgendaAdapter extends BaseAdapter {
 		Agenda currentAgenda = mAgendaList.get(position);
 
 		String type = currentAgenda.type;
-		if (!type.equals("session") && !type.equals("speech")) {
+		if (!type.equals("speech")) {
 			view = mInflater.inflate(R.layout.adapter_break, parent, false);
 			initializeBreakComponents(view);
 			populateBreakComponents(currentAgenda, position);

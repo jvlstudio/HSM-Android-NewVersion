@@ -87,7 +87,7 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	 * Loads the {@link GridView}.
 	 */
 	private void loadGridView() {
-		GridView gridView = (GridView)findViewById(R.id.listaPalestrantes);
+		GridView gridView = (GridView)findViewById(R.id.id_list_view);
 		gridView.setAdapter(new PanelistGridViewAdapter(this, mEventId));
 		gridView.setOnItemClickListener(this);
 	}

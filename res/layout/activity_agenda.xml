@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/hsm_bg_c_blur"
+    android:background="@color/hsm_color_background"
     android:orientation="vertical"
     tools:context=".AgendaActivity" >
 

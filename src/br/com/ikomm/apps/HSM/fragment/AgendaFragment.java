@@ -166,7 +166,8 @@ public class AgendaFragment extends SherlockFragment {
 	public void filterByType(Integer position, String type) {
 		if (!StringUtils.isEmpty(type) && !type.equals("break") &&
 			!type.equals("coffeebreak") && !type.equals("lunch") &&
-			!type.equals("happyhour") && !type.equals("credential")) {
+			!type.equals("happyhour") && !type.equals("credential") &&
+			!type.equals("session")) {
 			
 			// Goes to LectureDetailsActivity.
 			Intent intent = new Intent(getActivity(), LectureDetailsActivity.class);

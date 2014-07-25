@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="hsm_color_background">#111126</color>
+    
     <color name="hsm_color_black">#000000</color>
     <color name="hsm_color_white">#FFFFFF</color>
     

@@ -1,5 +1,6 @@
 package br.com.ikomm.apps.HSM.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActionBar;
@@ -15,11 +16,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.adapter.HomeGridViewAdapter;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Home;
 import br.com.ikomm.apps.HSM.services.WebServiceCommunication;
@@ -32,35 +36,33 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  * HomeActivity.java class.
  * Modified by Rodrigo Cericatto at July 3, 2014.
  */
-public class HomeActivity extends FragmentActivity implements OnClickListener {
+public class HomeActivity extends FragmentActivity implements OnItemClickListener, OnClickListener {
 
 	//--------------------------------------------------
 	// Constants
 	//--------------------------------------------------
 	
 	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/home/";
-	
-	//--------------------------------------------------
-	// Methods
-	//--------------------------------------------------
 
-	public static final Integer HOME = 0;
-	public static final Integer EVENTOS = 1;
-	public static final Integer LIVROS = 2;
-	public static final Integer NETWORK = 3;
-	public static final Integer REVISTAS = 4;
-	public static final Integer HSM_TV = 5;
+	public static final int HOME = 0;
+	public static final int EVENTS = 1;
+	public static final int BOOKS = 2;
+	public static final int NETWORK = 3;
+	public static final int MAGAZINES = 4;
+	public static final int HSM_TV = 5;
 	
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
 	 
-	private String[] mPlanetTitles;
+	private String[] mMenuTitles;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 	private ActionBarDrawerToggle mDrawerToggle;
+	
+	private Home mHome;
 
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -71,24 +73,50 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
+		setActionBar();
+		getCurrentHome();
+		setEventImage();
+		setGridView();
+		setEventImage();
+		setDrawerMenu();
+		setDrawerToggle();
+		setThread();
+	}
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+
+	/**
+	 * Sets the {@link ActionBar}.
+	 */
+	public void setActionBar() {
 		ActionBar action = getActionBar();
 		action.setLogo(R.drawable.hsm_logo);
-		
-		ContentManager.getInstance().setContext(this);
-
-		addImages();
-
-		mPlanetTitles = getResources().getStringArray(R.array.menuList);
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		action.setDisplayHomeAsUpEnabled(true);
+		action.setHomeButtonEnabled(true);
+	}
+	
+	/**
+	 * Sets the Drawer menu.
+	 */
+	public void setDrawerMenu() {
+		mMenuTitles = getResources().getStringArray(R.array.menuList);
+		mDrawerLayout = (DrawerLayout)findViewById(R.id.id_drawer_layout);
+		mDrawerList = (ListView) findViewById(R.id.id_left_drawer);
 
 		// Set the adapter for the list view.
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mPlanetTitles));
+		mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mMenuTitles));
 		// Set the list's click listener.
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 		mTitle = mDrawerTitle = getTitle();
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+	}
+	
+	/**
+	 * Sets the Drawer Toggle.
+	 */
+	public void setDrawerToggle() {
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
 			/**
 			 * Called when a drawer has settled in a completely closed state.
@@ -110,12 +138,15 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 				invalidateOptionsMenu();
 			}
 		};
-
+		
 		// Set the drawer toggle as the DrawerListener.
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
-
+	}
+	
+	/**
+	 * Sets the Thread.
+	 */
+	public void setThread() {
 		// Update banners no sharedPreferences.
 		Thread thread = new Thread(new Runnable() {
 			@Override
@@ -130,47 +161,53 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		});
 	}
 	
-	//--------------------------------------------------
-	// Methods
-	//--------------------------------------------------
-
 	/**
-	 * Adds images to the {@link ImageView}.
+	 * Gets the current {@link Home}.
 	 */
-	private void addImages() {
-        // Get Home.
-		List<Home> list = ContentManager.getInstance().getAllHome();
-		Home home = list.get(0);
+	public void getCurrentHome() {
+		ContentManager.getInstance().setContext(this);
+		List<Home> homeList = ContentManager.getInstance().getAllHome();
+		mHome = homeList.get(0);
+	}
+	
+	public void setEventImage() {
+		ImageView imageView = (ImageView)findViewById(R.id.id_events_image_button);
+		setUniversalImage(URL + mHome.events_image_android, imageView);
+		imageView.setOnClickListener(this);
+	}
+	
+	/**
+	 * Sets the {@link GridView}.
+	 */
+	private void setGridView() {
+		getCurrentHome();
 		
-		// Get URL's.
-		String homeEventsUrl = home.events_image_android;
-		String educationUrl = home.education_image_android;
-		String homeTvUrl = home.videos_image_android;
-		String issuesUrl = home.magazines_image_android;
-		String booksUrl = home.books_image_android;
+		// Gets the url list.
+		List<String> urlList = new ArrayList<String>();
+		urlList.add(mHome.education_image_android);
+		urlList.add(mHome.videos_image_android);
+		urlList.add(mHome.magazines_image_android);
+		urlList.add(mHome.books_image_android);
 		
-		// Initializes layout components.
-		ImageView homeEventsImageView = (ImageView)findViewById(R.id.id_events_image_button);
-		homeEventsImageView.setOnClickListener(this);
-		
-		ImageView educationImageView = (ImageView)findViewById(R.id.id_future_content_image_button);
-		educationImageView.setOnClickListener(this);
-		
-		ImageView homeTvImageView = (ImageView)findViewById(R.id.id_home_tv_image_button);
-		homeTvImageView.setOnClickListener(this);
-		
-		ImageView issuesImageView = (ImageView)findViewById(R.id.id_magazines_image_button);
-		issuesImageView.setOnClickListener(this);
-		
-		ImageView booksImageView = (ImageView)findViewById(R.id.id_books_image_button);
-		booksImageView.setOnClickListener(this);
-		
-		// Set image views and its contents.
-		setUniversalImage(URL + homeEventsUrl, homeEventsImageView);
-		setUniversalImage(URL + educationUrl, educationImageView);
-		setUniversalImage(URL + homeTvUrl, homeTvImageView);
-		setUniversalImage(URL + issuesUrl, issuesImageView);
-		setUniversalImage(URL + booksUrl, booksImageView);
+		// Sets the adapter.
+		GridView gridView = (GridView)findViewById(R.id.id_grid_view);
+		gridView.setAdapter(new HomeGridViewAdapter(this, urlList));
+		gridView.setOnItemClickListener(this);
+	}
+	
+	/**
+	 * Shows the dialog.
+	 * 
+	 * @param view
+	 */
+	public void showDialogClick(View view) {
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		dialog.setTitle("Conteœdo Indispon’vel");
+		dialog.setMessage("Este conteœdo estar‡ dispon’vel em breve.");
+		dialog.setPositiveButton("OK", null);
+
+		final AlertDialog alert = dialog.create();
+		alert.show();
 	}
 	
 	/**
@@ -187,28 +224,65 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	}
 	
 	//--------------------------------------------------
+	// Listeners
+	//--------------------------------------------------
+
+	@Override
+	public void onClick(View view) {
+		startActivity(new Intent(HomeActivity.this, EventListActivity.class));
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+		switch (position) {
+			case 0:
+				showDialogClick(view);
+				break;
+			case 1:
+				Uri uri = Uri.parse("https://www.youtube.com/channel/UCszAA4rqXiFw8WO_UUq_sAg");
+				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+				startActivity(intent);
+				break;
+			case 2:
+				startActivity(new Intent(HomeActivity.this, MagazineActivity.class));
+				break;
+			case 3:
+				startActivity(new Intent(HomeActivity.this, BookListActivity.class));
+				break;
+		}
+	}
+	
+	//--------------------------------------------------
 	// Drawer Layout
 	//--------------------------------------------------
 
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView parent, View view, int position, long id) {
-			if (id == HOME) {
-				startActivity(new Intent(HomeActivity.this, HomeActivity.class));
-			} else if (id == EVENTOS) {
-				startActivity(new Intent(HomeActivity.this, EventListActivity.class));
-			} else if (id == LIVROS) {
-				startActivity(new Intent(HomeActivity.this, BookListActivity.class));
-			} else if (id == NETWORK) {
-				startActivity(new Intent(HomeActivity.this, NetworkingListActivity.class));
-			} else if (id == REVISTAS) {
-				startActivity(new Intent(HomeActivity.this, MagazineActivity.class));
-			} else if (id == HSM_TV) {
-				Uri uri = Uri.parse("http://www.youtube.com/watch?v=ZHolmn4LBzg");
-				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-				startActivity(intent);
-			} else {
-				Toast.makeText(HomeActivity.this, "Dispon’vel em breve", Toast.LENGTH_SHORT).show();
+			switch (position) {
+				case HOME:
+					startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+					break;
+				case EVENTS:
+					startActivity(new Intent(HomeActivity.this, EventListActivity.class));
+					break;
+				case BOOKS:
+					startActivity(new Intent(HomeActivity.this, BookListActivity.class));
+					break;
+				case NETWORK:
+					startActivity(new Intent(HomeActivity.this, NetworkingListActivity.class));
+					break;
+				case MAGAZINES:
+					startActivity(new Intent(HomeActivity.this, MagazineActivity.class));
+					break;
+				case HSM_TV:
+					Uri uri = Uri.parse("http://www.youtube.com/watch?v=ZHolmn4LBzg");
+					Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+					startActivity(intent);
+					break;
+				default:
+					Toast.makeText(HomeActivity.this, "Dispon’vel em breve", Toast.LENGTH_SHORT).show();
+					break;
 			}
 		}
 	}
@@ -233,48 +307,5 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public void setTitle(CharSequence title) {
-		mTitle = title;
-		getActionBar().setTitle(mTitle);
-	}
-
-	public void showDialogClick(View v) {
-		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-		dialog.setTitle("Conteœdo Indispon’vel");
-		dialog.setMessage("Este conteœdo estar‡ dispon’vel em breve.");
-		dialog.setPositiveButton("OK", null);
-
-		final AlertDialog alert = dialog.create();
-		alert.show();
-	}
-	
-	//--------------------------------------------------
-	// Listeners
-	//--------------------------------------------------
-
-	@Override
-	public void onClick(View view) {
-		switch (view.getId()) {
-			case R.id.id_events_image_button:
-				startActivity(new Intent(HomeActivity.this, EventListActivity.class));
-				break;
-			case R.id.id_future_content_image_button:
-				showDialogClick(view);
-				break;
-			case R.id.id_home_tv_image_button:
-				Uri uri = Uri.parse("https://www.youtube.com/channel/UCszAA4rqXiFw8WO_UUq_sAg");
-				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-				startActivity(intent);
-				break;
-			case R.id.id_magazines_image_button:
-				startActivity(new Intent(HomeActivity.this, MagazineActivity.class));
-				break;
-			case R.id.id_books_image_button:
-				startActivity(new Intent(HomeActivity.this, BookListActivity.class));
-				break;
-		}
 	}
 }

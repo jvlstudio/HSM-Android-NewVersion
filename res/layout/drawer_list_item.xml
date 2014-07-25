@@ -6,5 +6,5 @@
     android:gravity="center_vertical"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:textColor="#fff"
+    android:textColor="@color/hsm_color_white"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
