@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tipoPagamentoArray">
+        <item>Cartão de Crédito</item>
+    </string-array>
+
+    <string-array name="menuList">
+        <item>Home</item>
+        <item>Eventos</item>
+        <item>Livros</item>
+        <item>Network</item>
+        <item>Revistas</item>
+        <item>HSM.tv</item>
+        <item>News</item>
+        <item>Educação</item>
+    </string-array>
+</resources>

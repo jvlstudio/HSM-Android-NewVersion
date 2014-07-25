@@ -65,9 +65,9 @@ public class NetworkFriendsAdapter extends BaseAdapter {
 		Card cartaoAtual = mCartaoList.get(position);
 
 		View view = convertView;
-		view = mInflater.inflate(R.layout.adapter_network_friends, parent, false);
+		view = mInflater.inflate(R.layout.adapter_networking_item, parent, false);
 
-		TextView nome = (TextView) view.findViewById(R.id.lNomeNet);
+		TextView nome = (TextView) view.findViewById(R.id.id_friend_name);
 		nome.setText(cartaoAtual.nome);
 
 		return view;

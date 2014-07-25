@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">HSM</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Ééééééégua mlk tú és doido!</string>
@@ -10,10 +9,6 @@
     <string name="title_activity_pacote">Passes</string>
     <string name="title_activity_pagamento">Pagamento</string>
     <string name="title_activity_agradecimento">Obrigado</string>
-    <string name="title_activity_data1_adapter">Data 1</string>
-    <string name="title_activity_data1_fragment">Data 1</string>
-    <string name="title_activity_data2_fragment">Data 2</string>
-    <string name="title_activity_data3_fragment">Data 3</string>
     <string name="title_activity_agenda_adapter">AgendaAdapter</string>
     <string name="title_activity_detalhe_evento">Auditório Principal</string>
     <string name="agenda">Agenda</string>
@@ -21,30 +16,8 @@
     <string name="title_activity_pacote_adapter">PacoteAdapter</string>
     <string name="tipoPagamento">Escolha forma pagamento</string>
     <string name="quantidade">Escolha a quantidade</string>
-
-    <string-array name="tipoPagamentoArray">
-        <item>Cartão de Crédito</item>
-    </string-array>
-    <string-array name="quantidadeArray">
-        <item>04 de Novembro</item>
-        <item>05 de Novembro</item>
-        <item>06 de Novembro</item>
-    </string-array>
-    <string-array name="menuList">
-        <item>Home</item>
-        <item>Eventos</item>
-        <item>Livros</item>
-        <item>Network</item>
-        <item>Revistas</item>
-        <item>HSM.tv</item>
-        <item>News</item>
-        <item>Educação</item>
-    </string-array>
-
     <string name="voltar">Voltar</string>
     <string name="title_activity_menu_lateral">Menu</string>
-    <string name="title_activity_data2_adapter">Data2Adapter</string>
-    <string name="title_activity_data3_adapter">Data3Adapter</string>
     <string name="palestrantes">Palestrantes</string>
     <string name="title_activity_splash_screen2">SplashScreen2</string>
     <string name="comprar">Comprar</string>
@@ -66,14 +39,7 @@
     <string name="title_activity_bdw">Brasil Design Week</string>
     <string name="title_activity_bdwmais_informacoes">Mais Informações</string>
     <string name="title_activity_bdwagenda">Agenda</string>
-    <string name="title_activity_bdwdata1_fragment">BDWData1Fragment</string>
-    <string name="title_activity_bdwdata2_fragment">BDWData2Fragment</string>
-    <string name="title_activity_bdwdata3_fragment">BDWData3Fragment</string>
-    <string name="title_activity_bdwdata1_adapter">BDWData1Adapter</string>
-    <string name="title_activity_bdwdata2_adapter">BDWData2Adapter</string>
-    <string name="title_activity_bdwdata3_adapter">BDWData3Adapter</string>
     <string name="title_activity_palestrantes">Palestrantes</string>
-    <string name="title_activity_bdwagenda_adapter">BDWAgendaAdapter</string>
     <string name="title_activity_palestrante_adapter">PalestranteAdapter</string>
     <string name="title_activity_banner_fragment">BannerFragment</string>
     <string name="title_activity_lista_networking">Networking</string>
@@ -88,5 +54,4 @@
     <string name="title_activity_detalhe_evento_neo"></string>
     <string name="title_activity_detalhe_palestra_neo">DetalhePalestraNeoActivity</string>
     <string name="title_activity_livros_adapter">LivrosAdapter</string>
-
 </resources>

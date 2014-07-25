@@ -129,19 +129,6 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	}
 	
 	/**
-	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
-	 *  
-	 * @param imageView The {@link ImageView} which will receive the image.
-	 */
-	public void setUniversalImage() {
-		String url = URL + mEvent.image_single;
-		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
-		imageLoader.displayImage(url, (ImageView)findViewById(R.id.imgEventoDet), cache);
-	}
-	
-	/**
 	 * Sets the layout.
 	 */
 	public void setLayout() {
@@ -208,11 +195,11 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	 * Sets the {@link Button}.
 	 */
 	public void setButtons() {
-		mAgendaButton = (Button)findViewById(R.id.btnAgenda);
+		mAgendaButton = (Button)findViewById(R.id.id_agenda_button);
 		mAgendaButton.setOnClickListener(this);
-		mPassesButton = (Button)findViewById(R.id.btnPasses);
+		mPassesButton = (Button)findViewById(R.id.id_passes_button);
 		mPassesButton.setOnClickListener(this);
-		mPalestrantesButton = (Button) findViewById(R.id.btnPalestrante);
+		mPalestrantesButton = (Button) findViewById(R.id.id_panelist_button);
 		mPalestrantesButton.setOnClickListener(this);
 	}
 	
@@ -231,6 +218,19 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 		mInfoImageView.setOnClickListener(this);
 	}
 	
+	/**
+	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 *  
+	 * @param imageView The {@link ImageView} which will receive the image.
+	 */
+	public void setUniversalImage() {
+		String url = URL + mEvent.image_single;
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
+		imageLoader.displayImage(url, (ImageView)findViewById(R.id.imgEventoDet), cache);
+	}
+	
 	//--------------------------------------------------
 	// Listeners
 	//--------------------------------------------------
@@ -239,18 +239,18 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	public void onClick(View view) {
 		Intent intent = null;
 		switch (view.getId()) {
-			case R.id.btnAgenda:
+			case R.id.id_agenda_button:
 				intent = new Intent(EventDetailsActivity.this, AgendaActivity.class);
 				intent.putExtra("event_id", mEvent.id);
 				intent.putExtra("dates", mEvent.info_dates);
 				startActivity(intent);
 				break;
-			case R.id.btnPasses:
+			case R.id.id_passes_button:
 				intent = new Intent(EventDetailsActivity.this, PassesActivity.class);
 				intent.putExtra("event_id", mEvent.id);
 				startActivity(intent);
 				break;
-			case R.id.btnPalestrante:
+			case R.id.id_panelist_button:
 				intent = new Intent(EventDetailsActivity.this, PanelistActivity.class);
 				intent.putExtra("event_id", mEvent.id);
 				startActivity(intent);

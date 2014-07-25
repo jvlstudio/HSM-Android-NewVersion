@@ -1,5 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/hsm_color_background" >
 
@@ -34,7 +34,7 @@
             	android:layout_height="wrap_content"
             	android:background="@android:color/transparent"
             	android:layout_marginLeft="10dp"
-            	android:textColor="#FFFFFF"
+            	android:textColor="@color/hsm_color_white"
             	android:text="Sobre o evento"
                 android:textSize="12dp" />
 
@@ -58,7 +58,7 @@
             	android:layout_height="wrap_content"
             	android:background="@android:color/transparent"
             	android:layout_marginLeft="10dp"
-            	android:textColor="#FFFFFF"
+            	android:textColor="@color/hsm_color_white"
             	android:text="Infos Gerais"
                 android:textSize="12dp" />
         </LinearLayout>
@@ -80,7 +80,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="10dp"
                 android:text="Título."
-                android:textColor="#ecd900"
+                android:textColor="@color/hsm_color_yellow"
                 android:textSize="24dp" />
 
             <TextView
@@ -90,7 +90,7 @@
                 android:layout_gravity="center"
                 android:padding="10dp"
                 android:text="Descrição. Descrição. Descrição. Descrição. Descrição. Descrição. Descrição. Descrição. Descrição. Descrição. "
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/hsm_color_white" />
 		</LinearLayout>
 		
 		<!-- INFO BUTTON LINEAR LAYOUT -->
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Data:"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/hsm_color_white"
                 android:textSize="16dp" />
             <TextView
                 android:id="@+id/id_date_event"
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Horário:"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/hsm_color_white"
                 android:textSize="16dp" />
             <TextView
                 android:id="@+id/id_time_event"
@@ -145,7 +145,7 @@
                 android:layout_gravity="center"
                 android:text="Local:"
                 android:textSize="16dp"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/hsm_color_white" />
             <TextView
                 android:id="@+id/id_local_event"
                 android:layout_width="match_parent"
@@ -159,37 +159,37 @@
 		
         <!-- BUTTONS -->
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:weightSum="2" >
 
-            <Button
-                android:id="@+id/btnPalestrante"
+			<Button
+                android:id="@+id/id_agenda_button"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginRight="20dp"
-                android:layout_gravity="right|bottom"
-                android:background="@drawable/button_background_behavior"
-                android:padding="10dp"
-                android:text="@string/palestrantes"
-                android:textColor="#FFFFFF" />
-            <Button
-                android:id="@+id/btnAgenda"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/button_background_behavior"
                 android:padding="10dp"
                 android:text="@string/agenda"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/hsm_color_white" />
+            <Button
+                android:id="@+id/id_panelist_button"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="right|bottom"
+                android:background="@drawable/button_background_behavior"
+                android:padding="10dp"
+                android:text="@string/palestrantes"
+                android:textColor="@color/hsm_color_white" />
         </LinearLayout>
 
         <!-- PASS BUTTON AND BANNER -->
         <Button
-            android:id="@+id/btnPasses"
+            android:id="@+id/id_passes_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -199,7 +199,7 @@
             android:layout_marginRight="15dp"
             android:background="@drawable/button_passe_background_behavior"
             android:text="@string/passes"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/hsm_color_white" />
         <fragment
             android:id="@+id/footerFragment"
             android:layout_width="match_parent"

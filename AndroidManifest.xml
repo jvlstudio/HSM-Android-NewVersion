@@ -20,7 +20,7 @@
         android:icon="@drawable/icon_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:theme="@style/Theme.Theme" >
+        android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         
         <!-- Activity -->
         <activity
@@ -47,6 +47,11 @@
         <activity
             android:name=".activity.AgendaActivity"
             android:label="@string/title_activity_agenda"
+            android:screenOrientation="portrait" >
+        </activity>
+		<activity
+            android:name=".activity.PanelistActivity"
+            android:label="@string/title_activity_palestrantes"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -85,43 +90,43 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.ContactActivity"
+            android:name=".activity.ContactActivity"
             android:label="@string/title_activity_contato"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.ikomm.hsm.activity.QRCodeActivity"
+            android:name=".activity.QRCodeActivity"
             android:label="@string/title_activity_qrcode"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.activity.BookListActivity"
+            android:name=".activity.BookListActivity"
             android:label="@string/title_activity_lista_livros"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.activity.BookDetailsActivity"
+            android:name=".activity.BookDetailsActivity"
             android:label="@string/title_activity_detalhe_livro"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.activity.EventListActivity"
+            android:name=".activity.EventListActivity"
             android:label="@string/title_activity_eventos_nova"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.activity.MagazineActivity"
+            android:name=".activity.MagazineActivity"
             android:label="@string/title_activity_revista"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="br.com.ikomm.apps.HSM.activity.EventDetailsActivity"
+            android:name=".activity.EventDetailsActivity"
             android:label="@string/title_activity_detalhe_evento_neo"
             android:screenOrientation="portrait" >
         </activity>
         
         <!-- Services -->
-        <service android:name="br.com.ikomm.apps.HSM.services.HSMService" >
+        <service android:name=".services.HSMService" >
             <intent-filter>
                 <action android:name="StartService" />
                 <category android:name="android.intent.category.DEFAULT" />

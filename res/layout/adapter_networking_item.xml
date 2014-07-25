@@ -1,28 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:orientation="horizontal"
     android:paddingLeft="10dp"
     android:paddingTop="10dp"
-    android:background="@color/hsm_color_background"
-    tools:context=".NetworkFriendsAdapter" >
+    android:background="@color/hsm_color_gray_dark" >
 
     <ImageView 
-        android:id="@+id/imgBall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/hsm_ball_gold"/>
     
     <ImageView 
-        android:id="@+id/imgPacoteNet"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/hsm_placeholder_panelist"/>
     
-    <TextView 
-        android:id="@+id/lNomeNet"
+	<TextView 
+        android:id="@+id/id_friend_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

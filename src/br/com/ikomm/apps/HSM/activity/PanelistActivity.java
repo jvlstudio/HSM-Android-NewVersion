@@ -78,7 +78,7 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	 */
 	public void getExtras() {
 		Bundle extras = getIntent().getExtras(); 
-		if (extras != null){
+		if (extras != null) {
 			mEventId = extras.getInt("event_id");
 		}
 	}
