@@ -51,4 +51,20 @@ public class StringUtils {
 	public static Integer charToInteger(Character ch) {
 		return Integer.valueOf(Character.toString(ch));
 	}
+	
+	/**
+	 * Trims all the characters of one string.
+	 * 
+	 * @param text
+	 * 
+	 * @return
+	 */
+	public static String trimAllCharacters(String text) {
+		text = text.replace("-", "");
+		text = text.replace(":", "");
+		text = text.replace(" ", "");
+		text = text.substring(0, 12);
+		
+		return text;
+	}
 }

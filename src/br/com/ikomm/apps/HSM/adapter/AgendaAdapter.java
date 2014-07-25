@@ -16,6 +16,7 @@ import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.model.Agenda;
 import br.com.ikomm.apps.HSM.model.Panelist;
 import br.com.ikomm.apps.HSM.repo.PanelistRepo;
+import br.com.ikomm.apps.HSM.utils.DateUtils;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,6 +33,7 @@ public class AgendaAdapter extends BaseAdapter {
 	//--------------------------------------------------
 	
 	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/panelists/";
+	public static final Integer LIMIT = 30;
 	
 	//--------------------------------------------------
 	// Attributes
@@ -41,11 +43,12 @@ public class AgendaAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private List<Agenda> mAgendaList;
 	
-	private TextView mHoraInicioTextView;
-	private TextView mHoraFimTextView;
-	private ImageView mPalestranteImageView;
-	private TextView mNomePalestranteTextView;
-	private TextView mTipoPalestraTextView;
+	private ImageView mLectureStatusImageView;
+	private TextView mBeginHourTextView;
+	private TextView mEndHourTextView;
+	private ImageView mPanelistImageView;
+	private TextView mPanelistNameTextView;
+	private TextView mLectureTypeTextView;
 	
 	private ImageView mImageView;
 	private TextView mDescriptionTextView;
@@ -123,8 +126,8 @@ public class AgendaAdapter extends BaseAdapter {
 	 * Erases Break layout components.
 	 */
 	public void eraseBreakComponents() {
-		mHoraInicioTextView = null;
-		mHoraFimTextView = null;
+		mBeginHourTextView = null;
+		mEndHourTextView = null;
 		mImageView = null;
 		mDescriptionTextView = null;
 	}
@@ -135,8 +138,8 @@ public class AgendaAdapter extends BaseAdapter {
 	 * @param view
 	 */
 	public void createBreakComponents(View view) {
-		mHoraInicioTextView = (TextView)view.findViewById(R.id.id_start_time_text_view);
-		mHoraFimTextView = (TextView)view.findViewById(R.id.id_end_time_text_view);
+		mBeginHourTextView = (TextView)view.findViewById(R.id.id_start_time_text_view);
+		mEndHourTextView = (TextView)view.findViewById(R.id.id_end_time_text_view);
 		
 		mImageView = (ImageView)view.findViewById(R.id.id_image_view);
 		
@@ -175,11 +178,11 @@ public class AgendaAdapter extends BaseAdapter {
 	 * Erases {@link Panelist} layout components.
 	 */
 	public void erasePanelistComponents() {
-		mHoraInicioTextView = null;
-		mHoraFimTextView = null;
-		mNomePalestranteTextView = null;
-		mTipoPalestraTextView = null;
-		mPalestranteImageView = null;
+		mBeginHourTextView = null;
+		mEndHourTextView = null;
+		mPanelistNameTextView = null;
+		mLectureTypeTextView = null;
+		mPanelistImageView = null;
 	}
 	
 	/**
@@ -188,13 +191,15 @@ public class AgendaAdapter extends BaseAdapter {
 	 * @param view
 	 */
 	public void createPanelistComponents(View view) {
-		mHoraInicioTextView = (TextView) view.findViewById(R.id.id_start_time_text_view);
-		mHoraFimTextView = (TextView) view.findViewById(R.id.id_end_time_text_view);
-
-		mPalestranteImageView = (ImageView) view.findViewById(R.id.id_panelist_image_view);
+		mLectureStatusImageView = (ImageView)view.findViewById(R.id.id_lecture_status_image_view);
 		
-		mNomePalestranteTextView = (TextView) view.findViewById(R.id.id_panelist_name_text_view);
-		mTipoPalestraTextView = (TextView) view.findViewById(R.id.id_lecture_type_text_view);
+		mBeginHourTextView = (TextView) view.findViewById(R.id.id_start_time_text_view);
+		mEndHourTextView = (TextView) view.findViewById(R.id.id_end_time_text_view);
+
+		mPanelistImageView = (ImageView) view.findViewById(R.id.id_panelist_image_view);
+		
+		mPanelistNameTextView = (TextView) view.findViewById(R.id.id_panelist_name_text_view);
+		mLectureTypeTextView = (TextView) view.findViewById(R.id.id_lecture_type_text_view);
 	}
 
 	/**
@@ -205,13 +210,21 @@ public class AgendaAdapter extends BaseAdapter {
 	public void populatePanelistComponents(Agenda agenda, Integer position) {
 		formatDate(agenda);
 		
-		if (mNomePalestranteTextView != null) {
-			mNomePalestranteTextView.setText(getPanelistName(agenda));
+		// Check is is the current Lecture.
+		if (DateUtils.isTheCurrentLecture(agenda)) {
+			mLectureStatusImageView.setImageResource(R.drawable.ic_hsm_current_event);
+		} else {
+			mLectureStatusImageView.setImageResource(R.drawable.ic_hsm_clock);
 		}
-		if (mTipoPalestraTextView != null) {
-			mTipoPalestraTextView.setText(agenda.type);
+		
+		// Lecture name and type.
+		if (mPanelistNameTextView != null) {
+			mPanelistNameTextView.setText(getPanelistName(agenda));
 		}
-		setUniversalImage(URL + getPanelistUrl(position), mPalestranteImageView);
+		if (mLectureTypeTextView != null) {
+			mLectureTypeTextView.setText(cutLabelText(agenda.label));
+		}
+		setUniversalImage(URL + getPanelistUrl(position), mPanelistImageView);
 	}
 	
 	//--------------------------------------------------
@@ -291,12 +304,28 @@ public class AgendaAdapter extends BaseAdapter {
 		String fieldStart[] = agenda.date_start.split(" ");
 		String startHour = fieldStart[1];
 		String startParts[] = startHour.split(":");
-		mHoraInicioTextView.setText(startParts[0] + ":" + startParts[1]);
+		mBeginHourTextView.setText(startParts[0] + ":" + startParts[1]);
 		
 		String fieldEnd[] = agenda.date_end.split(" ");
 		String endHour = fieldEnd[1];
 		String endParts[] = endHour.split(":");
-		mHoraFimTextView.setText(endParts[0] + ":" + endParts[1]);
+		mEndHourTextView.setText(endParts[0] + ":" + endParts[1]);
+	}
+	
+	/**
+	 * Trims the text.
+	 * 
+	 * @param text
+	 * @return
+	 */
+	public String cutLabelText(String text) {
+		String upper = text.toUpperCase();
+		Integer length = upper.length();
+		String cuttedText = upper;
+		if (length > LIMIT) {
+			cuttedText = upper.substring(0, LIMIT) + "...";
+		}
+		return cuttedText;
 	}
 	
 	//--------------------------------------------------
