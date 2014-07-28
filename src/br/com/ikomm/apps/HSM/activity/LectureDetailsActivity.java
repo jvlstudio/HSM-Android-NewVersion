@@ -1,7 +1,14 @@
 package br.com.ikomm.apps.HSM.activity;
 
+import java.util.GregorianCalendar;
+
 import android.app.ActionBar;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Events;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -10,9 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.model.Agenda;
+import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Panelist;
 import br.com.ikomm.apps.HSM.repo.AgendaRepo;
 import br.com.ikomm.apps.HSM.repo.PanelistRepo;
+import br.com.ikomm.apps.HSM.utils.DateUtils;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -48,7 +57,7 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	//--------------------------------------------------
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lecture_details);
 
@@ -89,7 +98,7 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 			getCurrentAgenda();
 			
 			if (mPanelist != null) {
-				loadFields();
+				setLayout();
 			}
 			
 			setActionBar();
@@ -156,9 +165,9 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	}
 	
 	/**
-	 * Load fields.
+	 * Sets the layout.
 	 */
-	private void loadFields() {
+	public void setLayout() {
 		// Format dates.
 		String[] dateStart = mAgenda.date_start.split(" ");
 		String[] dateEnd = mAgenda.date_end.split(" ");
@@ -194,65 +203,83 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	}
 
 	/**
-	 * REMOVIDO TEMPORARIAMENTE.
-	@SuppressLint("NewApi")
-	protected void addEvent() {
+	 * Adds the {@link Event}.
+	 */
+	protected void addIntentEvent() {
+		Intent calIntent = new Intent(Intent.ACTION_INSERT); 
+		calIntent.setType("vnd.android.cursor.item/event");    
+		calIntent.putExtra(Events.TITLE, mAgenda.theme_title); 
+		calIntent.putExtra(Events.DESCRIPTION, mAgenda.theme_description); 
+	
+		String startAgenda = mAgenda.date_start;
+		String endAgenda = mAgenda.date_end;
+		Integer[] startValues = DateUtils.stringToDate(startAgenda);
+		Integer[] endValues = DateUtils.stringToDate(endAgenda);
+		
+		GregorianCalendar startDate = new GregorianCalendar();
+		startDate.set(startValues[0], startValues[1] - 1, startValues[2], startValues[3], startValues[4], 0);
+		GregorianCalendar endDate = new GregorianCalendar();
+		startDate.set(endValues[0], endValues[1] - 1, endValues[2], endValues[3], endValues[4], 0);
+		
+		calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startDate.getTimeInMillis()); 
+		calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endDate.getTimeInMillis()); 
+				
+		startActivity(calIntent);
+	}
+	
+	/**
+	 * Gets the calendar id.
+	 * 
+	 * @return
+	 */
+	public Long getCalId() {
+		String[] projection = new String[] { Calendars._ID, Calendars.NAME, Calendars.ACCOUNT_NAME, Calendars.ACCOUNT_TYPE };
+		Cursor calCursor = getContentResolver().query(Calendars.CONTENT_URI, projection, Calendars.VISIBLE + " = 1", null, Calendars._ID + " ASC");
+		long id = 0;
+		if (calCursor.moveToFirst()) {
+			do {
+				id = calCursor.getLong(0);
+//				String displayName = calCursor.getString(1);
+			} while (calCursor.moveToNext());
+		}
+		return id;
+	}
+	
+	/**
+	 * Adds an {@link Event} into the Google Calendar.
+	 */
+	/*
+	public void addEvent() {
 		try {
-			long calID = 1;
-			long startMillis = 0;
-			long endMillis = 0;
+//			long calId = getCalId();
+//			Integer calID = 1;
+			Integer calID = 1;
 
 			Calendar beginTime = Calendar.getInstance();
-
 			Calendar endTime = Calendar.getInstance();
+			beginTime.set(2014, 6, 28, 16, 00);
+			endTime.set(2014, 6, 28, 16, 30);
 
-			endMillis = endTime.getTimeInMillis();
-
-			String[] init = palestra.hour_init.split("h");
-			int initHour = Integer.valueOf(init[0]);
-			int initMin = Integer.valueOf(init[1]);
-			String[] fim = palestra.hour_final.split("h");
-			int fimHour = Integer.valueOf(fim[0]);
-			int fimMin = Integer.valueOf(fim[1]);
-
-			if (palestra.day.contains("4")) {
-				beginTime.set(2013, Calendar.NOVEMBER, 4, initHour, initMin);
-				endTime.set(2013, Calendar.NOVEMBER, 4, fimHour, fimMin);
-			}
-			if (palestra.day.contains("5")) {
-				beginTime.set(2013, Calendar.NOVEMBER, 5, initHour, initMin);
-				endTime.set(2013, Calendar.NOVEMBER, 5, fimHour, fimMin);
-			}
-			if (palestra.day.contains("6")) {
-				beginTime.set(2013, Calendar.NOVEMBER, 6, initHour, initMin);
-				endTime.set(2013, Calendar.NOVEMBER, 6, fimHour, fimMin);
-			}
-
-			ContentResolver cr = getContentResolver();
+			ContentResolver contentResolver = getContentResolver();
 			ContentValues values = new ContentValues();
 			
 			values.put(Events.DTSTART, beginTime.getTimeInMillis());
 			values.put(Events.DTEND, endTime.getTimeInMillis());
+//			values.put(Events.EVENT_COLOR, "blue");
 			values.put("allDay", 0);
-			values.put("hasAlarm", 0);
+			values.put("hasAlarm", 1);
 			
-			values.put(Events.TITLE, palestra.title);
-			values.put(Events.DESCRIPTION, palestra.subtitle);
+			values.put(Events.TITLE, mAgenda.theme_title);
+			values.put(Events.DESCRIPTION, mAgenda.theme_description);
 			values.put(Events.CALENDAR_ID, calID);
 			
-			TimeZone timeZone = TimeZone.getDefault();
-			values.put(Events.EVENT_TIMEZONE, timeZone.getID());
-
-			Uri uri = cr.insert(Events.CONTENT_URI, values);
-			
-			//get the event ID that is the last element in the Uri
+			Uri uri = contentResolver.insert(Events.CONTENT_URI, values);
 			long eventID = Long.parseLong(uri.getLastPathSegment());
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	 */
+	*/
 	
 	//--------------------------------------------------
 	// Listeners
@@ -260,6 +287,8 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	
 	@Override
 	public void onClick(View view) {
-		Toast.makeText(LectureDetailsActivity.this, "Lecture agendada com sucesso", Toast.LENGTH_SHORT).show();
+//		addEvent();
+		addIntentEvent();
+		Toast.makeText(LectureDetailsActivity.this, "Palestra agendada com sucesso", Toast.LENGTH_SHORT).show();
 	}	
 }

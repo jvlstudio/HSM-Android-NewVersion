@@ -20,8 +20,8 @@ public class DateUtils {
 	 * @return
 	 */
 	public static Boolean isTheCurrentLecture(Agenda agenda) {
-//		Long currentTimeInMillis = System.currentTimeMillis();
-		Long currentTimeInMillis = 1415014200000L;
+		Long currentTimeInMillis = System.currentTimeMillis();
+//		Long currentTimeInMillis = 1415014200000L;
 		String currentDate = getDate(currentTimeInMillis, "yyyyMMddHHmm");
 		String startDate = getDateFromString(agenda.date_start);
 		String endDate = getDateFromString(agenda.date_end);
@@ -78,4 +78,29 @@ public class DateUtils {
 		String formattedText = StringUtils.trimAllCharacters(text);
 		return formattedText;
     }
+	
+	/**
+	 * Converts a {@link String} to date.
+	 * 
+	 * @param datetime
+	 * 
+	 * @return Year, month, day, hour and minute.
+	 */
+	public static Integer[] stringToDate(String datetime) {
+		Integer[] values = new Integer[5];
+		String parts[] = datetime.split(" ");
+		
+		// Split for dates and times.
+		String dates[] = parts[0].split("-");
+		String times[] = parts[1].split(":");
+		
+		// Return.
+		values[0] = Integer.valueOf(dates[0]);
+		values[1] = Integer.valueOf(dates[1]);
+		values[2] = Integer.valueOf(dates[2]);
+		values[3] = Integer.valueOf(times[0]);
+		values[4] = Integer.valueOf(times[1]);
+		
+		return values;
+	}
 }
