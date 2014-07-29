@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/hsm_color_background"
     android:orientation="vertical" >
 
@@ -8,7 +8,6 @@
         android:id="@+id/id_payment_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#FF0000"
         android:orientation="vertical" >
 
         <TextView
@@ -32,7 +31,7 @@
         android:layout_marginTop="25dp"
         android:paddingLeft="22dp"
         android:text="ESCOLHA UM DIA"
-        android:textColor="#535361"
+        android:textColor="@color/hsm_color_gray_light"
         android:textSize="20dp" />
 
     <Spinner
@@ -42,7 +41,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:textColor="#FFFFFF" >
+        android:textColor="@color/hsm_color_white" >
     </Spinner>
 
     <TextView
@@ -55,7 +54,7 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/id_participant_button"
+        android:id="@+id/id_register_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -64,7 +63,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/button_background_behavior"
         android:text="@string/cadastrar"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/hsm_color_white" />
 
     <Button
         android:id="@+id/id_purchase_button"
@@ -74,5 +73,5 @@
         android:layout_margin="20dp"
         android:background="@drawable/button_payment_background_behavior"
         android:text="@string/comprar"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/hsm_color_white" />
 </LinearLayout>

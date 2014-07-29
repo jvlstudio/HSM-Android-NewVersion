@@ -12,7 +12,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.MagazineAdapter;
 import br.com.ikomm.apps.HSM.model.Magazine;
@@ -147,9 +146,14 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 	 * Sets the {@link ListView} adapter.
 	 */
 	public void setListView() {
-		ListView magazineList = (ListView)findViewById(R.id.id_magazine_list_view);
-		magazineList.setAdapter(new MagazineAdapter(this));
-		magazineList.setOnItemClickListener(this);
+		MagazineRepo magazineRepo = new MagazineRepo(this);
+		magazineRepo.open();
+		List<Magazine> magazineList = magazineRepo.getAllMagazine();
+		magazineRepo.close();
+		
+		ListView magazineListView = (ListView)findViewById(R.id.id_magazine_list_view);
+		magazineListView.setAdapter(new MagazineAdapter(this, magazineList));
+		magazineListView.setOnItemClickListener(this);
 	}
 
 	//--------------------------------------------------
@@ -163,8 +167,6 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 			Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
 	        intent.setData(Uri.parse(url));
 	        startActivity(intent);
-		} else {
-			Toast.makeText(this, "Favor pedir para alguém me cadastrar no Backend!", Toast.LENGTH_LONG).show();
 		}
 	}
 }

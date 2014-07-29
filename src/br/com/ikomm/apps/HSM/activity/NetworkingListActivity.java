@@ -137,7 +137,11 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 			listView.setVisibility(View.GONE);
 		} else {
 			mCreateCardButton.setVisibility(View.GONE);
-			listView.setAdapter(new NetworkFriendsAdapter(this));
+			List<Card> cardList = mCartaoRepo.getMeusContatos();
+			if (cardList == null) {
+				cardList = new ArrayList<Card>();
+			}
+			listView.setAdapter(new NetworkFriendsAdapter(this, cardList));
 			listView.setOnItemClickListener(this);
 		}
 	}

@@ -1,6 +1,5 @@
 package br.com.ikomm.apps.HSM.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -8,14 +7,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
-import br.com.ikomm.apps.HSM.model.Agenda;
 import br.com.ikomm.apps.HSM.model.Panelist;
-import br.com.ikomm.apps.HSM.repo.AgendaRepo;
-import br.com.ikomm.apps.HSM.repo.PanelistRepo;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -39,12 +36,9 @@ public class PanelistGridViewAdapter extends BaseAdapter {
 	// Attributes
 	//--------------------------------------------------
 	
+	private ViewHolder mViewHolder;
 	private Activity mActivity;
-	private List<Panelist> mPanelistList = new ArrayList<Panelist>();
-	private PanelistRepo mPanelistRepo;
-	private AgendaRepo mAgendaRepo;
-	private List<Agenda> mAgendaList = new ArrayList<Agenda>();
-	private String mAgendaData = "";
+	private List<Panelist> mPanelistList;
 
 	//--------------------------------------------------
 	// View Holder
@@ -59,26 +53,10 @@ public class PanelistGridViewAdapter extends BaseAdapter {
 	// Constructor
 	//--------------------------------------------------
 	
-	public PanelistGridViewAdapter(Activity activity, long eventId) {
+	public PanelistGridViewAdapter(Activity activity, List<Panelist> panelistList) {
 		super();
 		mActivity = activity;
-		
-		mAgendaRepo = new AgendaRepo(activity);
-		mAgendaRepo.open();
-		mAgendaList = mAgendaRepo.byEvent(eventId);
-		
-		for (Agenda item : mAgendaList) {
-			if (mAgendaData.isEmpty()) {
-				mAgendaData = String.valueOf(item.panelist_id);
-			} else {
-				mAgendaData += "," + String.valueOf(item.panelist_id);
-			}
-		}
-		mAgendaRepo.close();
-		mPanelistRepo = new PanelistRepo(activity);
-		mPanelistRepo.open();
-		mPanelistList = mPanelistRepo.getAllbyEvent(mAgendaData);
-		mPanelistRepo.close();
+		mPanelistList = panelistList;
 	}
 
 	//--------------------------------------------------
@@ -102,7 +80,7 @@ public class PanelistGridViewAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder viewHolder = new ViewHolder();
+		mViewHolder = new ViewHolder();
 
 		if (convertView == null) {
 			// Sets layout.
@@ -110,20 +88,18 @@ public class PanelistGridViewAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.adapter_panelist, parent, false);
 
 			// Set views.
-			viewHolder.nameTextView = (TextView)convertView.findViewById(R.id.nomePalestrante);
-			viewHolder.pictureImageView = (ImageView)convertView.findViewById(R.id.imagemPalestrante);
-			convertView.setTag(viewHolder);
+			mViewHolder.nameTextView = (TextView)convertView.findViewById(R.id.nomePalestrante);
+			mViewHolder.pictureImageView = (ImageView)convertView.findViewById(R.id.imagemPalestrante);
+			
+			// Saves ViewHolder into the tag.
+			convertView.setTag(mViewHolder);
 		} else {
-			viewHolder = (ViewHolder)convertView.getTag();
+			// Gets ViewHolder from the tag.
+			mViewHolder = (ViewHolder)convertView.getTag();
 		}
 		
-		// Gets data.
-		Panelist panelist = mPanelistList.get(position);
-		viewHolder.nameTextView.setText(panelist.name);
-
-		// Creates URL for the image.
-		String completeUrl = URL + panelist.picture;
-		setUniversalImage(completeUrl, viewHolder.pictureImageView);
+		// Sets data.
+		setData(position);
 		
 		return convertView;
 	}
@@ -131,6 +107,20 @@ public class PanelistGridViewAdapter extends BaseAdapter {
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
+	
+	/**
+	 * Sets the data of this {@link Adapter}.
+	 * 
+	 * @param position
+	 */
+	public void setData(Integer position) {
+		Panelist panelist = mPanelistList.get(position);
+		mViewHolder.nameTextView.setText(panelist.name);
+
+		// Creates URL for the image.
+		String completeUrl = URL + panelist.picture;
+		setUniversalImage(completeUrl, mViewHolder.pictureImageView);
+	}
 	
 	/**
 	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.

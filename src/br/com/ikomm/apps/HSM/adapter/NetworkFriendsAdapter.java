@@ -1,9 +1,9 @@
 package br.com.ikomm.apps.HSM.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.model.Card;
-import br.com.ikomm.apps.HSM.repo.CardRepository;
 
 /**
  * NetworkFriendsAdapter.java class.
@@ -23,22 +22,26 @@ public class NetworkFriendsAdapter extends BaseAdapter {
 	// Attributes
 	//--------------------------------------------------
 	
-	private LayoutInflater mInflater;
-	private CardRepository mCartaoRepo;
-	private List<Card> mCartaoList;
+	private ViewHolder mViewHolder;
+	private Activity mActivity;
+	private List<Card> mCardList;
+	
+	//--------------------------------------------------
+	// View Holder
+	//--------------------------------------------------
+	
+	static class ViewHolder {
+		private TextView nameTextView;
+	}
 	
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public NetworkFriendsAdapter(Activity activity) {
+	public NetworkFriendsAdapter(Activity activity, List<Card> cardList) {
 		super();
-		mInflater = LayoutInflater.from(activity);
-		mCartaoRepo = new CardRepository(activity);
-		mCartaoList = mCartaoRepo.getMeusContatos();
-		if (mCartaoList == null) {
-			mCartaoList = new ArrayList<Card>();
-		}
+		mActivity = activity;
+		mCardList = cardList;
 	}
 
 	//--------------------------------------------------
@@ -47,12 +50,12 @@ public class NetworkFriendsAdapter extends BaseAdapter {
 	
 	@Override
 	public int getCount() {
-		return mCartaoList.size();
+		return mCardList.size();
 	}
 
 	@Override
-	public Object getItem(int position) {
-		return position;
+	public Card getItem(int position) {
+		return mCardList.get(position);
 	}
 
 	@Override
@@ -62,14 +65,24 @@ public class NetworkFriendsAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Card cartaoAtual = mCartaoList.get(position);
+		Card currentCard = getItem(position);
+		mViewHolder = new ViewHolder();
 
-		View view = convertView;
-		view = mInflater.inflate(R.layout.adapter_networking_item, parent, false);
+		if (convertView == null) {
+			// Sets layout.
+			LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.adapter_networking_item, parent, false);
 
-		TextView nome = (TextView) view.findViewById(R.id.id_friend_name);
-		nome.setText(cartaoAtual.nome);
+			// Set views.
+			mViewHolder.nameTextView = (TextView) convertView.findViewById(R.id.id_friend_name);
+			convertView.setTag(mViewHolder);
+		} else {
+			mViewHolder = (ViewHolder)convertView.getTag();
+		}
+		
+		// Sets the name.
+		mViewHolder.nameTextView.setText(currentCard.nome);
 
-		return view;
+		return convertView;
 	}
 }

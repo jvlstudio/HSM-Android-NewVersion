@@ -1,67 +1,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/hsm_color_background"
     android:orientation="vertical"
     android:padding="10dp" >
 
     <EditText
-        android:id="@+id/tNome"
+        android:id="@+id/id_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nome Completo"
         android:inputType="text"
         android:singleLine="true"
         android:textColor="@android:color/white"
-        android:textColorHint="#535361" />
+        android:textColorHint="@color/hsm_color_gray_light" />
 
     <EditText
-        android:id="@+id/tEmail"
+        android:id="@+id/id_mail_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:singleLine="true"
         android:textColor="@android:color/white"
-        android:textColorHint="#535361" />
+        android:textColorHint="@color/hsm_color_gray_light" />
 
     <EditText
-        android:id="@+id/tCPF"
+        android:id="@+id/id_cpf_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="CPF"
         android:inputType="number"
         android:singleLine="true"
         android:textColor="@android:color/white"
-        android:textColorHint="#535361" />
+        android:textColorHint="@color/hsm_color_gray_light" />
 
     <EditText
-        android:id="@+id/tEmpresa"
+        android:id="@+id/id_company_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Empresa"
         android:inputType="text"
         android:singleLine="true"
         android:textColor="@android:color/white"
-        android:textColorHint="#535361" />
+        android:textColorHint="@color/hsm_color_gray_light" />
 
     <EditText
-        android:id="@+id/tCargo"
+        android:id="@+id/id_role_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Cargo"
         android:inputType="text"
         android:singleLine="true"
         android:textColor="@android:color/white"
-        android:textColorHint="#535361" />
+        android:textColorHint="@color/hsm_color_gray_light" />
 
     <Button
-        android:id="@+id/btnVoltar"
+        android:id="@+id/id_back_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_payment_background_behavior"
         android:text="@string/confirmar"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/hsm_color_white" />
 </LinearLayout>

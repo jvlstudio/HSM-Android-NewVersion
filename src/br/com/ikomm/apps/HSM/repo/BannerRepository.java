@@ -3,14 +3,14 @@ package br.com.ikomm.apps.HSM.repo;
 import java.util.Arrays;
 import java.util.List;
 
-import br.com.ikomm.apps.HSM.model.Banner;
-
-import com.google.gson.Gson;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import br.com.ikomm.apps.HSM.activity.SplashScreenActivity;
+import br.com.ikomm.apps.HSM.model.Banner;
+
+import com.google.gson.Gson;
 
 public class BannerRepository {
 	
@@ -47,10 +47,10 @@ public class BannerRepository {
 		try {
 			mJsonBanners = getJsonFromShared();
 			if (mJsonBanners.isEmpty()) {
-				Log.e("Banner", "getAll = Null");
+				Log.i(SplashScreenActivity.TAG, "Banner getAll is Null.");
 				return RetornaBannersDefault();
 			}
-			Log.e("Banner", "getAll = " + mJsonBanners);
+			Log.e(SplashScreenActivity.TAG, "getAll is " + mJsonBanners);
 			Banner[] banners = mGson.fromJson(mJsonBanners, Banner[].class);
 			return Arrays.asList(banners);
 		} catch (Exception e) {
@@ -76,7 +76,7 @@ public class BannerRepository {
 			} else {
 				SharedPreferences.Editor editor = mPreferences.edit();
 				bannerJson = bannerJson.replace("\\/", "/");
-				Log.e("Banner", "setJsonShared = " + bannerJson);
+				Log.i(SplashScreenActivity.TAG, "setJsonShared is " + bannerJson);
 				editor.putString(BANNER_KEY, bannerJson);
 				editor.commit();
 			}

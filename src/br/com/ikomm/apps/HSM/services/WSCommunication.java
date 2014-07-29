@@ -11,6 +11,14 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
+import br.com.ikomm.apps.HSM.activity.SplashScreenActivity;
+import br.com.ikomm.apps.HSM.model.Agenda;
+import br.com.ikomm.apps.HSM.model.Book;
+import br.com.ikomm.apps.HSM.model.Event;
+import br.com.ikomm.apps.HSM.model.Home;
+import br.com.ikomm.apps.HSM.model.Magazine;
+import br.com.ikomm.apps.HSM.model.Panelist;
+import br.com.ikomm.apps.HSM.model.Passe;
 import br.com.ikomm.apps.HSM.model.ws.AgendaWS;
 import br.com.ikomm.apps.HSM.model.ws.BookWS;
 import br.com.ikomm.apps.HSM.model.ws.EventWS;
@@ -60,7 +68,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(ERROR, "erro no met. wsHome: " + ex);
+			Log.e(SplashScreenActivity.TAG, "Error in method WsHome: " + ex);
 			return null;
 		}
 	}
@@ -87,7 +95,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(ERROR, "erro no met. wsEvent: " + ex);
+			Log.e(SplashScreenActivity.TAG, "Error in method WsEvent: " + ex);
 			return null;
 		}
 	}
@@ -114,7 +122,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(ERROR, "erro no met. wsAgenda: " + ex);
+			Log.e(SplashScreenActivity.TAG, "Error in method WsAgenda: " + ex);
 			return null;
 		}
 	}
@@ -141,7 +149,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(ERROR, "erro no met. wsPanelist: " + ex);
+			Log.e(SplashScreenActivity.TAG, "Error in method WsPanelist: " + ex);
 			return null;
 		}
 	}
@@ -168,7 +176,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(ERROR, "erro no met. wsPasse: " + ex);
+			Log.e(SplashScreenActivity.TAG, "Error in method WsPasse: " + ex);
 			return null;
 		}
 	}
@@ -195,7 +203,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(ERROR, "erro no met. magazines: " + ex);
+			Log.e(SplashScreenActivity.TAG, "Error in method WsMagazine: " + ex);
 			return null;
 		}
 	}
@@ -222,7 +230,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(ERROR, "erro no met. wsBook: " + ex);
+			Log.e(SplashScreenActivity.TAG, "Error in method WsBook: " + ex);
 			return null;
 		}
 	}

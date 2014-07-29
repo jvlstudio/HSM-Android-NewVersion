@@ -33,6 +33,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
 	// Attributes
 	//--------------------------------------------------
 	
+	private ViewHolder mViewHolder;
 	private Activity mActivity;
 	private List<String> mUrlList;
 
@@ -74,7 +75,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder viewHolder = new ViewHolder();
+		mViewHolder = new ViewHolder();
 
 		if (convertView == null) {
 			// Sets layout.
@@ -82,12 +83,15 @@ public class HomeGridViewAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.adapter_home, parent, false);
 
 			// Set views.
-			viewHolder.imageView = (ImageView)convertView.findViewById(R.id.id_image_view);
-			convertView.setTag(viewHolder);
+			mViewHolder.imageView = (ImageView)convertView.findViewById(R.id.id_image_view);
+			
+			// Saves ViewHolder into the tag.
+			convertView.setTag(mViewHolder);
 		} else {
-			viewHolder = (ViewHolder)convertView.getTag();
+			// Gets ViewHolder from the tag.
+			mViewHolder = (ViewHolder)convertView.getTag();
 		}
-		setImages(position, viewHolder);
+		setImages(position, mViewHolder);
 		
 		return convertView;
 	}

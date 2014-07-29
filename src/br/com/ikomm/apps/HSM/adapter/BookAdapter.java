@@ -3,15 +3,16 @@ package br.com.ikomm.apps.HSM.adapter;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.model.Book;
-import br.com.ikomm.apps.HSM.repo.BookRepo;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -27,24 +28,29 @@ public class BookAdapter extends BaseAdapter {
 	// Attributes
 	//--------------------------------------------------
 	
+	private ViewHolder mViewHolder;
 	private Activity mActivity;
-	private LayoutInflater mInflater;
+	
 	private List<Book> mBookList;
-	private BookRepo mBookRepo;
+	
+	//--------------------------------------------------
+	// View Holder
+	//--------------------------------------------------
+	
+	static class ViewHolder {
+		private TextView bookName;
+		private TextView bookDescription;
+		private ImageView bookImage;
+	}
 	
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public BookAdapter(Activity activity) {
+	public BookAdapter(Activity activity, List<Book> bookList) {
 		super();
 		mActivity = activity;
-		mInflater = LayoutInflater.from(activity);
-		
-		mBookRepo = new BookRepo(activity);
-		mBookRepo.open();
-		mBookList = mBookRepo.getAllBook();
-		mBookRepo.close();
+		mBookList = bookList;
 	}
 
 	//--------------------------------------------------
@@ -57,8 +63,8 @@ public class BookAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
-		return position;
+	public Book getItem(int position) {
+		return mBookList.get(position);
 	}
 
 	@Override
@@ -69,25 +75,48 @@ public class BookAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.adapter_book, parent, false);
+		Book book = getItem(position);
+		mViewHolder = new ViewHolder();
+
+		if (convertView == null) {
+			// Sets layout.
+			LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.adapter_book, parent, false);
+			
+			// Set views.
+			mViewHolder.bookName = (TextView) convertView.findViewById(R.id.txtNameBook);
+			mViewHolder.bookDescription = (TextView) convertView.findViewById(R.id.txtDescBook);
+			mViewHolder.bookImage = (ImageView) convertView.findViewById(R.id.imgBook);
+			
+			// Saves ViewHolder into the tag.
+			convertView.setTag(mViewHolder);
+		} else {
+			// Gets ViewHolder from the tag.
+			mViewHolder = (ViewHolder)convertView.getTag();
+		}
 		
-		Book book = mBookList.get(position);
-		TextView nameBook = (TextView) view.findViewById(R.id.txtNameBook);
-		TextView descBook = (TextView) view.findViewById(R.id.txtDescBook);
-		ImageView imgBook = (ImageView) view.findViewById(R.id.imgBook);
+		// Sets the data.
+		setData(book);
 		
-		nameBook.setText(book.name);
-		descBook.setText(book.author_name);
-		
-		String url = "http://apps.ikomm.com.br/hsm5/uploads/books/" + book.picture;
-		setUniversalImage(url, imgBook);
-		
-		return view;
+		return convertView;
 	}
 	
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
+	
+	/**
+	 * Sets the {@link Adapter} data.
+	 * 
+	 * @param book
+	 */
+	public void setData(Book book) {
+		mViewHolder.bookName.setText(book.name);
+		mViewHolder.bookDescription.setText(book.author_name);
+		
+		String url = "http://apps.ikomm.com.br/hsm5/uploads/books/" + book.picture;
+		setUniversalImage(url, mViewHolder.bookImage);
+	}
 	
 	/**
 	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.

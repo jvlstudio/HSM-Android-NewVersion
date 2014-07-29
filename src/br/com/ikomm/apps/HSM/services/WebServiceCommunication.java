@@ -8,9 +8,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import br.com.ikomm.apps.HSM.repo.BannerRepository;
-
 import android.content.Context;
+import android.util.Log;
+import br.com.ikomm.apps.HSM.activity.SplashScreenActivity;
+import br.com.ikomm.apps.HSM.repo.BannerRepository;
 
 public class WebServiceCommunication {
 	public void sendFormularioCompra(String cor, String dia, String nome, String email, String empresa, String cargo, String cpf) {
@@ -64,11 +65,11 @@ public class WebServiceCommunication {
 			HttpGet httpGet = new HttpGet();
 			URI uri = new URI(url);
 			httpGet.setURI(uri);
+			Log.i(SplashScreenActivity.TAG, "The add pass URL is " + url);
 			httpClient.execute(httpGet);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
-
 	}
 
 	public void updateBanners(Context context) {

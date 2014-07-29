@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import br.com.ikomm.apps.HSM.activity.SplashScreenActivity;
 import br.com.ikomm.apps.HSM.model.Card;
 
 import com.google.gson.Gson;
@@ -49,10 +50,10 @@ public class CardRepository {
 		try {
 			mJsonMeuCartao = getMeuCartaoFromShared();
 			if (mJsonMeuCartao.isEmpty()) {
-				Log.e("MEU_CARTAO", "getMeuCartao = Null");
+				Log.e(SplashScreenActivity.TAG, "getMeuCartao is Null");
 				return null;
 			}
-			Log.e("MEU_CARTAO", "getMeuCartao = " + mJsonMeuCartao);
+			Log.e(SplashScreenActivity.TAG, "getMeuCartao is " + mJsonMeuCartao);
 			Card meuCartao = mGson.fromJson(mJsonMeuCartao, Card.class);
 			
 			return meuCartao;
@@ -66,10 +67,10 @@ public class CardRepository {
 		try {
 			mJsonMeusContatos = getMeusContatosFromShared();
 			if (mJsonMeusContatos.isEmpty()) {
-				Log.e("MEUS_CONTATOS", "getMeusContatos = Null");
+				Log.e(SplashScreenActivity.TAG, "getMeusContatos is Null.");
 				return null;
 			}
-			Log.e("MEUS_CONTATOS", "getMeusContatos = " + mJsonMeusContatos);
+			Log.e(SplashScreenActivity.TAG, "getMeusContatos is " + mJsonMeusContatos);
 			Card[] meusContatos = mGson.fromJson(mJsonMeusContatos, Card[].class);
 			
 			return Arrays.asList(meusContatos);
@@ -82,12 +83,12 @@ public class CardRepository {
 	public void setMeuCartao(Card card) {
 		try {
 			if (card == null) {
-				Log.e("Card", "setMeuCartao = Null");
+				Log.e(SplashScreenActivity.TAG, "setMeuCartao is Null");
 				return;
 			} else {
 				String jsonCartao = mGson.toJson(card);
 				SharedPreferences.Editor editor = mPreferences.edit();
-				Log.e("Card", "setMeuCartao = " + jsonCartao);
+				Log.e(SplashScreenActivity.TAG, "setMeuCartao is " + jsonCartao);
 				editor.putString(MEU_CARTAO, jsonCartao);
 				editor.commit();
 			}
@@ -99,12 +100,12 @@ public class CardRepository {
 	public void setMeusContatos(List<Card> contatos) {
 		try {
 			if (contatos == null) {
-				Log.e("Contatos", "setMeusContatos = Null");
+				Log.e(SplashScreenActivity.TAG, "setMeusContatos is Null.");
 				return;
 			} else {
 				String jsonContatos = mGson.toJson(contatos);
 				SharedPreferences.Editor editor = mPreferences.edit();
-				Log.e("Contatos", "setMeusContatos = " + jsonContatos);
+				Log.e(SplashScreenActivity.TAG, "setMeusContatos is " + jsonContatos);
 				editor.putString(MEUS_CONTATOS, jsonContatos);
 				editor.commit();
 			}

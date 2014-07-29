@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,20 +27,32 @@ public class PassesAdapter extends BaseAdapter {
 	// Attributes
 	//--------------------------------------------------
 	
-	private LayoutInflater mInflater;
-	private PasseRepo mPasseRepo;
+	private ViewHolder mViewHolder;
+	private Activity mActivity;
+	
 	private List<Passe> mPasseList = new ArrayList<Passe>();
+	private PasseRepo mPasseRepo;
 
-	private TextView mPrecoNormal;
+	//--------------------------------------------------
+	// View Holder
+	//--------------------------------------------------
+	
+	static class ViewHolder {
+		private TextView title;
+		private TextView validity;
+		private TextView normalPrice;
+		private TextView appPrice;
+		private LinearLayout layout;
+	}
 	
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public PassesAdapter(Activity activity, int id) {
+	public PassesAdapter(Activity activity, Integer id) {
 		super();
 		
-		mInflater = LayoutInflater.from(activity);
+		mActivity = activity;
 		mPasseRepo = new PasseRepo(activity);
 		mPasseRepo.open();
 		mPasseList = mPasseRepo.byEvent(id);
@@ -68,13 +81,32 @@ public class PassesAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = convertView;
-		view = mInflater.inflate(R.layout.adapter_pacote, parent, false);
-		
+		mViewHolder = new ViewHolder();
 		Passe item = getItem(position);
-		getData(item, view);
+		
+		if (convertView == null) {
+			// Sets layout.
+			LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.adapter_pacote, parent, false);
 
-		return view;
+			// Set views.
+			mViewHolder.title = (TextView) convertView.findViewById(R.id.id_passe_title_text_view);
+			mViewHolder.validity = (TextView) convertView.findViewById(R.id.id_validity_text_view);
+			mViewHolder.normalPrice = (TextView) convertView.findViewById(R.id.id_normal_price_text_view);
+			mViewHolder.appPrice = (TextView) convertView.findViewById(R.id.id_new_price_text_view);
+			mViewHolder.layout = (LinearLayout) convertView.findViewById(R.id.id_linear_layout);
+			
+			// Saves ViewHolder into the tag.
+			convertView.setTag(mViewHolder);
+		} else {
+			// Gets ViewHolder from the tag.
+			mViewHolder = (ViewHolder)convertView.getTag();
+		}
+		
+		// Gets data.
+		getData(item);
+
+		return convertView;
 	}
 	
 	//--------------------------------------------------
@@ -85,34 +117,30 @@ public class PassesAdapter extends BaseAdapter {
 	 * Gets all data.
 	 * 
 	 * @param item
-	 * @param view
 	 */
-	public void getData(Passe item, View view) {
-		TextView titulo = (TextView) view.findViewById(R.id.id_passe_title_text_view);
-		
-		setEventNameField(item, titulo);
-		setValidToField(item, view);
+	public void getData(Passe item) {
+		setEventNameField(item);
+		setValidToField(item);
 
-		setPriceFromField(item, view);
-		setPriceToField(item, view);
-		setPassColorField(item, view);
+		setPriceFromField(item);
+		setPriceToField(item);
+		setPassColorField(item);
 	}
 	
 	/**
 	 * Gets the field 'name'.
 	 * 
 	 * @param item
-	 * @param title
 	 */
-	public void setEventNameField(Passe item, TextView title) {
+	public void setEventNameField(Passe item) {
 		if (!StringUtils.isEmpty(item.name)) {
 			if (item.name.length() > 20) {
-				title.setText(item.name.subSequence(0, 19));
+				mViewHolder.title.setText(item.name.subSequence(0, 19));
 			} else {
-				title.setText(item.name);
+				mViewHolder.title.setText(item.name);
 			}
 		} else {
-			title.setText("< Cadastrar T’tulo do Evento >");
+			mViewHolder.title.setText("< Cadastrar T’tulo do Evento >");
 		}
 	}
 	
@@ -120,14 +148,12 @@ public class PassesAdapter extends BaseAdapter {
 	 * Gets the field 'price_from'.
 	 * 
 	 * @param item
-	 * @param view
 	 */
-	public void setValidToField(Passe item, View view) {
-		TextView validade = (TextView)view.findViewById(R.id.id_validity_text_view);
+	public void setValidToField(Passe item) {
 		if (!StringUtils.isEmpty(item.description)) {
-			validade.setText(item.description);
+			mViewHolder.validity.setText(item.description);
 		} else {
-			validade.setText("< Cadastrar Validade >");
+			mViewHolder.validity.setText("< Cadastrar Validade >");
 		}
 	}
 	
@@ -135,14 +161,12 @@ public class PassesAdapter extends BaseAdapter {
 	 * Gets the field 'price_from'.
 	 * 
 	 * @param item
-	 * @param view
 	 */
-	public void setPriceFromField(Passe item, View view) {
-		mPrecoNormal = (TextView) view.findViewById(R.id.id_normal_price_text_view);
+	public void setPriceFromField(Passe item) {
 		if (!StringUtils.isEmpty(item.price_from)) {
-			mPrecoNormal.setText("R$ " + item.price_from);
+			mViewHolder.normalPrice.setText("R$ " + item.price_from);
 		} else {
-			mPrecoNormal.setText("< Cadastrar Preo Antigo >");
+			mViewHolder.normalPrice.setText("< Cadastrar Preo Antigo >");
 		}
 	}
 	
@@ -150,14 +174,12 @@ public class PassesAdapter extends BaseAdapter {
 	 * Gets the field 'price_to'.
 	 * 
 	 * @param item
-	 * @param view
 	 */
-	public void setPriceToField(Passe item, View view) {
-		TextView precoApp = (TextView) view.findViewById(R.id.id_new_price_text_view);
+	public void setPriceToField(Passe item) {
 		if (!StringUtils.isEmpty(item.price_to)) {
-			precoApp.setText("R$ " + item.price_to);
+			mViewHolder.appPrice.setText("R$ " + item.price_to);
 		} else {
-			mPrecoNormal.setText("< Cadastrar Preo Novo >");
+			mViewHolder.normalPrice.setText("< Cadastrar Preo Novo >");
 		}
 	}
 	
@@ -165,18 +187,16 @@ public class PassesAdapter extends BaseAdapter {
 	 * Gets the field 'color'.
 	 * 
 	 * @param item
-	 * @param view
 	 */
-	public void setPassColorField(Passe item, View view) {
-		LinearLayout layout = (LinearLayout)view.findViewById(R.id.id_linear_layout);
+	public void setPassColorField(Passe item) {
 		if (item.color.equals("green")) {
-			layout.setBackgroundColor(Color.parseColor("#00a180"));
+			mViewHolder.layout.setBackgroundColor(Color.parseColor("#00a180"));
 		}
-		if (item.color.equals("gold")){
-			layout.setBackgroundColor(Color.parseColor("#dca85c"));
+		if (item.color.equals("gold")) {
+			mViewHolder.layout.setBackgroundColor(Color.parseColor("#dca85c"));
 		}
-		if (item.color.equals("red")){
-			layout.setBackgroundColor(Color.parseColor("#d04840"));
+		if (item.color.equals("red")) {
+			mViewHolder.layout.setBackgroundColor(Color.parseColor("#d04840"));
 		}
 	}
 }

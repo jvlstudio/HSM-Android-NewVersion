@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
-import br.com.ikomm.apps.HSM.model.Participant;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -22,13 +22,23 @@ import com.actionbarsherlock.view.MenuItem;
 public class ParticipantActivity extends SherlockFragmentActivity implements OnClickListener {
 
 	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final Integer IS_PARENT = 1; 
+	
+	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
-	public static Participant mParticipante = new Participant();
-	int mVariavelBanner;
-	private Long mEventId;
+	private EditText mNameEditText; 
+	private EditText mMailEditText;
+	private EditText mCpfEditText;
+	private EditText mCompanyEditText;
+	private EditText mRoleEditText;
 
+	private Integer mBanner;
+	
 	//--------------------------------------------------
 	// Activity Life Cycle
 	//--------------------------------------------------
@@ -38,23 +48,16 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_participant);
 
-		ActionBar action = getActionBar();
-		action.setLogo(R.drawable.hsm_logo);
-		action.setDisplayHomeAsUpEnabled(true);
-
-		findViewById(R.id.btnVoltar).setOnClickListener(this);
-		Intent intent = getIntent();
-		mVariavelBanner = intent.getIntExtra("var", -1);
-		mEventId = intent.getLongExtra("event_id", -1);
+		setActionBar();
+		getExtras();
 	}
-
+	
 	//--------------------------------------------------
 	// Menu
 	//--------------------------------------------------
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu. This code adds items to the action bar.
 		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
 		return true;
 	}
@@ -70,67 +73,61 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 	}
 	
 	//--------------------------------------------------
-	// Listeners
-	//--------------------------------------------------
-
-	@Override
-	public void onClick(View arg0) {
-		Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
-		if (validar()) {
-			intent.putExtra("ok", 1);
-		}else{
-			intent.putExtra("ok", 0);
-		}
-		
-		// Put extras.
-		intent.putExtra("banner", mVariavelBanner);
-		EditText tNome = (EditText) findViewById(R.id.tNome);
-		EditText tEmail = (EditText) findViewById(R.id.tEmail);
-		EditText tCPF = (EditText) findViewById(R.id.tCPF);
-		EditText tEmpresa = (EditText) findViewById(R.id.tEmpresa);
-		EditText tCargo = (EditText) findViewById(R.id.tCargo);
-
-		intent.putExtra("passe", mEventId);
-		intent.putExtra("email", tEmail.getText().toString());
-		intent.putExtra("cpf", tCPF.getText().toString());
-		intent.putExtra("empresa", tEmpresa.getText().toString());
-		intent.putExtra("cargo", tCargo.getText().toString());
-		intent.putExtra("nome", tNome.getText().toString());
-
-		// Calls Intent.
-		startActivity(intent);
-		finish();
-	}
-
-	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
 
+	/**
+	 * Sets the {@link ActionBar}.
+	 */
+	public void setActionBar() {
+		ActionBar action = getActionBar();
+		action.setLogo(R.drawable.hsm_logo);
+		action.setDisplayHomeAsUpEnabled(true);
+	}
+	
+	/**
+	 * Gets the extras.
+	 */
+	public void getExtras() {
+		Button button = (Button)findViewById(R.id.id_back_button);
+		button.setOnClickListener(this);
+		Intent intent = getIntent();
+		mBanner = intent.getIntExtra("banners", -1);
+	}
+	
+	/**
+	 * Sets the components.
+	 */
+	public void setComponents() {
+		mNameEditText = (EditText) findViewById(R.id.id_name_edit_text);
+		mMailEditText = (EditText) findViewById(R.id.id_mail_edit_text);
+		mCpfEditText = (EditText) findViewById(R.id.id_cpf_edit_text);
+		mCompanyEditText = (EditText) findViewById(R.id.id_company_edit_text);
+		mRoleEditText = (EditText) findViewById(R.id.id_role_edit_text);
+	}
+	
 	/**
 	 * Validates each field.
 	 * 
 	 * @return
 	 */
-	private boolean validar() {
-		TextView tNome = (TextView) findViewById(R.id.tNome);
-		TextView tEmail = (TextView) findViewById(R.id.tEmail);
-		TextView tCPF = (TextView) findViewById(R.id.tCPF);
-		TextView tEmpresa = (TextView) findViewById(R.id.tEmpresa);
-		TextView tCargo = (TextView) findViewById(R.id.tCargo);
+	private boolean validateFields() {
+		setComponents();
 
-		String nome = tNome.getText().toString();
-		String email = tEmail.getText().toString();
-		String empresa = tEmpresa.getText().toString();
-		String cargo = tCargo.getText().toString();
-		if (StringUtils.isEmpty(nome)) {
+		String name = mNameEditText.getText().toString();
+		String email = mMailEditText.getText().toString();
+		String company = mCompanyEditText.getText().toString();
+		String role = mRoleEditText.getText().toString();
+		
+		if (StringUtils.isEmpty(name)) {
 			return false;
 		} else if (StringUtils.isEmpty(email)) {
 			return false;
-		} else if (!validaCPF(tCPF.getText().toString())) {
+		} else if (!validateCPF(mCpfEditText.getText().toString())) {
 			return false;
-		} else if (StringUtils.isEmpty(empresa)) {
+		} else if (StringUtils.isEmpty(company)) {
 			return false;
-		} else if (StringUtils.isEmpty(cargo)) {
+		} else if (StringUtils.isEmpty(role)) {
 			return false;
 		}
 		return true;
@@ -140,44 +137,64 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 	 * Check if CPF is valid.
 	 * 
 	 * @param cpf
+	 * 
 	 * @return
 	 */
-	public boolean validaCPF(String cpf) {
-		String strCpf = cpf;
-		if (strCpf.equals("")) {
+	public boolean validateCPF(String cpf) {
+		String cpfString = cpf;
+		if (cpfString.equals("")) {
 			return false;
 		}
 
-		int d1, d2;
-		int digito1, digito2, resto;
-		int digitoCPF;
-		String nDigResult;
-
-		d1 = d2 = 0;
-		digito1 = digito2 = resto = 0;
-		for (int nCount = 1; nCount < strCpf.length() - 1; nCount++) {
-			digitoCPF = Integer.valueOf(strCpf.substring(nCount - 1, nCount)).intValue();
-			d1 = d1 + (11 - nCount) * digitoCPF;
-			d2 = d2 + (12 - nCount) * digitoCPF;
+		int d1 = 0, d2 = 0, digit1 = 0, digit2 = 0, rest = 0, cpfDigit;
+		String result;
+		for (int count = 1; count < cpfString.length() - 1; count++) {
+			cpfDigit = Integer.valueOf(cpfString.substring(count - 1, count)).intValue();
+			d1 = d1 + (11 - count) * cpfDigit;
+			d2 = d2 + (12 - count) * cpfDigit;
 		}
 
-		resto = (d1 % 11);
-		if (resto < 2) {
-			digito1 = 0;
+		rest = (d1 % 11);
+		if (rest < 2) {
+			digit1 = 0;
 		} else {
-			digito1 = 11 - resto;
+			digit1 = 11 - rest;
 		}
 
-		d2 += 2 * digito1;
-		resto = (d2 % 11);
-		if (resto < 2) {
-			digito2 = 0;
+		d2 += 2 * digit1;
+		rest = (d2 % 11);
+		if (rest < 2) {
+			digit2 = 0;
 		} else {
-			digito2 = 11 - resto;
+			digit2 = 11 - rest;
 		}
 
-		String nDigVerific = strCpf.substring(strCpf.length() - 2, strCpf.length());
-		nDigResult = String.valueOf(digito1) + String.valueOf(digito2);
-		return nDigVerific.equals(nDigResult);
+		String verificationDigit = cpfString.substring(cpfString.length() - 2, cpfString.length());
+		result = String.valueOf(digit1) + String.valueOf(digit2);
+		return verificationDigit.equals(result);
+	}
+	
+	//--------------------------------------------------
+	// Listeners
+	//--------------------------------------------------
+
+	@Override
+	public void onClick(View view) {
+		Intent intent = new Intent();
+		if (validateFields()) {
+			// Put extras.
+			intent.putExtra("name", mNameEditText.getText().toString());
+			intent.putExtra("email", mMailEditText.getText().toString());
+			intent.putExtra("cpf", mCpfEditText.getText().toString());
+			intent.putExtra("company", mCompanyEditText.getText().toString());
+			intent.putExtra("role", mRoleEditText.getText().toString());
+			intent.putExtra("banner", mBanner);
+
+			// Returns for the Parent Activity.
+	        setResult(IS_PARENT, intent);
+	        finish();
+		} else {
+			Toast.makeText(this, "Favor informar os campos de forma correta.", Toast.LENGTH_LONG).show();
+		}
 	}
 }

@@ -1,5 +1,7 @@
 package br.com.ikomm.apps.HSM.activity;
 
+import java.util.List;
+
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +11,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.PanelistGridViewAdapter;
+import br.com.ikomm.apps.HSM.model.Agenda;
+import br.com.ikomm.apps.HSM.model.Panelist;
+import br.com.ikomm.apps.HSM.repo.AgendaRepo;
+import br.com.ikomm.apps.HSM.repo.PanelistRepo;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -37,7 +43,7 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 
 		setActionBar();
 		getExtras();
-		loadGridView();
+		setGridView();
 	}
 	
 	//--------------------------------------------------
@@ -84,12 +90,44 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	}
 	
 	/**
-	 * Loads the {@link GridView}.
+	 * Sets the {@link GridView}.
 	 */
-	private void loadGridView() {
+	private void setGridView() {
+		String data = getAgendaData();
+		
+		// Gets the Panelist list.
+		PanelistRepo panelistRepo = new PanelistRepo(this);
+		panelistRepo.open();
+		List<Panelist> panelistList = panelistRepo.getAllbyEvent(data);
+		panelistRepo.close();
+		
+		// Sets the GridView.
 		GridView gridView = (GridView)findViewById(R.id.id_list_view);
-		gridView.setAdapter(new PanelistGridViewAdapter(this, mEventId));
+		gridView.setAdapter(new PanelistGridViewAdapter(this, panelistList));
 		gridView.setOnItemClickListener(this);
+	}
+	
+	/**
+	 * Gets the {@link Agenda} data.
+	 * 
+	 * @return
+	 */
+	public String getAgendaData() {
+		AgendaRepo agendaRepo = new AgendaRepo(this);
+		agendaRepo.open();
+		String agendaData = "";
+		
+		List<Agenda> agendaList = agendaRepo.byEvent(mEventId);
+		for (Agenda item : agendaList) {
+			if (agendaData.isEmpty()) {
+				agendaData = String.valueOf(item.panelist_id);
+			} else {
+				agendaData += "," + String.valueOf(item.panelist_id);
+			}
+		}
+		agendaRepo.close();
+		
+		return agendaData;
 	}
 	
 	//--------------------------------------------------

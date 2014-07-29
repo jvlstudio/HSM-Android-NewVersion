@@ -42,12 +42,12 @@ public class EventsAdapter extends BaseAdapter {
 	// Attributes
 	//--------------------------------------------------
 	
+	private ViewHolder mViewHolder;
 	private Context mContext;
+	
 	private List<Event> mList;
 	private FileUtils mFileManager = new FileUtils();
 	private String mPath;
-	
-	private ViewHolder mViewHolder;
 
 	//--------------------------------------------------
 	// Constructor
@@ -64,11 +64,11 @@ public class EventsAdapter extends BaseAdapter {
 	//--------------------------------------------------
 	
 	static class ViewHolder {
-		private LinearLayout mPanelistLinearLayout;
-		private TextView mTitleTextView;
-		private TextView mSubtitleTextView;
-		private TextView mDateTextView;
-		private TextView mPlaceTextView;
+		private LinearLayout panelistLinearLayout;
+		private TextView titleTextView;
+		private TextView subtitleTextView;
+		private TextView dateTextView;
+		private TextView placeTextView;
 	}
 	
 	//--------------------------------------------------
@@ -95,19 +95,23 @@ public class EventsAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// Gets the Unity of the current position.
 		Event event = (Event) getItem(position);
+		mViewHolder = new ViewHolder();
+		
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.adapter_event_item, null);
-			mViewHolder = new ViewHolder();
+			convertView = inflater.inflate(R.layout.adapter_event_item, parent, false);
 			
-			mViewHolder.mPanelistLinearLayout = (LinearLayout)convertView.findViewById(R.id.id_panelist_layout_eventos_adapter_item);
-			mViewHolder.mTitleTextView = (TextView)convertView.findViewById(R.id.id_title_eventos_adapter_item);
-			mViewHolder.mSubtitleTextView = (TextView)convertView.findViewById(R.id.id_subtitle_eventos_adapter_item);
-			mViewHolder.mDateTextView = (TextView)convertView.findViewById(R.id.id_date_eventos_adapter_item);
-			mViewHolder.mPlaceTextView = (TextView)convertView.findViewById(R.id.id_address_eventos_adapter_item);
+			mViewHolder.panelistLinearLayout = (LinearLayout)convertView.findViewById(R.id.id_panelist_layout_eventos_adapter_item);
+			mViewHolder.titleTextView = (TextView)convertView.findViewById(R.id.id_title_eventos_adapter_item);
+			mViewHolder.subtitleTextView = (TextView)convertView.findViewById(R.id.id_subtitle_eventos_adapter_item);
+			mViewHolder.dateTextView = (TextView)convertView.findViewById(R.id.id_date_eventos_adapter_item);
+			mViewHolder.placeTextView = (TextView)convertView.findViewById(R.id.id_address_eventos_adapter_item);
+			
+			// Saves ViewHolder into the tag.
 			convertView.setTag(mViewHolder);
 		} else {
-			mViewHolder = (ViewHolder)convertView.getTag(); 
+			// Gets ViewHolder from the tag.
+			mViewHolder = (ViewHolder)convertView.getTag();
 		}
 		populatesAdapter(event);
 		
@@ -129,16 +133,16 @@ public class EventsAdapter extends BaseAdapter {
 		setLinearLayoutBitmap(path);
 		
 		// Sets the text views.
-		mViewHolder.mTitleTextView.setText(event.name);
+		mViewHolder.titleTextView.setText(event.name);
 		cutSubtitleText(mViewHolder, event.name, event.description);
-		mViewHolder.mDateTextView.setText(formatDates(event.info_dates));
+		mViewHolder.dateTextView.setText(formatDates(event.info_dates));
 		
 		// Cuts the info locale.
 		String locale = event.info_locale;
 		if (locale.length() > 20) {
 			locale = locale.substring(0, 20);
 		}
-		mViewHolder.mPlaceTextView.setText(locale + "...");
+		mViewHolder.placeTextView.setText(locale + "...");
 		
 		// Sets the fonts.
 		setFonts();
@@ -155,7 +159,7 @@ public class EventsAdapter extends BaseAdapter {
 			@SuppressWarnings("deprecation")
 			protected void onPostExecute(Bitmap bitmap) {
 				BitmapDrawable drawable = new BitmapDrawable(bitmap);
-				mViewHolder.mPanelistLinearLayout.setBackgroundDrawable(drawable);
+				mViewHolder.panelistLinearLayout.setBackgroundDrawable(drawable);
 			};
 		};
 		AsyncTaskUtils.execute(task, new String[] {});
@@ -205,7 +209,7 @@ public class EventsAdapter extends BaseAdapter {
 			}
 		}
 		subtitle = cuttedText + "...";
-		viewHolder.mSubtitleTextView.setText(subtitle);
+		viewHolder.subtitleTextView.setText(subtitle);
 	}
 	
 	/**
@@ -213,10 +217,10 @@ public class EventsAdapter extends BaseAdapter {
 	*/
 	public void setFonts() {
 		Typeface caecilia = Typeface.createFromAsset(mContext.getAssets(), "fonts/CaeciliaLTStd-Roman.otf");
-		mViewHolder.mTitleTextView.setTypeface(caecilia);
-		mViewHolder.mSubtitleTextView.setTypeface(caecilia);
-		mViewHolder.mDateTextView.setTypeface(caecilia);
-		mViewHolder.mPlaceTextView.setTypeface(caecilia);
+		mViewHolder.titleTextView.setTypeface(caecilia);
+		mViewHolder.subtitleTextView.setTypeface(caecilia);
+		mViewHolder.dateTextView.setTypeface(caecilia);
+		mViewHolder.placeTextView.setTypeface(caecilia);
 	}
 	
 	/**

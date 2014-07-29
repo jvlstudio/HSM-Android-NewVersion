@@ -33,16 +33,16 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	// Attributes
 	//--------------------------------------------------
 
-	private Integer mIcCadastro = 0;
 	private Integer mBanners = -1;
+	private Integer mParent = 0;
 	
 	private String mNome = "";
 	private String mEmail = "";
 	private String mCpf = "";
-	private String mEmpresa = "";
-	private String mCargo = "";
-	private String mCor = "";
-	private String mDia = "";
+	private String mCompany = "";
+	private String mRole = "";
+	private String mColor = "";
+	private String mDay = "";
 	
 	private Long mPasseId;
 	private Integer mEventId;
@@ -66,7 +66,13 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 		colorizeLinearLayout();
 		initializeButtons();
 	}
-
+	
+	@Override
+	protected void onActivityResult(int code, int result, Intent intent) {
+		mParent = result;
+		getUserInfo(intent);
+	}
+	
 	//--------------------------------------------------
 	// Menu
 	//--------------------------------------------------
@@ -114,7 +120,6 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 				getCurrentPasse();
 			}
 		}
-		mIcCadastro = intent.getIntExtra("ok", 0);
 		mBanners = intent.getIntExtra("banner", -1);
 	}
 	
@@ -135,16 +140,16 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 		LinearLayout paymentLinearLayout = (LinearLayout)findViewById(R.id.id_payment_linear_layout);
 		
 		if (mPasse.color.equals("green")) {
-			mCor = mPasse.color;
+			mColor = mPasse.color;
 			paymentLinearLayout.setBackgroundResource(R.drawable.hsm_passes_title_green);
 			setSpinner();
 		}
 		if (mPasse.color.equals("gold")) {
-			mCor = mPasse.color;
+			mColor = mPasse.color;
 			paymentLinearLayout.setBackgroundResource(R.drawable.hsm_passes_title_gold);
 		}
 		if (mPasse.color.equals("red")) {
-			mCor = mPasse.color;
+			mColor = mPasse.color;
 			paymentLinearLayout.setBackgroundResource(R.drawable.hsm_passes_title_red);
 		}
 		
@@ -159,7 +164,7 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 		Button purchaseButton = (Button)findViewById(R.id.id_purchase_button);
 		purchaseButton.setOnClickListener(this);
 		
-		Button participantButton = (Button)findViewById(R.id.id_participant_button);
+		Button participantButton = (Button)findViewById(R.id.id_register_button);
 		participantButton.setOnClickListener(this);
 	}
 	
@@ -169,11 +174,11 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	 * @param intent The parent {@link Intent}. 
 	 */
 	public void getUserInfo(Intent intent) {
-		mNome = intent.getStringExtra("nome");
+		mNome = intent.getStringExtra("name");
 		mEmail = intent.getStringExtra("email");
 		mCpf = intent.getStringExtra("cpf");
-		mEmpresa = intent.getStringExtra("empresa");
-		mCargo = intent.getStringExtra("cargo");
+		mCompany = intent.getStringExtra("company");
+		mRole = intent.getStringExtra("role");
 	}
 	
 	/**
@@ -193,10 +198,7 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	    String[] dates = getEventDates();
 	    if (dates.length > 1) {
 			// Initializes the spinner.
-	    	
-//			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_color, dates);
-//			arrayAdapter.setDropDownViewResource(R.layout.spinner_text_color);
-	    	ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_color /*simple_spinner_item*/, dates);
+	    	ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_color, dates);
 	    	arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			mQuantitySpinner.setVisibility(View.VISIBLE);
 			mQuantitySpinner.setAdapter(arrayAdapter);
@@ -235,27 +237,26 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	public void onClick(View view) {
 		switch (view.getId()) {
 			case R.id.id_purchase_button:
-				if (mIcCadastro == 1) {
+				if (mParent == ParticipantActivity.IS_PARENT) {
 					startActivity(new Intent(PaymentActivity.this, GreetingsActivity.class));
 					WebServiceCommunication ws = new WebServiceCommunication();
-					if (mCor.equals("green")) {
+					if (mColor.equals("green")) {
 						if (mQuantitySpinner.getSelectedItem() != null) {
-							mDia = mQuantitySpinner.getSelectedItem().toString();
+							mDay = mQuantitySpinner.getSelectedItem().toString();
 						}
 					}
-					if (!mCor.isEmpty() && !mNome.isEmpty() && !mEmail.isEmpty() && !mEmpresa.isEmpty() && !mCargo.isEmpty()  && !mCpf.isEmpty()) {
-						ws.sendFormularioCompra(mCor, mDia, mNome, mEmail, mEmpresa, mCargo, mCpf);
+					if (!mColor.isEmpty() && !mNome.isEmpty() && !mEmail.isEmpty() && !mCompany.isEmpty() && !mRole.isEmpty()  && !mCpf.isEmpty()) {
+						ws.sendFormularioCompra(mColor, mDay, mNome, mEmail, mCompany, mRole, mCpf);
 					}
 					finish();
 				} else {
 					Toast.makeText(PaymentActivity.this, "Cadastro com dados inv‡lidos.", Toast.LENGTH_LONG).show();
 				}
 				break;
-			case R.id.id_participant_button:
+			case R.id.id_register_button:
 				Intent intent = new Intent(PaymentActivity.this, ParticipantActivity.class);
-				intent.putExtra("var", mBanners);
-				intent.putExtra("event_id", mEventId);
-				startActivity(intent);
+				intent.putExtra("banners", mBanners);
+				startActivityForResult(intent, 0);
 				break;
 		}		
 	}

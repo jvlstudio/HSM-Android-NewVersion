@@ -289,6 +289,5 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	public void onClick(View view) {
 //		addEvent();
 		addIntentEvent();
-		Toast.makeText(LectureDetailsActivity.this, "Palestra agendada com sucesso", Toast.LENGTH_SHORT).show();
 	}	
 }
