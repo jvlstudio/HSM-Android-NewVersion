@@ -87,6 +87,13 @@ public class ContentManager {
 	}
 	
 	/**
+	 * Gets the application context.
+	 */
+	public Context getContext() {
+		return mContext;
+	}
+	
+	/**
 	 * Cleans all cached content.
 	 */
 	public void clean() {
@@ -138,7 +145,7 @@ public class ContentManager {
 		if (mAgendaList == null) {
 			AgendaRepo repo = new AgendaRepo(mContext);
 			repo.open();
-			list = repo.getAllAgenda();
+			list = repo.getAll();
 			repo.close();
 			mAgendaList = list;
 		} else {
@@ -163,7 +170,7 @@ public class ContentManager {
 		if (mBookList == null) {
 			BookRepo repo = new BookRepo(mContext);
 			repo.open();
-			list = repo.getAllBook();
+			list = repo.getAll();
 			repo.close();
 			mBookList = list;
 		} else {
@@ -188,7 +195,7 @@ public class ContentManager {
 		if (mEventList == null) {
 			EventRepo repo = new EventRepo(mContext);
 			repo.open();
-			list = repo.getAllEvent();
+			list = repo.getAll();
 			repo.close();
 			mEventList = list;
 		} else {
@@ -213,7 +220,7 @@ public class ContentManager {
 		if (mHomeList.size() <= 0 ||  mHomeList == null) {
 			HomeRepo repo = new HomeRepo(mContext);
 			repo.open();
-			list = repo.getAllHome();
+			list = repo.getAll();
 			repo.close();
 			mHomeList = list;
 		} else {
@@ -238,7 +245,7 @@ public class ContentManager {
 		if (mMagazineList == null) {
 			MagazineRepo repo = new MagazineRepo(mContext);
 			repo.open();
-			list = repo.getAllMagazine();
+			list = repo.getAll();
 			repo.close();
 			mMagazineList = list;
 		} else {
@@ -263,7 +270,7 @@ public class ContentManager {
 		if (mPanelistList == null) {
 			PanelistRepo repo = new PanelistRepo(mContext);
 			repo.open();
-			list = repo.getAllPanelist();
+			list = repo.getAll();
 			repo.close();
 			mPanelistList = list;
 		} else {
@@ -288,7 +295,7 @@ public class ContentManager {
 		if (mPasseList == null) {
 			PasseRepo repo = new PasseRepo(mContext);
 			repo.open();
-			list = repo.getAllPasse();
+			list = repo.getAll();
 			repo.close();
 			mPasseList = list;
 		} else {

@@ -11,6 +11,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.services.DatabaseManager;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * HomeActivity.java class.
@@ -85,8 +86,8 @@ public class EventRepo {
 	 * 
 	 * @return
 	 */
-	public List<Event> getAllEvent() {
-		List<Event> events = new ArrayList<Event>();
+	public List<Event> getAll() {
+		List<Event> eventList = new ArrayList<Event>();
 		Event event;
 		Cursor cursor = mDb.query("event", null, null, null, null, null, null);
 		
@@ -103,10 +104,12 @@ public class EventRepo {
 				event.info_locale = cursor.getString(8);
 				event.image_list = cursor.getString(9);
 				event.image_single = cursor.getString(10);
-				events.add(event);
+				eventList.add(event);
 			}
 		}
-		return events;
+		
+		Utils.fileLog("EventRepo.getAll() -> " + eventList.size());
+		return eventList;
 	}
 	
 	/**

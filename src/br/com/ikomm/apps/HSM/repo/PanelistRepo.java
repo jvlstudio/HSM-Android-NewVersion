@@ -11,6 +11,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import br.com.ikomm.apps.HSM.model.Panelist;
 import br.com.ikomm.apps.HSM.services.DatabaseManager;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * PanelistRepo.java class.
@@ -81,7 +82,7 @@ public class PanelistRepo {
 	 * 
 	 * @return
 	 */
-	public List<Panelist> getAllPanelist() {
+	public List<Panelist> getAll() {
 		List<Panelist> panelistList = new ArrayList<Panelist>();
 		Panelist panelist;
 		
@@ -97,6 +98,8 @@ public class PanelistRepo {
 				panelistList.add(panelist);
 			}
 		}
+		
+		Utils.fileLog("PanelistRepo.getAll() -> " + panelistList.size());
 		return panelistList;
 	}
 	

@@ -7,7 +7,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.model.Card;
-import br.com.ikomm.apps.HSM.utils.CartaoConverter;
+import br.com.ikomm.apps.HSM.utils.CardConverter;
 
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -51,7 +51,7 @@ public class QRCodeActivity extends Activity {
 		String imageUri = "http://chart.apis.google.com/chart?cht=qr&chs=500x500&chld=H|0&chl=";
 //		String imageUri = "http://chart.apis.google.com/chart?cht=qr&chs=350x350&chld=L&choe=UTF-8&chl=";
 		
-		CartaoConverter convert = new CartaoConverter();
+		CardConverter convert = new CardConverter();
 		String textCode = convert.CartaoToString(mContato);
 		imageUri = imageUri + textCode;
 		imageLoader.displayImage(imageUri, qrCode, cache);

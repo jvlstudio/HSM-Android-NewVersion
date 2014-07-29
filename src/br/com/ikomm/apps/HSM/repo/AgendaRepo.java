@@ -13,6 +13,7 @@ import br.com.ikomm.apps.HSM.model.Agenda;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Panelist;
 import br.com.ikomm.apps.HSM.services.DatabaseManager;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * AgendaRepo.java class.
@@ -90,7 +91,7 @@ public class AgendaRepo {
 	 * 
 	 * @return
 	 */
-	public List<Agenda> getAllAgenda() {
+	public List<Agenda> getAll() {
 		List<Agenda> agendaList = new ArrayList<Agenda>();
 		Agenda agenda;
 		
@@ -113,6 +114,8 @@ public class AgendaRepo {
 				agendaList.add(agenda);
 			}
 		}
+		
+		Utils.fileLog("AgendaRepo.getAll() -> " + agendaList.size());
 		return agendaList;
 	}
 	

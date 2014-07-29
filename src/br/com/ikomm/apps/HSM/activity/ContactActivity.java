@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.model.Card;
-import br.com.ikomm.apps.HSM.utils.CartaoConverter;
+import br.com.ikomm.apps.HSM.utils.CardConverter;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -159,7 +159,7 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 	 * @return
 	 */
 	public String getCardUrl(String url) {
-		CartaoConverter convert = new CartaoConverter();
+		CardConverter convert = new CardConverter();
 		String textCode = convert.CartaoToString(mContato);
 		String completeUrl = url + textCode;
 		

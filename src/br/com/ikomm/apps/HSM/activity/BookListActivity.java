@@ -77,7 +77,7 @@ public class BookListActivity extends SherlockFragmentActivity implements OnItem
 	public void setAdapter() {
 		BookRepo bookRepo = new BookRepo(this);
 		bookRepo.open();
-		List<Book> bookList = bookRepo.getAllBook();
+		List<Book> bookList = bookRepo.getAll();
 		bookRepo.close();
 		
 		ListView listaLivros = (ListView)findViewById(R.id.id_book_list_view);

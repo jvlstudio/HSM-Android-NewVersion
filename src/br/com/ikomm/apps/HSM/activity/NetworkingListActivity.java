@@ -22,7 +22,7 @@ import br.com.ikomm.apps.HSM.adapter.NetworkFriendsAdapter;
 import br.com.ikomm.apps.HSM.model.Card;
 import br.com.ikomm.apps.HSM.qrcode.IntentIntegrator;
 import br.com.ikomm.apps.HSM.repo.CardRepository;
-import br.com.ikomm.apps.HSM.utils.CartaoConverter;
+import br.com.ikomm.apps.HSM.utils.CardConverter;
 
 import com.google.gson.Gson;
 
@@ -153,7 +153,7 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 	 */
 	public void setCard(Intent data) {
 		String contents = data.getStringExtra("SCAN_RESULT");
-		CartaoConverter converter = new CartaoConverter();
+		CardConverter converter = new CardConverter();
 		Card novoContato = converter.CartaoFromString(contents);
 		for (Card card : mCartaoList) {
 			if (card.nome.equals(novoContato.nome) && card.email.equals(novoContato.email)) {

@@ -13,7 +13,7 @@ import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.repo.EventRepo;
 import br.com.ikomm.apps.HSM.task.DownloadAsyncTask;
 import br.com.ikomm.apps.HSM.utils.AsyncTaskUtils;
-import br.com.ikomm.apps.HSM.utils.FileUtils;
+import br.com.ikomm.apps.HSM.utils.FileBitmapUtils;
 import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
@@ -32,7 +32,7 @@ public class SplashScreenEndActivity extends Activity {
 	// Attributes
 	//--------------------------------------------------
 	
-	private FileUtils mFileManager = new FileUtils();
+	private FileBitmapUtils mFileManager = new FileBitmapUtils();
 	private List<Event> mEventList;
 	private Integer mEventListSize = 0;
 	private Integer mCount = 0;
@@ -65,7 +65,7 @@ public class SplashScreenEndActivity extends Activity {
     	getEventListSize();
     	
     	// Sets the image URL.
-        String path = mFileManager.createDir(FileUtils.CACHE_DIR);
+        String path = mFileManager.createDir(FileBitmapUtils.CACHE_DIR);
         if (mEventList != null) {
 	        for (Event event : mEventList) {
 	        	String imageUrl = URL + event.image_list;
@@ -86,7 +86,7 @@ public class SplashScreenEndActivity extends Activity {
     public void getEventListSize() {
         EventRepo repo = new EventRepo(this);
         repo.open();
-        mEventList = repo.getAllEvent();
+        mEventList = repo.getAll();
         mEventListSize = mEventList.size();
         repo.close();
     }

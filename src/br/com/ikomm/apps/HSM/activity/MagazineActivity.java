@@ -106,7 +106,7 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 	public List<Magazine> getMagazineList() {
 		MagazineRepo magazineRepo = new MagazineRepo(this);
 		magazineRepo.open();
-		List<Magazine> list = magazineRepo.getAllMagazine();
+		List<Magazine> list = magazineRepo.getAll();
 		return list;
 	}
 	
@@ -148,7 +148,7 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 	public void setListView() {
 		MagazineRepo magazineRepo = new MagazineRepo(this);
 		magazineRepo.open();
-		List<Magazine> magazineList = magazineRepo.getAllMagazine();
+		List<Magazine> magazineList = magazineRepo.getAll();
 		magazineRepo.close();
 		
 		ListView magazineListView = (ListView)findViewById(R.id.id_magazine_list_view);

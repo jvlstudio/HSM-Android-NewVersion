@@ -14,7 +14,7 @@ import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.EventsAdapter;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.repo.EventRepo;
-import br.com.ikomm.apps.HSM.utils.FileUtils;
+import br.com.ikomm.apps.HSM.utils.FileBitmapUtils;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -31,7 +31,7 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 	//--------------------------------------------------
 	
 	private ListView mListView;
-	private FileUtils mFileManager = new FileUtils();
+	private FileBitmapUtils mFileManager = new FileBitmapUtils();
 
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -75,7 +75,7 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 	 * Sets the list adapter.
 	 */
 	public void setAdapter() {
-		String path = mFileManager.createDir(FileUtils.CACHE_DIR);
+		String path = mFileManager.createDir(FileBitmapUtils.CACHE_DIR);
 		EventsAdapter adapter = new EventsAdapter(this, getEventList(), path);
 		mListView = (ListView) findViewById(R.id.id_list_view);
 		mListView.setAdapter(adapter);
@@ -91,7 +91,7 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 		EventRepo eventRepo = new EventRepo(getBaseContext());
 		List<Event> list = new ArrayList<Event>();
 		eventRepo.open();
-		list = eventRepo.getAllEvent();
+		list = eventRepo.getAll();
 		eventRepo.close();
 		
 		return list;

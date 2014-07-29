@@ -26,6 +26,7 @@ import br.com.ikomm.apps.HSM.model.ws.HomeWS;
 import br.com.ikomm.apps.HSM.model.ws.MagazineWS;
 import br.com.ikomm.apps.HSM.model.ws.PanelistWS;
 import br.com.ikomm.apps.HSM.model.ws.PasseWS;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 import com.google.gson.Gson;
 
@@ -65,6 +66,7 @@ public class WSCommunication {
 			String responseBody = reader.readLine();
 			HomeWS list = gson.fromJson(responseBody, HomeWS.class);
 			
+			Utils.fileLog("WSCommunication.wsHome() -> " + list.data.size());
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -92,6 +94,7 @@ public class WSCommunication {
 			String responseBody = reader.readLine();
 			EventWS list = gson.fromJson(responseBody, EventWS.class);
 
+			Utils.fileLog("WSCommunication.wsEvent() -> " + list.data.size());
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -119,6 +122,7 @@ public class WSCommunication {
 			String responseBody = reader.readLine();
 			AgendaWS list = gson.fromJson(responseBody, AgendaWS.class);
 
+			Utils.fileLog("WSCommunication.wsAgenda() -> " + list.data.size());
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -146,6 +150,7 @@ public class WSCommunication {
 			String responseBody = reader.readLine();
 			PanelistWS list = gson.fromJson(responseBody, PanelistWS.class);
 
+			Utils.fileLog("WSCommunication.wsPanelist() -> " + list.data.size());
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -173,6 +178,7 @@ public class WSCommunication {
 			String responseBody = reader.readLine();
 			PasseWS list = gson.fromJson(responseBody, PasseWS.class);
 
+			Utils.fileLog("WSCommunication.wsPasse() -> " + list.data.size());
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -200,6 +206,7 @@ public class WSCommunication {
 			String responseBody = reader.readLine();
 			MagazineWS list = gson.fromJson(responseBody, MagazineWS.class);
 
+			Utils.fileLog("WSCommunication.wsMagazine() -> " + list.data.size());
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -227,6 +234,7 @@ public class WSCommunication {
 			String responseBody = reader.readLine();
 			BookWS list = gson.fromJson(responseBody, BookWS.class);
 
+			Utils.fileLog("WSCommunication.wsBook() -> " + list.data.size());
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();

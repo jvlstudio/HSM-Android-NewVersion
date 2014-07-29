@@ -17,7 +17,7 @@ import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.task.ReadImageAsyncTask;
 import br.com.ikomm.apps.HSM.utils.AsyncTaskUtils;
-import br.com.ikomm.apps.HSM.utils.FileUtils;
+import br.com.ikomm.apps.HSM.utils.FileBitmapUtils;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -46,7 +46,7 @@ public class EventsAdapter extends BaseAdapter {
 	private Context mContext;
 	
 	private List<Event> mList;
-	private FileUtils mFileManager = new FileUtils();
+	private FileBitmapUtils mFileManager = new FileBitmapUtils();
 	private String mPath;
 
 	//--------------------------------------------------

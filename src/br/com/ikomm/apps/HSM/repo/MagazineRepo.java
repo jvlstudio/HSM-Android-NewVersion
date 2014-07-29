@@ -11,6 +11,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import br.com.ikomm.apps.HSM.model.Magazine;
 import br.com.ikomm.apps.HSM.services.DatabaseManager;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * MagazineRepo.java class.
@@ -81,7 +82,7 @@ public class MagazineRepo {
 	 * 
 	 * @return
 	 */
-	public List<Magazine> getAllMagazine() {
+	public List<Magazine> getAll() {
 		List<Magazine> magazineList = new ArrayList<Magazine>();
 		Magazine magazine;
 		
@@ -97,6 +98,8 @@ public class MagazineRepo {
 				magazineList.add(magazine);
 			}
 		}
+		
+		Utils.fileLog("MagazineRepo.getAll() -> " + magazineList.size());
 		return magazineList;
 	}
 	

@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Passe;
 import br.com.ikomm.apps.HSM.services.DatabaseManager;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * PasseRepo.java class.
@@ -89,7 +90,7 @@ public class PasseRepo {
 	 * 
 	 * @return
 	 */
-	public List<Passe> getAllPasse() {
+	public List<Passe> getAll() {
 		List<Passe> passeList = new ArrayList<Passe>();
 		Passe passe;
 		
@@ -113,6 +114,7 @@ public class PasseRepo {
 				passeList.add(passe);
 			}
 		}
+		Utils.fileLog("PasseRepo.getAll() -> " + passeList.size());
 		return passeList;
 	}
 	

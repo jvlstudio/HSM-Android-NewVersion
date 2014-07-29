@@ -11,6 +11,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import br.com.ikomm.apps.HSM.model.Book;
 import br.com.ikomm.apps.HSM.services.DatabaseManager;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 @SuppressLint("NewApi")
 /**
@@ -84,7 +85,7 @@ public class BookRepo {
 	 * 
 	 * @return
 	 */
-	public List<Book> getAllBook() {
+	public List<Book> getAll() {
 		List<Book> bookList = new ArrayList<Book>();
 		Book book;
 		
@@ -102,6 +103,8 @@ public class BookRepo {
 				bookList.add(book);
 			}
 		}
+		
+		Utils.fileLog("BookRepo.getAll() -> " + bookList.size());
 		return bookList;
 	}
 	

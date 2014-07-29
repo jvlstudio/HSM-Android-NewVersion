@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import br.com.ikomm.apps.HSM.utils.FileUtils;
+import br.com.ikomm.apps.HSM.utils.FileBitmapUtils;
 
 /**
  * ReadImageAsyncTask class.
@@ -19,14 +19,14 @@ public class ReadImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
 	// Methods
 	//--------------------------------------------------
 	
-    protected FileUtils mFileManager;
+    protected FileBitmapUtils mFileManager;
     protected String mFilePath;
 
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public ReadImageAsyncTask(FileUtils fileManager, String filePath) {
+	public ReadImageAsyncTask(FileBitmapUtils fileManager, String filePath) {
 	    mFileManager = fileManager;
 	    mFilePath = filePath;
 	}

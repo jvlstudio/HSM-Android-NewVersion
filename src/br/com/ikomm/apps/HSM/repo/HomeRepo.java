@@ -11,6 +11,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import br.com.ikomm.apps.HSM.model.Home;
 import br.com.ikomm.apps.HSM.services.DatabaseManager;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * HomeActivity.java class.
@@ -87,7 +88,7 @@ public class HomeRepo {
 	 * 
 	 * @return
 	 */
-	public List<Home> getAllHome() {
+	public List<Home> getAll() {
 		List<Home> homeList = new ArrayList<Home>();
 		Home home;
 		Cursor cursor = mDb.query("home", null, null, null, null, null, null);
@@ -109,6 +110,8 @@ public class HomeRepo {
 				homeList.add(home);
 			}
 		}
+		
+		Utils.fileLog("HomeRepo.getAll() -> " + homeList.size());
 		return homeList;
 	}
 	

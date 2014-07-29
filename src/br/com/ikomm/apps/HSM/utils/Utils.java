@@ -1,10 +1,12 @@
 package br.com.ikomm.apps.HSM.utils;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.provider.Settings;
+import br.com.ikomm.apps.HSM.manager.ContentManager;
 
 /**
  * A group of utility methods.
@@ -139,5 +141,16 @@ public class Utils {
 	 */
 	public static Long getCurrentInMillis() {
 		return Calendar.getInstance().getTimeInMillis();
+	}
+	
+	/**
+	 * Print the log into a file in a specific folder of the phone. 
+	 * 
+	 * @param message The message to be saved.
+	 */
+	public static void fileLog(String message) {
+		Context context = ContentManager.getInstance().getContext();
+		FileTextUtils file = new FileTextUtils();
+		file.logFile(context, "[ " + new Date() + " ] " + message);
 	}
 }

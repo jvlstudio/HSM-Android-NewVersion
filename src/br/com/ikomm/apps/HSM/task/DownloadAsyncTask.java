@@ -6,7 +6,7 @@ import java.io.IOException;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import br.com.ikomm.apps.HSM.utils.BitmapUtils;
-import br.com.ikomm.apps.HSM.utils.FileUtils;
+import br.com.ikomm.apps.HSM.utils.FileBitmapUtils;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
 
 /**
@@ -22,14 +22,14 @@ public class DownloadAsyncTask extends AsyncTask<String, Void, Bitmap> {
 	//--------------------------------------------------
 	
 	private String mUrl;
-    protected FileUtils mFileManager;
+    protected FileBitmapUtils mFileManager;
     protected String mFilePath;
 
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public DownloadAsyncTask(String url, FileUtils fileManager, String filePath) {
+	public DownloadAsyncTask(String url, FileBitmapUtils fileManager, String filePath) {
 		mUrl = url;
 	    mFileManager = fileManager;
 	    mFilePath = filePath;
