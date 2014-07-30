@@ -11,7 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.util.Log;
-import br.com.ikomm.apps.HSM.activity.SplashScreenActivity;
+import br.com.ikomm.apps.HSM.AppConfiguration;
 import br.com.ikomm.apps.HSM.model.Agenda;
 import br.com.ikomm.apps.HSM.model.Book;
 import br.com.ikomm.apps.HSM.model.Event;
@@ -70,7 +70,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(SplashScreenActivity.TAG, "Error in method WsHome: " + ex);
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Error in method WsHome: " + ex);
 			return null;
 		}
 	}
@@ -98,7 +98,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(SplashScreenActivity.TAG, "Error in method WsEvent: " + ex);
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Error in method WsEvent: " + ex);
 			return null;
 		}
 	}
@@ -126,7 +126,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(SplashScreenActivity.TAG, "Error in method WsAgenda: " + ex);
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Error in method WsAgenda: " + ex);
 			return null;
 		}
 	}
@@ -154,7 +154,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(SplashScreenActivity.TAG, "Error in method WsPanelist: " + ex);
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Error in method WsPanelist: " + ex);
 			return null;
 		}
 	}
@@ -182,7 +182,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(SplashScreenActivity.TAG, "Error in method WsPasse: " + ex);
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Error in method WsPasse: " + ex);
 			return null;
 		}
 	}
@@ -210,7 +210,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(SplashScreenActivity.TAG, "Error in method WsMagazine: " + ex);
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Error in method WsMagazine: " + ex);
 			return null;
 		}
 	}
@@ -238,7 +238,7 @@ public class WSCommunication {
 			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Log.e(SplashScreenActivity.TAG, "Error in method WsBook: " + ex);
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Error in method WsBook: " + ex);
 			return null;
 		}
 	}

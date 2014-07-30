@@ -112,17 +112,17 @@ public class AddCardActivity extends SherlockActivity implements OnClickListener
 	 */
 	public void setErrorMessages() {
 		if (mName.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, preencha seu nome.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, preencha seu name.", Toast.LENGTH_SHORT).show();
 		} else if (mEmail.getText().toString().isEmpty()) {
 			Toast.makeText(AddCardActivity.this, "Por favor, insira um e-mail v‡lido.", Toast.LENGTH_SHORT).show();
 		} else if (mPhone.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, insira um telefone v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, insira um phone v‡lido.", Toast.LENGTH_SHORT).show();
 		} else if (mMobilePhone.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, insira um celular v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, insira um mobilePhone v‡lido.", Toast.LENGTH_SHORT).show();
 		} else if (mCompany.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, insira uma empresa v‡lida.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, insira uma company v‡lida.", Toast.LENGTH_SHORT).show();
 		} else if (mRole.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, insira um cargo v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, "Por favor, insira um role v‡lido.", Toast.LENGTH_SHORT).show();
 		} else if (mWebsite.getText().toString().isEmpty()) {
 			Toast.makeText(AddCardActivity.this, "Por favor, insira um website v‡lido.", Toast.LENGTH_SHORT).show();
 		} else {
@@ -136,20 +136,20 @@ public class AddCardActivity extends SherlockActivity implements OnClickListener
 	public void setContacts() {
 		// Gets the current card.
 		Card card = new Card();
-		card.nome = mName.getText().toString();
+		card.name = mName.getText().toString();
 		card.email = mEmail.getText().toString();
-		card.telefone = mPhone.getText().toString();
-		card.celular = mMobilePhone.getText().toString();
-		card.empresa = mCompany.getText().toString();
-		card.cargo = mRole.getText().toString();
+		card.phone = mPhone.getText().toString();
+		card.mobilePhone = mMobilePhone.getText().toString();
+		card.company = mCompany.getText().toString();
+		card.role = mRole.getText().toString();
 		card.website = mWebsite.getText().toString();
 
 		// Refreshes list.
-		List<Card> lista = mCartaoRepo.getMeusContatos();
+		List<Card> lista = mCartaoRepo.getMyContacts();
 		if (lista == null) {
 			lista = new ArrayList<Card>();
 			lista.add(card);
-			mCartaoRepo.setMeusContatos(lista);
+			mCartaoRepo.setMyContacts(lista);
 		}
 		
 		// Calls NetworkingListActivity.

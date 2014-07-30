@@ -128,7 +128,7 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 	 */
 	public void setAdapter() {
 		mCartaoRepo = new CardRepository(NetworkingListActivity.this);
-		mCartaoList = mCartaoRepo.getMeusContatos();
+		mCartaoList = mCartaoRepo.getMyContacts();
 		boolean hasContact = mCartaoList != null && mCartaoList.size() > 0;
 
 		// Sets the ListView.
@@ -137,7 +137,7 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 			listView.setVisibility(View.GONE);
 		} else {
 			mCreateCardButton.setVisibility(View.GONE);
-			List<Card> cardList = mCartaoRepo.getMeusContatos();
+			List<Card> cardList = mCartaoRepo.getMyContacts();
 			if (cardList == null) {
 				cardList = new ArrayList<Card>();
 			}
@@ -156,16 +156,16 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 		CardConverter converter = new CardConverter();
 		Card novoContato = converter.CartaoFromString(contents);
 		for (Card card : mCartaoList) {
-			if (card.nome.equals(novoContato.nome) && card.email.equals(novoContato.email)) {
-				Toast.makeText(NetworkingListActivity.this, "Você já possui um contato com este nome e email.", Toast.LENGTH_LONG).show();
+			if (card.name.equals(novoContato.name) && card.email.equals(novoContato.email)) {
+				Toast.makeText(NetworkingListActivity.this, "Você já possui um contato com este name e email.", Toast.LENGTH_LONG).show();
 				return;
 			}
 		}
-		List<Card> contatos = mCartaoRepo.getMeusContatos();
+		List<Card> contatos = mCartaoRepo.getMyContacts();
 		List<Card> novoContatos = new ArrayList<Card>();
 		novoContatos.addAll(contatos);
 		novoContatos.add(novoContato);
-		mCartaoRepo.setMeusContatos(novoContatos);
+		mCartaoRepo.setMyContacts(novoContatos);
 	}
 	
 	/**

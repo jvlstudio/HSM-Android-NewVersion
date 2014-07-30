@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
+import br.com.ikomm.apps.HSM.AppConfiguration;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.repo.EventRepo;
@@ -48,7 +49,7 @@ public class SplashScreenEndActivity extends Activity {
         setContentView(R.layout.activity_splash_screen_end);
         
         downloadEventImages();
-        Log.i(SplashScreenActivity.TAG, Utils.getClassName(SplashScreenEndActivity.class) + "onCreate().");
+        Log.i(AppConfiguration.COMMON_LOGGING_TAG, Utils.getClassName(SplashScreenEndActivity.class) + "onCreate().");
     }
 
 	//--------------------------------------------------
@@ -59,7 +60,7 @@ public class SplashScreenEndActivity extends Activity {
      * Download all {@link Event} images.
      */
     public void downloadEventImages() {
-    	Log.i(SplashScreenActivity.TAG, Utils.getClassName(SplashScreenEndActivity.class) + "downloadEventImages().");
+    	Log.i(AppConfiguration.COMMON_LOGGING_TAG, Utils.getClassName(SplashScreenEndActivity.class) + "downloadEventImages().");
     	
     	// Gets Event list.
     	getEventListSize();
@@ -70,7 +71,7 @@ public class SplashScreenEndActivity extends Activity {
 	        for (Event event : mEventList) {
 	        	String imageUrl = URL + event.image_list;
 	    		String completePath = path + event.image_list;
-	    		Log.i(SplashScreenActivity.TAG, Utils.getClassName(SplashScreenEndActivity.class) +
+	    		Log.i(AppConfiguration.COMMON_LOGGING_TAG, Utils.getClassName(SplashScreenEndActivity.class) +
 	    			"downloadEventImages(). Image url is " + imageUrl + " and image path is " + completePath + ".");
 	    		// Checks the image URL.
 	    		if (imageUrl != null) {
@@ -103,7 +104,7 @@ public class SplashScreenEndActivity extends Activity {
 				// Increments the counter.
 				mCount++;
 				
-				Log.i(SplashScreenActivity.TAG, Utils.getClassName(SplashScreenEndActivity.class) +
+				Log.i(AppConfiguration.COMMON_LOGGING_TAG, Utils.getClassName(SplashScreenEndActivity.class) +
 		    		"downloadImage(). Count is " + mCount + " and Event List size is " + mEventListSize + ".");
 				// Checks the number of images downloaded.
 				if (mCount == mEventListSize) {

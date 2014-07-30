@@ -6,9 +6,9 @@ public class CardConverter {
 	private String tag = "-hsm-";
 
 	public String CartaoToString(Card card) {
-		String concat = card.nome + tag + card.email + tag
-			+ card.telefone + tag + card.celular + tag + card.empresa
-			+ tag + card.cargo + tag + card.website + tag + "gold";
+		String concat = card.name + tag + card.email + tag
+			+ card.phone + tag + card.mobilePhone + tag + card.company
+			+ tag + card.role + tag + card.website + tag + "gold";
 		return concat;
 	}
 
@@ -20,22 +20,22 @@ public class CardConverter {
 		for (String string : properties) {
 			switch (number) {
 			case 1:
-				card.nome = string;
+				card.name = string;
 				break;
 			case 2:
 				card.email = string;
 				break;
 			case 3:
-				card.telefone = string;
+				card.phone = string;
 				break;
 			case 4:
-				card.celular = string;
+				card.mobilePhone = string;
 				break;
 			case 5:
-				card.empresa = string;
+				card.company = string;
 				break;
 			case 6:
-				card.cargo = string;
+				card.role = string;
 				break;
 			case 7:
 				card.website = string;

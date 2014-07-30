@@ -10,7 +10,7 @@ import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
 import android.util.Log;
-import br.com.ikomm.apps.HSM.activity.SplashScreenActivity;
+import br.com.ikomm.apps.HSM.AppConfiguration;
 import br.com.ikomm.apps.HSM.repo.BannerRepository;
 
 public class WebServiceCommunication {
@@ -65,7 +65,7 @@ public class WebServiceCommunication {
 			HttpGet httpGet = new HttpGet();
 			URI uri = new URI(url);
 			httpGet.setURI(uri);
-			Log.i(SplashScreenActivity.TAG, "The add pass URL is " + url);
+			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "The add pass URL is " + url);
 			httpClient.execute(httpGet);
 		} catch (Exception e) {
 			e.printStackTrace();

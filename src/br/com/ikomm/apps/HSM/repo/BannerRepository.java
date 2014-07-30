@@ -7,18 +7,22 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import br.com.ikomm.apps.HSM.activity.SplashScreenActivity;
+import br.com.ikomm.apps.HSM.AppConfiguration;
 import br.com.ikomm.apps.HSM.model.Banner;
 
 import com.google.gson.Gson;
 
+/**
+ * BannerRepository.java class.
+ * Modified by Rodrigo Cericatto at July 30, 2014.
+ */
 public class BannerRepository {
 	
 	//--------------------------------------------------
 	// Constants
 	//--------------------------------------------------
 	
-	public static final String BANNER_KEY = "BANNER_KEY";
+	public static final String BANNER_KEY = "banner_key";
 	
 	//--------------------------------------------------
 	// Attributes
@@ -43,31 +47,51 @@ public class BannerRepository {
 	// Methods
 	//--------------------------------------------------
 	
+	/**
+	 * Gets all {@link Banner} list.
+	 * 
+	 * @return
+	 */
 	public List<Banner> getAll() {
 		try {
 			mJsonBanners = getJsonFromShared();
 			if (mJsonBanners.isEmpty()) {
-				Log.i(SplashScreenActivity.TAG, "Banner getAll is Null.");
-				return RetornaBannersDefault();
+				Log.i(AppConfiguration.COMMON_LOGGING_TAG, "Banner getAll is Null.");
+				return getDefaultBanners();
 			}
-			Log.e(SplashScreenActivity.TAG, "getAll is " + mJsonBanners);
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "getAll is " + mJsonBanners);
 			Banner[] banners = mGson.fromJson(mJsonBanners, Banner[].class);
 			return Arrays.asList(banners);
 		} catch (Exception e) {
 			// If some error occurs (Internet, JSON parsing).
-			return RetornaBannersDefault();
+			return getDefaultBanners();
 		}
 	}
 
-	private List<Banner> RetornaBannersDefault() {
+	/**
+	 * Gets the default {@link Banner} list.
+	 *  
+	 * @return
+	 */
+	private List<Banner> getDefaultBanners() {
 		Banner[] banners = mGson.fromJson(mDefaultBanners, Banner[].class);
 		return Arrays.asList(banners);
 	}
 
+	/**
+	 * Gets {@link Banner} JSON from the {@link Preference}. 
+	 * 
+	 * @return
+	 */
 	private String getJsonFromShared() {
 		return mPreferences.getString(BANNER_KEY, "");
 	}
-
+	
+	/**
+	 * Sets the {@link Banner} into a {@link Preference}.
+	 * 
+	 * @param bannerJson
+	 */
 	public void setJsonShared(String bannerJson) {
 		try {
 			if (bannerJson.isEmpty()) {
@@ -76,7 +100,7 @@ public class BannerRepository {
 			} else {
 				SharedPreferences.Editor editor = mPreferences.edit();
 				bannerJson = bannerJson.replace("\\/", "/");
-				Log.i(SplashScreenActivity.TAG, "setJsonShared is " + bannerJson);
+				Log.i(AppConfiguration.COMMON_LOGGING_TAG, "setJsonShared is " + bannerJson);
 				editor.putString(BANNER_KEY, bannerJson);
 				editor.commit();
 			}

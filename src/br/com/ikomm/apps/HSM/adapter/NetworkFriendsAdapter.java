@@ -81,7 +81,7 @@ public class NetworkFriendsAdapter extends BaseAdapter {
 		}
 		
 		// Sets the name.
-		mViewHolder.nameTextView.setText(currentCard.nome);
+		mViewHolder.nameTextView.setText(currentCard.name);
 
 		return convertView;
 	}

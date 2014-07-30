@@ -115,10 +115,10 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 	 */
 	public void setTextView() {
 		TextView contactNameTop = (TextView) findViewById(R.id.id_contact_name_top_text_view);
-		contactNameTop.setText(mContato.nome);
+		contactNameTop.setText(mContato.name);
 		
 		TextView contactNameBelow = (TextView) findViewById(R.id.id_contact_name_below_text_view);
-		contactNameBelow.setText(mContato.nome);
+		contactNameBelow.setText(mContato.name);
 
 		TextView email = (TextView) findViewById(R.id.id_contact_email_text_view);
 		email.setText(mContato.email);
@@ -175,8 +175,8 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 		switch (view.getId()) {
 			case R.id.id_add_image_button:
 				Intent addContactIntent = new Intent(Contacts.Intents.Insert.ACTION, Contacts.People.CONTENT_URI);
-				addContactIntent.putExtra(Contacts.Intents.Insert.NAME, mContato.nome);
-				addContactIntent.putExtra(Contacts.Intents.Insert.PHONE, mContato.celular);
+				addContactIntent.putExtra(Contacts.Intents.Insert.NAME, mContato.name);
+				addContactIntent.putExtra(Contacts.Intents.Insert.PHONE, mContato.mobilePhone);
 				startActivity(addContactIntent);
 				break;
 			case R.id.id_qr_code_image_view:

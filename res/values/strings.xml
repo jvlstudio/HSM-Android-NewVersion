@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Application -->
     <string name="app_name">HSM</string>
     
     <string name="output_file">Log.txt</string>
@@ -57,4 +58,26 @@
     <string name="title_activity_detalhe_evento_neo"></string>
     <string name="title_activity_detalhe_palestra_neo">DetalhePalestraNeoActivity</string>
     <string name="title_activity_livros_adapter">LivrosAdapter</string>
+    
+	<!-- Dialog -->
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancelar</string>
+    <string name="dialog_yes">Sim</string>
+    <string name="dialog_no">Não</string>
+    
+    <!-- Errors -->
+    <string name="error_title_bad_request">Erro no servidor</string>
+	<string name="error_msg_bad_request">Aguarde e tente novamente.</string>
+	<string name="error_title_no_internet">Sem conexão</string>
+	<string name="error_msg_no_internet">Confirme sua conexão com a internet e tente novamente.</string>
+	<string name="error_title_server">Erro no servidor</string>
+	<string name="error_msg_server">Desculpe, ocorreu um erro no servidor. Por favor, tente novamente em alguns minutos.</string>
+	<string name="error_title_connection">Erro de conexão</string>
+	<string name="error_msg_connection">Desculpe, nossos servidores estão ocupados. Aguarde um pouco e tente novamente.</string>
+	<string name="error_title_unknown">Erro</string>
+	<string name="error_msg_unknown">Ocorreu um erro desconhecido. Tente novamente.</string>
+	<string name="error_title_cache_generation">Servidores ocupados</string>
+	<string name="error_msg_cache_generation">Desculpe pela incoveniência. Por favor, tente novamente em alguns minutos.</string>
+	<string name="error_title_no_wifi_or_gps">Localização não encontrada</string>
+    <string name="error_msg_no_wifi_or_gps">Não foi possível obter a sua localização atual. Por favor habilite o serviço de localização por Wi-fi ou GPS.</string>
 </resources>

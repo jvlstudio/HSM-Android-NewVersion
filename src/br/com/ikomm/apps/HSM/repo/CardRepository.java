@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import br.com.ikomm.apps.HSM.activity.SplashScreenActivity;
+import br.com.ikomm.apps.HSM.AppConfiguration;
 import br.com.ikomm.apps.HSM.model.Card;
 
 import com.google.gson.Gson;
@@ -22,15 +22,16 @@ public class CardRepository {
 	// Constants
 	//--------------------------------------------------
 	
-	public static final String MEU_CARTAO = "MEU_CARTAO";
-	public static final String MEUS_CONTATOS = "MEUS_CONTATOS";
+	public static final String MY_CARD = "my_card";
+	public static final String MY_CONTACTS = "my_contacts";
 	
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
-	private String mJsonMeuCartao;
-	private String mJsonMeusContatos;
+	private String mJsonMyCard;
+	private String mJsonMyContacts;
+	
 	private SharedPreferences mPreferences;
 	private Gson mGson = new Gson();
 
@@ -46,50 +47,63 @@ public class CardRepository {
 	// Methods
 	//--------------------------------------------------
 	
-	public Card getMeuCartao() {
+	/**
+	 * Gets my {@link Card}. 
+	 */
+	public Card getMyCard() {
 		try {
-			mJsonMeuCartao = getMeuCartaoFromShared();
-			if (mJsonMeuCartao.isEmpty()) {
-				Log.e(SplashScreenActivity.TAG, "getMeuCartao is Null");
+			mJsonMyCard = getMyCardFromShared();
+			if (mJsonMyCard.isEmpty()) {
+				Log.e(AppConfiguration.COMMON_LOGGING_TAG, "getMyCard() is Null");
 				return null;
 			}
-			Log.e(SplashScreenActivity.TAG, "getMeuCartao is " + mJsonMeuCartao);
-			Card meuCartao = mGson.fromJson(mJsonMeuCartao, Card.class);
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "getMyCard() is " + mJsonMyCard);
+			Card myCard = mGson.fromJson(mJsonMyCard, Card.class);
 			
-			return meuCartao;
+			return myCard;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public List<Card> getMeusContatos() {
+	/**
+	 * Gets my {@link Card} contacts list.
+	 * 
+	 * @return
+	 */
+	public List<Card> getMyContacts() {
 		try {
-			mJsonMeusContatos = getMeusContatosFromShared();
-			if (mJsonMeusContatos.isEmpty()) {
-				Log.e(SplashScreenActivity.TAG, "getMeusContatos is Null.");
+			mJsonMyContacts = getMyContactsFromShared();
+			if (mJsonMyContacts.isEmpty()) {
+				Log.e(AppConfiguration.COMMON_LOGGING_TAG, "getMyContacts() is Null.");
 				return null;
 			}
-			Log.e(SplashScreenActivity.TAG, "getMeusContatos is " + mJsonMeusContatos);
-			Card[] meusContatos = mGson.fromJson(mJsonMeusContatos, Card[].class);
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "getMyContacts() is " + mJsonMyContacts);
+			Card[] myContacts = mGson.fromJson(mJsonMyContacts, Card[].class);
 			
-			return Arrays.asList(meusContatos);
+			return Arrays.asList(myContacts);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public void setMeuCartao(Card card) {
+	/**
+	 * Sets my {@link Card}}.
+	 * 
+	 * @param card
+	 */
+	public void setMyCard(Card card) {
 		try {
 			if (card == null) {
-				Log.e(SplashScreenActivity.TAG, "setMeuCartao is Null");
+				Log.e(AppConfiguration.COMMON_LOGGING_TAG, "setMyCard() is Null");
 				return;
 			} else {
-				String jsonCartao = mGson.toJson(card);
+				String jsonCard = mGson.toJson(card);
 				SharedPreferences.Editor editor = mPreferences.edit();
-				Log.e(SplashScreenActivity.TAG, "setMeuCartao is " + jsonCartao);
-				editor.putString(MEU_CARTAO, jsonCartao);
+				Log.e(AppConfiguration.COMMON_LOGGING_TAG, "setMyCard() is " + jsonCard);
+				editor.putString(MY_CARD, jsonCard);
 				editor.commit();
 			}
 		} catch (Exception e) {
@@ -97,16 +111,21 @@ public class CardRepository {
 		}
 	}
 
-	public void setMeusContatos(List<Card> contatos) {
+	/**
+	 * Sets my {@link Card} contact list.
+	 * 
+	 * @param contactList
+	 */
+	public void setMyContacts(List<Card> contactList) {
 		try {
-			if (contatos == null) {
-				Log.e(SplashScreenActivity.TAG, "setMeusContatos is Null.");
+			if (contactList == null) {
+				Log.e(AppConfiguration.COMMON_LOGGING_TAG, "setMyContacts() is Null.");
 				return;
 			} else {
-				String jsonContatos = mGson.toJson(contatos);
+				String jsonContacts = mGson.toJson(contactList);
 				SharedPreferences.Editor editor = mPreferences.edit();
-				Log.e(SplashScreenActivity.TAG, "setMeusContatos is " + jsonContatos);
-				editor.putString(MEUS_CONTATOS, jsonContatos);
+				Log.e(AppConfiguration.COMMON_LOGGING_TAG, "setMyContacts() is " + jsonContacts);
+				editor.putString(MY_CONTACTS, jsonContacts);
 				editor.commit();
 			}
 		} catch (Exception e) {
@@ -114,11 +133,21 @@ public class CardRepository {
 		}
 	}
 
-	private String getMeusContatosFromShared() {
-		return mPreferences.getString(MEUS_CONTATOS, "");
+	/**
+	 * Gets my {@link Card} contacts from the {@link Preference}.
+	 * 
+	 * @return
+	 */
+	private String getMyContactsFromShared() {
+		return mPreferences.getString(MY_CONTACTS, "");
 	}
 
-	private String getMeuCartaoFromShared() {
-		return mPreferences.getString(MEU_CARTAO, "");
+	/**
+	 * Gets my {@link Card} from the {@link Preference}.
+	 * 
+	 * @return
+	 */
+	private String getMyCardFromShared() {
+		return mPreferences.getString(MY_CARD, "");
 	}
 }

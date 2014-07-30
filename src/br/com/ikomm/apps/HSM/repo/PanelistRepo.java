@@ -163,7 +163,7 @@ public class PanelistRepo {
 	 * @return
 	 */
 	public boolean delete(long id){
-		return mDb.delete("panelist", "id = " +id, null) > 0;
+		return mDb.delete("panelist", "id = " + id, null) > 0;
 	}
 	
 	/**

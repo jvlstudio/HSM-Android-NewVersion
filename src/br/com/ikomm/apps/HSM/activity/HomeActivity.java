@@ -165,7 +165,7 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 	 * Gets the current {@link Home}.
 	 */
 	public void getCurrentHome() {
-		List<Home> homeList = ContentManager.getInstance().getAllHome();
+		List<Home> homeList = ContentManager.getInstance().getMickHomeList();
 		mHome = homeList.get(0);
 	}
 	
