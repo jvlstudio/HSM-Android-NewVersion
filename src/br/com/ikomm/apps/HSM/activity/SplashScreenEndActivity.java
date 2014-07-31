@@ -8,8 +8,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 import br.com.ikomm.apps.HSM.AppConfiguration;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.repo.EventRepo;
 import br.com.ikomm.apps.HSM.task.DownloadAsyncTask;
@@ -48,7 +50,8 @@ public class SplashScreenEndActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash_screen_end);
         
-        downloadEventImages();
+//        downloadEventImages();
+        callHomeActivity();
         Log.i(AppConfiguration.COMMON_LOGGING_TAG, Utils.getClassName(SplashScreenEndActivity.class) + "onCreate().");
     }
 
@@ -119,6 +122,17 @@ public class SplashScreenEndActivity extends Activity {
 	 * Goes to {@link HomeActivity}.
 	 */
 	public void callHomeActivity() {
+		Integer agendaSize = ContentManager.getInstance().getCachedAgendaList().size(); 
+		Integer bookSize = ContentManager.getInstance().getCachedBookList().size();
+		Integer eventSize = ContentManager.getInstance().getCachedEventList().size();
+		Integer homeSize = ContentManager.getInstance().getCachedHomeList().size();
+		Integer magazineSize = ContentManager.getInstance().getCachedMagazineList().size();
+		Integer panelistSize = ContentManager.getInstance().getCachedPanelistList().size();
+		Integer passeSize = ContentManager.getInstance().getCachedPasseList().size();
+		String text = "Agenda: " + agendaSize + ", Book: " + bookSize + ", Event: " + eventSize
+			+ ", Home: " + homeSize + ", Magazine: " + magazineSize + ", Panelist: " + panelistSize + ", Passe: " + passeSize + ".";
+		Utils.fileLog("SplashScreenEndActivity.callHomeActivity() -> " + text);
+		
 		startActivity(new Intent(this, HomeActivity.class));
 		finish();
 	}

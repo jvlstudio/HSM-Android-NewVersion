@@ -3,6 +3,7 @@ package br.com.ikomm.apps.HSM;
 import android.app.Application;
 import br.com.ikomm.apps.HSM.database.DatabaseHelper;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
+import br.com.ikomm.apps.HSM.manager.HttpManager;
 import br.com.ikomm.apps.HSM.utils.Utils;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -32,23 +33,24 @@ public class CustomApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Utils.fileLog("CustomApplication.onCreate() -> " + "--------------------------------------------------");
 		
 		// Setting the database helper class.
 		OpenHelperManager.setOpenHelperClass(DatabaseHelper.class);
 		// Initializing the http manager.
-//		HttpManager.getInstance().setContext(this);
+		HttpManager.getInstance().setContext(this);
 		// Initializing the content manager.
 		ContentManager.getInstance().setContext(this);
 		// Setting device density.
 		Utils.setScreenDensity(getResources().getDisplayMetrics().density);
+		
+		Utils.fileLog("CustomApplication.onCreate() -> " + "--------------------------------------------------");
 	}
 	
 	@Override
 	public void onLowMemory() {
 		super.onLowMemory();
 		// Shut down HTTP connections
-//		HttpManager.getInstance().shutdownHttpClient();
+		HttpManager.getInstance().shutdownHttpClient();
         // Cleaning cached content.
       	ContentManager.getInstance().clean();
 	}
@@ -59,7 +61,7 @@ public class CustomApplication extends Application {
 		// Releasing the helper.
 		OpenHelperManager.releaseHelper();
 		// Shut down HTTP connections
-//		HttpManager.getInstance().shutdownHttpClient();
+		HttpManager.getInstance().shutdownHttpClient();
         // Cleaning cached content.
       	ContentManager.getInstance().clean();
 	}

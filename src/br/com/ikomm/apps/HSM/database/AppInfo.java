@@ -25,7 +25,6 @@ public class AppInfo extends Entity {
 
 	@DatabaseField(id = true, defaultValue = "0")
 	public int id;
-	
 	@DatabaseField
 	public long lastUpdate;
 	

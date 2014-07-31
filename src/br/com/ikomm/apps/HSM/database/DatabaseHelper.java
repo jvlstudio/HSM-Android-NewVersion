@@ -43,6 +43,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	
 	// Put here all of your database classes.
 	private static final Class<?>[] sDatabaseTables = {
+		AppInfo.class,
 		Agenda.class,
 		Book.class,
 		Event.class,

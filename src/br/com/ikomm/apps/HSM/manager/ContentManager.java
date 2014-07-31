@@ -376,8 +376,8 @@ public class ContentManager {
 	 * 
 	 * @return
 	 */
-	public List<Event> getCachedHomeList() {
-		return mEventList;
+	public List<Home> getCachedHomeList() {
+		return mHomeList;
 	}
 	
 	/**
@@ -608,7 +608,9 @@ public class ContentManager {
 	 * @return The task type.
 	 */
 	private int getTaskType(Object task) {
-		if (task instanceof AgendaAsyncTask) {
+		if (task instanceof UpdaterAsyncTask) {
+			return FETCH_TASK.UPDATER;
+		} if (task instanceof AgendaAsyncTask) {
 			return FETCH_TASK.AGENDA;
 		} else if (task instanceof BookAsyncTask) {
 			return FETCH_TASK.BOOK;
