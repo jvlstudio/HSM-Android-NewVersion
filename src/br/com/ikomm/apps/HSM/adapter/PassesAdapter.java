@@ -13,8 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.model.Passe;
-import br.com.ikomm.apps.HSM.repo.PasseRepo;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
 
 /**
@@ -31,7 +31,7 @@ public class PassesAdapter extends BaseAdapter {
 	private Activity mActivity;
 	
 	private List<Passe> mPasseList = new ArrayList<Passe>();
-	private PasseRepo mPasseRepo;
+//	private PasseRepo mPasseRepo;
 
 	//--------------------------------------------------
 	// View Holder
@@ -53,10 +53,11 @@ public class PassesAdapter extends BaseAdapter {
 		super();
 		
 		mActivity = activity;
-		mPasseRepo = new PasseRepo(activity);
-		mPasseRepo.open();
-		mPasseList = mPasseRepo.byEvent(id);
-		mPasseRepo.close();
+//		mPasseRepo = new PasseRepo(activity);
+//		mPasseRepo.open();
+//		mPasseList = mPasseRepo.byEvent(id);
+		mPasseList = QueryHelper.getPasseListByEvent(id);
+//		mPasseRepo.close();
 	}
 	
 	//--------------------------------------------------

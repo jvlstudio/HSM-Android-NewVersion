@@ -13,10 +13,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Passe;
-import br.com.ikomm.apps.HSM.repo.EventRepo;
-import br.com.ikomm.apps.HSM.repo.PasseRepo;
 import br.com.ikomm.apps.HSM.services.WebServiceCommunication;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -185,10 +184,11 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	 * Gets the current {@link Passe}.
 	 */
 	public void getCurrentPasse() {
-		PasseRepo passeRepo = new PasseRepo(getBaseContext());
-		passeRepo.open();
-		mPasse = passeRepo.getPasse(mPasseId);
-		passeRepo.close();
+//		PasseRepo passeRepo = new PasseRepo(getBaseContext());
+//		passeRepo.open();
+//		mPasse = passeRepo.getPasse(mPasseId);
+//		passeRepo.close();
+		mPasse = QueryHelper.getPasse(mPasseId);
 	}
 	
 	/**
@@ -213,11 +213,12 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	 */
 	public String[] getEventDates() {
 		// Gets the event dates.
-		EventRepo eventRepo = new EventRepo(this);
-		eventRepo.open();
-		Event event = eventRepo.getEvent(mEventId);
+//		EventRepo eventRepo = new EventRepo(this);
+//		eventRepo.open();
+//		Event event = eventRepo.getEvent(mEventId);
+//		eventRepo.close();
+		Event event = QueryHelper.getEvent(mEventId);
 		String infoDates = event.info_dates;
-		eventRepo.close();
 		
 		// Gets each date.
 		String[] dates = infoDates.replace("|", "-").split("-");

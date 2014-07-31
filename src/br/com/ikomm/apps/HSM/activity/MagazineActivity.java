@@ -14,8 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.MagazineAdapter;
+import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Magazine;
-import br.com.ikomm.apps.HSM.repo.MagazineRepo;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -99,18 +99,6 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 	}
 
 	/**
-	 * Gets the {@link Magazine} list.
-	 * 
-	 * @return
-	 */
-	public List<Magazine> getMagazineList() {
-		MagazineRepo magazineRepo = new MagazineRepo(this);
-		magazineRepo.open();
-		List<Magazine> list = magazineRepo.getAll();
-		return list;
-	}
-	
-	/**
 	 * Gets the last {@link Magazine}.
 	 */
 	public void getLastMagazine() {
@@ -118,7 +106,7 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 		TextView lastMagazineDescriptionTextView = (TextView)findViewById(R.id.id_last_magazine_description_text_view);
 		
 		// Gets the last Magazine.
-		for (Magazine magazine : getMagazineList()) {
+		for (Magazine magazine : ContentManager.getInstance().getCachedMagazineList()) {
 			mMagazine.id = magazine.id;
 			mMagazine.name = magazine.name;
 			mMagazine.picture = magazine.picture;
@@ -146,10 +134,11 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 	 * Sets the {@link ListView} adapter.
 	 */
 	public void setListView() {
-		MagazineRepo magazineRepo = new MagazineRepo(this);
-		magazineRepo.open();
-		List<Magazine> magazineList = magazineRepo.getAll();
-		magazineRepo.close();
+//		MagazineRepo magazineRepo = new MagazineRepo(this);
+//		magazineRepo.open();
+//		List<Magazine> magazineList = magazineRepo.getAll();
+//		magazineRepo.close();
+		List<Magazine> magazineList = ContentManager.getInstance().getCachedMagazineList();
 		
 		ListView magazineListView = (ListView)findViewById(R.id.id_magazine_list_view);
 		magazineListView.setAdapter(new MagazineAdapter(this, magazineList));

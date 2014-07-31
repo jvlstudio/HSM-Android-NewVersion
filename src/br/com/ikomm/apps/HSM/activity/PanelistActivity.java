@@ -11,10 +11,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.PanelistGridViewAdapter;
+import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.model.Agenda;
 import br.com.ikomm.apps.HSM.model.Panelist;
-import br.com.ikomm.apps.HSM.repo.AgendaRepo;
-import br.com.ikomm.apps.HSM.repo.PanelistRepo;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -93,13 +92,14 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	 * Sets the {@link GridView}.
 	 */
 	private void setGridView() {
-		String data = getAgendaData();
+		String data = getAgendasId();
 		
 		// Gets the Panelist list.
-		PanelistRepo panelistRepo = new PanelistRepo(this);
-		panelistRepo.open();
-		List<Panelist> panelistList = panelistRepo.getAllbyEvent(data);
-		panelistRepo.close();
+//		PanelistRepo panelistRepo = new PanelistRepo(this);
+//		panelistRepo.open();
+//		List<Panelist> panelistList = panelistRepo.getAllbyEvent(data);
+//		panelistRepo.close();
+		List<Panelist> panelistList = QueryHelper.getPanelistListByEvent(data);
 		
 		// Sets the GridView.
 		GridView gridView = (GridView)findViewById(R.id.id_list_view);
@@ -112,12 +112,13 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	 * 
 	 * @return
 	 */
-	public String getAgendaData() {
-		AgendaRepo agendaRepo = new AgendaRepo(this);
-		agendaRepo.open();
+	public String getAgendasId() {
+//		AgendaRepo agendaRepo = new AgendaRepo(this);
+//		agendaRepo.open();
+//		List<Agenda> agendaList = agendaRepo.byEvent(mEventId);
+		List<Agenda> agendaList = QueryHelper.getAgendaByEvent(mEventId);
 		String agendaData = "";
 		
-		List<Agenda> agendaList = agendaRepo.byEvent(mEventId);
 		for (Agenda item : agendaList) {
 			if (agendaData.isEmpty()) {
 				agendaData = String.valueOf(item.panelist_id);
@@ -125,7 +126,7 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 				agendaData += "," + String.valueOf(item.panelist_id);
 			}
 		}
-		agendaRepo.close();
+//		agendaRepo.close();
 		
 		return agendaData;
 	}

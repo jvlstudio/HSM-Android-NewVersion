@@ -1,11 +1,14 @@
 package br.com.ikomm.apps.HSM.database;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 import br.com.ikomm.apps.HSM.AppConfiguration;
+import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Agenda;
 import br.com.ikomm.apps.HSM.model.Book;
 import br.com.ikomm.apps.HSM.model.Event;
@@ -27,6 +30,8 @@ public class QueryHelper {
 	//--------------------------------------------------
 	// AppInfo
 	//--------------------------------------------------
+	
+	public void _______________APP_INFO_______________() {}
 	
 	/**
 	 * Gets the app info object from the database.
@@ -116,6 +121,8 @@ public class QueryHelper {
 	// Agenda
 	//--------------------------------------------------
 	
+	public void _______________AGENDA_______________() {}
+	
 	/**
 	 * Gets the {@link Agenda} list from the database.
 	 * 
@@ -167,9 +174,83 @@ public class QueryHelper {
 		}
 	}
 	
+	/**
+	 * Gets an {@link Agenda} by an {@link Event} and a date.  
+	 * 
+	 * @param eventId
+	 * 
+	 * @return
+	 */
+	public static List<Agenda> getAgendaByEvent(Integer eventId) {
+		List<Agenda> list = ContentManager.getInstance().getCachedAgendaList();
+		List<Agenda> filteredAgenda = new ArrayList<Agenda>();
+				
+		for (Agenda agenda : list) {
+			// Gets conditions.
+			Boolean eventIdEqual = (agenda.getEventId() == eventId);
+			if (eventIdEqual) {
+				filteredAgenda.add(agenda);
+			}
+		}
+		return filteredAgenda;
+	}
+	
+	/**
+	 * Gets an {@link Agenda} list by an {@link Event} and a date.  
+	 * 
+	 * @param eventId
+	 * @param currentDate
+	 * 
+	 * @return
+	 */
+	public static List<Agenda> getAgendaListByEventAndDate(Integer eventId, String currentDate) {
+		List<Agenda> list = ContentManager.getInstance().getCachedAgendaList();
+		List<Agenda> filteredList = new ArrayList<Agenda>();
+		
+		for (Agenda agenda : list) {
+			// Gets the right date.
+			String dateStart[] = currentDate.split(" ");
+			String dateFromDatabase = dateStart[0];
+			
+			// Gets conditions.
+			Boolean dateIsEqual = currentDate.equals(dateFromDatabase);
+			Boolean eventIdEqual = (agenda.getEventId() == eventId);
+			if (dateIsEqual && eventIdEqual) {
+				filteredList.add(agenda);
+			}
+		}
+		return filteredList;
+	}
+	
+	/**
+	 * Gets an {@link Agenda} by an {@link Event} and a date.  
+	 * 
+	 * @param panelistId
+	 * @param eventId
+	 * 
+	 * @return
+	 */
+	public static Agenda getAgendaByEventAndPanelist(Long panelistId, Integer eventId) {
+		List<Agenda> list = ContentManager.getInstance().getCachedAgendaList();
+		Agenda filteredAgenda = new Agenda();
+		Integer id = Integer.valueOf(panelistId.intValue());
+				
+		for (Agenda agenda : list) {
+			// Gets conditions.
+			Boolean eventIdEqual = (agenda.getEventId() == eventId);
+			Boolean panelistIdEqual = (agenda.getPanelistId() == id);
+			if (eventIdEqual && panelistIdEqual) {
+				filteredAgenda = agenda;
+			}
+		}
+		return filteredAgenda;
+	}
+	
 	//--------------------------------------------------
 	// Book
 	//--------------------------------------------------
+	
+	public void _______________BOOK_______________() {}
 	
 	/**
 	 * Gets the {@link Book} list from the database.
@@ -222,9 +303,33 @@ public class QueryHelper {
 		}
 	}
 	
+	/**
+	 * Gets an {@link Book} by an id.  
+	 * 
+	 * @param bookId
+	 * 
+	 * @return
+	 */
+	public static Book getBook(Long bookId) {
+		List<Book> list = ContentManager.getInstance().getCachedBookList();
+		Integer id = Integer.valueOf(bookId.intValue());
+		Book currentBook = new Book();
+				
+		for (Book book : list) {
+			// Gets conditions.
+			Boolean bookIdEqual = (book.getId() == id);
+			if (bookIdEqual) {
+				currentBook = book;
+			}
+		}
+		return currentBook;
+	}
+	
 	//--------------------------------------------------
 	// Event
 	//--------------------------------------------------
+	
+	public void _______________EVENT_______________() {}
 	
 	/**
 	 * Gets the {@link Event} list from the database.
@@ -277,9 +382,54 @@ public class QueryHelper {
 		}
 	}
 	
+	/**
+	 * Gets an {@link Event} by an id.  
+	 * 
+	 * @param eventId
+	 * 
+	 * @return
+	 */
+	public static Event getEvent(Long eventId) {
+		List<Event> list = ContentManager.getInstance().getCachedEventList();
+		Event currentEvent = new Event();
+		Integer id = Integer.valueOf(eventId.intValue());
+				
+		for (Event event : list) {
+			// Gets conditions.
+			Boolean eventIdEqual = (event.getId() == id);
+			if (eventIdEqual) {
+				currentEvent = event;
+			}
+		}
+		return currentEvent;
+	}
+	
+	/**
+	 * Gets an {@link Event} by an id.  
+	 * 
+	 * @param eventId
+	 * 
+	 * @return
+	 */
+	public static Event getEvent(Integer eventId) {
+		List<Event> list = ContentManager.getInstance().getCachedEventList();
+		Event currentEvent = new Event();
+				
+		for (Event event : list) {
+			// Gets conditions.
+			Boolean eventIdEqual = (event.getId() == eventId);
+			if (eventIdEqual) {
+				currentEvent = event;
+			}
+		}
+		return currentEvent;
+	}
+	
 	//--------------------------------------------------
 	// Home
 	//--------------------------------------------------
+	
+	public void _______________HOME_______________() {}
 	
 	/**
 	 * Gets the {@link Home} list from the database.
@@ -335,6 +485,8 @@ public class QueryHelper {
 	// Magazine
 	//--------------------------------------------------
 	
+	public void _______________MAGAZINE_______________() {}
+	
 	/**
 	 * Gets the {@link Magazine} list from the database.
 	 * 
@@ -389,6 +541,8 @@ public class QueryHelper {
 	// Panelist
 	//--------------------------------------------------
 	
+	public void _______________PANELIST_______________() {}
+	
 	/**
 	 * Gets the {@link Panelist} list from the database.
 	 * 
@@ -439,9 +593,94 @@ public class QueryHelper {
 		}
 	}
 	
+	/**
+	 * Gets an {@link Panelist} by an id.  
+	 * 
+	 * @param panelistId
+	 * 
+	 * @return
+	 */
+	public static Panelist getPanelist(Long panelistId) {
+		List<Panelist> list = ContentManager.getInstance().getCachedPanelistList();
+		Panelist currentPanelist = new Panelist();
+		Integer id = Integer.valueOf(panelistId.intValue());
+				
+		for (Panelist panelist : list) {
+			// Gets conditions.
+			Boolean panelistIdEqual = (panelist.getId() == id);
+			if (panelistIdEqual) {
+				currentPanelist = panelist;
+			}
+		}
+		return currentPanelist;
+	}
+	
+	/**
+	 * Gets an {@link Panelist} by an id.  
+	 * 
+	 * @param panelistId
+	 * 
+	 * @return
+	 */
+	public static Panelist getPanelist(Integer panelistId) {
+		List<Panelist> list = ContentManager.getInstance().getCachedPanelistList();
+		Panelist currentPanelist = new Panelist();
+				
+		for (Panelist panelist : list) {
+			// Gets conditions.
+			Boolean panelistIdEqual = (panelist.getId() == panelistId);
+			if (panelistIdEqual) {
+				currentPanelist = panelist;
+			}
+		}
+		return currentPanelist;
+	}
+	
+	/**
+	 * Gets an {@link Panelist} by an {@link Event}.  
+	 * 
+	 * @param datasId
+	 * 
+	 * @return
+	 */
+	public static List<Panelist> getPanelistListByEvent(String agendasId) {
+		List<Panelist> list = ContentManager.getInstance().getCachedPanelistList();
+		List<Panelist> filteredPanelist = new ArrayList<Panelist>();
+				
+		for (Panelist panelist : list) {
+			// Gets conditions.
+			Boolean containsId = checkIfContainsPanelistId(panelist.getId(), agendasId);
+			if (containsId) {
+				filteredPanelist.add(panelist);
+			}
+		}
+		return filteredPanelist;
+	}
+	
+	/**
+	 * Checks if the {@link Panelist} id contains into the string. 
+	 * 
+	 * @param panelistId
+	 * @param data
+	 * @return
+	 */
+	public static Boolean checkIfContainsPanelistId(Integer panelistId, String data) {
+		String trimmed = data.trim();
+		String parts[] = trimmed.split(",");
+		
+		for (int id = 0; id < parts.length; id++) {
+			if (panelistId == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	//--------------------------------------------------
 	// Passe
 	//--------------------------------------------------
+	
+	public void _______________PASSE_______________() {}
 	
 	/**
 	 * Gets the {@link Passe} list from the database.
@@ -491,5 +730,48 @@ public class QueryHelper {
 			// Releasing the database helper.
 			DatabaseHelper.releaseHelper();
 		}
+	}
+	
+	/**
+	 * Gets an {@link Passe} by an id.  
+	 * 
+	 * @param passeId
+	 * 
+	 * @return
+	 */
+	public static Passe getPasse(Long passeId) {
+		List<Passe> list = ContentManager.getInstance().getCachedPasseList();
+		Passe currentPasse = new Passe();
+		Integer id = Integer.valueOf(passeId.intValue());
+				
+		for (Passe passe : list) {
+			// Gets conditions.
+			Boolean passeIdEqual = (passe.getId() == id);
+			if (passeIdEqual) {
+				currentPasse = passe;
+			}
+		}
+		return currentPasse;
+	}
+	
+	/**
+	 * Gets an {@link Passe} by an {@link Event} and a date.  
+	 * 
+	 * @param eventId
+	 * 
+	 * @return
+	 */
+	public static List<Passe> getPasseListByEvent(Integer eventId) {
+		List<Passe> list = ContentManager.getInstance().getCachedPasseList();
+		List<Passe> filteredPasse = new ArrayList<Passe>();
+				
+		for (Passe passe : list) {
+			// Gets conditions.
+			Boolean eventIdEqual = (passe.getEventId() == eventId);
+			if (eventIdEqual) {
+				filteredPasse.add(passe);
+			}
+		}
+		return filteredPasse;
 	}
 }

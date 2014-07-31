@@ -18,12 +18,6 @@ import android.os.Environment;
 public class FileBitmapUtils {
 	
 	//--------------------------------------------------
-	// Constants
-	//--------------------------------------------------
-	
-	public static final String CACHE_DIR = "/Android/data/" + Utils.getPackageName(FileBitmapUtils.class) + "/";
-	
-	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
 

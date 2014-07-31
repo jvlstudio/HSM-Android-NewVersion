@@ -11,8 +11,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.BookAdapter;
+import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Book;
-import br.com.ikomm.apps.HSM.repo.BookRepo;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -75,10 +75,11 @@ public class BookListActivity extends SherlockFragmentActivity implements OnItem
 	 * Sets the {@link ListView}.
 	 */
 	public void setAdapter() {
-		BookRepo bookRepo = new BookRepo(this);
-		bookRepo.open();
-		List<Book> bookList = bookRepo.getAll();
-		bookRepo.close();
+//		BookRepo bookRepo = new BookRepo(this);
+//		bookRepo.open();
+//		List<Book> bookList = bookRepo.getAll();
+//		bookRepo.close();
+		List<Book> bookList = ContentManager.getInstance().getCachedBookList();
 		
 		ListView listaLivros = (ListView)findViewById(R.id.id_book_list_view);
 		listaLivros.setAdapter(new BookAdapter(this, bookList));

@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.model.Book;
-import br.com.ikomm.apps.HSM.repo.BookRepo;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -31,7 +31,7 @@ public class BookDetailsActivity extends SherlockActivity implements OnClickList
 	// Attributes
 	//--------------------------------------------------
 	
-	private Long mLivroId;
+	private Long mBookId;
 	private Book mBook;
 	
 	private LinearLayout mSinopseLinearLayout;
@@ -90,7 +90,7 @@ public class BookDetailsActivity extends SherlockActivity implements OnClickList
 	public void getExtras() {
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null){
-			mLivroId = extras.getLong("id");
+			mBookId = extras.getLong("id");
 		}
 	}
 	
@@ -98,10 +98,11 @@ public class BookDetailsActivity extends SherlockActivity implements OnClickList
 	 * Gets the current {@link Book}.
 	 */
 	public void getBook() {
-		BookRepo bookRepo = new BookRepo(this);
-		bookRepo.open();
-		mBook = bookRepo.getBook(mLivroId);
-		bookRepo.close();
+//		BookRepo bookRepo = new BookRepo(this);
+//		bookRepo.open();
+//		mBook = bookRepo.getBook(mBookId);
+//		bookRepo.close();
+		mBook = QueryHelper.getBook(mBookId);
 		if (mBook != null) {
 			setLayout();
 		}

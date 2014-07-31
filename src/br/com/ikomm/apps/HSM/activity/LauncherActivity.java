@@ -20,6 +20,7 @@ import br.com.ikomm.apps.HSM.model.Panelist;
 import br.com.ikomm.apps.HSM.model.Passe;
 import br.com.ikomm.apps.HSM.task.Notifiable;
 import br.com.ikomm.apps.HSM.utils.DialogUtils;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * LauncherActivity.java class.
@@ -119,12 +120,24 @@ public class LauncherActivity extends Activity implements Notifiable {
     }
 
     /**
-     * Calls the {@link SplashScreenActivity}.
+     * Calls the {@link SplashScreenEndActivity}.
      */
-	public void callMainActivity() {
+	public void callNextActivity() {
     	mCalledTasksCount++;
     	if (mAgendaListLoaded && mBookListLoaded && mEventListLoaded && mHomeListLoaded && mMagazineListLoaded && mPanelistListLoaded && mPasseListLoaded) {
-    		startActivity(new Intent(this, SplashScreenActivity.class));
+    		Integer agendaSize = ContentManager.getInstance().getCachedAgendaList().size();
+    		
+    		Integer bookSize = ContentManager.getInstance().getCachedBookList().size();
+    		Integer eventSize = ContentManager.getInstance().getCachedEventList().size();
+    		Integer homeSize = ContentManager.getInstance().getCachedHomeList().size();
+    		Integer magazineSize = ContentManager.getInstance().getCachedMagazineList().size();
+    		Integer panelistSize = ContentManager.getInstance().getCachedPanelistList().size();
+    		Integer passeSize = ContentManager.getInstance().getCachedPasseList().size();
+    		String text = "Agenda: " + agendaSize + ", Book: " + bookSize + ", Event: " + eventSize 
+    			+ ", Home: " + homeSize + ", Magazine: " + magazineSize + ", Panelist: " + panelistSize + ", Passe: " + passeSize + ".";
+    		Utils.fileLog("LauncherActivity.callNextActivity() -> " + text);
+    		 
+    		startActivity(new Intent(this, SplashScreenEndActivity.class));
     	} else {
     		if (mCalledTasksCount > LIMIT) {
     			DialogUtils.showSimpleAlert(LauncherActivity.this, R.string.error_title_no_internet, R.string.error_msg_no_internet);
@@ -200,6 +213,6 @@ public class LauncherActivity extends Activity implements Notifiable {
 				}
 			}
 		}
-		callMainActivity();
+		callNextActivity();
 	}
 }

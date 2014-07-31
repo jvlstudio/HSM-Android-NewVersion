@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 
 import android.content.Context;
 import android.os.Environment;
+import br.com.ikomm.apps.HSM.CustomApplication;
 import br.com.ikomm.apps.HSM.R;
 
 /**
@@ -19,13 +20,6 @@ import br.com.ikomm.apps.HSM.R;
  * @since Dec 2, 2013
  */
 public class FileTextUtils {
-	
-	//--------------------------------------------------
-	// Constants
-	//--------------------------------------------------
-	
-	// Path of the application text files.
-	public static final String CACHE_DIR = "/Android/data/" + Utils.getPackageName(FileTextUtils.class) + "/";
 	
 	//--------------------------------------------------
 	// Methods
@@ -92,7 +86,7 @@ public class FileTextUtils {
      */
     public String createDir() {
     	String path = Environment.getExternalStorageDirectory().
-    		getPath() + CACHE_DIR;
+    		getPath() + CustomApplication.CACHE_DIR;
     	File dir;
     	
 		// Creates directory (if exists).

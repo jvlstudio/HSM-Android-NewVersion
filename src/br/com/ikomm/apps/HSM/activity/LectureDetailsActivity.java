@@ -16,12 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.model.Agenda;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Panelist;
-import br.com.ikomm.apps.HSM.repo.AgendaRepo;
-import br.com.ikomm.apps.HSM.repo.PanelistRepo;
 import br.com.ikomm.apps.HSM.utils.DateUtils;
+import br.com.ikomm.apps.HSM.utils.StringUtils;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -114,20 +114,22 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	 * Gets the current {@link Panelist}.
 	 */
 	public void getCurrentPanelist() {
-		PanelistRepo panelistRepo = new PanelistRepo(getApplication());
-		panelistRepo.open();
-		mPanelist = panelistRepo.getPanelist(mPanelistId);
-		panelistRepo.close();
+//		PanelistRepo panelistRepo = new PanelistRepo(getApplication());
+//		panelistRepo.open();
+//		mPanelist = panelistRepo.getPanelist(mPanelistId);
+//		panelistRepo.close();
+		mPanelist = QueryHelper.getPanelist(mPanelistId);
 	}
 	
 	/**
 	 * Gets the current {@link Agenda}.
 	 */
 	public void getCurrentAgenda() {
-		AgendaRepo agendaRepo = new AgendaRepo(getApplication());
-		agendaRepo.open();
-		mAgenda = agendaRepo.byEventAndPanelist(mPanelistId, mEventId);
-		agendaRepo.close();
+//		AgendaRepo agendaRepo = new AgendaRepo(getApplication());
+//		agendaRepo.open();
+//		mAgenda = agendaRepo.byEventAndPanelist(mPanelistId, mEventId);
+//		agendaRepo.close();
+		mAgenda = QueryHelper.getAgendaByEventAndPanelist(mPanelistId, mEventId);
 	}
 	
 	/**
@@ -169,34 +171,38 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	 */
 	public void setLayout() {
 		// Format dates.
-		String[] dateStart = mAgenda.date_start.split(" ");
-		String[] dateEnd = mAgenda.date_end.split(" ");
-		String[] dateStartFormat = dateStart[0].split("-"); 
-		dateStart[0] = dateStartFormat[2]  + "/" + dateStartFormat[1]  + "/" + dateStartFormat[0];
-		String[] dateEndFormat = dateEnd[0].split("-");
-		dateEnd[0] = dateEndFormat[2] + "/" + dateEndFormat[1] + "/" + dateEndFormat[0];
-
-		// Load fields.
-		TextView dateTextView = (TextView)findViewById(R.id.id_date_text_view);
-		dateTextView.setText(dateStart[0] + " - " + dateEnd[0]);
-
-		TextView timeTextView = (TextView)findViewById(R.id.id_time_text_view);
-		timeTextView.setText(dateStart[1] + " - " + dateEnd[1]);
-
-		ImageView panelistImageView = (ImageView)findViewById(R.id.id_panelist_image_view);
-		setUniversalImage(URL + mPanelist.picture, panelistImageView);
-
-		TextView panelistNameTextView = (TextView)findViewById(R.id.id_panelist_name_text_view);
-		panelistNameTextView.setText(mPanelist.name);
-
-		TextView specialtyTextView = (TextView)findViewById(R.id.id_specialty_text_view);
-		specialtyTextView.setText(mPanelist.name);
-		
-		TextView abstractTextView = (TextView)findViewById(R.id.id_abstract_text_view);
-		abstractTextView.setText(mAgenda.theme_title);
-
-		TextView contentTextView = (TextView)findViewById(R.id.id_content_text_view);
-		contentTextView.setText(mAgenda.theme_description);
+		if (StringUtils.isEmpty(mAgenda.getDateStart())) {
+			Toast.makeText(this, "Palestrante n‹o associado corretamente ˆ Evento.", Toast.LENGTH_LONG).show();
+		} else {
+			String[] dateStart = mAgenda.date_start.split(" ");
+			String[] dateEnd = mAgenda.date_end.split(" ");
+			String[] dateStartFormat = dateStart[0].split("-"); 
+			dateStart[0] = dateStartFormat[2]  + "/" + dateStartFormat[1]  + "/" + dateStartFormat[0];
+			String[] dateEndFormat = dateEnd[0].split("-");
+			dateEnd[0] = dateEndFormat[2] + "/" + dateEndFormat[1] + "/" + dateEndFormat[0];
+	
+			// Load fields.
+			TextView dateTextView = (TextView)findViewById(R.id.id_date_text_view);
+			dateTextView.setText(dateStart[0] + " - " + dateEnd[0]);
+	
+			TextView timeTextView = (TextView)findViewById(R.id.id_time_text_view);
+			timeTextView.setText(dateStart[1] + " - " + dateEnd[1]);
+	
+			ImageView panelistImageView = (ImageView)findViewById(R.id.id_panelist_image_view);
+			setUniversalImage(URL + mPanelist.picture, panelistImageView);
+	
+			TextView panelistNameTextView = (TextView)findViewById(R.id.id_panelist_name_text_view);
+			panelistNameTextView.setText(mPanelist.name);
+	
+			TextView specialtyTextView = (TextView)findViewById(R.id.id_specialty_text_view);
+			specialtyTextView.setText(mPanelist.name);
+			
+			TextView abstractTextView = (TextView)findViewById(R.id.id_abstract_text_view);
+			abstractTextView.setText(mAgenda.theme_title);
+	
+			TextView contentTextView = (TextView)findViewById(R.id.id_content_text_view);
+			contentTextView.setText(mAgenda.theme_description);
+		}
 		
 		Button scheduleButton = (Button)findViewById(R.id.id_schedule_button);
 		scheduleButton.setOnClickListener(this);

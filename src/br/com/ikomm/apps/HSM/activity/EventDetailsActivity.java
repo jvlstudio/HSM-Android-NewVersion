@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.model.Event;
-import br.com.ikomm.apps.HSM.repo.EventRepo;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -37,7 +37,7 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	//--------------------------------------------------
 	
 	private Long mId;
-	private EventRepo mEventRepo;
+//	private EventRepo mEventRepo;
 	private Event mEvent;
 	
 	private LinearLayout mAboutLinearLayout;
@@ -119,9 +119,10 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	 * Gets the current {@link Event}.
 	 */
 	public void getCurrentEvent() {
-		mEventRepo = new EventRepo(getBaseContext());
-		mEventRepo.open();
-		mEvent = mEventRepo.getEvent(mId);
+//		mEventRepo = new EventRepo(getBaseContext());
+//		mEventRepo.open();
+//		mEvent = mEventRepo.getEvent(mId);
+		mEvent = QueryHelper.getEvent(mId);
 		if (mEvent != null) {
 			setLayout();
 			showAboutLinearLayout();

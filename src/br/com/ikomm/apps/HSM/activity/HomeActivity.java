@@ -165,7 +165,7 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 	 * Gets the current {@link Home}.
 	 */
 	public void getCurrentHome() {
-		List<Home> homeList = ContentManager.getInstance().getMickHomeList();
+		List<Home> homeList = ContentManager.getInstance().getCachedHomeList();
 		mHome = homeList.get(0);
 	}
 	
@@ -257,7 +257,7 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
-		public void onItemClick(AdapterView parent, View view, int position, long id) {
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			switch (position) {
 				case HOME:
 					startActivity(new Intent(HomeActivity.this, HomeActivity.class));

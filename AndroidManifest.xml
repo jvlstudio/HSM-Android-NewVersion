@@ -133,11 +133,11 @@
         </activity>
         
         <!-- Services -->
-        <service android:name=".services.HSMService" >
+        <!-- <service android:name=".services.HSMService" >
             <intent-filter>
                 <action android:name="StartService" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </service>
+        </service> -->
     </application>
 </manifest>

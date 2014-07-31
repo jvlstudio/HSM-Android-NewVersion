@@ -17,11 +17,16 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 public class CustomApplication extends Application {
 	
 	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String CACHE_DIR = "/Android/data/" + Utils.getPackageName(CustomApplication.class) + "/";
+	public static final String ROOT_PACKAGE_NAME;	
+	
+	//--------------------------------------------------
 	// Statics
 	//--------------------------------------------------
 	
-	// The root package name.
-	public static final String ROOT_PACKAGE_NAME;
 	static {
 		ROOT_PACKAGE_NAME = Utils.getPackageName(CustomApplication.class);
 	}

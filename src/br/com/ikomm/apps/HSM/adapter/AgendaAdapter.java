@@ -13,9 +13,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.model.Agenda;
 import br.com.ikomm.apps.HSM.model.Panelist;
-import br.com.ikomm.apps.HSM.repo.PanelistRepo;
 import br.com.ikomm.apps.HSM.utils.DateUtils;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -238,10 +238,11 @@ public class AgendaAdapter extends BaseAdapter {
 	 * @return
 	 */
 	public String getPanelistName(Agenda agenda) {
-		PanelistRepo repo = new PanelistRepo(mActivity);
-		repo.open();
-		Panelist panelist = repo.getPanelist(agenda.panelist_id);
-		repo.close();
+//		PanelistRepo repo = new PanelistRepo(mActivity);
+//		repo.open();
+//		Panelist panelist = repo.getPanelist(agenda.panelist_id);
+//		repo.close();
+		Panelist panelist = QueryHelper.getPanelist(agenda.panelist_id);
 		String name = panelist.name; 
 		return name;
 	}
@@ -268,10 +269,11 @@ public class AgendaAdapter extends BaseAdapter {
 	public String getPanelistUrl(Integer position) {
 		Integer panelistId = mAgendaList.get(position).panelist_id;
 
-		PanelistRepo repo = new PanelistRepo(mActivity);
-		repo.open();
-		Panelist panelist = repo.getPanelist((long)panelistId);
-		repo.close();
+//		PanelistRepo repo = new PanelistRepo(mActivity);
+//		repo.open();
+//		Panelist panelist = repo.getPanelist((long)panelistId);
+//		repo.close();
+		Panelist panelist = QueryHelper.getPanelist(panelistId);
 		
 		String url = panelist.picture;
 		return url;
@@ -318,6 +320,7 @@ public class AgendaAdapter extends BaseAdapter {
 	 * @param text
 	 * @return
 	 */
+	@SuppressLint("DefaultLocale")
 	public String cutLabelText(String text) {
 		String upper = text.toUpperCase();
 		Integer length = upper.length();

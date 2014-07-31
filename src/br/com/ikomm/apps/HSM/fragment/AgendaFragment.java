@@ -10,14 +10,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.activity.LectureDetailsActivity;
 import br.com.ikomm.apps.HSM.adapter.AgendaAdapter;
+import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.model.Agenda;
 import br.com.ikomm.apps.HSM.model.Event;
-import br.com.ikomm.apps.HSM.repo.AgendaRepo;
-import br.com.ikomm.apps.HSM.repo.EventRepo;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -121,11 +119,12 @@ public class AgendaFragment extends SherlockFragment {
 		String currentDate = getCurrentEventDate();
 		
 		// Gets the current Agenda.
-		AgendaRepo repo = new AgendaRepo(getActivity());
-		repo.open();
-		mAgendaList = null;
-		mAgendaList = repo.byEventAndDate(mEventId, currentDate);
-		repo.close();
+//		AgendaRepo repo = new AgendaRepo(getActivity());
+//		repo.open();
+//		mAgendaList = null;
+//		mAgendaList = repo.byEventAndDate(mEventId, currentDate);
+//		repo.close();
+		mAgendaList = QueryHelper.getAgendaListByEventAndDate(mEventId, currentDate);
 		mListView.setAdapter(new AgendaAdapter(getActivity(), mAgendaList));
 	}
 	
@@ -136,9 +135,10 @@ public class AgendaFragment extends SherlockFragment {
 	 */
 	public String getCurrentEventDate() {
 		// Gets the Event from the repository.
-		EventRepo eventRepo = new EventRepo(getActivity());
-		eventRepo.open();
-		Event event = eventRepo.getEvent(mEventId);
+//		EventRepo eventRepo = new EventRepo(getActivity());
+//		eventRepo.open();
+//		Event event = eventRepo.getEvent(mEventId);
+		Event event = QueryHelper.getEvent(mEventId);
 		
 		// Gets the current event date.
 		String infoDates = event.info_dates;

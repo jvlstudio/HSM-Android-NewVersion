@@ -114,7 +114,7 @@ public class PanelistRepo {
 		List<Panelist> panelistList = new ArrayList<Panelist>();
 		Panelist panelist;
 		
-		Cursor cursor = mDb.query("panelist", null, "id in ("+listAgenda+")", null, null, null, null);
+		Cursor cursor = mDb.query("panelist", null, "id in (" + listAgenda + ")", null, null, null, null);
 		if (cursor.getCount() > 0) {
 			while (cursor.moveToNext()) {
 				panelist = new Panelist();
