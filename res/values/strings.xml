@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- MISSING
+    <!-- IMAGES:
+	[1] backend_id = 18
+    name = UM DIA COM DAVID ULRICH
+    image_list = image_event_david_ulrich_menor_1@2x.png
+
+	[2] backend_id = 3
+    name = THE BEST OF PHILIP KOTLER - MANAUS
+    image_list = image_event_hsm_lista_kotler_03_@2x.png
+
+	[3] backend_id = 5
+    name = THE BEST OF PHILIP KOTLER - BRASÍLIA
+    image_list = image_event_image_event_hsm_lista_kotler_02_2x_1@2x.png
+
+	[4] backend_id = 6
+    name = PHILIP KOTLER E GRANDES NOMES
+    image_list = image_event_philip_menor_@2x.png
+
+	[5] backend_id = 7
+    name = THE BEST OF PHILIP KOTLER - BELO HORIZONTE
+    image_list = image_event_hsm_lista_kotler_01_@2x.png
+
+	[6] backend_id = 8
+    name = FÓRUM HSM NEGOCIAÇÃO E GESTÃO ESTRATÉGICA DE VENDA
+    image_list = image_event_hsm_lista_forum_01_@2x.png
+
+	[7] backend_id = 11
+    name = HSM EXPOMANAGEMENT 2014
+    image_list = image_event_hsm_menor_@2x.png
+
+	[8] backend_id = 9
+    name = WORKSHOP HSM BUSINESS MODEL GENERATION COM ALEXAND
+    image_list = image_event_work_bus_menor_@2x.png
+
+	[9] backend_id = 10
+    name = SEMINÁRIO HSM JOHN DAVIS
+    image_list = image_event_jonh_menor_@2x.png -->
     
+    <!-- MISSING:
     EventsAdapter.java
 	HomeGridViewAdapter.java
 	MagazineAdapter.java
