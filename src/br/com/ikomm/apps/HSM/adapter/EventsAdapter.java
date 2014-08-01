@@ -152,7 +152,6 @@ public class EventsAdapter extends BaseAdapter {
 	 * @param position 
 	 */
 	public void setLinearLayoutBitmap(final String path, final Integer position) {
-		Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Calling ReadImageAsyncTask for position " + position + " and file " + path + ".");
 		/*
 		ReadImageAsyncTask task = new ReadImageAsyncTask(mFileManager, path, position) {
 			@SuppressWarnings("deprecation")

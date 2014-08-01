@@ -134,10 +134,6 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 	 * Sets the {@link ListView} adapter.
 	 */
 	public void setListView() {
-//		MagazineRepo magazineRepo = new MagazineRepo(this);
-//		magazineRepo.open();
-//		List<Magazine> magazineList = magazineRepo.getAll();
-//		magazineRepo.close();
 		List<Magazine> magazineList = ContentManager.getInstance().getCachedMagazineList();
 		
 		ListView magazineListView = (ListView)findViewById(R.id.id_magazine_list_view);

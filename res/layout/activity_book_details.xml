@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="TITULO DO LIVRO"
+                android:text="@string/book_details_activity_title"
                 android:textColor="@color/hsm_color_yellow"
                 android:textStyle="bold" />
             <Button
@@ -40,7 +40,7 @@
                 android:layout_height="38dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/button_background_behavior"
-                android:text="Comprar"
+                android:text="@string/book_details_activity_purchase"
                 android:textColor="@color/hsm_color_white" />
         </LinearLayout>
     </LinearLayout>
@@ -59,8 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:clickable="true"
-            android:text="SINOPSE  |"
-            android:textColor="#ffcc00"
+            android:text="@string/book_details_activity_sinopse"
+            android:textColor="@color/hsm_color_yellow"
             android:textSize="12dp" />
         <TextView
             android:id="@+id/id_author_text_view"
@@ -69,8 +69,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:clickable="true"
-            android:text="AUTOR"
-            android:textColor="#ffcc00"
+            android:text="@string/book_details_activity_author"
+            android:textColor="@color/hsm_color_yellow"
             android:textSize="12dp" />
     </LinearLayout>
 
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="Descrição do Livro"
+                    android:text="@string/book_details_activity_description"
                     android:textColor="@color/hsm_color_gray_light" />
             </LinearLayout>
 
@@ -116,14 +116,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="Nome do Autor"
+                    android:text="@string/book_details_activity_author_name"
                     android:textColor="@color/hsm_color_yellow" />
                 <TextView
                     android:id="@+id/id_author_description_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Descrição do Autor"
+                    android:text="@string/book_details_activity_author_description"
                     android:textColor="@color/hsm_color_gray_light" />
             </LinearLayout>
         </LinearLayout>

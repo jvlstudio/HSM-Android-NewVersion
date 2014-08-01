@@ -86,7 +86,7 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 	 * Sets the {@link ViewPager}.
 	 */
 	public void setViewPager() {
-		mViewPager = (ViewPager) findViewById(R.id.viewPagerAgenda);
+		mViewPager = (ViewPager) findViewById(R.id.id_view_pager);
 		mViewPager.setAdapter(new AgendaPagerAdapter(getSupportFragmentManager(), mEventId, mDates.length));
 		mViewPager.setOnPageChangeListener(this);
 	}

@@ -35,7 +35,8 @@ import br.com.ikomm.apps.HSM.task.UpdaterAsyncTask;
 import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
- * ContentManager.java class.
+ * ContentManager.java class. <br>
+ * In this class I keep all Memory Cache variables, lists and data.
  * 
  * @author Rodrigo Cericatto
  * @since July 21, 2014
@@ -205,6 +206,15 @@ public class ContentManager {
 	*/
 	public Bitmap getCachedBitmap(String id) {
 		return mBitmapMap.get(id);
+	}
+	
+	/**
+	 * Checks if the BitmapMap is null or not.
+	 * @return
+	 */
+	public Boolean areEventImagesInCache() {
+		Boolean mapIsNotNull = (mBitmapMap != null) && (mBitmapMap.size() > 0); 
+		return mapIsNotNull;
 	}
 	
 	//----------------------------------------------

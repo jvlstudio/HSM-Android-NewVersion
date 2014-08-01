@@ -31,7 +31,6 @@ public class PassesAdapter extends BaseAdapter {
 	private Activity mActivity;
 	
 	private List<Passe> mPasseList = new ArrayList<Passe>();
-//	private PasseRepo mPasseRepo;
 
 	//--------------------------------------------------
 	// View Holder
@@ -53,11 +52,7 @@ public class PassesAdapter extends BaseAdapter {
 		super();
 		
 		mActivity = activity;
-//		mPasseRepo = new PasseRepo(activity);
-//		mPasseRepo.open();
-//		mPasseList = mPasseRepo.byEvent(id);
 		mPasseList = QueryHelper.getPasseListByEvent(id);
-//		mPasseRepo.close();
 	}
 	
 	//--------------------------------------------------
@@ -191,13 +186,13 @@ public class PassesAdapter extends BaseAdapter {
 	 */
 	public void setPassColorField(Passe item) {
 		if (item.color.equals("green")) {
-			mViewHolder.layout.setBackgroundColor(Color.parseColor("#00a180"));
+			mViewHolder.layout.setBackgroundColor(Color.parseColor("#00A180"));
 		}
 		if (item.color.equals("gold")) {
-			mViewHolder.layout.setBackgroundColor(Color.parseColor("#dca85c"));
+			mViewHolder.layout.setBackgroundColor(Color.parseColor("#DCA85C"));
 		}
 		if (item.color.equals("red")) {
-			mViewHolder.layout.setBackgroundColor(Color.parseColor("#d04840"));
+			mViewHolder.layout.setBackgroundColor(Color.parseColor("#D04840"));
 		}
 	}
 }

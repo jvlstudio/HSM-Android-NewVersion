@@ -28,13 +28,13 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  * Modified by Rodrigo Cericatto at July 10, 2014.
  */
 public class ContactActivity extends SherlockActivity implements OnClickListener {
-	
+
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
 	private Gson mGson = new Gson();
-	private Card mContato;
+	private Card mContact;
 	
 	private String mJsonCard;
 	
@@ -115,13 +115,13 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 	 */
 	public void setTextView() {
 		TextView contactNameTop = (TextView) findViewById(R.id.id_contact_name_top_text_view);
-		contactNameTop.setText(mContato.name);
+		contactNameTop.setText(mContact.name);
 		
 		TextView contactNameBelow = (TextView) findViewById(R.id.id_contact_name_below_text_view);
-		contactNameBelow.setText(mContato.name);
+		contactNameBelow.setText(mContact.name);
 
 		TextView email = (TextView) findViewById(R.id.id_contact_email_text_view);
-		email.setText(mContato.email);
+		email.setText(mContact.email);
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 		mJsonCard = intent.getStringExtra("jsonCartao");
 
 		if (!mJsonCard.isEmpty()) {
-			mContato = mGson.fromJson(mJsonCard, Card.class);
+			mContact = mGson.fromJson(mJsonCard, Card.class);
 		}
 	}
 	
@@ -160,7 +160,7 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 	 */
 	public String getCardUrl(String url) {
 		CardConverter convert = new CardConverter();
-		String textCode = convert.CartaoToString(mContato);
+		String textCode = convert.cardToString(mContact);
 		String completeUrl = url + textCode;
 		
 		return completeUrl;
@@ -175,23 +175,23 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 		switch (view.getId()) {
 			case R.id.id_add_image_button:
 				Intent addContactIntent = new Intent(Contacts.Intents.Insert.ACTION, Contacts.People.CONTENT_URI);
-				addContactIntent.putExtra(Contacts.Intents.Insert.NAME, mContato.name);
-				addContactIntent.putExtra(Contacts.Intents.Insert.PHONE, mContato.mobilePhone);
+				addContactIntent.putExtra(Contacts.Intents.Insert.NAME, mContact.name);
+				addContactIntent.putExtra(Contacts.Intents.Insert.PHONE, mContact.mobilePhone);
 				startActivity(addContactIntent);
 				break;
 			case R.id.id_qr_code_image_view:
 				Intent intent = new Intent(ContactActivity.this, QRCodeActivity.class);
-				intent.putExtra("jsonCartao", mJsonCard);
+				intent.putExtra(NetworkingListActivity.JSON_CARD, mJsonCard);
 				startActivity(intent);
 				break;
 			case R.id.id_send_email_button:
 				Intent i = new Intent(Intent.ACTION_SEND);
 				i.setType("message/rfc822");
-				i.putExtra(Intent.EXTRA_EMAIL, new String[] { mContato.email });
+				i.putExtra(Intent.EXTRA_EMAIL, new String[] { mContact.email });
 				try {
-					startActivity(Intent.createChooser(i, "Enviar email..."));
+					startActivity(Intent.createChooser(i, getString(R.string.contact_activity_send_email) + "..."));
 				} catch (android.content.ActivityNotFoundException ex) {
-					Toast.makeText(ContactActivity.this, "Você não possui cliente de email instalado.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(ContactActivity.this, getString(R.string.contact_activity_email_issue), Toast.LENGTH_SHORT).show();
 				}
 				break;
 		}

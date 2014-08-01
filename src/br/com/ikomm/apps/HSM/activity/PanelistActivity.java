@@ -95,10 +95,6 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 		String data = getAgendasId();
 		
 		// Gets the Panelist list.
-//		PanelistRepo panelistRepo = new PanelistRepo(this);
-//		panelistRepo.open();
-//		List<Panelist> panelistList = panelistRepo.getAllbyEvent(data);
-//		panelistRepo.close();
 		List<Panelist> panelistList = QueryHelper.getPanelistListByEvent(data);
 		
 		// Sets the GridView.
@@ -113,9 +109,6 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	 * @return
 	 */
 	public String getAgendasId() {
-//		AgendaRepo agendaRepo = new AgendaRepo(this);
-//		agendaRepo.open();
-//		List<Agenda> agendaList = agendaRepo.byEvent(mEventId);
 		List<Agenda> agendaList = QueryHelper.getAgendaByEvent(mEventId);
 		String agendaData = "";
 		
@@ -126,7 +119,6 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 				agendaData += "," + String.valueOf(item.panelist_id);
 			}
 		}
-//		agendaRepo.close();
 		
 		return agendaData;
 	}

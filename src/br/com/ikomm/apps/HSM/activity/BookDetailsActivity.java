@@ -28,6 +28,12 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 public class BookDetailsActivity extends SherlockActivity implements OnClickListener {
 
 	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/books/"; 
+	
+	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
@@ -98,10 +104,6 @@ public class BookDetailsActivity extends SherlockActivity implements OnClickList
 	 * Gets the current {@link Book}.
 	 */
 	public void getBook() {
-//		BookRepo bookRepo = new BookRepo(this);
-//		bookRepo.open();
-//		mBook = bookRepo.getBook(mBookId);
-//		bookRepo.close();
 		mBook = QueryHelper.getBook(mBookId);
 		if (mBook != null) {
 			setLayout();
@@ -122,7 +124,7 @@ public class BookDetailsActivity extends SherlockActivity implements OnClickList
 		
 		// Image.
 		ImageView bookImageView = (ImageView)findViewById(R.id.id_book_image_view);
-		String url = "http://apps.ikomm.com.br/hsm5/uploads/books/" + mBook.picture;
+		String url = URL + mBook.picture;
 		setUniversalImage(url, bookImageView);
 	}
 	

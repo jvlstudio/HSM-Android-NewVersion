@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
-                android:text="ASSINE AGORA"
+                android:text="@string/magazine_activity_sign_now"
                 android:textColor="@color/hsm_color_gray_light"
                 android:textSize="12dp" />
         </LinearLayout>

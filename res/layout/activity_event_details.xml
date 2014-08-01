@@ -9,7 +9,7 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:id="@+id/imgEventoDet"
+            android:id="@+id/id_event_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
@@ -36,9 +36,8 @@
             	android:background="@android:color/transparent"
             	android:layout_marginLeft="10dp"
             	android:textColor="@color/hsm_color_white"
-            	android:text="Sobre o evento"
+            	android:text="@string/event_details_activity_about"
                 android:textSize="12dp" />
-
             <ImageView
             	android:layout_width="1dp"
             	android:layout_height="match_parent"
@@ -46,7 +45,6 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="3dp"
                 android:layout_marginLeft="30dp" />
-            
             <ImageView
                 android:id="@+id/id_info_image"
             	android:layout_width="24dp"
@@ -60,7 +58,7 @@
             	android:background="@android:color/transparent"
             	android:layout_marginLeft="10dp"
             	android:textColor="@color/hsm_color_white"
-            	android:text="Infos Gerais"
+            	android:text="@string/event_details_activity_info"
                 android:textSize="12dp" />
         </LinearLayout>
         
@@ -71,8 +69,7 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
 			android:orientation="vertical"
-			android:visibility="gone"
-			>
+			android:visibility="gone" >
 			
             <TextView
                 android:id="@+id/id_title_event"
@@ -80,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="10dp"
-                android:text="Título."
+                android:text="@string/event_details_activity_title"
                 android:textColor="@color/hsm_color_yellow"
                 android:textSize="24dp" />
 
@@ -90,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="10dp"
-                android:text="Descrição. Descrição. Descrição. Descrição. Descrição. Descrição. Descrição. Descrição. Descrição. Descrição. "
+                android:text="@string/event_details_activity_description"
                 android:textColor="@color/hsm_color_white" />
 		</LinearLayout>
 		
@@ -100,8 +97,7 @@
 		    android:layout_width="match_parent"
             android:layout_height="wrap_content"
 			android:padding="20dp"
-			android:orientation="vertical"
-			>
+			android:orientation="vertical" >
             
 		    <!-- Date -->
 			<TextView
@@ -117,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="10dp"
-                android:text="Título."
+                android:text="@string/event_details_activity_title"
                 android:textColor="@color/hsm_color_yellow"
                 android:textSize="16dp" />
             
@@ -126,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Horário:"
+                android:text="@string/event_details_activity_time"
                 android:textColor="@color/hsm_color_white"
                 android:textSize="16dp" />
             <TextView
@@ -134,7 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Título."
+                android:text="@string/event_details_activity_title"
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/hsm_color_yellow"
                 android:textSize="16dp" />
@@ -144,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Local:"
+                android:text="@string/event_details_activity_local"
                 android:textSize="16dp"
                 android:textColor="@color/hsm_color_white" />
             <TextView
@@ -153,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="10dp"
-                android:text="Título."
+                android:text="@string/event_details_activity_title"
                 android:textColor="@color/hsm_color_yellow"
                 android:textSize="16dp" />
 		</LinearLayout>
@@ -174,7 +170,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_background_behavior"
                 android:padding="10dp"
-                android:text="@string/agenda"
+                android:text="@string/event_details_activity_agenda"
                 android:textColor="@color/hsm_color_white" />
             <Button
                 android:id="@+id/id_panelist_button"
@@ -184,7 +180,7 @@
                 android:layout_gravity="right|bottom"
                 android:background="@drawable/button_background_behavior"
                 android:padding="10dp"
-                android:text="@string/palestrantes"
+                android:text="@string/event_details_activity_panelists"
                 android:textColor="@color/hsm_color_white" />
         </LinearLayout>
 
@@ -199,7 +195,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/button_passe_background_behavior"
-            android:text="@string/passes"
+            android:text="@string/event_details_activity_passes"
             android:textColor="@color/hsm_color_white" />
         <fragment
             android:id="@+id/footerFragment"

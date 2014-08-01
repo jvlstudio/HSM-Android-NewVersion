@@ -21,18 +21,16 @@ public class ReadImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
 	// Methods
 	//--------------------------------------------------
 	
-    protected FileBitmapUtils mFileManager;
-    protected String mFilePath;
-    private Integer mPosition;
+    private FileBitmapUtils mFileManager;
+    private String mFilePath;
 
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public ReadImageAsyncTask(FileBitmapUtils fileManager, String filePath, Integer position) {
+	public ReadImageAsyncTask(FileBitmapUtils fileManager, String filePath) {
 	    mFileManager = fileManager;
 	    mFilePath = filePath;
-	    mPosition = position;
 	}
 
 	//--------------------------------------------------
@@ -56,33 +54,18 @@ public class ReadImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
 	//--------------------------------------------------
 	
 	/**
-	 * Gets the {@link Bitmap} from the disk.
+	 * Gets the {@link Bitmap} from the disk and save it into the {@link ContentManager}.
 	 * 
 	 * @retun The {@link Bitmap} from the disk.
 	 */
 	public Bitmap getBitmapFromDisk() {
 		Bitmap bitmap = null;
 		try {
-			Utils.fileLog("ReadImageAsyncTask.getBitmapFromDisk() -> Reading file " + mFilePath + ".");
 			bitmap = mFileManager.readFile(mFilePath);
+			Utils.fileLog("ReadAsyncTask.getBitmapFromDisk() -> Adding to cache the file " + mFilePath + ".");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return bitmap;
 	}
-	
-	/**
-	 * Gets the {@link Bitmap} from the disk.
-	 * 
-	 * @retun The {@link Bitmap} from the disk.
-	 */
-	/*
-	public Bitmap getBitmapFromDisk() {
-		Bitmap bitmap = null;
-		
-		Utils.fileLog("ReadImageAsyncTask.getBitmapFromDisk() -> At position " + mPosition + ", reading file " + mFilePath + ".");
-		bitmap = ContentManager.getInstance().getBitmapList().get(mPosition);
-		return bitmap;
-	}
-	*/
 }

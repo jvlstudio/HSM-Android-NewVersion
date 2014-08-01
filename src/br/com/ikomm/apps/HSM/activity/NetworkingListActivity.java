@@ -33,11 +33,17 @@ import com.google.gson.Gson;
 public class NetworkingListActivity extends FragmentActivity implements OnItemClickListener, OnClickListener {
 	
 	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+		
+	public static final String JSON_CARD = "json_card";
+		
+	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
-	private CardRepository mCartaoRepo;
-	private List<Card> mCartaoList;
+	private CardRepository mCardRepo;
+	private List<Card> mCardList;
 	
 	private Button mCreateCardButton;
 
@@ -62,13 +68,13 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 			setCard(data);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Toast.makeText(NetworkingListActivity.this, "Ocorreu um erro na leitura do QRCode, por favor tente novamente.", Toast.LENGTH_LONG).show();
+			Toast.makeText(NetworkingListActivity.this, getString(R.string.networking_list_activity_qrcode_error), Toast.LENGTH_LONG).show();
 			return;
 		}
 
 		// QRCode error.
 		if (resultCode == RESULT_CANCELED) {
-			Toast.makeText(NetworkingListActivity.this, "Leitura de QRCode cancelada.", Toast.LENGTH_LONG).show();
+			Toast.makeText(NetworkingListActivity.this, getString(R.string.networking_list_activity_qrcode_canceled), Toast.LENGTH_LONG).show();
 			return;
 		}
 		recursiveCall();
@@ -127,9 +133,9 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 	 * Sets the {@link ListView}.
 	 */
 	public void setAdapter() {
-		mCartaoRepo = new CardRepository(NetworkingListActivity.this);
-		mCartaoList = mCartaoRepo.getMyContacts();
-		boolean hasContact = mCartaoList != null && mCartaoList.size() > 0;
+		mCardRepo = new CardRepository(NetworkingListActivity.this);
+		mCardList = mCardRepo.getMyContacts();
+		boolean hasContact = mCardList != null && mCardList.size() > 0;
 
 		// Sets the ListView.
 		ListView listView = (ListView)findViewById(R.id.id_list_view);
@@ -137,7 +143,7 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 			listView.setVisibility(View.GONE);
 		} else {
 			mCreateCardButton.setVisibility(View.GONE);
-			List<Card> cardList = mCartaoRepo.getMyContacts();
+			List<Card> cardList = mCardRepo.getMyContacts();
 			if (cardList == null) {
 				cardList = new ArrayList<Card>();
 			}
@@ -154,18 +160,18 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 	public void setCard(Intent data) {
 		String contents = data.getStringExtra("SCAN_RESULT");
 		CardConverter converter = new CardConverter();
-		Card novoContato = converter.CartaoFromString(contents);
-		for (Card card : mCartaoList) {
-			if (card.name.equals(novoContato.name) && card.email.equals(novoContato.email)) {
-				Toast.makeText(NetworkingListActivity.this, "Você já possui um contato com este name e email.", Toast.LENGTH_LONG).show();
+		Card newContact = converter.cardFromString(contents);
+		for (Card card : mCardList) {
+			if (card.name.equals(newContact.name) && card.email.equals(newContact.email)) {
+				Toast.makeText(NetworkingListActivity.this, getString(R.string.networking_list_activity_existent_contact), Toast.LENGTH_LONG).show();
 				return;
 			}
 		}
-		List<Card> contatos = mCartaoRepo.getMyContacts();
-		List<Card> novoContatos = new ArrayList<Card>();
-		novoContatos.addAll(contatos);
-		novoContatos.add(novoContato);
-		mCartaoRepo.setMyContacts(novoContatos);
+		List<Card> contactList = mCardRepo.getMyContacts();
+		List<Card> newContactList = new ArrayList<Card>();
+		newContactList.addAll(contactList);
+		newContactList.add(newContact);
+		mCardRepo.setMyContacts(newContactList);
 	}
 	
 	/**
@@ -184,9 +190,9 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent intent = new Intent(NetworkingListActivity.this, ContactActivity.class);
-		Card cartaoClick = mCartaoList.get(position);
+		Card cartaoClick = mCardList.get(position);
 		Gson gson = new Gson();
-		intent.putExtra("jsonCartao", gson.toJson(cartaoClick));
+		intent.putExtra(JSON_CARD, gson.toJson(cartaoClick));
 		startActivity(intent);
 	}
 

@@ -17,6 +17,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
         android:background="@drawable/button_payment_background_behavior"
-        android:text="Criar meu cartão"
+        android:text="@string/networking_list_activity_create_card"
         android:textColor="@color/hsm_color_white" />
 </LinearLayout>

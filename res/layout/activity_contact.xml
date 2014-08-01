@@ -26,7 +26,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="nome top"
+            android:text="@string/contact_activity_name"
             android:textColor="@color/hsm_color_yellow"
             android:textSize="12dp"
             android:textStyle="bold" />
@@ -60,7 +60,7 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="nome"
+                android:text="@string/contact_activity_name"
                 android:textColor="@color/hsm_color_yellow"
                 android:textSize="12dp"
                 android:textStyle="bold" />
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:orientation="horizontal"
-                android:text="email"
+                android:text="@string/contact_activity_email"
                 android:textColor="@color/hsm_color_yellow"
                 android:textSize="10dp" />
         </LinearLayout>
@@ -90,6 +90,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
         android:background="@drawable/button_background_behavior"
-        android:text="Enviar e-mail"
+        android:text="@string/contact_activity_send_email"
         android:textColor="@color/hsm_color_white" />
 </LinearLayout>

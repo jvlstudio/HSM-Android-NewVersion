@@ -43,7 +43,6 @@ public class BookListActivity extends SherlockFragmentActivity implements OnItem
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu. This code adds items to the action bar.
 		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
 		return true;
 	}
@@ -75,12 +74,7 @@ public class BookListActivity extends SherlockFragmentActivity implements OnItem
 	 * Sets the {@link ListView}.
 	 */
 	public void setAdapter() {
-//		BookRepo bookRepo = new BookRepo(this);
-//		bookRepo.open();
-//		List<Book> bookList = bookRepo.getAll();
-//		bookRepo.close();
 		List<Book> bookList = ContentManager.getInstance().getCachedBookList();
-		
 		ListView listaLivros = (ListView)findViewById(R.id.id_book_list_view);
 		listaLivros.setAdapter(new BookAdapter(this, bookList));
 		listaLivros.setOnItemClickListener(this);

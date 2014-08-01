@@ -100,12 +100,11 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 			if (mPanelist != null) {
 				setLayout();
 			}
-			
 			setActionBar();
 		} else {
 			ActionBar action = getActionBar();
 			action.setLogo(R.drawable.hsm_logo);
-			action.setTitle("Algum erro ocorreu...");
+			action.setTitle(getString(R.string.lecture_details_activity_title_unavailable));
 			action.setDisplayHomeAsUpEnabled(true);
 		}
 	}
@@ -114,10 +113,6 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	 * Gets the current {@link Panelist}.
 	 */
 	public void getCurrentPanelist() {
-//		PanelistRepo panelistRepo = new PanelistRepo(getApplication());
-//		panelistRepo.open();
-//		mPanelist = panelistRepo.getPanelist(mPanelistId);
-//		panelistRepo.close();
 		mPanelist = QueryHelper.getPanelist(mPanelistId);
 	}
 	
@@ -125,10 +120,6 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	 * Gets the current {@link Agenda}.
 	 */
 	public void getCurrentAgenda() {
-//		AgendaRepo agendaRepo = new AgendaRepo(getApplication());
-//		agendaRepo.open();
-//		mAgenda = agendaRepo.byEventAndPanelist(mPanelistId, mEventId);
-//		agendaRepo.close();
 		mAgenda = QueryHelper.getAgendaByEventAndPanelist(mPanelistId, mEventId);
 	}
 	
@@ -172,7 +163,7 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	public void setLayout() {
 		// Format dates.
 		if (StringUtils.isEmpty(mAgenda.getDateStart())) {
-			Toast.makeText(this, "Palestrante n‹o associado corretamente ˆ Evento.", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, getString(R.string.lecture_details_activity_panelist_unassociated_event), Toast.LENGTH_LONG).show();
 		} else {
 			String[] dateStart = mAgenda.date_start.split(" ");
 			String[] dateEnd = mAgenda.date_end.split(" ");

@@ -194,7 +194,7 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 	        setResult(IS_PARENT, intent);
 	        finish();
 		} else {
-			Toast.makeText(this, "Favor informar os campos de forma correta.", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, getString(R.string.participant_activity_error), Toast.LENGTH_LONG).show();
 		}
 	}
 }

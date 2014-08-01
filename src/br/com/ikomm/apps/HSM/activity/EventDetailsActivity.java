@@ -119,9 +119,6 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	 * Gets the current {@link Event}.
 	 */
 	public void getCurrentEvent() {
-//		mEventRepo = new EventRepo(getBaseContext());
-//		mEventRepo.open();
-//		mEvent = mEventRepo.getEvent(mId);
 		mEvent = QueryHelper.getEvent(mId);
 		if (mEvent != null) {
 			setLayout();
@@ -229,7 +226,7 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
-		imageLoader.displayImage(url, (ImageView)findViewById(R.id.imgEventoDet), cache);
+		imageLoader.displayImage(url, (ImageView)findViewById(R.id.id_event_image_view), cache);
 	}
 	
 	//--------------------------------------------------

@@ -101,8 +101,8 @@ public class AddCardActivity extends SherlockActivity implements OnClickListener
 		mName = (TextView) findViewById(R.id.id_complete_name_edit_text);
 		mEmail = (TextView) findViewById(R.id.id_email_edit_text);
 		mPhone = (TextView) findViewById(R.id.id_phone_edit_text);
-		mMobilePhone = (TextView) findViewById(R.id.id_phone_edit_text);
-		mCompany = (TextView) findViewById(R.id.id_phone_edit_text);
+		mMobilePhone = (TextView) findViewById(R.id.id_mobile_phone_edit_text);
+		mCompany = (TextView) findViewById(R.id.id_company_edit_text);
 		mRole = (TextView) findViewById(R.id.id_role_edit_text);
 		mWebsite = (TextView) findViewById(R.id.id_website_edit_text);
 	}
@@ -112,19 +112,19 @@ public class AddCardActivity extends SherlockActivity implements OnClickListener
 	 */
 	public void setErrorMessages() {
 		if (mName.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, preencha seu name.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, getString(R.string.add_card_activity_name_empty), Toast.LENGTH_SHORT).show();
 		} else if (mEmail.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, insira um e-mail v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, getString(R.string.add_card_activity_email_empty), Toast.LENGTH_SHORT).show();
 		} else if (mPhone.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, insira um phone v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, getString(R.string.add_card_activity_phone_empty), Toast.LENGTH_SHORT).show();
 		} else if (mMobilePhone.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, insira um mobilePhone v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, getString(R.string.add_card_activity_mobile_empty), Toast.LENGTH_SHORT).show();
 		} else if (mCompany.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, insira uma company v‡lida.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, getString(R.string.add_card_activity_company_empty), Toast.LENGTH_SHORT).show();
 		} else if (mRole.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, insira um role v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, getString(R.string.add_card_activity_role_empty), Toast.LENGTH_SHORT).show();
 		} else if (mWebsite.getText().toString().isEmpty()) {
-			Toast.makeText(AddCardActivity.this, "Por favor, insira um website v‡lido.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(AddCardActivity.this, getString(R.string.add_card_activity_website_empty), Toast.LENGTH_SHORT).show();
 		} else {
 			setContacts();
 		}

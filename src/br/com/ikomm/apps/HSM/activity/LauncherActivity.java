@@ -120,7 +120,7 @@ public class LauncherActivity extends Activity implements Notifiable {
     }
 
     /**
-     * Calls the {@link SplashScreenEndActivity}.
+     * Calls the {@link SplashScreenActivity}.
      */
 	public void callNextActivity() {
     	mCalledTasksCount++;
@@ -137,7 +137,7 @@ public class LauncherActivity extends Activity implements Notifiable {
     			+ ", Home: " + homeSize + ", Magazine: " + magazineSize + ", Panelist: " + panelistSize + ", Passe: " + passeSize + ".";
     		Utils.fileLog("LauncherActivity.callNextActivity() -> " + text);
     		 
-    		startActivity(new Intent(this, SplashScreenEndActivity.class));
+    		startActivity(new Intent(this, SplashScreenActivity.class));
     	} else {
     		if (mCalledTasksCount > LIMIT) {
     			DialogUtils.showSimpleAlert(LauncherActivity.this, R.string.error_title_no_internet, R.string.error_msg_no_internet);

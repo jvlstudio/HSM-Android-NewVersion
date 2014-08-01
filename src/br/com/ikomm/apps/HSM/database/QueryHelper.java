@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 import br.com.ikomm.apps.HSM.AppConfiguration;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Agenda;
@@ -145,7 +144,6 @@ public class QueryHelper {
 		}
 		return list;
 	}
-	
 	
 	/**
 	 * Stores the given {@link Agenda} list into the database.

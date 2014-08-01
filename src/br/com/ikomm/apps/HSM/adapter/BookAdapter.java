@@ -25,6 +25,12 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 public class BookAdapter extends BaseAdapter {
 
 	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/books/";
+	
+	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
@@ -84,9 +90,9 @@ public class BookAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.adapter_book, parent, false);
 			
 			// Set views.
-			mViewHolder.bookName = (TextView) convertView.findViewById(R.id.txtNameBook);
-			mViewHolder.bookDescription = (TextView) convertView.findViewById(R.id.txtDescBook);
-			mViewHolder.bookImage = (ImageView) convertView.findViewById(R.id.imgBook);
+			mViewHolder.bookName = (TextView) convertView.findViewById(R.id.id_book_name_text_view);
+			mViewHolder.bookDescription = (TextView) convertView.findViewById(R.id.id_book_name_text_view);
+			mViewHolder.bookImage = (ImageView) convertView.findViewById(R.id.id_book_image_view);
 			
 			// Saves ViewHolder into the tag.
 			convertView.setTag(mViewHolder);
@@ -114,7 +120,7 @@ public class BookAdapter extends BaseAdapter {
 		mViewHolder.bookName.setText(book.name);
 		mViewHolder.bookDescription.setText(book.author_name);
 		
-		String url = "http://apps.ikomm.com.br/hsm5/uploads/books/" + book.picture;
+		String url = URL + book.picture;
 		setUniversalImage(url, mViewHolder.bookImage);
 	}
 	

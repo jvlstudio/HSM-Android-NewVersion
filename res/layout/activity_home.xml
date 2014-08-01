@@ -61,7 +61,6 @@
             android:id="@+id/id_footer_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FF0000"
             class="br.com.ikomm.apps.HSM.fragment.BannerFragment" />
     </LinearLayout>
 

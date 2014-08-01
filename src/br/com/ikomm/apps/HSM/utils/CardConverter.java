@@ -2,17 +2,43 @@ package br.com.ikomm.apps.HSM.utils;
 
 import br.com.ikomm.apps.HSM.model.Card;
 
+/**
+ * CardConverter.java class. <br>
+ * Modified by Rodrigo at August 1, 2014.
+ */
 public class CardConverter {
-	private String tag = "-hsm-";
+	
+	//--------------------------------------------------
+	// Attributes
+	//--------------------------------------------------
+	
+	private String mTag = "-hsm-";
 
-	public String CartaoToString(Card card) {
-		String concat = card.name + tag + card.email + tag
-			+ card.phone + tag + card.mobilePhone + tag + card.company
-			+ tag + card.role + tag + card.website + tag + "gold";
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Converts a {@link Card} to a string.
+	 * 
+	 * @param card
+	 * 
+	 * @return
+	 */
+	public String cardToString(Card card) {
+		String concat = card.name + mTag + card.email + mTag + card.phone + mTag + card.mobilePhone + mTag + card.company
+			+ mTag + card.role + mTag + card.website + mTag + "gold";
 		return concat;
 	}
 
-	public Card CartaoFromString(String strQrCode) {
+	/**
+	 * Converts a string to a {@link Card}.
+	 * 
+	 * @param strQrCode
+	 * 
+	 * @return
+	 */
+	public Card cardFromString(String strQrCode) {
 		String[] properties = strQrCode.split("-hsm-");
 		int number = 1;
 		Card card = new Card();

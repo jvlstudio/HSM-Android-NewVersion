@@ -184,10 +184,6 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	 * Gets the current {@link Passe}.
 	 */
 	public void getCurrentPasse() {
-//		PasseRepo passeRepo = new PasseRepo(getBaseContext());
-//		passeRepo.open();
-//		mPasse = passeRepo.getPasse(mPasseId);
-//		passeRepo.close();
 		mPasse = QueryHelper.getPasse(mPasseId);
 	}
 	
@@ -213,10 +209,6 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	 */
 	public String[] getEventDates() {
 		// Gets the event dates.
-//		EventRepo eventRepo = new EventRepo(this);
-//		eventRepo.open();
-//		Event event = eventRepo.getEvent(mEventId);
-//		eventRepo.close();
 		Event event = QueryHelper.getEvent(mEventId);
 		String infoDates = event.info_dates;
 		
@@ -251,7 +243,7 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 					}
 					finish();
 				} else {
-					Toast.makeText(PaymentActivity.this, "Cadastro com dados inv‡lidos.", Toast.LENGTH_LONG).show();
+					Toast.makeText(PaymentActivity.this, getString(R.string.payment_activity_invalid_data), Toast.LENGTH_LONG).show();
 				}
 				break;
 			case R.id.id_register_button:

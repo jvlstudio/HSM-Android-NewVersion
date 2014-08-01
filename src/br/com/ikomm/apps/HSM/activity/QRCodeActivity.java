@@ -25,7 +25,7 @@ public class QRCodeActivity extends Activity {
 	//--------------------------------------------------
 	
 	private Gson mGson = new Gson();
-	private Card mContato;
+	private Card mContact;
 	
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -37,23 +37,48 @@ public class QRCodeActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_qrcode);
 		
+		getExtras();
+		setUniversalImage((ImageView) findViewById(R.id.id_big_qrcode));
+	}
+	
+	//--------------------------------------------------
+	// Methods
+	//--------------------------------------------------
+	
+	/**
+	 * Gets the extras.
+	 */
+	public void getExtras() {
 		Intent intent = getIntent();
-		final String jsonCartao = intent.getStringExtra("jsonCartao");
-		if (!jsonCartao.isEmpty()) {
-			mContato = mGson.fromJson(jsonCartao, Card.class);
+		final String jsonCard = intent.getStringExtra(NetworkingListActivity.JSON_CARD);
+		if (!jsonCard.isEmpty()) {
+			mContact = mGson.fromJson(jsonCard, Card.class);
 		}
-		
-		ImageView qrCode = (ImageView) findViewById(R.id.idQRCodeGrande);
-		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.init(ImageLoaderConfiguration.createDefault(QRCodeActivity.this));
-
-		String imageUri = "http://chart.apis.google.com/chart?cht=qr&chs=500x500&chld=H|0&chl=";
+	}
+	
+	/**
+	 * Gets the QRCode url.
+	 */
+	public String getQRCodeUrl() {
+		String url = "http://chart.apis.google.com/chart?cht=qr&chs=500x500&chld=H|0&chl=";
 //		String imageUri = "http://chart.apis.google.com/chart?cht=qr&chs=350x350&chld=L&choe=UTF-8&chl=";
 		
 		CardConverter convert = new CardConverter();
-		String textCode = convert.CartaoToString(mContato);
-		imageUri = imageUri + textCode;
-		imageLoader.displayImage(imageUri, qrCode, cache);
+		String textCode = convert.cardToString(mContact);
+		url += textCode;
+		
+		return url;
+	}
+	
+	/**
+	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 *  
+	 * @param imageView The {@link ImageView} which will receive the image.
+	 */
+	public void setUniversalImage(ImageView imageView) {
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
+		imageLoader.displayImage(getQRCodeUrl(), imageView, cache);
 	}
 }

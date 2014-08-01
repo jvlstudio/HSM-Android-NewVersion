@@ -1,12 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- MISSING
+    
+    EventsAdapter.java
+	HomeGridViewAdapter.java
+	MagazineAdapter.java
+	NetworkFriendsAdapter.java
+	PanelistGridViewAdapter.java
+	PassesAdapter.java
+	
+	adapter_event_item.xml
+	adapter_home.xml
+	adapter_magazine_list.xml
+	adapter_networking_item.xml
+	adapter_pacote.xml
+	adapter_panelist.xml
+	drawer_list_item.xml
+	fragment_agenda.xml
+	fragment_banner.xml
+	spinner_text_color.xml -->
+    
     <!-- Application -->
     <string name="app_name">HSM</string>
     
+    <!-- Add Card Activity -->
+    <string name="add_card_activity_name">Nome Completo *</string>
+	<string name="add_card_activity_email">E-mail *</string>
+	<string name="add_card_activity_phone">Telefone *</string>
+	<string name="add_card_activity_mobile">Celular *</string>
+	<string name="add_card_activity_company">Empresa *</string>
+	<string name="add_card_activity_role">Cargo *</string>
+	<string name="add_card_activity_website">Site *</string>
+	<string name="add_card_activity_button">Criar</string>
+    
+    <string name="add_card_activity_name_empty">Por favor, preencha seu name.</string>
+	<string name="add_card_activity_email_empty">Por favor, insira um e-mail válido.</string>
+	<string name="add_card_activity_phone_empty">Por favor, insira um telefone válido.</string>
+	<string name="add_card_activity_mobile_empty">Por favor, insira um celular válido.</string>
+	<string name="add_card_activity_company_empty">Por favor, insira uma empresa válida.</string>
+	<string name="add_card_activity_role_empty">Por favor, insira um cargo válido.</string>
+	<string name="add_card_activity_website_empty">Por favor, insira um website válida.</string>		
+    
+	<!-- Agenda Adapter -->
+    <string name="agenda_adapter_start_time">11h00</string>
+    <string name="agenda_adapter_end_time">12h00</string>
+    <string name="agenda_adapter_panelist_name">Nome do Palestrante</string>
+    <string name="agenda_adapter_lecture_type">Tipo de Palestra</string>
+    
+	<!-- Book Details Activity -->
+    <string name="book_details_activity_title">TÍTULO DO LIVRO</string>
+	<string name="book_details_activity_purchase">Comprar</string>
+	<string name="book_details_activity_sinopse">SINOPSE  |</string>
+	<string name="book_details_activity_author">AUTOR</string>
+	<string name="book_details_activity_description">Descrição do Livro</string>
+	<string name="book_details_activity_author_name">Nome do Autor</string>
+	<string name="book_details_activity_author_description">Descrição do Autor</string>
+	
+	<!-- Book Adapter -->
+	<string name="adapter_book_name">Nome do Livro</string>
+	<string name="adapter_book_edition">Edição do Livro</string>
+	
+	<!-- Break Adapter -->
+    <string name="break_adapter_start_time">12h00</string>
+    <string name="break_adapter_end_time">12h00</string>
+    <string name="break_adapter_description">Break</string>
+	
+	<!-- Contact Activity -->
+	<string name="contact_activity_name">Nome</string>
+	<string name="contact_activity_email">E-mail</string>
+	<string name="contact_activity_send_email">Enviar e-mail</string>
+	
+    <string name="contact_activity_email_issue">Você não possui cliente de email instalado.</string>
+	
+    <!-- Event Details Activity -->
+	<string name="event_details_activity_about">Sobre o evento</string>
+	<string name="event_details_activity_info">Infos Gerais</string>
+    <string name="event_details_activity_title">Título.</string>
+    <string name="event_details_activity_description">Descrição do evento. Descrição do evento. Descrição do evento. Descrição do evento. Descrição do evento.</string>
+    <string name="event_details_activity_time">Horário: </string>
+    <string name="event_details_activity_local">Local: </string>
+    
+    <string name="event_details_activity_agenda">Agenda</string>
+    <string name="event_details_activity_panelists">Palestrantes</string>
+    <string name="event_details_activity_passes">Passes</string>
+    
+    <!-- Greetings Activity -->
+	<string name="greetings_activity_thanks">OBRIGADO!</string>
+	<string name="greetings_activity_purchase_success">Sua solicitação de compra dos passes foi realizada com sucesso.</string>
+	<string name="greetings_activity_consultors">Aguarde um de nossos consultores entrar em contato para confirmar os dados e finalizar a compra.</string>
+	<string name="greetings_activity_back">Voltar</string>
+	
+	<!-- Home Activity -->
+	<string name="home_activity_unavailable">Conteúdo Indisponível</string>
+    <string name="home_activity_available_soon">Disponível em breve.</string>
+    
+    <!-- Lecture Details Activity -->
+    <string name="lecture_details_activity_panelist_name">NOME PALESTRANTE</string>
+    <string name="lecture_details_activity_specialty">ESPECIALIDADE</string>
+    <string name="lecture_details_activity_date">31 Dez</string>
+    <string name="lecture_details_activity_time">10h - 10h</string>
+    <string name="lecture_details_activity_lecture_abstract">Resumo da Palestra Atual</string>
+    <string name="lecture_details_activity_lecture_content">Detalhes da Palestra Atual</string>
+    <string name="lecture_details_activity_schedule">Agendar</string>
+    
+	<string name="lecture_details_activity_title_unavailable">Sem Título *</string>
+    <string name="lecture_details_activity_panelist_unassociated_event">Palestrante não associado à Evento.</string>
+    
+    <!-- Magazine Activity -->
+    <string name="magazine_activity_sign_now">ASSINE AGORA</string>
+    
+    <!-- Networking List Activity -->
+    <string name="networking_list_activity_create_card">Criar meu cartão</string>
+    
+    <string name="networking_list_activity_qrcode_error">"Ocorreu um erro na leitura do QRCode, por favor tente novamente."</string>
+    <string name="networking_list_activity_qrcode_canceled">"Leitura de QRCode cancelada."</string>
+    <string name="networking_list_activity_existent_contact">"Você já possui um contato com este nome e e-mail."</string>
+    
+    <!-- Participant Activity -->
+    <string name="participant_activity_complete_name_hint">Nome Completo</string>
+    <string name="participant_activity_email_hint">E-mail</string>
+    <string name="participant_activity_cpf_hint">Hint</string>
+    <string name="participant_activity_company_hint">Empresa</string>
+    <string name="participant_activity_role_hint">Cargo</string>
+    <string name="participant_activity_confirm">Confirmar</string>
+    
+    <string name="participant_activity_error">Favor informar os campos de forma correta.</string>
+    
+    <!-- Passes Activity -->
+    <string name="passes_activity_hint">Ao comprar pelo aplicativo oficial da HSM, você tem um desconto exclusivo em qualquer um dos passes.</string>
+    
+    <!-- Payment Activity -->
+    <string name="payment_activity_single_pass">Passe Single</string>
+    <string name="payment_activity_choose_day">ESCOLHA UM DIA</string>
+    <string name="payment_activity_participant">PARTICIPANTE</string>
+    <string name="payment_activity_register">Cadastrar</string>
+    <string name="payment_activity_purchase">Comprar</string>
+    
+    <string name="payment_activity_invalid_data">Cadastro com dados inválidos.</string>
+    
+    <!-- Utils -->
     <string name="output_file">Log.txt</string>
     
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Ééééééégua mlk tú és doido!</string>
     <string name="title_activity_home"></string>
     <string name="title_activity_agenda">Agenda</string>
     <string name="title_activity_detalhe_palestra">Detalhe da Palestra</string>
@@ -15,24 +150,18 @@
     <string name="title_activity_agradecimento">Obrigado</string>
     <string name="title_activity_agenda_adapter">AgendaAdapter</string>
     <string name="title_activity_detalhe_evento">Auditório Principal</string>
-    <string name="agenda">Agenda</string>
-    <string name="passes">Passes</string>
     <string name="title_activity_pacote_adapter">PacoteAdapter</string>
     <string name="tipoPagamento">Escolha forma pagamento</string>
     <string name="quantidade">Escolha a quantidade</string>
-    <string name="voltar">Voltar</string>
     <string name="title_activity_menu_lateral">Menu</string>
-    <string name="palestrantes">Palestrantes</string>
     <string name="title_activity_splash_screen2">SplashScreen2</string>
     <string name="comprar">Comprar</string>
     <string name="title_activity_break_adapter">BreakAdapter</string>
     <string name="participante">Participante</string>
     <string name="drawer_open">Abrir menu</string>
-    <string name="cadastrar">Cadastrar</string>
     <string name="drawer_close">Fechar menu</string>
     <string name="title_activity_participante">Participante</string>
     <string name="pronto">Pronto</string>
-    <string name="confirmar">Confirmar</string>
     <string name="title_activity_eventos">Eventos</string>
     <string name="title_activity_lista_audutorios">Auditórios</string>
     <string name="title_activity_auditorios">Auditórios</string>

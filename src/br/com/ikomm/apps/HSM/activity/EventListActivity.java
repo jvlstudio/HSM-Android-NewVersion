@@ -12,6 +12,7 @@ import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.EventsAdapter;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.utils.FileBitmapUtils;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -72,6 +73,7 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 	 * Sets the list adapter.
 	 */
 	public void setAdapter() {
+		Utils.fileLog("EventListActivity.setAdapter() -> ----------------------------------------------------------------------------------------------------");
 		String path = mFileManager.createDir(CustomApplication.CACHE_DIR);
 		EventsAdapter adapter = new EventsAdapter(this, ContentManager.getInstance().getCachedEventList(), path);
 		mListView = (ListView) findViewById(R.id.id_list_view);

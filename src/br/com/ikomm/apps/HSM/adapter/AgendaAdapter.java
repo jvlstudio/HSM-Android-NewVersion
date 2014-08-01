@@ -238,10 +238,6 @@ public class AgendaAdapter extends BaseAdapter {
 	 * @return
 	 */
 	public String getPanelistName(Agenda agenda) {
-//		PanelistRepo repo = new PanelistRepo(mActivity);
-//		repo.open();
-//		Panelist panelist = repo.getPanelist(agenda.panelist_id);
-//		repo.close();
 		Panelist panelist = QueryHelper.getPanelist(agenda.panelist_id);
 		String name = panelist.name; 
 		return name;
@@ -268,11 +264,6 @@ public class AgendaAdapter extends BaseAdapter {
 	 */
 	public String getPanelistUrl(Integer position) {
 		Integer panelistId = mAgendaList.get(position).panelist_id;
-
-//		PanelistRepo repo = new PanelistRepo(mActivity);
-//		repo.open();
-//		Panelist panelist = repo.getPanelist((long)panelistId);
-//		repo.close();
 		Panelist panelist = QueryHelper.getPanelist(panelistId);
 		
 		String url = panelist.picture;

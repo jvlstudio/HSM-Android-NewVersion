@@ -20,7 +20,7 @@
             android:paddingBottom="20dp"
             android:paddingRight="25dp"
             android:paddingLeft="30dp"
-            android:text="Passe Single"
+            android:text="@string/payment_activity_single_pass"
             android:textColor="@color/hsm_color_white" />
     </LinearLayout>
 
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:paddingLeft="22dp"
-        android:text="ESCOLHA UM DIA"
+        android:text="@string/payment_activity_choose_day"
         android:textColor="@color/hsm_color_gray_light"
         android:textSize="20dp" />
 
@@ -49,8 +49,8 @@
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
         android:layout_marginTop="10dp"
-        android:text="PARTICIPANTE"
-        android:textColor="#535361"
+        android:text="@string/payment_activity_participant"
+        android:textColor="@color/hsm_color_gray"
         android:textSize="20dp" />
 
     <Button
@@ -62,7 +62,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_background_behavior"
-        android:text="@string/cadastrar"
+        android:text="@string/payment_activity_register"
         android:textColor="@color/hsm_color_white" />
 
     <Button
@@ -72,6 +72,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
         android:background="@drawable/button_payment_background_behavior"
-        android:text="@string/comprar"
+        android:text="@string/payment_activity_purchase"
         android:textColor="@color/hsm_color_white" />
 </LinearLayout>
