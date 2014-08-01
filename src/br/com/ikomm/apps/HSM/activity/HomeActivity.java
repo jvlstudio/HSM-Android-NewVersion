@@ -166,7 +166,9 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 	 */
 	public void getCurrentHome() {
 		List<Home> homeList = ContentManager.getInstance().getCachedHomeList();
-		mHome = homeList.get(0);
+		if (homeList != null && homeList.size() > 0) {
+			mHome = homeList.get(0);
+		}
 	}
 	
 	public void setEventImage() {

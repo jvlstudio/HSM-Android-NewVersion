@@ -10,19 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Event;
-import br.com.ikomm.apps.HSM.task.ReadImageAsyncTask;
-import br.com.ikomm.apps.HSM.utils.AsyncTaskUtils;
 import br.com.ikomm.apps.HSM.utils.FileBitmapUtils;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
-
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * EventsAdapter.java class.
@@ -113,7 +108,8 @@ public class EventsAdapter extends BaseAdapter {
 			// Gets ViewHolder from the tag.
 			mViewHolder = (ViewHolder)convertView.getTag();
 		}
-		populatesAdapter(event);
+		Utils.fileLog("EventsAdapter.getView() -> Calling populatesAdapter() for position " + position + ".");
+		populatesAdapter(event, position);
 		
 		return convertView;
 	}
@@ -126,11 +122,12 @@ public class EventsAdapter extends BaseAdapter {
 	 * Populates the item adapter.
 	 * 
 	 * @param event
+	 * @param position
 	 */
-	public void populatesAdapter(Event event) {
+	public void populatesAdapter(Event event, Integer position) {
 		// Sets the image URL.
 		String path = mPath + event.image_list;
-		setLinearLayoutBitmap(path);
+		setLinearLayoutBitmap(path, position);
 		
 		// Sets the text views.
 		mViewHolder.titleTextView.setText(event.name);
@@ -151,31 +148,27 @@ public class EventsAdapter extends BaseAdapter {
 	/**
 	 * Downloads an image.
 	 * 
-	 * @param path The image path into the disk.
-	 * @ 
+	 * @param path The image path into the disk
+	 * @param position 
 	 */
-	public void setLinearLayoutBitmap(String path) {
-		ReadImageAsyncTask task = new ReadImageAsyncTask(mFileManager, path) {
+	public void setLinearLayoutBitmap(final String path, final Integer position) {
+		Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Calling ReadImageAsyncTask for position " + position + " and file " + path + ".");
+		/*
+		ReadImageAsyncTask task = new ReadImageAsyncTask(mFileManager, path, position) {
 			@SuppressWarnings("deprecation")
 			protected void onPostExecute(Bitmap bitmap) {
+				Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Into onPostExecute(), setting the Bitmap for position " + position + " and file " + path + ".");
 				BitmapDrawable drawable = new BitmapDrawable(bitmap);
 				mViewHolder.panelistLinearLayout.setBackgroundDrawable(drawable);
 			};
 		};
 		AsyncTaskUtils.execute(task, new String[] {});
-	}
-	
-	/**
-	* Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
-	*  
-	* @param url The url of the image.
-	* @param imageView The {@link ImageView} which will receive the image.
-	*/
-	public void setUniversalImage(String url, ImageView imageView) {
-		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
-		imageLoader.displayImage(url, imageView, cache);
+		*/
+//		Bitmap current = ContentManager.getInstance().getCachedBitmapList().get(position);
+		Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Getting Bitmap from the id '" + path + "'.");
+		Bitmap current = ContentManager.getInstance().getCachedBitmap(path);
+		BitmapDrawable drawable = new BitmapDrawable(current);
+		mViewHolder.panelistLinearLayout.setBackgroundDrawable(drawable);
 	}
 	
 	/**

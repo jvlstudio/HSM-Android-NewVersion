@@ -5,9 +5,11 @@ import java.io.IOException;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.utils.BitmapUtils;
 import br.com.ikomm.apps.HSM.utils.FileBitmapUtils;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * DownloadAsyncTask class.
@@ -73,7 +75,10 @@ public class DownloadAsyncTask extends AsyncTask<String, Void, Bitmap> {
 		// Gets the Bitmap from the web.
 		try {
 			if (bitmap != null) {
+				Utils.fileLog("DownloadAsyncTask.getBitmapFromWeb() -> Creating file " + mFilePath + ".");
 				file = mFileManager.createFile(mFilePath, bitmap);
+				Utils.fileLog("DownloadAsyncTask.getBitmapFromWeb() -> Adding file " + mFilePath + " for HashMap.");
+				ContentManager.getInstance().addBitmap(mFilePath, bitmap);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

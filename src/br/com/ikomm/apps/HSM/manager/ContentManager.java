@@ -32,6 +32,7 @@ import br.com.ikomm.apps.HSM.task.Notifiable;
 import br.com.ikomm.apps.HSM.task.PanelistAsyncTask;
 import br.com.ikomm.apps.HSM.task.PasseAsyncTask;
 import br.com.ikomm.apps.HSM.task.UpdaterAsyncTask;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * ContentManager.java class.
@@ -83,7 +84,8 @@ public class ContentManager {
 	private List<Passe> mPasseList = new ArrayList<Passe>();
 	
 	// Bitmap values.
-	private List<Bitmap> mLinearLayoutBitmapList = new ArrayList<Bitmap>();
+//	private List<Bitmap> mLinearLayoutBitmapList = new ArrayList<Bitmap>();
+	private Map<String, Bitmap> mBitmapMap = new HashMap<String, Bitmap>();
 	
 	// Notifiables map.
 	private Map<Object, Notifiable> mTaskNotifiables = new HashMap<Object, Notifiable>();
@@ -142,7 +144,8 @@ public class ContentManager {
 		mMagazineList = null;
 		mPanelistList = null;
 		mPasseList = null;
-		mLinearLayoutBitmapList = null;
+//		mLinearLayoutBitmapList = null;
+		mBitmapMap = null;
 	}
 	
 	//----------------------------------------------
@@ -184,8 +187,10 @@ public class ContentManager {
 	 * 
 	 * @param bitmap
 	 */
-	public void addBitmap(Bitmap bitmap) {
-		mLinearLayoutBitmapList.add(bitmap);
+	public void addBitmap(String id, Bitmap bitmap) {
+//		mLinearLayoutBitmapList.add(bitmap);
+		Utils.fileLog("ContentManager.addBitmap() -> Adding Bitmap with id '" + id + "'.");
+		mBitmapMap.put(id, bitmap);
 	}
 	
 	/**
@@ -193,8 +198,13 @@ public class ContentManager {
 	 * 
 	 * @return
 	 */
-	public List<Bitmap> getBitmapList() {
+	/*
+	public List<Bitmap> getCachedBitmapList() {
 		return mLinearLayoutBitmapList;
+	}
+	*/
+	public Bitmap getCachedBitmap(String id) {
+		return mBitmapMap.get(id);
 	}
 	
 	//----------------------------------------------
