@@ -35,7 +35,7 @@ public class LauncherActivity extends Activity implements Notifiable {
 	//--------------------------------------------------
 	
 	// Limit of tasks finished attempts.
-	public static final Integer LIMIT = 30;
+	public static final Integer LIMIT = 10;
 	
 	//--------------------------------------------------
 	// Attributes
@@ -158,10 +158,13 @@ public class LauncherActivity extends Activity implements Notifiable {
 	public void taskFinished(int type, OperationResult result) {
 		// Validating the error result to show the proper dialog message.
 		DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {}
+			public void onClick(DialogInterface dialog, int which) {
+				finish();
+			}
 		};
 		OperationResult.validateResult(LauncherActivity.this, result, listener);
-		 
+		
+		// Tasks.
 		if (type == ContentManager.FETCH_TASK.UPDATER) {
 			if (ResultType.SUCCESS.equals(result.getResultType())) {
 				getData();
