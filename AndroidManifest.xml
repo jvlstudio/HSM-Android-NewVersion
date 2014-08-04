@@ -36,102 +36,94 @@
 
 		<activity
             android:name=".activity.SplashScreenActivity"
-            android:label="@string/title_activity_splash_screen2"
+            android:label="@string/activity_splash_screen_title"
             android:screenOrientation="portrait" >
         </activity>
         
         <activity
         	android:name=".activity.HomeActivity"
-            android:label="@string/title_activity_home"
+            android:label="@string/activity_home_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.AgendaActivity"
-            android:label="@string/title_activity_agenda"
+            android:label="@string/agenda_activity_title"
             android:screenOrientation="portrait" >
         </activity>
 		<activity
             android:name=".activity.PanelistActivity"
-            android:label="@string/title_activity_palestrantes"
+            android:label="@string/panelist_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
         	android:name=".activity.LectureDetailsActivity"
-            android:label="@string/title_activity_detalhe_palestra"
+            android:label="@string/lecture_details_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.PassesActivity"
-            android:label="@string/title_activity_pacote"
+            android:label="@string/passes_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.PaymentActivity"
-            android:label="@string/title_activity_pagamento"
+            android:label="@string/payment_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.GreetingsActivity"
-            android:label="@string/title_activity_agradecimento"
+            android:label="@string/greetings_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.ParticipantActivity"
-            android:label="@string/title_activity_participante"
+            android:label="@string/participant_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.NetworkingListActivity"
-            android:label="@string/title_activity_lista_networking"
+            android:label="@string/networking_list_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.AddCardActivity"
-            android:label="@string/title_activity_meu_cartao"
+            android:label="@string/add_card_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.ContactActivity"
-            android:label="@string/title_activity_contato"
+            android:label="@string/contact_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.QRCodeActivity"
-            android:label="@string/title_activity_qrcode"
+            android:label="@string/qrcode_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.BookListActivity"
-            android:label="@string/title_activity_lista_livros"
+            android:label="@string/book_list_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.BookDetailsActivity"
-            android:label="@string/title_activity_detalhe_livro"
+            android:label="@string/book_details_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.EventListActivity"
-            android:label="@string/title_activity_eventos_nova"
+            android:label="@string/event_list_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.MagazineActivity"
-            android:label="@string/title_activity_revista"
+            android:label="@string/magazine_activity_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.EventDetailsActivity"
-            android:label="@string/title_activity_detalhe_evento_neo"
+            android:label="@string/event_details_activity_title"
             android:screenOrientation="portrait" >
         </activity>
-        
-        <!-- Services -->
-        <!-- <service android:name=".services.HSMService" >
-            <intent-filter>
-                <action android:name="StartService" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </service> -->
     </application>
 </manifest>
