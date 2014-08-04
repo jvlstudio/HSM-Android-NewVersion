@@ -239,30 +239,44 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 		List<Event> list = ContentManager.getInstance().getCachedEventList();
 		Utils.fileLog("HomeActivity.setEventListImages() -> ----------------------------------------------------------------------------------------------------");
 		Utils.fileLog("HomeActivity.setEventListImages(). There's " + list.size() + " events into this app.");
-		FileBitmapUtils fileManager = new FileBitmapUtils();
 		Boolean imagesInCache = ContentManager.getInstance().eventImagesInCache();
 		Utils.fileLog("HomeActivity.setEventListImages(). Images in cache? " + imagesInCache + ".");
 		
+		Integer cont = 0;
 		if (!imagesInCache) {
-			for (Event event : list) {
-				// Gets the path.
-				String path = fileManager.createDir(CustomApplication.CACHE_DIR);
-				path += event.getImageList();
-				Utils.fileLog("HomeActivity.setEventListImages(). Inside the FOR. The path is " + path + ".");
-				
-				// Puts each image into the ContentManager.
-				final String completePath = path;
-				ReadImageAsyncTask task = new ReadImageAsyncTask(fileManager, completePath) {
-					protected void onPostExecute(Bitmap bitmap) {
+			putImagesInCache(list);
+			Utils.fileLog("HomeActivity.setEventListImages() -> Into " + cont++ + "iteraction we have " + ContentManager.getInstance().getMapSize()  + " bitmaps.");
+		}
+	}
+	
+	/**
+	 * Put images into the {@link ContentManager}. 
+	 * 
+	 * @param list
+	 */
+	public void putImagesInCache(List<Event> list) {
+		FileBitmapUtils fileManager = new FileBitmapUtils();
+		for (Event event : list) {
+			// Gets the path.
+			String path = fileManager.createDir(CustomApplication.CACHE_DIR);
+			path += event.getImageList();
+			Utils.fileLog("HomeActivity.setEventListImages(). Inside the FOR. The path is " + path + ".");
+			
+			// Puts each image into the ContentManager.
+			final String completePath = path;
+			ReadImageAsyncTask task = new ReadImageAsyncTask(fileManager, completePath) {
+				protected void onPostExecute(Bitmap bitmap) {
+					if (bitmap != null) {
 						Utils.fileLog("HomeActivity.setEventListImages() -> Into ReadImageAsyncTask.onPostExecute().\n" +
 							"Setting the Bitmap for file " + completePath + ".");
 						ContentManager.getInstance().addBitmap(completePath, bitmap);
-					};
+					}
 				};
-				AsyncTaskUtils.execute(task, new String[] {});
-			}
+			};
+			AsyncTaskUtils.execute(task, new String[] {});
 		}
 	}
+	
 	
 	//--------------------------------------------------
 	// Listeners

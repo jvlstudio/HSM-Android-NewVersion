@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/book_details_activity_title"
+                android:text="@string/book_details_activity_book_title"
                 android:textColor="@color/hsm_color_yellow"
                 android:textStyle="bold" />
             <Button

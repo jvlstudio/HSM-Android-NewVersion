@@ -60,7 +60,7 @@ public class LauncherActivity extends Activity implements Notifiable {
 	private List<Passe> mPasseList;
 	
 	// Flag.
-	private Boolean mLauncherActivityAlreadyAccessed = false;
+	private Boolean mActivityAlreadyAccessed = false;
 	private Integer mCalledTasksCount = 0;
 	
 	//--------------------------------------------------
@@ -82,12 +82,12 @@ public class LauncherActivity extends Activity implements Notifiable {
     	super.onResume();
     	
     	// Checks where the application will go.
-    	if (mLauncherActivityAlreadyAccessed) {
+    	if (mActivityAlreadyAccessed) {
 			finish();
     	}
     	
         // Flag access of this activity.
-        mLauncherActivityAlreadyAccessed = true;
+        mActivityAlreadyAccessed = true;
     }
     
 	//----------------------------------------------

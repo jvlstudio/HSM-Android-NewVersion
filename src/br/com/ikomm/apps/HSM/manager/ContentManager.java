@@ -218,6 +218,15 @@ public class ContentManager {
 		return mapSizeOk;
 	}
 	
+	/**
+	 * Gets the {@link Bitmap} map size.
+	 * 
+	 * @return
+	 */
+	public Integer getMapSize() {
+		return mBitmapMap.size();
+	}
+	
 	//----------------------------------------------
 	// Agenda
 	//----------------------------------------------

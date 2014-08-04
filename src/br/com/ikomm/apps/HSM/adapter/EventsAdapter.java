@@ -165,11 +165,15 @@ public class EventsAdapter extends BaseAdapter {
 		*/
 //		Bitmap current = ContentManager.getInstance().getCachedBitmapList().get(position);
 		
-			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Getting Bitmap from the id '" + path + "'.");
+		if (mViewHolder.panelistLinearLayout.getDrawingCache() == null) {
+			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> LinearLayout without bitmap! Getting Bitmap from the id '" + path + "'.");
 			Bitmap current = ContentManager.getInstance().getCachedBitmap(path);
 			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Bitmap is null? " + ((current == null) ? "Sim" : "N‹o") + ".");
 			BitmapDrawable drawable = new BitmapDrawable(current);
 			mViewHolder.panelistLinearLayout.setBackgroundDrawable(drawable);
+		} else {
+			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> LinearLayout with bitmap.");
+		}
 	}
 	
 	/**

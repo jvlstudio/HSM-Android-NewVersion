@@ -42,6 +42,8 @@ public class SplashScreenActivity extends Activity {
 	private Integer mEventListSize = 0;
 	private Integer mCount = 0;
 	
+	// Flag.
+	private Boolean mActivityAlreadyAccessed = false;
 	private Boolean mEventListImagesDownloaded = false;
 	
 	//--------------------------------------------------
@@ -61,11 +63,18 @@ public class SplashScreenActivity extends Activity {
         callHomeActivity();
         Log.i(AppConfiguration.COMMON_LOGGING_TAG, Utils.getClassName(SplashScreenActivity.class) + "onCreate().");
     }
-    
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	super.onActivityResult(requestCode, resultCode, data);
-    	finish();
+    protected void onResume() {
+    	super.onResume();
+    	
+    	// Checks where the application will go.
+    	if (mActivityAlreadyAccessed) {
+			finish();
+    	}
+    	
+        // Flag access of this activity.
+    	mActivityAlreadyAccessed = true;
     }
 
 	//--------------------------------------------------
@@ -135,7 +144,7 @@ public class SplashScreenActivity extends Activity {
 	 */
 	public void callHomeActivity() {
 		Intent intent = new Intent(this, HomeActivity.class);
-		startActivityForResult(intent, 0);
+		startActivity(intent);
 	}
 	
 	//--------------------------------------------------

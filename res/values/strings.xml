@@ -49,7 +49,7 @@
     <string name="banner_fragment_empty">"Erro ao abrir o link, por favor tentar mais tarde."</string>
     
 	<!-- Book Details Activity -->
-    <string name="book_details_activity_title">TÍTULO DO LIVRO</string>
+    <string name="book_details_activity_book_title">TÍTULO DO LIVRO</string>
 	<string name="book_details_activity_purchase">Comprar</string>
 	<string name="book_details_activity_sinopse">SINOPSE  |</string>
 	<string name="book_details_activity_author">AUTOR</string>
