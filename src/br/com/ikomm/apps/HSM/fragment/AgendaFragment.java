@@ -81,7 +81,7 @@ public class AgendaFragment extends SherlockFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_agenda, container, false);
-		mListView = (ListView) view.findViewById(R.id.listViewData1);
+		mListView = (ListView) view.findViewById(R.id.id_list_view);
 		mListView.setOnItemClickListener(onItemClickData1());
 		setHasOptionsMenu(false);
 		return view;

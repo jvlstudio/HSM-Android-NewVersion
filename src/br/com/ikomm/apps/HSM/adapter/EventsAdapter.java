@@ -96,11 +96,11 @@ public class EventsAdapter extends BaseAdapter {
 			LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.adapter_event_item, parent, false);
 			
-			mViewHolder.panelistLinearLayout = (LinearLayout)convertView.findViewById(R.id.id_panelist_layout_eventos_adapter_item);
-			mViewHolder.titleTextView = (TextView)convertView.findViewById(R.id.id_title_eventos_adapter_item);
-			mViewHolder.subtitleTextView = (TextView)convertView.findViewById(R.id.id_subtitle_eventos_adapter_item);
-			mViewHolder.dateTextView = (TextView)convertView.findViewById(R.id.id_date_eventos_adapter_item);
-			mViewHolder.placeTextView = (TextView)convertView.findViewById(R.id.id_address_eventos_adapter_item);
+			mViewHolder.panelistLinearLayout = (LinearLayout)convertView.findViewById(R.id.id_panelist_layout_events_adapter_item);
+			mViewHolder.titleTextView = (TextView)convertView.findViewById(R.id.id_title_events_adapter_item);
+			mViewHolder.subtitleTextView = (TextView)convertView.findViewById(R.id.id_subtitle_events_adapter_item);
+			mViewHolder.dateTextView = (TextView)convertView.findViewById(R.id.id_date_events_adapter_item);
+			mViewHolder.placeTextView = (TextView)convertView.findViewById(R.id.id_address_events_adapter_item);
 			
 			// Saves ViewHolder into the tag.
 			convertView.setTag(mViewHolder);

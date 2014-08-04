@@ -1,61 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- IMAGES:
-	[1] backend_id = 18
-    name = UM DIA COM DAVID ULRICH
-    image_list = image_event_david_ulrich_menor_1@2x.png
-
-	[2] backend_id = 3
-    name = THE BEST OF PHILIP KOTLER - MANAUS
-    image_list = image_event_hsm_lista_kotler_03_@2x.png
-
-	[3] backend_id = 5
-    name = THE BEST OF PHILIP KOTLER - BRASÍLIA
-    image_list = image_event_image_event_hsm_lista_kotler_02_2x_1@2x.png
-
-	[4] backend_id = 6
-    name = PHILIP KOTLER E GRANDES NOMES
-    image_list = image_event_philip_menor_@2x.png
-
-	[5] backend_id = 7
-    name = THE BEST OF PHILIP KOTLER - BELO HORIZONTE
-    image_list = image_event_hsm_lista_kotler_01_@2x.png
-
-	[6] backend_id = 8
-    name = FÓRUM HSM NEGOCIAÇÃO E GESTÃO ESTRATÉGICA DE VENDA
-    image_list = image_event_hsm_lista_forum_01_@2x.png
-
-	[7] backend_id = 11
-    name = HSM EXPOMANAGEMENT 2014
-    image_list = image_event_hsm_menor_@2x.png
-
-	[8] backend_id = 9
-    name = WORKSHOP HSM BUSINESS MODEL GENERATION COM ALEXAND
-    image_list = image_event_work_bus_menor_@2x.png
-
-	[9] backend_id = 10
-    name = SEMINÁRIO HSM JOHN DAVIS
-    image_list = image_event_jonh_menor_@2x.png -->
-    
-    <!-- MISSING:
-    EventsAdapter.java
-	HomeGridViewAdapter.java
-	MagazineAdapter.java
-	NetworkFriendsAdapter.java
-	PanelistGridViewAdapter.java
-	PassesAdapter.java
-	
-	adapter_event_item.xml
-	adapter_home.xml
-	adapter_magazine_list.xml
-	adapter_networking_item.xml
-	adapter_pacote.xml
-	adapter_panelist.xml
-	drawer_list_item.xml
-	fragment_agenda.xml
-	fragment_banner.xml
-	spinner_text_color.xml -->
-    
     <!-- Application -->
     <string name="app_name">HSM</string>
     
@@ -82,6 +26,9 @@
     <string name="agenda_adapter_end_time">12h00</string>
     <string name="agenda_adapter_panelist_name">Nome do Palestrante</string>
     <string name="agenda_adapter_lecture_type">Tipo de Palestra</string>
+    
+    <!-- Banner Fragment -->
+    <string name="banner_fragment_empty">"Erro ao abrir o link, por favor tentar mais tarde."</string>
     
 	<!-- Book Details Activity -->
     <string name="book_details_activity_title">TÍTULO DO LIVRO</string>
@@ -120,6 +67,12 @@
     <string name="event_details_activity_panelists">Palestrantes</string>
     <string name="event_details_activity_passes">Passes</string>
     
+    <!-- Events Adapter -->
+    <string name="adapter_event_item_title">Título</string>
+    <string name="adapter_event_item_subtitle">Subtítulo</string>
+    <string name="adapter_event_item_date">30 e 31 Dez</string>
+    <string name="adapter_event_item_address">WTC Torre Empresarial</string>
+    
     <!-- Greetings Activity -->
 	<string name="greetings_activity_thanks">OBRIGADO!</string>
 	<string name="greetings_activity_purchase_success">Sua solicitação de compra dos passes foi realizada com sucesso.</string>
@@ -145,12 +98,23 @@
     <!-- Magazine Activity -->
     <string name="magazine_activity_sign_now">ASSINE AGORA</string>
     
+    <!-- Magazine Adapter -->
+    <string name="magazine_adapter_title">TÍTULO</string>
+    <string name="magazine_adapter_description">DESCRIÇÃO</string>
+    <string name="magazine_adapter_see_more">VER MAIS</string>
+    
     <!-- Networking List Activity -->
     <string name="networking_list_activity_create_card">Criar meu cartão</string>
     
     <string name="networking_list_activity_qrcode_error">"Ocorreu um erro na leitura do QRCode, por favor tente novamente."</string>
     <string name="networking_list_activity_qrcode_canceled">"Leitura de QRCode cancelada."</string>
     <string name="networking_list_activity_existent_contact">"Você já possui um contato com este nome e e-mail."</string>
+    
+    <!-- Networking Adapter -->
+    <string name="networking_adapter_name">NOME DO AMIGO</string>
+    
+    <!-- Panelist Adapter -->
+    <string name="panelist_adapter_name">Nome do Palestrante</string>
     
     <!-- Participant Activity -->
     <string name="participant_activity_complete_name_hint">Nome Completo</string>
@@ -164,6 +128,18 @@
     
     <!-- Passes Activity -->
     <string name="passes_activity_hint">Ao comprar pelo aplicativo oficial da HSM, você tem um desconto exclusivo em qualquer um dos passes.</string>
+    
+    <!-- Passes Adapter -->
+    <string name="passes_adapter_inscription">Inscrições</string>
+    <string name="passes_adapter_title">TÍTULO DO PACOTE</string>
+    <string name="passes_adapter_validity">Validade</string>
+    <string name="passes_adapter_normal_price">Preço Normal:\nR$ X.XXX,00</string>
+    <string name="passes_adapter_new_price">Preço Novo:\nR$ X.XXX,00</string>
+    
+    <string name="passes_adapter_title_empty">Cadastrar Título *</string>
+    <string name="passes_adapter_validity_empty">Cadastrar Validade *</string>
+    <string name="passes_adapter_normal_price_empty">Cadastrar Preço Antigo *</string>
+    <string name="passes_adapter_new_price_empty">Cadastrar Preço Novo *</string>
     
     <!-- Payment Activity -->
     <string name="payment_activity_single_pass">Passe Single</string>

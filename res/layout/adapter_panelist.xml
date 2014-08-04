@@ -23,5 +23,5 @@
       	android:textColor="@color/hsm_color_gray"
 	    android:textStyle="bold"
 	    android:textSize="14dp"
-        android:text="Nome Palestrante" />
+        android:text="@string/panelist_adapter_name" />
 </LinearLayout>

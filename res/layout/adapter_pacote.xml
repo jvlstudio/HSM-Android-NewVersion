@@ -15,7 +15,7 @@
 		<TextView
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="Inscrições"
+		    android:text="@string/passes_adapter_inscription"
 		    android:textColor="@color/hsm_color_white"
 		    android:textSize="12dp" />
 		
@@ -24,7 +24,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_marginTop="15dp"
-		    android:text="TITULO PACOTE"
+		    android:text="@string/passes_adapter_inscription"
 		    android:textColor="@color/hsm_color_white"
 		    android:textSize="26dp" />
 		
@@ -33,7 +33,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_marginTop="15dp"
-		    android:text="Validade"
+		    android:text="@string/passes_adapter_validity"
 		    android:textColor="@color/hsm_color_white" />
 		
 		<LinearLayout
@@ -51,7 +51,7 @@
 			    android:layout_height="wrap_content"
 			    android:gravity="center"
 			    android:layout_weight="1"
-			    android:text="R$ X.XXX,00 "
+			    android:text="@string/passes_adapter_normal_price"
 			    android:textSize="16dp"
 			    android:textColor="@color/hsm_color_black" />
 			
@@ -61,7 +61,7 @@
 			    android:layout_height="wrap_content"
 			    android:gravity="center"
 			    android:layout_weight="1"
-			    android:text="R$ X.XXX,00"
+			    android:text="@string/passes_adapter_new_price"
 			    android:textColor="@color/hsm_color_black"
 			    android:textSize="16dp" />
 		</LinearLayout>

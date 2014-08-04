@@ -136,7 +136,7 @@ public class PassesAdapter extends BaseAdapter {
 				mViewHolder.title.setText(item.name);
 			}
 		} else {
-			mViewHolder.title.setText("< Cadastrar T’tulo do Evento >");
+			mViewHolder.title.setText(mActivity.getString(R.string.passes_adapter_title_empty));
 		}
 	}
 	
@@ -149,7 +149,7 @@ public class PassesAdapter extends BaseAdapter {
 		if (!StringUtils.isEmpty(item.description)) {
 			mViewHolder.validity.setText(item.description);
 		} else {
-			mViewHolder.validity.setText("< Cadastrar Validade >");
+			mViewHolder.validity.setText(mActivity.getString(R.string.passes_adapter_validity_empty));
 		}
 	}
 	
@@ -162,7 +162,7 @@ public class PassesAdapter extends BaseAdapter {
 		if (!StringUtils.isEmpty(item.price_from)) {
 			mViewHolder.normalPrice.setText("R$ " + item.price_from);
 		} else {
-			mViewHolder.normalPrice.setText("< Cadastrar Preo Antigo >");
+			mViewHolder.normalPrice.setText(mActivity.getString(R.string.passes_adapter_normal_price_empty));
 		}
 	}
 	
@@ -175,7 +175,7 @@ public class PassesAdapter extends BaseAdapter {
 		if (!StringUtils.isEmpty(item.price_to)) {
 			mViewHolder.appPrice.setText("R$ " + item.price_to);
 		} else {
-			mViewHolder.normalPrice.setText("< Cadastrar Preo Novo >");
+			mViewHolder.normalPrice.setText(mActivity.getString(R.string.passes_adapter_new_price_empty));
 		}
 	}
 	
