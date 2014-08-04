@@ -209,12 +209,13 @@ public class ContentManager {
 	}
 	
 	/**
-	 * Checks if the BitmapMap is null or not.
+	 * Checks if the BitmapMap is ok.
+	 * 
 	 * @return
 	 */
-	public Boolean areEventImagesInCache() {
-		Boolean mapIsNotNull = (mBitmapMap != null) && (mBitmapMap.size() > 0); 
-		return mapIsNotNull;
+	public Boolean eventImagesInCache() {
+		Boolean mapSizeOk = (mBitmapMap != null) && (mBitmapMap.size() > 0) && (mBitmapMap.size() == mEventList.size()); 
+		return mapSizeOk;
 	}
 	
 	//----------------------------------------------

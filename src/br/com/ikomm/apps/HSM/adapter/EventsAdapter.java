@@ -164,10 +164,12 @@ public class EventsAdapter extends BaseAdapter {
 		AsyncTaskUtils.execute(task, new String[] {});
 		*/
 //		Bitmap current = ContentManager.getInstance().getCachedBitmapList().get(position);
-		Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Getting Bitmap from the id '" + path + "'.");
-		Bitmap current = ContentManager.getInstance().getCachedBitmap(path);
-		BitmapDrawable drawable = new BitmapDrawable(current);
-		mViewHolder.panelistLinearLayout.setBackgroundDrawable(drawable);
+		
+			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Getting Bitmap from the id '" + path + "'.");
+			Bitmap current = ContentManager.getInstance().getCachedBitmap(path);
+			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Bitmap is null? " + ((current == null) ? "Sim" : "N‹o") + ".");
+			BitmapDrawable drawable = new BitmapDrawable(current);
+			mViewHolder.panelistLinearLayout.setBackgroundDrawable(drawable);
 	}
 	
 	/**

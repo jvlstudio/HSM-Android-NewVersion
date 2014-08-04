@@ -71,7 +71,7 @@ public class LauncherActivity extends Activity implements Notifiable {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_splash_screen);
+        setContentView(R.layout.activity_launcher);
         
         // Begin all the data research.
         updateContent();
@@ -127,6 +127,7 @@ public class LauncherActivity extends Activity implements Notifiable {
     	if (mAgendaListLoaded && mBookListLoaded && mEventListLoaded && mHomeListLoaded && mMagazineListLoaded && mPanelistListLoaded && mPasseListLoaded) {
     		Integer agendaSize = ContentManager.getInstance().getCachedAgendaList().size();
     		
+    		// Checks the data.
     		Integer bookSize = ContentManager.getInstance().getCachedBookList().size();
     		Integer eventSize = ContentManager.getInstance().getCachedEventList().size();
     		Integer homeSize = ContentManager.getInstance().getCachedHomeList().size();
@@ -136,8 +137,10 @@ public class LauncherActivity extends Activity implements Notifiable {
     		String text = "Agenda: " + agendaSize + ", Book: " + bookSize + ", Event: " + eventSize 
     			+ ", Home: " + homeSize + ", Magazine: " + magazineSize + ", Panelist: " + panelistSize + ", Passe: " + passeSize + ".";
     		Utils.fileLog("LauncherActivity.callNextActivity() -> " + text);
-    		 
-    		startActivity(new Intent(this, SplashScreenActivity.class));
+    		
+    		// Sets the Intent.
+    		Intent intent = new Intent(this, SplashScreenActivity.class);
+    		startActivity(intent);
     	} else {
     		if (mCalledTasksCount > LIMIT) {
     			DialogUtils.showSimpleAlert(LauncherActivity.this, R.string.error_title_no_internet, R.string.error_msg_no_internet);

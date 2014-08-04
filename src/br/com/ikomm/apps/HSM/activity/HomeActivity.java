@@ -240,7 +240,7 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 		Utils.fileLog("HomeActivity.setEventListImages() -> ----------------------------------------------------------------------------------------------------");
 		Utils.fileLog("HomeActivity.setEventListImages(). There's " + list.size() + " events into this app.");
 		FileBitmapUtils fileManager = new FileBitmapUtils();
-		Boolean imagesInCache = ContentManager.getInstance().areEventImagesInCache();
+		Boolean imagesInCache = ContentManager.getInstance().eventImagesInCache();
 		Utils.fileLog("HomeActivity.setEventListImages(). Images in cache? " + imagesInCache + ".");
 		
 		if (!imagesInCache) {

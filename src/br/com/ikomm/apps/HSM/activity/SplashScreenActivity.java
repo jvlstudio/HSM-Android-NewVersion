@@ -3,7 +3,9 @@ package br.com.ikomm.apps.HSM.activity;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +31,7 @@ public class SplashScreenActivity extends Activity {
 	//--------------------------------------------------
 	
 	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/events/";
+	public static final String IMAGES_DOWNLOADED = "images_already_downloaded"; 
 	
 	//--------------------------------------------------
 	// Attributes
@@ -38,6 +41,8 @@ public class SplashScreenActivity extends Activity {
 	private List<Event> mEventList;
 	private Integer mEventListSize = 0;
 	private Integer mCount = 0;
+	
+	private Boolean mEventListImagesDownloaded = false;
 	
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -49,9 +54,18 @@ public class SplashScreenActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash_screen);
         
-        downloadEventImages();
+        Boolean imagesDownloaded = getPreference(this, IMAGES_DOWNLOADED);
+        if (!imagesDownloaded) {
+        	downloadEventImages();
+        }
         callHomeActivity();
         Log.i(AppConfiguration.COMMON_LOGGING_TAG, Utils.getClassName(SplashScreenActivity.class) + "onCreate().");
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	super.onActivityResult(requestCode, resultCode, data);
+    	finish();
     }
 
 	//--------------------------------------------------
@@ -87,12 +101,8 @@ public class SplashScreenActivity extends Activity {
      * Gets the {@link Event} list size.
      */
     public void getEventListSize() {
-//        EventRepo repo = new EventRepo(this);
-//        repo.open();
-//        mEventList = repo.getAll();
     	mEventList = ContentManager.getInstance().getCachedEventList();
         mEventListSize = mEventList.size();
-//        repo.close();
     }
     
 	/**
@@ -111,6 +121,8 @@ public class SplashScreenActivity extends Activity {
 		    		"downloadImage(). Count is " + mCount + " and Event List size is " + mEventListSize + ".");
 				// Checks the number of images downloaded.
 				if (mCount == mEventListSize) {
+					mEventListImagesDownloaded = true;
+					setPreference(SplashScreenActivity.this, IMAGES_DOWNLOADED, mEventListImagesDownloaded);
 					callHomeActivity();
 				}
 			};
@@ -122,7 +134,42 @@ public class SplashScreenActivity extends Activity {
 	 * Goes to {@link HomeActivity}.
 	 */
 	public void callHomeActivity() {
-		startActivity(new Intent(this, HomeActivity.class));
-		finish();
+		Intent intent = new Intent(this, HomeActivity.class);
+		startActivityForResult(intent, 0);
+	}
+	
+	//--------------------------------------------------
+	// Preferences
+	//--------------------------------------------------
+	
+    /**
+     * Sets the preference of the application.
+     * 
+     * @param context The current context.
+     * @param key The key of the preference.
+     * @param status If the data were loaded.
+     */
+	public static void setPreference(Context context, String key, Boolean status) {
+		// Gets the preference.
+		SharedPreferences pref = context.getSharedPreferences("my_pref", Context.MODE_PRIVATE);
+	    SharedPreferences.Editor editor = pref.edit();
+	    
+		// Saves the preference.
+	    editor.putBoolean(key, status);
+	    editor.commit();
+	}
+	
+    /**
+     * Gets the preference of the application.
+     * 
+     * @param context The current context.
+     * @páram key The key to be caught.
+     * 
+     * @return The preference value.
+     */
+	public static Boolean getPreference(Context context, String key) {
+		SharedPreferences pref = context.getSharedPreferences("my_pref", Context.MODE_PRIVATE);
+	    Boolean status = pref.getBoolean(key, false);
+	    return status;
 	}
 }
