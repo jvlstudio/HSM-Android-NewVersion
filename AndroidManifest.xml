@@ -47,82 +47,82 @@
         </activity>
         <activity
             android:name=".activity.AgendaActivity"
-            android:label="@string/agenda_activity_title"
+            android:label="@string/activity_agenda_title"
             android:screenOrientation="portrait" >
         </activity>
 		<activity
             android:name=".activity.PanelistActivity"
-            android:label="@string/panelist_activity_title"
+            android:label="@string/activity_panelist_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
         	android:name=".activity.LectureDetailsActivity"
-            android:label="@string/lecture_details_activity_title"
+            android:label="@string/activity_lecture_details_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.PassesActivity"
-            android:label="@string/passes_activity_title"
+            android:label="@string/activity_passes_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.PaymentActivity"
-            android:label="@string/payment_activity_title"
+            android:label="@string/activity_payment_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.GreetingsActivity"
-            android:label="@string/greetings_activity_title"
+            android:label="@string/activity_greetings_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.ParticipantActivity"
-            android:label="@string/participant_activity_title"
+            android:label="@string/activity_participant_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.NetworkingListActivity"
-            android:label="@string/networking_list_activity_title"
+            android:label="@string/activity_networking_list_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.AddCardActivity"
-            android:label="@string/add_card_activity_title"
+            android:label="@string/activity_add_card_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.ContactActivity"
-            android:label="@string/contact_activity_title"
+            android:label="@string/activity_contact_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.QRCodeActivity"
-            android:label="@string/qrcode_activity_title"
+            android:label="@string/activity_qrcode_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.BookListActivity"
-            android:label="@string/book_list_activity_title"
+            android:label="@string/activity_book_list_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.BookDetailsActivity"
-            android:label="@string/book_details_activity_title"
+            android:label="@string/activity_book_details_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.EventListActivity"
-            android:label="@string/event_list_activity_title"
+            android:label="@string/activity_event_list_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.MagazineActivity"
-            android:label="@string/magazine_activity_title"
+            android:label="@string/activity_magazine_title"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.EventDetailsActivity"
-            android:label="@string/event_details_activity_title"
+            android:label="@string/activity_event_details_title"
             android:screenOrientation="portrait" >
         </activity>
     </application>

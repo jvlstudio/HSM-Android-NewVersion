@@ -4,22 +4,22 @@
     <string name="app_name">HSM</string>
     <string name="activity_splash_screen_title">SplashScreen</string>
 	<string name="activity_home_title">Home</string>
-    <string name="agenda_activity_title">Agenda</string>
-    <string name="panelist_activity_title">Palestrantes</string>
-    <string name="lecture_details_activity_title">Detalhes da Palestra</string>
-    <string name="passes_activity_title">Passes</string>
-    <string name="payment_activity_title">Pagamento</string>
-    <string name="greetings_activity_title">Agradecimento</string>
-    <string name="participant_activity_title">Participante</string>
-    <string name="networking_list_activity_title">Amigos</string>
-    <string name="add_card_activity_title">Adicionar Cartão</string>
-    <string name="contact_activity_title">Contatos</string>
-    <string name="qrcode_activity_title">QR Code</string>
-    <string name="book_list_activity_title">Lista de Livros</string>
-    <string name="book_details_activity_title">Detalhes dos Livros</string>
-    <string name="event_list_activity_title">Lista de Eventos</string>
-    <string name="magazine_activity_title">Revistas</string>
-    <string name="event_details_activity_title">Detalhes do Evento</string>
+    <string name="activity_agenda_title">Agenda</string>
+    <string name="activity_panelist_title">Palestrantes</string>
+    <string name="activity_lecture_details_title">Detalhes da Palestra</string>
+    <string name="activity_passes_title">Passes</string>
+    <string name="activity_payment_title">Pagamento</string>
+    <string name="activity_greetings_title">Agradecimento</string>
+    <string name="activity_participant_title">Participante</string>
+    <string name="activity_networking_list_title">Amigos</string>
+    <string name="activity_add_card_title">Adicionar Cartão</string>
+    <string name="activity_contact_title">Contatos</string>
+    <string name="activity_qrcode_title">QR Code</string>
+    <string name="activity_book_list_title">Lista de Livros</string>
+    <string name="activity_book_details_title">Detalhes dos Livros</string>
+    <string name="activity_event_list_title">Lista de Eventos</string>
+    <string name="activity_magazine_title">Revistas</string>
+    <string name="activity_event_details_title">Detalhes do Evento</string>
     
     <!-- Add Card Activity -->
     <string name="add_card_activity_name">Nome Completo *</string>
@@ -37,7 +37,7 @@
 	<string name="add_card_activity_mobile_empty">Por favor, insira um celular válido.</string>
 	<string name="add_card_activity_company_empty">Por favor, insira uma empresa válida.</string>
 	<string name="add_card_activity_role_empty">Por favor, insira um cargo válido.</string>
-	<string name="add_card_activity_website_empty">Por favor, insira um website válida.</string>		
+	<string name="add_card_activity_website_empty">Por favor, insira um website válido.</string>		
     
 	<!-- Agenda Adapter -->
     <string name="agenda_adapter_start_time">11h00</string>
