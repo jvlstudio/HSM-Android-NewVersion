@@ -12,7 +12,6 @@ import android.widget.GridView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.PanelistGridViewAdapter;
 import br.com.ikomm.apps.HSM.database.QueryHelper;
-import br.com.ikomm.apps.HSM.model.Agenda;
 import br.com.ikomm.apps.HSM.model.Panelist;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -99,35 +98,13 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	 * Sets the {@link GridView}.
 	 */
 	private void setGridView() {
-		String data = getAgendasId();
-		
 		// Gets the Panelist list.
-		List<Panelist> panelistList = QueryHelper.getPanelistListByEvent(data);
+		List<Panelist> panelistList = QueryHelper.getPanelistListByEvent(mEventId);
 		
 		// Sets the GridView.
 		GridView gridView = (GridView)findViewById(R.id.id_list_view);
 		gridView.setAdapter(new PanelistGridViewAdapter(this, panelistList));
 		gridView.setOnItemClickListener(this);
-	}
-	
-	/**
-	 * Gets the {@link Agenda} data.
-	 * 
-	 * @return
-	 */
-	public String getAgendasId() {
-		List<Agenda> agendaList = QueryHelper.getAgendaByEvent(mEventId);
-		String agendaData = "";
-		
-		for (Agenda item : agendaList) {
-			if (agendaData.isEmpty()) {
-				agendaData = String.valueOf(item.getPanelistId());
-			} else {
-				agendaData += "," + String.valueOf(item.getPanelistId());
-			}
-		}
-		
-		return agendaData;
 	}
 	
 	//--------------------------------------------------

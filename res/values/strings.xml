@@ -140,7 +140,7 @@
     <!-- Participant Activity -->
     <string name="participant_activity_complete_name_hint">Nome Completo</string>
     <string name="participant_activity_email_hint">E-mail</string>
-    <string name="participant_activity_cpf_hint">Hint</string>
+    <string name="participant_activity_cpf_hint">CPF</string>
     <string name="participant_activity_company_hint">Empresa</string>
     <string name="participant_activity_role_hint">Cargo</string>
     <string name="participant_activity_confirm">Confirmar</string>

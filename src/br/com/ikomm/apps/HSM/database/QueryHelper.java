@@ -637,22 +637,49 @@ public class QueryHelper {
 	/**
 	 * Gets an {@link Panelist} by an {@link Event}.  
 	 * 
-	 * @param datasId
+	 * @param eventId
 	 * 
 	 * @return
 	 */
-	public static List<Panelist> getPanelistListByEvent(String agendasId) {
-		List<Panelist> list = ContentManager.getInstance().getCachedPanelistList();
-		List<Panelist> filteredPanelist = new ArrayList<Panelist>();
-				
-		for (Panelist panelist : list) {
-			// Gets conditions.
-			Boolean containsId = checkIfContainsPanelistId(panelist.getId(), agendasId);
-			if (containsId) {
-				filteredPanelist.add(panelist);
+	public static List<Panelist> getPanelistListByEvent(Integer eventId) {
+		List<Agenda> agendaList = ContentManager.getInstance().getCachedAgendaList();
+		List<Integer> idList = new ArrayList<Integer>();
+		
+		List<Panelist> panelistList = ContentManager.getInstance().getCachedPanelistList();
+		List<Panelist> returnList = new ArrayList<Panelist>();
+
+		// Gets all the Panelists Ids.
+		for (Agenda agenda : agendaList) {
+			if (agenda.getEventId() == eventId) {
+				idList.add(agenda.getPanelistId());
 			}
 		}
-		return filteredPanelist;
+		
+		// Get the filtered Panelist list.
+		for (Panelist panelist : panelistList) {
+			Boolean containsPanelistId = containsPanelistId(panelist.getId(), idList);
+			if (containsPanelistId) {
+				returnList.add(panelist);
+			}
+		}
+		return returnList;
+	}
+	
+	/**
+	 * Checks if the {@link Panelist} Id is contained into the Id List.
+	 *   
+	 * @param panelistId
+	 * @param idList
+	 * 
+	 * @return
+	 */
+	public static Boolean containsPanelistId(Integer panelistId, List<Integer> idList) {
+		for (Integer id : idList) {
+			if (id == panelistId) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
