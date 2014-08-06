@@ -7,11 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import br.com.ikomm.apps.HSM.CustomApplication;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.EventsAdapter;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
-import br.com.ikomm.apps.HSM.utils.FileBitmapUtils;
 import br.com.ikomm.apps.HSM.utils.Utils;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -35,8 +33,7 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 	//--------------------------------------------------
 	
 	private ListView mListView;
-	private FileBitmapUtils mFileManager = new FileBitmapUtils();
-
+ 
 	//--------------------------------------------------
 	// Activity Life Cycle
 	//--------------------------------------------------
@@ -87,8 +84,7 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 	 */
 	public void setAdapter() {
 		Utils.fileLog("EventListActivity.setAdapter() -> ----------------------------------------------------------------------------------------------------");
-		String path = mFileManager.createDir(CustomApplication.CACHE_DIR);
-		EventsAdapter adapter = new EventsAdapter(this, ContentManager.getInstance().getCachedEventList(), path);
+		EventsAdapter adapter = new EventsAdapter(this, ContentManager.getInstance().getCachedEventList());
 		mListView = (ListView) findViewById(R.id.id_list_view);
 		mListView.setAdapter(adapter);
 		mListView.setOnItemClickListener(this);

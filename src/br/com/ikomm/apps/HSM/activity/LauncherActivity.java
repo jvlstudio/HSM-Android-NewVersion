@@ -6,7 +6,9 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
+import br.com.ikomm.apps.HSM.AppConfiguration;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.api.OperationResult;
 import br.com.ikomm.apps.HSM.api.OperationResult.ResultType;
@@ -124,6 +126,7 @@ public class LauncherActivity extends Activity implements Notifiable {
      */
 	public void callNextActivity() {
     	mCalledTasksCount++;
+    	Log.i(AppConfiguration.COMMON_LOGGING_TAG, "LauncherActivity.callNextActivity() -> Count is " + mCalledTasksCount + ".");
     	if (mAgendaListLoaded && mBookListLoaded && mEventListLoaded && mHomeListLoaded && mMagazineListLoaded && mPanelistListLoaded && mPasseListLoaded) {
     		Integer agendaSize = ContentManager.getInstance().getCachedAgendaList().size();
     		
@@ -167,9 +170,11 @@ public class LauncherActivity extends Activity implements Notifiable {
 		// Tasks.
 		if (type == ContentManager.FETCH_TASK.UPDATER) {
 			if (ResultType.SUCCESS.equals(result.getResultType())) {
+				Log.i(AppConfiguration.COMMON_LOGGING_TAG, "LauncherActivity.taskFinished() -> UPDATER.");
 				getData();
 			}
 		} else if (type == ContentManager.FETCH_TASK.AGENDA) {
+			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "LauncherActivity.taskFinished() -> AGENDA.");
 			if (ResultType.SUCCESS.equals(result.getResultType())) {
 				mAgendaList = (List<Agenda>)result.getEntityList();
 				if (mAgendaList.size() > 0 && mAgendaList != null) { 
@@ -177,6 +182,7 @@ public class LauncherActivity extends Activity implements Notifiable {
 				}
 			}
 		} else if (type == ContentManager.FETCH_TASK.BOOK) {
+			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "LauncherActivity.taskFinished() -> BOOK.");
 			if (ResultType.SUCCESS.equals(result.getResultType())) {
 				mBookList = (List<Book>)result.getEntityList();
 				if (mBookList.size() > 0 && mBookList != null) { 
@@ -184,6 +190,7 @@ public class LauncherActivity extends Activity implements Notifiable {
 				}
 			}
 		} else if (type == ContentManager.FETCH_TASK.EVENT) {
+			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "LauncherActivity.taskFinished() -> EVENT.");
 			if (ResultType.SUCCESS.equals(result.getResultType())) {
 				mEventList = (List<Event>)result.getEntityList();
 				if (mEventList.size() > 0 && mEventList != null) { 
@@ -191,6 +198,7 @@ public class LauncherActivity extends Activity implements Notifiable {
 				}
 			}
 		} else if (type == ContentManager.FETCH_TASK.HOME) {
+			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "LauncherActivity.taskFinished() -> HOME.");
 			if (ResultType.SUCCESS.equals(result.getResultType())) {
 				mHomeList = (List<Home>)result.getEntityList();
 				if (mHomeList.size() > 0 && mHomeList != null) { 
@@ -198,6 +206,7 @@ public class LauncherActivity extends Activity implements Notifiable {
 				}
 			}
 		} else if (type == ContentManager.FETCH_TASK.MAGAZINE) {
+			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "LauncherActivity.taskFinished() -> MAGAZINE.");
 			if (ResultType.SUCCESS.equals(result.getResultType())) {
 				mMagazineList = (List<Magazine>)result.getEntityList();
 				if (mMagazineList.size() > 0 && mMagazineList != null) { 
@@ -205,6 +214,7 @@ public class LauncherActivity extends Activity implements Notifiable {
 				}
 			}
 		} else if (type == ContentManager.FETCH_TASK.PANELIST) {
+			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "LauncherActivity.taskFinished() -> PANELIST.");
 			if (ResultType.SUCCESS.equals(result.getResultType())) {
 				mPanelistList = (List<Panelist>)result.getEntityList();
 				if (mPanelistList.size() > 0 && mPanelistList != null) { 
@@ -212,6 +222,7 @@ public class LauncherActivity extends Activity implements Notifiable {
 				}
 			}
 		} else if (type == ContentManager.FETCH_TASK.PASSE) {
+			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "LauncherActivity.taskFinished() -> PASSE.");
 			if (ResultType.SUCCESS.equals(result.getResultType())) {
 				mPasseList = (List<Passe>)result.getEntityList();
 				if (mPasseList.size() > 0 && mPasseList != null) { 

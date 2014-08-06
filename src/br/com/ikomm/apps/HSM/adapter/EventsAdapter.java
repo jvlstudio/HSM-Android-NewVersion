@@ -3,21 +3,21 @@ package br.com.ikomm.apps.HSM.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
-import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Event;
-import br.com.ikomm.apps.HSM.utils.FileBitmapUtils;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
 import br.com.ikomm.apps.HSM.utils.Utils;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * EventsAdapter.java class.
@@ -41,17 +41,14 @@ public class EventsAdapter extends BaseAdapter {
 	private Context mContext;
 	
 	private List<Event> mList;
-	private FileBitmapUtils mFileManager = new FileBitmapUtils();
-	private String mPath;
 
 	//--------------------------------------------------
 	// Constructor
 	//--------------------------------------------------
 	
-	public EventsAdapter(Context context, List<Event> list, String path) {
+	public EventsAdapter(Context context, List<Event> list) {
 		mContext = context;
 		mList = list;
-		mPath = path;
 	}
 	
 	//--------------------------------------------------
@@ -59,7 +56,7 @@ public class EventsAdapter extends BaseAdapter {
 	//--------------------------------------------------
 	
 	static class ViewHolder {
-		private LinearLayout panelistLinearLayout;
+		private ImageView panelistImageView;
 		private TextView titleTextView;
 		private TextView subtitleTextView;
 		private TextView dateTextView;
@@ -83,7 +80,7 @@ public class EventsAdapter extends BaseAdapter {
 	
 	@Override
 	public long getItemId(int position) {
-		return mList.get(position).id;
+		return mList.get(position).getId();
 	}
 	
 	@Override
@@ -96,7 +93,7 @@ public class EventsAdapter extends BaseAdapter {
 			LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.adapter_event_item, parent, false);
 			
-			mViewHolder.panelistLinearLayout = (LinearLayout)convertView.findViewById(R.id.id_panelist_layout_events_adapter_item);
+			mViewHolder.panelistImageView = (ImageView)convertView.findViewById(R.id.id_panelist_image_events_adapter_item);
 			mViewHolder.titleTextView = (TextView)convertView.findViewById(R.id.id_title_events_adapter_item);
 			mViewHolder.subtitleTextView = (TextView)convertView.findViewById(R.id.id_subtitle_events_adapter_item);
 			mViewHolder.dateTextView = (TextView)convertView.findViewById(R.id.id_date_events_adapter_item);
@@ -126,8 +123,7 @@ public class EventsAdapter extends BaseAdapter {
 	 */
 	public void populatesAdapter(Event event, Integer position) {
 		// Sets the image URL.
-		String path = mPath + event.getImageList();
-		setLinearLayoutBitmap(path, position);
+		setUniversalImage(URL + event.getImageList());
 		
 		// Sets the text views.
 		mViewHolder.titleTextView.setText(event.getName());
@@ -143,37 +139,6 @@ public class EventsAdapter extends BaseAdapter {
 		
 		// Sets the fonts.
 		setFonts();
-	}
-	
-	/**
-	 * Downloads an image.
-	 * 
-	 * @param path The image path into the disk
-	 * @param position 
-	 */
-	public void setLinearLayoutBitmap(final String path, final Integer position) {
-		/*
-		ReadImageAsyncTask task = new ReadImageAsyncTask(mFileManager, path, position) {
-			@SuppressWarnings("deprecation")
-			protected void onPostExecute(Bitmap bitmap) {
-				Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Into onPostExecute(), setting the Bitmap for position " + position + " and file " + path + ".");
-				BitmapDrawable drawable = new BitmapDrawable(bitmap);
-				mViewHolder.panelistLinearLayout.setBackgroundDrawable(drawable);
-			};
-		};
-		AsyncTaskUtils.execute(task, new String[] {});
-		*/
-//		Bitmap current = ContentManager.getInstance().getCachedBitmapList().get(position);
-		
-		if (mViewHolder.panelistLinearLayout.getDrawingCache() == null) {
-			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> LinearLayout without bitmap! Getting Bitmap from the id '" + path + "'.");
-			Bitmap current = ContentManager.getInstance().getCachedBitmap(path);
-			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Bitmap is null? " + ((current == null) ? "Sim" : "Não") + ".");
-			BitmapDrawable drawable = new BitmapDrawable(current);
-			mViewHolder.panelistLinearLayout.setBackgroundDrawable(drawable);
-		} else {
-			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> LinearLayout with bitmap.");
-		}
 	}
 	
 	/**
@@ -256,6 +221,18 @@ public class EventsAdapter extends BaseAdapter {
 		}
 		
 		return formattedDate;
+	}
+	
+	/**
+	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 *  
+	 * @param url The url of the image.
+	 */
+	public void setUniversalImage(String url) {
+		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
+		imageLoader.displayImage(url, mViewHolder.panelistImageView, cache);
 	}
 	
 	/**

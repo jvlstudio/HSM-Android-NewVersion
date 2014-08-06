@@ -7,7 +7,6 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -23,17 +22,11 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-import br.com.ikomm.apps.HSM.CustomApplication;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.HomeGridViewAdapter;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
-import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Home;
 import br.com.ikomm.apps.HSM.services.WebServiceCommunication;
-import br.com.ikomm.apps.HSM.task.ReadImageAsyncTask;
-import br.com.ikomm.apps.HSM.utils.AsyncTaskUtils;
-import br.com.ikomm.apps.HSM.utils.FileBitmapUtils;
-import br.com.ikomm.apps.HSM.utils.Utils;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -88,7 +81,6 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 		setDrawerMenu();
 		setDrawerToggle();
 		setThread();
-		setEventListImages();
 	}
 	
 	//--------------------------------------------------
@@ -231,52 +223,6 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
 		imageLoader.displayImage(url, imageView, cache);
 	}
-	
-	/**
-	 * Sets the {@link Event} list images to be used into {@link EventListActivity}.
-	 */
-	public void setEventListImages() {
-		List<Event> list = ContentManager.getInstance().getCachedEventList();
-		Utils.fileLog("HomeActivity.setEventListImages() -> ----------------------------------------------------------------------------------------------------");
-		Utils.fileLog("HomeActivity.setEventListImages(). There's " + list.size() + " events into this app.");
-		Boolean imagesInCache = ContentManager.getInstance().eventImagesInCache();
-		Utils.fileLog("HomeActivity.setEventListImages(). Images in cache? " + imagesInCache + ".");
-		
-		Integer cont = 0;
-		if (!imagesInCache) {
-			putImagesInCache(list);
-			Utils.fileLog("HomeActivity.setEventListImages() -> Into " + cont++ + "iteraction we have " + ContentManager.getInstance().getMapSize()  + " bitmaps.");
-		}
-	}
-	
-	/**
-	 * Put images into the {@link ContentManager}. 
-	 * 
-	 * @param list
-	 */
-	public void putImagesInCache(List<Event> list) {
-		FileBitmapUtils fileManager = new FileBitmapUtils();
-		for (Event event : list) {
-			// Gets the path.
-			String path = fileManager.createDir(CustomApplication.CACHE_DIR);
-			path += event.getImageList();
-			Utils.fileLog("HomeActivity.setEventListImages(). Inside the FOR. The path is " + path + ".");
-			
-			// Puts each image into the ContentManager.
-			final String completePath = path;
-			ReadImageAsyncTask task = new ReadImageAsyncTask(fileManager, completePath) {
-				protected void onPostExecute(Bitmap bitmap) {
-					if (bitmap != null) {
-						Utils.fileLog("HomeActivity.setEventListImages() -> Into ReadImageAsyncTask.onPostExecute().\n" +
-							"Setting the Bitmap for file " + completePath + ".");
-						ContentManager.getInstance().addBitmap(completePath, bitmap);
-					}
-				};
-			};
-			AsyncTaskUtils.execute(task, new String[] {});
-		}
-	}
-	
 	
 	//--------------------------------------------------
 	// Listeners
