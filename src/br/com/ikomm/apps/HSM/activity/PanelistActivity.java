@@ -24,7 +24,14 @@ import com.actionbarsherlock.view.MenuItem;
  * Modified by Rodrigo Cericatto at July 4, 2014.
  */
 public class PanelistActivity extends SherlockActivity implements OnItemClickListener {
-
+	
+	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String EXTRA_PANELIST_ID = "panelist_id";
+	public static final String EXTRA_EVENT_ID = "event_id";
+	
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
@@ -51,7 +58,7 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -84,7 +91,7 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	public void getExtras() {
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null) {
-			mEventId = extras.getInt("event_id");
+			mEventId = extras.getInt(EventDetailsActivity.EXTRA_EVENT_ID);
 		}
 	}
 	
@@ -114,9 +121,9 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 		
 		for (Agenda item : agendaList) {
 			if (agendaData.isEmpty()) {
-				agendaData = String.valueOf(item.panelist_id);
+				agendaData = String.valueOf(item.getPanelistId());
 			} else {
-				agendaData += "," + String.valueOf(item.panelist_id);
+				agendaData += "," + String.valueOf(item.getPanelistId());
 			}
 		}
 		
@@ -130,8 +137,8 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	@Override
 	public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
 		Intent intent = new Intent(this, LectureDetailsActivity.class);
-		intent.putExtra("panelist_id", id);
-		intent.putExtra("event_id", mEventId);
+		intent.putExtra(EXTRA_PANELIST_ID, id);
+		intent.putExtra(EXTRA_EVENT_ID, mEventId);
 		startActivity(intent);
 	}
 }

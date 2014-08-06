@@ -29,6 +29,12 @@ import com.actionbarsherlock.view.MenuItem;
 public class PaymentActivity extends SherlockFragmentActivity implements OnClickListener {
 
 	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String EXTRA_BANNERS = "banners";
+	
+	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 
@@ -78,7 +84,7 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -112,14 +118,14 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 		Bundle extras = getIntent().getExtras();
 		Intent intent = getIntent();
 		if (extras != null) {
-			mPasseId = extras.getLong("passe_id");
-			mEventId = extras.getInt("event_id");
+			mPasseId = extras.getLong(PassesActivity.EXTRA_PASSE_ID);
+			mEventId = extras.getInt(PassesActivity.EXTRA_EVENT_ID);
 			if (mEventId != null) {
 				getUserInfo(intent);
 				getCurrentPasse();
 			}
 		}
-		mBanners = intent.getIntExtra("banner", -1);
+		mBanners = intent.getIntExtra(ParticipantActivity.EXTRA_BANNER, -1);
 	}
 	
 	/**
@@ -137,23 +143,20 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	 */
 	public void colorizeLinearLayout() {
 		LinearLayout paymentLinearLayout = (LinearLayout)findViewById(R.id.id_payment_linear_layout);
-		
+		mColor = mPasse.getColor();
 		if (mPasse.color.equals("green")) {
-			mColor = mPasse.color;
 			paymentLinearLayout.setBackgroundResource(R.drawable.hsm_passes_title_green);
 			setSpinner();
 		}
 		if (mPasse.color.equals("gold")) {
-			mColor = mPasse.color;
 			paymentLinearLayout.setBackgroundResource(R.drawable.hsm_passes_title_gold);
 		}
 		if (mPasse.color.equals("red")) {
-			mColor = mPasse.color;
 			paymentLinearLayout.setBackgroundResource(R.drawable.hsm_passes_title_red);
 		}
 		
 		TextView textView = (TextView)findViewById(R.id.id_title_text_view);
-		textView.setText(mPasse.name);
+		textView.setText(mPasse.getName());
 	}
 	
 	/**
@@ -173,11 +176,11 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	 * @param intent The parent {@link Intent}. 
 	 */
 	public void getUserInfo(Intent intent) {
-		mNome = intent.getStringExtra("name");
-		mEmail = intent.getStringExtra("email");
-		mCpf = intent.getStringExtra("cpf");
-		mCompany = intent.getStringExtra("company");
-		mRole = intent.getStringExtra("role");
+		mNome = intent.getStringExtra(ParticipantActivity.EXTRA_NAME);
+		mEmail = intent.getStringExtra(ParticipantActivity.EXTRA_EMAIL);
+		mCpf = intent.getStringExtra(ParticipantActivity.EXTRA_CPF);
+		mCompany = intent.getStringExtra(ParticipantActivity.EXTRA_COMPANY);
+		mRole = intent.getStringExtra(ParticipantActivity.EXTRA_ROLE);
 	}
 	
 	/**
@@ -210,7 +213,7 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	public String[] getEventDates() {
 		// Gets the event dates.
 		Event event = QueryHelper.getEvent(mEventId);
-		String infoDates = event.info_dates;
+		String infoDates = event.getInfoDates();
 		
 		// Gets each date.
 		String[] dates = infoDates.replace("|", "-").split("-");
@@ -239,7 +242,7 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 						}
 					}
 					if (!mColor.isEmpty() && !mNome.isEmpty() && !mEmail.isEmpty() && !mCompany.isEmpty() && !mRole.isEmpty()  && !mCpf.isEmpty()) {
-						ws.sendFormularioCompra(mColor, mDay, mNome, mEmail, mCompany, mRole, mCpf);
+						ws.sendPurchaseForm(mColor, mDay, mNome, mEmail, mCompany, mRole, mCpf);
 					}
 					finish();
 				} else {
@@ -248,7 +251,7 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 				break;
 			case R.id.id_register_button:
 				Intent intent = new Intent(PaymentActivity.this, ParticipantActivity.class);
-				intent.putExtra("banners", mBanners);
+				intent.putExtra(EXTRA_BANNERS, mBanners);
 				startActivityForResult(intent, 0);
 				break;
 		}		

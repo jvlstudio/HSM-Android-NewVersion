@@ -29,7 +29,7 @@ public class AddCardActivity extends SherlockActivity implements OnClickListener
 	// Attributes
 	//--------------------------------------------------
 	
-	private CardRepository mCartaoRepo;
+	private CardRepository mCardRepo;
 	
 	private TextView mName;
 	private TextView mEmail;
@@ -59,7 +59,7 @@ public class AddCardActivity extends SherlockActivity implements OnClickListener
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -91,7 +91,7 @@ public class AddCardActivity extends SherlockActivity implements OnClickListener
 	 */
 	public void setButton() {
 		// Gets the CartaoRepo.
-		mCartaoRepo = new CardRepository(AddCardActivity.this);
+		mCardRepo = new CardRepository(AddCardActivity.this);
 		
 		Button createCardButton = (Button)findViewById(R.id.id_create_card_button);
 		createCardButton.setOnClickListener(this);
@@ -135,21 +135,16 @@ public class AddCardActivity extends SherlockActivity implements OnClickListener
 	 */
 	public void setContacts() {
 		// Gets the current card.
-		Card card = new Card();
-		card.name = mName.getText().toString();
-		card.email = mEmail.getText().toString();
-		card.phone = mPhone.getText().toString();
-		card.mobilePhone = mMobilePhone.getText().toString();
-		card.company = mCompany.getText().toString();
-		card.role = mRole.getText().toString();
-		card.website = mWebsite.getText().toString();
+		Card card = 
+		new Card(mName.getText().toString(), mEmail.getText().toString(), mPhone.getText().toString(),
+			mMobilePhone.getText().toString(), mCompany.getText().toString(), mRole.getText().toString(), mWebsite.getText().toString());
 
 		// Refreshes list.
-		List<Card> lista = mCartaoRepo.getMyContacts();
-		if (lista == null) {
-			lista = new ArrayList<Card>();
-			lista.add(card);
-			mCartaoRepo.setMyContacts(lista);
+		List<Card> list = mCardRepo.getMyContacts();
+		if (list == null) {
+			list = new ArrayList<Card>();
+			list.add(card);
+			mCardRepo.setMyContacts(list);
 		}
 		
 		// Calls NetworkingListActivity.

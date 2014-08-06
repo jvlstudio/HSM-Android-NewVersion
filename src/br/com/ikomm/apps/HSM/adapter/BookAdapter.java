@@ -117,10 +117,10 @@ public class BookAdapter extends BaseAdapter {
 	 * @param book
 	 */
 	public void setData(Book book) {
-		mViewHolder.bookName.setText(book.name);
-		mViewHolder.bookDescription.setText(book.author_name);
+		mViewHolder.bookName.setText(book.getName());
+		mViewHolder.bookDescription.setText(book.getAuthorName());
 		
-		String url = URL + book.picture;
+		String url = URL + book.getPicture();
 		setUniversalImage(url, mViewHolder.bookImage);
 	}
 	

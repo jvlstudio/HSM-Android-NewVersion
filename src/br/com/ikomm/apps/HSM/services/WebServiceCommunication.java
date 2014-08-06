@@ -13,33 +13,49 @@ import android.util.Log;
 import br.com.ikomm.apps.HSM.AppConfiguration;
 import br.com.ikomm.apps.HSM.repo.BannerRepository;
 
+/**
+ * WebServiceCommunication.java class.
+ * Modified by Rodrigo Cericatto at August 5, 2014.
+ */
 public class WebServiceCommunication {
-	public void sendFormularioCompra(String cor, String dia, String nome, String email, String empresa, String cargo, String cpf) {
+	
+	/**
+	 * Sends the Passe to the server.
+	 *  
+	 * @param color
+	 * @param day
+	 * @param name
+	 * @param email
+	 * @param company
+	 * @param role
+	 * @param cpf
+	 */
+	public void sendPurchaseForm(String color, String day, String name, String email, String company, String role, String cpf) {
 		try {
 			HttpClient httpClient = new DefaultHttpClient();
 			String url = "http://apps.ikomm.com.br/hsm/graph/pass-add.php?";
-			String pagamento = "Card de Credito";
+			String payment = "Cartão de Credito";
 
-			if (!cor.isEmpty()) {
-				url = url.concat("color=");
-				url = url.concat(cor);
+			if (!color.isEmpty()) {
+				url = url.concat("cor=");
+				url = url.concat(color);
 				url = url.concat("&");
 			}
 			url = url.concat("os=android&");
 
-			if (!dia.isEmpty()) {
-				url = url.concat("day=");
-				url = url.concat(dia);
+			if (!day.isEmpty()) {
+				url = url.concat("dia=");
+				url = url.concat(day);
 				url = url.concat("&");
 			}
-			if (!pagamento.isEmpty()) {
-				url = url.concat("payment=");
-				url = url.concat(pagamento);
+			if (!payment.isEmpty()) {
+				url = url.concat("pagamento=");
+				url = url.concat(payment);
 				url = url.concat("&");
 			}
-			if (!nome.isEmpty()) {
-				url = url.concat("name=");
-				url = url.concat(nome);
+			if (!name.isEmpty()) {
+				url = url.concat("nome=");
+				url = url.concat(name);
 				url = url.concat("&");
 			}
 			if (!email.isEmpty()) {
@@ -47,14 +63,14 @@ public class WebServiceCommunication {
 				url = url.concat(email);
 				url = url.concat("&");
 			}
-			if (!empresa.isEmpty()) {
-				url = url.concat("company=");
-				url = url.concat(empresa);
+			if (!company.isEmpty()) {
+				url = url.concat("empresa=");
+				url = url.concat(company);
 				url = url.concat("&");
 			}
-			if (!cargo.isEmpty()) {
-				url = url.concat("role=");
-				url = url.concat(cargo);
+			if (!role.isEmpty()) {
+				url = url.concat("cargo=");
+				url = url.concat(role);
 				url = url.concat("&");
 			}
 			if (!cpf.isEmpty()) {
@@ -72,6 +88,11 @@ public class WebServiceCommunication {
 		}
 	}
 
+	/**
+	 * Updates Banners.
+	 * 
+	 * @param context
+	 */
 	public void updateBanners(Context context) {
 		String urlBanners = "http://apps.ikomm.com.br/hsm/graph/ad-android.php";
 		HttpClient httpclient = new DefaultHttpClient();
@@ -86,14 +107,21 @@ public class WebServiceCommunication {
 			httpget.setURI(uri);
 			HttpResponse response = httpclient.execute(httpget);
 			responseBody = EntityUtils.toString(response.getEntity());
-			if (!responseBody.isEmpty())
-				SalvarNovoJsonBanners(responseBody, context);
+			if (!responseBody.isEmpty()) {
+				saveNewJsonBanner(responseBody, context);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void SalvarNovoJsonBanners(String responseBody, Context context) {
+	/**
+	 * Saves the new Json of the Banner.
+	 * 
+	 * @param responseBody
+	 * @param context
+	 */
+	private void saveNewJsonBanner(String responseBody, Context context) {
 		BannerRepository repo = new BannerRepository(context);
 		repo.setJsonShared(responseBody);
 	}

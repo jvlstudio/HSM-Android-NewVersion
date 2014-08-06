@@ -27,6 +27,13 @@ import com.actionbarsherlock.app.SherlockFragment;
 public class AgendaFragment extends SherlockFragment {
 	
 	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String EXTRA_PANELIST_ID = "panelist_id";
+	public static final String EXTRA_EVENT_ID = "event_id";
+	
+	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
@@ -119,11 +126,6 @@ public class AgendaFragment extends SherlockFragment {
 		String currentDate = getCurrentEventDate();
 		
 		// Gets the current Agenda.
-//		AgendaRepo repo = new AgendaRepo(getActivity());
-//		repo.open();
-//		mAgendaList = null;
-//		mAgendaList = repo.byEventAndDate(mEventId, currentDate);
-//		repo.close();
 		mAgendaList = QueryHelper.getAgendaListByEventAndDate(mEventId, currentDate);
 		mListView.setAdapter(new AgendaAdapter(getActivity(), mAgendaList));
 	}
@@ -135,9 +137,6 @@ public class AgendaFragment extends SherlockFragment {
 	 */
 	public String getCurrentEventDate() {
 		// Gets the Event from the repository.
-//		EventRepo eventRepo = new EventRepo(getActivity());
-//		eventRepo.open();
-//		Event event = eventRepo.getEvent(mEventId);
 		Event event = QueryHelper.getEvent(mEventId);
 		
 		// Gets the current event date.
@@ -176,8 +175,8 @@ public class AgendaFragment extends SherlockFragment {
 			Integer eventId = agenda.event_id;
 			
 			// Extras.
-			intent.putExtra("panelist_id", panelistId);
-			intent.putExtra("event_id", eventId);
+			intent.putExtra(EXTRA_PANELIST_ID, panelistId);
+			intent.putExtra(EXTRA_EVENT_ID, eventId);
 			startActivity(intent);
 		}
 	}

@@ -126,13 +126,13 @@ public class EventsAdapter extends BaseAdapter {
 	 */
 	public void populatesAdapter(Event event, Integer position) {
 		// Sets the image URL.
-		String path = mPath + event.image_list;
+		String path = mPath + event.getImageList();
 		setLinearLayoutBitmap(path, position);
 		
 		// Sets the text views.
-		mViewHolder.titleTextView.setText(event.name);
-		cutSubtitleText(mViewHolder, event.name, event.description);
-		mViewHolder.dateTextView.setText(formatDates(event.info_dates));
+		mViewHolder.titleTextView.setText(event.getName());
+		cutSubtitleText(mViewHolder, event.getName(), event.getDescription());
+		mViewHolder.dateTextView.setText(formatDates(event.getInfoDates()));
 		
 		// Cuts the info locale.
 		String locale = event.info_locale;
@@ -168,7 +168,7 @@ public class EventsAdapter extends BaseAdapter {
 		if (mViewHolder.panelistLinearLayout.getDrawingCache() == null) {
 			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> LinearLayout without bitmap! Getting Bitmap from the id '" + path + "'.");
 			Bitmap current = ContentManager.getInstance().getCachedBitmap(path);
-			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Bitmap is null? " + ((current == null) ? "Sim" : "N‹o") + ".");
+			Utils.fileLog("EventsAdapter.setLinearLayoutBitmap() -> Bitmap is null? " + ((current == null) ? "Sim" : "NÃ£o") + ".");
 			BitmapDrawable drawable = new BitmapDrawable(current);
 			mViewHolder.panelistLinearLayout.setBackgroundDrawable(drawable);
 		} else {

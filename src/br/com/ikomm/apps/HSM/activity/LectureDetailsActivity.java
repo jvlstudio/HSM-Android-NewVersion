@@ -71,7 +71,7 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -129,8 +129,8 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	public void getExtras() {
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null){
-			mPanelistId = extras.getLong("panelist_id");
-			mEventId = extras.getInt("event_id");
+			mPanelistId = extras.getLong(PanelistActivity.EXTRA_PANELIST_ID);
+			mEventId = extras.getInt(PanelistActivity.EXTRA_EVENT_ID);
 		}
 	}
 	
@@ -165,8 +165,8 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 		if (StringUtils.isEmpty(mAgenda.getDateStart())) {
 			Toast.makeText(this, getString(R.string.lecture_details_activity_panelist_unassociated_event), Toast.LENGTH_LONG).show();
 		} else {
-			String[] dateStart = mAgenda.date_start.split(" ");
-			String[] dateEnd = mAgenda.date_end.split(" ");
+			String[] dateStart = mAgenda.getDateStart().split(" ");
+			String[] dateEnd = mAgenda.getDateEnd().split(" ");
 			String[] dateStartFormat = dateStart[0].split("-"); 
 			dateStart[0] = dateStartFormat[2]  + "/" + dateStartFormat[1]  + "/" + dateStartFormat[0];
 			String[] dateEndFormat = dateEnd[0].split("-");
@@ -180,19 +180,19 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 			timeTextView.setText(dateStart[1] + " - " + dateEnd[1]);
 	
 			ImageView panelistImageView = (ImageView)findViewById(R.id.id_panelist_image_view);
-			setUniversalImage(URL + mPanelist.picture, panelistImageView);
+			setUniversalImage(URL + mPanelist.getPicture(), panelistImageView);
 	
 			TextView panelistNameTextView = (TextView)findViewById(R.id.id_panelist_name_text_view);
-			panelistNameTextView.setText(mPanelist.name);
+			panelistNameTextView.setText(mPanelist.getName());
 	
 			TextView specialtyTextView = (TextView)findViewById(R.id.id_specialty_text_view);
-			specialtyTextView.setText(mPanelist.name);
+			specialtyTextView.setText(mPanelist.getName());
 			
 			TextView abstractTextView = (TextView)findViewById(R.id.id_abstract_text_view);
-			abstractTextView.setText(mAgenda.theme_title);
+			abstractTextView.setText(mAgenda.getThemeTitle());
 	
 			TextView contentTextView = (TextView)findViewById(R.id.id_content_text_view);
-			contentTextView.setText(mAgenda.theme_description);
+			contentTextView.setText(mAgenda.getThemeDescription());
 		}
 		
 		Button scheduleButton = (Button)findViewById(R.id.id_schedule_button);
@@ -205,11 +205,11 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	protected void addIntentEvent() {
 		Intent calIntent = new Intent(Intent.ACTION_INSERT); 
 		calIntent.setType("vnd.android.cursor.item/event");    
-		calIntent.putExtra(Events.TITLE, mAgenda.theme_title); 
-		calIntent.putExtra(Events.DESCRIPTION, mAgenda.theme_description); 
+		calIntent.putExtra(Events.TITLE, mAgenda.getThemeTitle()); 
+		calIntent.putExtra(Events.DESCRIPTION, mAgenda.getThemeDescription()); 
 	
-		String startAgenda = mAgenda.date_start;
-		String endAgenda = mAgenda.date_end;
+		String startAgenda = mAgenda.getDateStart();
+		String endAgenda = mAgenda.getDateEnd();
 		Integer[] startValues = DateUtils.stringToDate(startAgenda);
 		Integer[] endValues = DateUtils.stringToDate(endAgenda);
 		

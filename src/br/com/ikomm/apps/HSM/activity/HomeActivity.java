@@ -181,7 +181,7 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 	
 	public void setEventImage() {
 		ImageView imageView = (ImageView)findViewById(R.id.id_events_image_button);
-		setUniversalImage(URL + mHome.events_image_android, imageView);
+		setUniversalImage(URL + mHome.getEventsImageAndroid(), imageView);
 		imageView.setOnClickListener(this);
 	}
 	
@@ -193,10 +193,10 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 		
 		// Gets the url list.
 		List<String> urlList = new ArrayList<String>();
-		urlList.add(mHome.education_image_android);
-		urlList.add(mHome.videos_image_android);
-		urlList.add(mHome.magazines_image_android);
-		urlList.add(mHome.books_image_android);
+		urlList.add(mHome.getEducationImageAndroid());
+		urlList.add(mHome.getVideosImageAndroid());
+		urlList.add(mHome.getMagazinesImageAndroid());
+		urlList.add(mHome.getBooksImageAndroid());
 		
 		// Sets the adapter.
 		GridView gridView = (GridView)findViewById(R.id.id_grid_view);
@@ -213,7 +213,7 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 		dialog.setTitle(getString(R.string.home_activity_unavailable));
 		dialog.setMessage(getString(R.string.home_activity_available_soon));
-		dialog.setPositiveButton("OK", null);
+		dialog.setPositiveButton(getString(R.string.dialog_ok), null);
 
 		final AlertDialog alert = dialog.create();
 		alert.show();

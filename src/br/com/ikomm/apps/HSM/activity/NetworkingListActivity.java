@@ -68,13 +68,13 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 			setCard(data);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Toast.makeText(NetworkingListActivity.this, getString(R.string.networking_list_activity_qrcode_error), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, getString(R.string.networking_list_activity_qrcode_error), Toast.LENGTH_LONG).show();
 			return;
 		}
 
 		// QRCode error.
 		if (resultCode == RESULT_CANCELED) {
-			Toast.makeText(NetworkingListActivity.this, getString(R.string.networking_list_activity_qrcode_canceled), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, getString(R.string.networking_list_activity_qrcode_canceled), Toast.LENGTH_LONG).show();
 			return;
 		}
 		recursiveCall();
@@ -86,7 +86,7 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.lista_networking, menu);
+		getMenuInflater().inflate(R.menu.menu_networking_list, menu);
 		return true;
 	}
 
@@ -163,7 +163,7 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 		Card newContact = converter.cardFromString(contents);
 		for (Card card : mCardList) {
 			if (card.name.equals(newContact.name) && card.email.equals(newContact.email)) {
-				Toast.makeText(NetworkingListActivity.this, getString(R.string.networking_list_activity_existent_contact), Toast.LENGTH_LONG).show();
+				Toast.makeText(this, getString(R.string.networking_list_activity_existent_contact), Toast.LENGTH_LONG).show();
 				return;
 			}
 		}
@@ -190,9 +190,9 @@ public class NetworkingListActivity extends FragmentActivity implements OnItemCl
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent intent = new Intent(NetworkingListActivity.this, ContactActivity.class);
-		Card cartaoClick = mCardList.get(position);
+		Card cardClick = mCardList.get(position);
 		Gson gson = new Gson();
-		intent.putExtra(JSON_CARD, gson.toJson(cartaoClick));
+		intent.putExtra(JSON_CARD, gson.toJson(cardClick));
 		startActivity(intent);
 	}
 

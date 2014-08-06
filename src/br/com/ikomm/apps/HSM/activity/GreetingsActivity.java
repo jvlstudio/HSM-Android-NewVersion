@@ -27,7 +27,7 @@ public class GreetingsActivity extends SherlockActivity implements OnClickListen
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_greetings);
 		
-		findViewById(R.id.btnVoltar).setOnClickListener(this);
+		findViewById(R.id.id_back_button).setOnClickListener(this);
 	}
 	
 	//--------------------------------------------------
@@ -36,7 +36,7 @@ public class GreetingsActivity extends SherlockActivity implements OnClickListen
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	

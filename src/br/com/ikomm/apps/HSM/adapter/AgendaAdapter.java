@@ -94,7 +94,7 @@ public class AgendaAdapter extends BaseAdapter {
 		View view = convertView;
 		Agenda currentAgenda = mAgendaList.get(position);
 
-		String type = currentAgenda.type;
+		String type = currentAgenda.getType();
 		if (!type.equals("speech")) {
 			view = mInflater.inflate(R.layout.adapter_break, parent, false);
 			initializeBreakComponents(view);
@@ -156,7 +156,7 @@ public class AgendaAdapter extends BaseAdapter {
 		formatDate(agenda);
 		
 		if (mDescriptionTextView != null) {
-			mDescriptionTextView.setText(agenda.label);
+			mDescriptionTextView.setText(agenda.getLabel());
 		}
 	}
 	
@@ -238,8 +238,8 @@ public class AgendaAdapter extends BaseAdapter {
 	 * @return
 	 */
 	public String getPanelistName(Agenda agenda) {
-		Panelist panelist = QueryHelper.getPanelist(agenda.panelist_id);
-		String name = panelist.name; 
+		Panelist panelist = QueryHelper.getPanelist(agenda.getPanelistId());
+		String name = panelist.getName(); 
 		return name;
 	}
 	
@@ -263,10 +263,10 @@ public class AgendaAdapter extends BaseAdapter {
 	 * @return
 	 */
 	public String getPanelistUrl(Integer position) {
-		Integer panelistId = mAgendaList.get(position).panelist_id;
+		Integer panelistId = mAgendaList.get(position).getPanelistId();
 		Panelist panelist = QueryHelper.getPanelist(panelistId);
 		
-		String url = panelist.picture;
+		String url = panelist.getPicture();
 		return url;
 	}
 	
@@ -276,7 +276,7 @@ public class AgendaAdapter extends BaseAdapter {
 	 * @param currentAgenda
 	 */
 	public void setBreakImage(Agenda currentAgenda) {
-		String type = currentAgenda.type;
+		String type = currentAgenda.getType();
 		if (type.contains("lunch")) {
 			mImageView.setBackgroundResource(R.drawable.ic_hsm_lunch);
 		} else if (type.contains("happyhour")) {
@@ -294,12 +294,12 @@ public class AgendaAdapter extends BaseAdapter {
 	 * @param agenda
 	 */
 	public void formatDate(Agenda agenda) {
-		String fieldStart[] = agenda.date_start.split(" ");
+		String fieldStart[] = agenda.getDateStart().split(" ");
 		String startHour = fieldStart[1];
 		String startParts[] = startHour.split(":");
 		mBeginHourTextView.setText(startParts[0] + ":" + startParts[1]);
 		
-		String fieldEnd[] = agenda.date_end.split(" ");
+		String fieldEnd[] = agenda.getDateEnd().split(" ");
 		String endHour = fieldEnd[1];
 		String endParts[] = endHour.split(":");
 		mEndHourTextView.setText(endParts[0] + ":" + endParts[1]);
@@ -329,7 +329,7 @@ public class AgendaAdapter extends BaseAdapter {
 	public class HoraComparator implements Comparator<Agenda> {
 		@Override
 		public int compare(Agenda agenda, Agenda agenda2) {
-			return agenda.date_start.compareTo(agenda2.date_start);
+			return agenda.getDateStart().compareTo(agenda2.getDateStart());
 		}
 	}
 }

@@ -16,13 +16,6 @@ import br.com.ikomm.apps.HSM.model.Home;
 import br.com.ikomm.apps.HSM.model.Magazine;
 import br.com.ikomm.apps.HSM.model.Panelist;
 import br.com.ikomm.apps.HSM.model.Passe;
-import br.com.ikomm.apps.HSM.repo.AgendaRepo;
-import br.com.ikomm.apps.HSM.repo.BookRepo;
-import br.com.ikomm.apps.HSM.repo.EventRepo;
-import br.com.ikomm.apps.HSM.repo.HomeRepo;
-import br.com.ikomm.apps.HSM.repo.MagazineRepo;
-import br.com.ikomm.apps.HSM.repo.PanelistRepo;
-import br.com.ikomm.apps.HSM.repo.PasseRepo;
 import br.com.ikomm.apps.HSM.task.AgendaAsyncTask;
 import br.com.ikomm.apps.HSM.task.BookAsyncTask;
 import br.com.ikomm.apps.HSM.task.EventAsyncTask;
@@ -234,27 +227,6 @@ public class ContentManager {
 	public void _______________AGENDA_______________() {}
 	
 	/**
-	 * Gets all {@link Agenda}.
-	 * 
-	 * @return
-	 */
-	public List<Agenda> getMickAgendaList() {
-		List<Agenda> list = null;
-		
-		// Checks if is null.
-		if (mAgendaList == null) {
-			AgendaRepo repo = new AgendaRepo(mContext);
-			repo.open();
-			list = repo.getAll();
-			repo.close();
-			mAgendaList = list;
-		} else {
-			list = mAgendaList;
-		}
-		return list;
-	}
-
-	/**
 	 * Gets the {@link Agenda} list from cache.
 	 * 
 	 * @return
@@ -281,27 +253,6 @@ public class ContentManager {
 	//----------------------------------------------
 
 	public void _______________BOOK_______________() {}
-	
-	/**
-	 * Gets all {@link Book}.
-	 * 
-	 * @return
-	 */
-	public List<Book> getMickBookList() {
-		List<Book> list = null;
-		
-		// Checks if is null.
-		if (mBookList == null) {
-			BookRepo repo = new BookRepo(mContext);
-			repo.open();
-			list = repo.getAll();
-			repo.close();
-			mBookList = list;
-		} else {
-			list = mBookList;
-		}
-		return list;
-	}
 	
 	/**
 	 * Gets the {@link Agenda} list from cache.
@@ -332,27 +283,6 @@ public class ContentManager {
 	public void _______________EVENT_______________() {}
 	
 	/**
-	 * Gets all {@link Event}.
-	 * 
-	 * @return
-	 */
-	public List<Event> getMickEventList() {
-		List<Event> list = null;
-		
-		// Checks if is null.
-		if (mEventList == null) {
-			EventRepo repo = new EventRepo(mContext);
-			repo.open();
-			list = repo.getAll();
-			repo.close();
-			mEventList = list;
-		} else {
-			list = mEventList;
-		}
-		return list;
-	}
-	
-	/**
 	 * Gets the {@link Event} list from cache.
 	 * 
 	 * @return
@@ -379,27 +309,6 @@ public class ContentManager {
 	//----------------------------------------------
 
 	public void _______________HOME_______________() {}
-	
-	/**
-	 * Gets all {@link Home}.
-	 * 
-	 * @return
-	 */
-	public List<Home> getMickHomeList() {
-		List<Home> list = null;
-		
-		// Checks if is null.
-		if (mHomeList.size() <= 0 ||  mHomeList == null) {
-			HomeRepo repo = new HomeRepo(mContext);
-			repo.open();
-			list = repo.getAll();
-			repo.close();
-			mHomeList = list;
-		} else {
-			list = mHomeList;
-		}
-		return list;
-	}
 	
 	/**
 	 * Gets the {@link Home} list from cache.
@@ -430,27 +339,6 @@ public class ContentManager {
 	public void _______________MAGAZINE_______________() {}
 	
 	/**
-	 * Gets all {@link Magazine}.
-	 * 
-	 * @return
-	 */
-	public List<Magazine> getMickMagazineList() {
-		List<Magazine> list = null;
-		
-		// Checks if is null.
-		if (mMagazineList == null) {
-			MagazineRepo repo = new MagazineRepo(mContext);
-			repo.open();
-			list = repo.getAll();
-			repo.close();
-			mMagazineList = list;
-		} else {
-			list = mMagazineList;
-		}
-		return list;
-	}
-	
-	/**
 	 * Gets the {@link Magazine} list from cache.
 	 * 
 	 * @return
@@ -479,27 +367,6 @@ public class ContentManager {
 	public void _______________PANELIST_______________() {}
 	
 	/**
-	 * Gets all {@link Panelist}.
-	 * 
-	 * @return
-	 */
-	public List<Panelist> getMickPanelistList() {
-		List<Panelist> list = null;
-		
-		// Checks if is null.
-		if (mPanelistList == null) {
-			PanelistRepo repo = new PanelistRepo(mContext);
-			repo.open();
-			list = repo.getAll();
-			repo.close();
-			mPanelistList = list;
-		} else {
-			list = mPanelistList;
-		}
-		return list;
-	}
-	
-	/**
 	 * Gets the {@link Panelist} list from cache.
 	 * 
 	 * @return
@@ -526,27 +393,6 @@ public class ContentManager {
 	//----------------------------------------------
 
 	public void _______________PASSE_______________() {}
-	
-	/**
-	 * Gets all {@link Passe}.
-	 * 
-	 * @return
-	 */
-	public List<Passe> getMickPasseList() {
-		List<Passe> list = null;
-		
-		// Checks if is null.
-		if (mPasseList == null) {
-			PasseRepo repo = new PasseRepo(mContext);
-			repo.open();
-			list = repo.getAll();
-			repo.close();
-			mPasseList = list;
-		} else {
-			list = mPasseList;
-		}
-		return list;
-	}
 	
 	/**
 	 * Gets the {@link Passe} list from cache.

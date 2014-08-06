@@ -21,6 +21,13 @@ import com.actionbarsherlock.view.MenuItem;
 public class PassesActivity extends SherlockFragmentActivity implements OnItemClickListener {
 
 	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String EXTRA_EVENT_ID = "event_id";
+	public static final String EXTRA_PASSE_ID = "passe_id";
+	
+	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
@@ -46,7 +53,7 @@ public class PassesActivity extends SherlockFragmentActivity implements OnItemCl
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -70,7 +77,7 @@ public class PassesActivity extends SherlockFragmentActivity implements OnItemCl
 	public void getExtras() {
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null) {
-			mEventId = extras.getInt("event_id");
+			mEventId = extras.getInt(EventDetailsActivity.EXTRA_EVENT_ID);
 		}
 	}
 	
@@ -99,8 +106,8 @@ public class PassesActivity extends SherlockFragmentActivity implements OnItemCl
 	@Override
 	public void onItemClick(AdapterView<?> s, View view, int position, long id) {
 		Intent intent = new Intent(this, PaymentActivity.class);
-		intent.putExtra("passe_id", id);
-		intent.putExtra("event_id", mEventId);
+		intent.putExtra(EXTRA_PASSE_ID, id);
+		intent.putExtra(EXTRA_EVENT_ID, mEventId);
 		startActivity(intent);
 	}
 }

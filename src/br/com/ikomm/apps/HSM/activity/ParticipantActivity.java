@@ -27,6 +27,13 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 	
 	public static final Integer IS_PARENT = 1; 
 	
+	public static final String EXTRA_NAME = "name";
+	public static final String EXTRA_EMAIL = "email";
+	public static final String EXTRA_CPF = "cpf";
+	public static final String EXTRA_COMPANY = "company";
+	public static final String EXTRA_ROLE = "role";
+	public static final String EXTRA_BANNER = "banner";
+	
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
@@ -58,7 +65,7 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -92,7 +99,7 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 		Button button = (Button)findViewById(R.id.id_back_button);
 		button.setOnClickListener(this);
 		Intent intent = getIntent();
-		mBanner = intent.getIntExtra("banners", -1);
+		mBanner = intent.getIntExtra(PaymentActivity.EXTRA_BANNERS, -1);
 	}
 	
 	/**
@@ -183,13 +190,13 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 		Intent intent = new Intent();
 		if (validateFields()) {
 			// Put extras.
-			intent.putExtra("name", mNameEditText.getText().toString());
-			intent.putExtra("email", mMailEditText.getText().toString());
-			intent.putExtra("cpf", mCpfEditText.getText().toString());
-			intent.putExtra("company", mCompanyEditText.getText().toString());
-			intent.putExtra("role", mRoleEditText.getText().toString());
-			intent.putExtra("banner", mBanner);
-
+			intent.putExtra(EXTRA_NAME, mNameEditText.getText().toString());
+			intent.putExtra(EXTRA_EMAIL, mMailEditText.getText().toString());
+			intent.putExtra(EXTRA_CPF, mCpfEditText.getText().toString());
+			intent.putExtra(EXTRA_COMPANY, mCompanyEditText.getText().toString());
+			intent.putExtra(EXTRA_ROLE, mRoleEditText.getText().toString());
+			intent.putExtra(EXTRA_BANNER, mBanner);
+			
 			// Returns for the Parent Activity.
 	        setResult(IS_PARENT, intent);
 	        finish();

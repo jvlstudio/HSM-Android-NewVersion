@@ -25,6 +25,12 @@ import com.actionbarsherlock.view.MenuItem;
 public class EventListActivity extends SherlockActivity implements OnItemClickListener {
 	
 	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String EXTRA_EVENT_ID = "event_id";
+	
+	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
@@ -40,8 +46,7 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 		super.onCreate(icicle);
 		setContentView(R.layout.activity_event_list);
 		
-		ActionBar action = getActionBar();
-		action.setDisplayHomeAsUpEnabled(true);
+		setActionBar();
 		setAdapter();
 	}
 	
@@ -51,7 +56,7 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -68,6 +73,14 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
+	
+	/**
+	 * Sets the {@link ActionBar}. 
+	 */
+	public void setActionBar() {
+		ActionBar action = getActionBar();
+		action.setDisplayHomeAsUpEnabled(true);
+	}
 	
 	/**
 	 * Sets the list adapter.
@@ -88,7 +101,7 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent intent = new Intent(this, EventDetailsActivity.class);
-		intent.putExtra("id", id);
+		intent.putExtra(EXTRA_EVENT_ID, id);
 		startActivity(intent);
 	}
 }

@@ -129,7 +129,7 @@ public class MagazineAdapter extends BaseAdapter {
 		setTexts(magazine);
 		
 		// Creates URL for the image.
-		String url = IMAGE_URL + magazine.picture;
+		String url = IMAGE_URL + magazine.getPicture();
 		setUniversalImage(url);
 	}
 	
@@ -139,8 +139,8 @@ public class MagazineAdapter extends BaseAdapter {
 	 * @param magazine
 	 */
 	public void setTexts(Magazine magazine) {
-		mViewHolder.magazineTitleTextView.setText(magazine.name);
-		mViewHolder.magazineDescriptionTextView.setText(magazine.description);
+		mViewHolder.magazineTitleTextView.setText(magazine.getName());
+		mViewHolder.magazineDescriptionTextView.setText(magazine.getDescription());
 	}
 	
 	/**

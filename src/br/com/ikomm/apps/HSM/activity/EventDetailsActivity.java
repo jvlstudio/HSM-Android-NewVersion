@@ -32,12 +32,14 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	
 	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/events/";
 	
+	public static final String EXTRA_EVENT_ID = "event_id";
+	public static final String EXTRA_DATES = "dates";
+	
 	//--------------------------------------------------
 	// Methods
 	//--------------------------------------------------
 	
 	private Long mId;
-//	private EventRepo mEventRepo;
 	private Event mEvent;
 	
 	private LinearLayout mAboutLinearLayout;
@@ -78,7 +80,7 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -111,7 +113,7 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	public void getExtras() {
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null) {
-			mId = extras.getLong("id");
+			mId = extras.getLong(EventListActivity.EXTRA_EVENT_ID);
 		}
 	}
 	
@@ -222,7 +224,7 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	 * @param imageView The {@link ImageView} which will receive the image.
 	 */
 	public void setUniversalImage() {
-		String url = URL + mEvent.image_single;
+		String url = URL + mEvent.getImageSingle();
 		DisplayImageOptions cache = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true).build();
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
@@ -239,18 +241,18 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 		switch (view.getId()) {
 			case R.id.id_agenda_button:
 				intent = new Intent(EventDetailsActivity.this, AgendaActivity.class);
-				intent.putExtra("event_id", mEvent.id);
-				intent.putExtra("dates", mEvent.info_dates);
+				intent.putExtra(EXTRA_EVENT_ID, mEvent.getId());
+				intent.putExtra(EXTRA_DATES, mEvent.getInfoDates());
 				startActivity(intent);
 				break;
 			case R.id.id_passes_button:
 				intent = new Intent(EventDetailsActivity.this, PassesActivity.class);
-				intent.putExtra("event_id", mEvent.id);
+				intent.putExtra(EXTRA_EVENT_ID, mEvent.getId());
 				startActivity(intent);
 				break;
 			case R.id.id_panelist_button:
 				intent = new Intent(EventDetailsActivity.this, PanelistActivity.class);
-				intent.putExtra("event_id", mEvent.id);
+				intent.putExtra(EXTRA_EVENT_ID, mEvent.getId());
 				startActivity(intent);
 				break;
 			case R.id.id_about_button:

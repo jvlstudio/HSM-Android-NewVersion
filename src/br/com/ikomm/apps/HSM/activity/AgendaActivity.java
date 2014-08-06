@@ -53,7 +53,7 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -77,8 +77,8 @@ public class AgendaActivity extends SherlockFragmentActivity implements OnClickL
 	public void getExtras() {
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null) {
-			mEventId = extras.getInt("event_id");
-			mDates = extras.getString("dates").replace("|", "-").split("-");
+			mEventId = extras.getInt(EventDetailsActivity.EXTRA_EVENT_ID);
+			mDates = extras.getString(EventDetailsActivity.EXTRA_DATES).replace("|", "-").split("-");
 		}
 	}
 	

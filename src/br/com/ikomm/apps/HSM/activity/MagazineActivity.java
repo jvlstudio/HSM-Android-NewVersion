@@ -62,7 +62,7 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -94,7 +94,7 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 	 */
 	private void loadFields() {
 		getLastMagazine();
-		setUniversalImage(URL + mMagazine.picture);
+		setUniversalImage(URL + mMagazine.getPicture());
 		setListView();
 	}
 
@@ -107,14 +107,14 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 		
 		// Gets the last Magazine.
 		for (Magazine magazine : ContentManager.getInstance().getCachedMagazineList()) {
-			mMagazine.id = magazine.id;
-			mMagazine.name = magazine.name;
-			mMagazine.picture = magazine.picture;
-			mMagazine.description = magazine.description;
-			mMagazine.link = magazine.link;
+			mMagazine.setId(magazine.getId());
+			mMagazine.setName(magazine.getName());
+			mMagazine.setPicture(magazine.getPicture());
+			mMagazine.setDescription(magazine.getDescription());
+			mMagazine.setLink(magazine.getLink());
 		}
-		lastMagazineNameTextView.setText(mMagazine.name);
-		lastMagazineDescriptionTextView.setText(mMagazine.description);
+		lastMagazineNameTextView.setText(mMagazine.getName());
+		lastMagazineDescriptionTextView.setText(mMagazine.getDescription());
 	}
 	
 	/**
@@ -135,7 +135,6 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 	 */
 	public void setListView() {
 		List<Magazine> magazineList = ContentManager.getInstance().getCachedMagazineList();
-		
 		ListView magazineListView = (ListView)findViewById(R.id.id_magazine_list_view);
 		magazineListView.setAdapter(new MagazineAdapter(this, magazineList));
 		magazineListView.setOnItemClickListener(this);
@@ -147,7 +146,7 @@ public class MagazineActivity extends SherlockActivity implements OnItemClickLis
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		String url = mMagazine.link;
+		String url = mMagazine.getLink();
 		if (!StringUtils.isEmpty(url)) {
 			Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
 	        intent.setData(Uri.parse(url));

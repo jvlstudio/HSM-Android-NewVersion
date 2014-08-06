@@ -115,7 +115,7 @@ public class PanelistGridViewAdapter extends BaseAdapter {
 	 */
 	public void setData(Integer position) {
 		Panelist panelist = mPanelistList.get(position);
-		mViewHolder.nameTextView.setText(panelist.name);
+		mViewHolder.nameTextView.setText(panelist.getName());
 
 		// Creates URL for the image.
 		String completeUrl = URL + panelist.picture;

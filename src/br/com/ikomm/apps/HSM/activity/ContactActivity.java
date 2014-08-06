@@ -61,7 +61,7 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -115,13 +115,13 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 	 */
 	public void setTextView() {
 		TextView contactNameTop = (TextView) findViewById(R.id.id_contact_name_top_text_view);
-		contactNameTop.setText(mContact.name);
+		contactNameTop.setText(mContact.getName());
 		
 		TextView contactNameBelow = (TextView) findViewById(R.id.id_contact_name_below_text_view);
-		contactNameBelow.setText(mContact.name);
+		contactNameBelow.setText(mContact.getName());
 
 		TextView email = (TextView) findViewById(R.id.id_contact_email_text_view);
-		email.setText(mContact.email);
+		email.setText(mContact.getEmail());
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 	 */
 	public void getContact() {
 		Intent intent = getIntent();
-		mJsonCard = intent.getStringExtra("jsonCartao");
+		mJsonCard = intent.getStringExtra(NetworkingListActivity.JSON_CARD);
 
 		if (!mJsonCard.isEmpty()) {
 			mContact = mGson.fromJson(mJsonCard, Card.class);
@@ -175,8 +175,8 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 		switch (view.getId()) {
 			case R.id.id_add_image_button:
 				Intent addContactIntent = new Intent(Contacts.Intents.Insert.ACTION, Contacts.People.CONTENT_URI);
-				addContactIntent.putExtra(Contacts.Intents.Insert.NAME, mContact.name);
-				addContactIntent.putExtra(Contacts.Intents.Insert.PHONE, mContact.mobilePhone);
+				addContactIntent.putExtra(Contacts.Intents.Insert.NAME, mContact.getName());
+				addContactIntent.putExtra(Contacts.Intents.Insert.PHONE, mContact.getMobilePhone());
 				startActivity(addContactIntent);
 				break;
 			case R.id.id_qr_code_image_view:
@@ -187,7 +187,7 @@ public class ContactActivity extends SherlockActivity implements OnClickListener
 			case R.id.id_send_email_button:
 				Intent i = new Intent(Intent.ACTION_SEND);
 				i.setType("message/rfc822");
-				i.putExtra(Intent.EXTRA_EMAIL, new String[] { mContact.email });
+				i.putExtra(Intent.EXTRA_EMAIL, new String[] { mContact.getEmail() });
 				try {
 					startActivity(Intent.createChooser(i, getString(R.string.contact_activity_send_email) + "..."));
 				} catch (android.content.ActivityNotFoundException ex) {

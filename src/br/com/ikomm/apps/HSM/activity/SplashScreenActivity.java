@@ -94,8 +94,8 @@ public class SplashScreenActivity extends Activity {
         String path = mFileManager.createDir(CustomApplication.CACHE_DIR);
         if (mEventList != null) {
 	        for (Event event : mEventList) {
-	        	String imageUrl = URL + event.image_list;
-	    		String completePath = path + event.image_list;
+	        	String imageUrl = URL + event.getImageList();
+	    		String completePath = path + event.getImageList();
 	    		Log.i(AppConfiguration.COMMON_LOGGING_TAG, Utils.getClassName(SplashScreenActivity.class) +
 	    			"downloadEventImages(). Image url is " + imageUrl + " and image path is " + completePath + ".");
 	    		// Checks the image URL.

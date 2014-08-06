@@ -129,11 +129,11 @@ public class PassesAdapter extends BaseAdapter {
 	 * @param item
 	 */
 	public void setEventNameField(Passe item) {
-		if (!StringUtils.isEmpty(item.name)) {
-			if (item.name.length() > 20) {
-				mViewHolder.title.setText(item.name.subSequence(0, 19));
+		if (!StringUtils.isEmpty(item.getName())) {
+			if (item.getName().length() > 20) {
+				mViewHolder.title.setText(item.getName().subSequence(0, 19));
 			} else {
-				mViewHolder.title.setText(item.name);
+				mViewHolder.title.setText(item.getName());
 			}
 		} else {
 			mViewHolder.title.setText(mActivity.getString(R.string.passes_adapter_title_empty));
@@ -146,8 +146,8 @@ public class PassesAdapter extends BaseAdapter {
 	 * @param item
 	 */
 	public void setValidToField(Passe item) {
-		if (!StringUtils.isEmpty(item.description)) {
-			mViewHolder.validity.setText(item.description);
+		if (!StringUtils.isEmpty(item.getDescription())) {
+			mViewHolder.validity.setText(item.getDescription());
 		} else {
 			mViewHolder.validity.setText(mActivity.getString(R.string.passes_adapter_validity_empty));
 		}
@@ -159,8 +159,8 @@ public class PassesAdapter extends BaseAdapter {
 	 * @param item
 	 */
 	public void setPriceFromField(Passe item) {
-		if (!StringUtils.isEmpty(item.price_from)) {
-			mViewHolder.normalPrice.setText("R$ " + item.price_from);
+		if (!StringUtils.isEmpty(item.getPriceFrom())) {
+			mViewHolder.normalPrice.setText("R$ " + item.getPriceFrom());
 		} else {
 			mViewHolder.normalPrice.setText(mActivity.getString(R.string.passes_adapter_normal_price_empty));
 		}
@@ -173,7 +173,7 @@ public class PassesAdapter extends BaseAdapter {
 	 */
 	public void setPriceToField(Passe item) {
 		if (!StringUtils.isEmpty(item.price_to)) {
-			mViewHolder.appPrice.setText("R$ " + item.price_to);
+			mViewHolder.appPrice.setText("R$ " + item.getPriceTo());
 		} else {
 			mViewHolder.normalPrice.setText(mActivity.getString(R.string.passes_adapter_new_price_empty));
 		}
@@ -185,13 +185,13 @@ public class PassesAdapter extends BaseAdapter {
 	 * @param item
 	 */
 	public void setPassColorField(Passe item) {
-		if (item.color.equals("green")) {
+		if (item.getColor().equals("green")) {
 			mViewHolder.layout.setBackgroundColor(Color.parseColor("#00A180"));
 		}
-		if (item.color.equals("gold")) {
+		if (item.getColor().equals("gold")) {
 			mViewHolder.layout.setBackgroundColor(Color.parseColor("#DCA85C"));
 		}
-		if (item.color.equals("red")) {
+		if (item.getColor().equals("red")) {
 			mViewHolder.layout.setBackgroundColor(Color.parseColor("#D04840"));
 		}
 	}

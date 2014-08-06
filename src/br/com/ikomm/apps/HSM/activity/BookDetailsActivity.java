@@ -63,7 +63,7 @@ public class BookDetailsActivity extends SherlockActivity implements OnClickList
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -95,8 +95,8 @@ public class BookDetailsActivity extends SherlockActivity implements OnClickList
 	 */
 	public void getExtras() {
 		Bundle extras = getIntent().getExtras(); 
-		if (extras != null){
-			mBookId = extras.getLong("id");
+		if (extras != null) {
+			mBookId = extras.getLong(BookListActivity.EXTRA_BOOK_ID);
 		}
 	}
 	
@@ -124,7 +124,7 @@ public class BookDetailsActivity extends SherlockActivity implements OnClickList
 		
 		// Image.
 		ImageView bookImageView = (ImageView)findViewById(R.id.id_book_image_view);
-		String url = URL + mBook.picture;
+		String url = URL + mBook.getPicture();
 		setUniversalImage(url, bookImageView);
 	}
 	

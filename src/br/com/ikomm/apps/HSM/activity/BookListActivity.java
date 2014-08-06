@@ -23,7 +23,13 @@ import com.actionbarsherlock.view.MenuItem;
  * Modified by Rodrigo Cericatto at July 10, 2014.
  */
 public class BookListActivity extends SherlockFragmentActivity implements OnItemClickListener {
-
+	
+	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	public static final String EXTRA_BOOK_ID = "book_id";
+	
 	//--------------------------------------------------
 	// Activity Life Cycle
 	//--------------------------------------------------
@@ -43,7 +49,7 @@ public class BookListActivity extends SherlockFragmentActivity implements OnItem
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.application_menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_application, menu);
 		return true;
 	}
 	
@@ -75,9 +81,9 @@ public class BookListActivity extends SherlockFragmentActivity implements OnItem
 	 */
 	public void setAdapter() {
 		List<Book> bookList = ContentManager.getInstance().getCachedBookList();
-		ListView listaLivros = (ListView)findViewById(R.id.id_book_list_view);
-		listaLivros.setAdapter(new BookAdapter(this, bookList));
-		listaLivros.setOnItemClickListener(this);
+		ListView bookListView = (ListView)findViewById(R.id.id_book_list_view);
+		bookListView.setAdapter(new BookAdapter(this, bookList));
+		bookListView.setOnItemClickListener(this);
 	}
 
 	//--------------------------------------------------
@@ -87,7 +93,7 @@ public class BookListActivity extends SherlockFragmentActivity implements OnItem
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent intent = new Intent(this, BookDetailsActivity.class);
-		intent.putExtra("id", id);
+		intent.putExtra(EXTRA_BOOK_ID, id);
 		startActivity(intent);
 	}
 }
