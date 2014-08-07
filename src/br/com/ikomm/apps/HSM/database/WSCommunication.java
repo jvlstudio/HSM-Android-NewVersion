@@ -1,4 +1,4 @@
-package br.com.ikomm.apps.HSM.services;
+package br.com.ikomm.apps.HSM.database;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

@@ -83,7 +83,7 @@ public class ApiMapper {
 	/**
 	 * Gets the {@link Agenda} from the given JSON data.
 	 * 
-	 * @param data The JSON data that contains the Agenda info.
+	 * @param data The JSON data that contains the {@link Agenda} info.
 	 * 
 	 * @return The current {@link Agenda}.
 	 * @throws Exception 

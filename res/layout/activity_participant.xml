@@ -13,6 +13,7 @@
         android:inputType="text"
         android:singleLine="true"
         android:textColor="@android:color/white"
+        android:textCursorDrawable="@null"
         android:textColorHint="@color/hsm_color_gray_light" />
 
     <EditText
@@ -20,9 +21,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/participant_activity_email_hint"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:singleLine="true"
         android:textColor="@android:color/white"
+        android:textCursorDrawable="@null"
         android:textColorHint="@color/hsm_color_gray_light" />
 
     <EditText
@@ -33,6 +35,7 @@
         android:inputType="number"
         android:singleLine="true"
         android:textColor="@android:color/white"
+        android:textCursorDrawable="@null"
         android:textColorHint="@color/hsm_color_gray_light" />
 
     <EditText
@@ -43,6 +46,7 @@
         android:inputType="text"
         android:singleLine="true"
         android:textColor="@android:color/white"
+        android:textCursorDrawable="@null"
         android:textColorHint="@color/hsm_color_gray_light" />
 
     <EditText
@@ -53,6 +57,7 @@
         android:inputType="text"
         android:singleLine="true"
         android:textColor="@android:color/white"
+        android:textCursorDrawable="@null"
         android:textColorHint="@color/hsm_color_gray_light" />
 
     <Button

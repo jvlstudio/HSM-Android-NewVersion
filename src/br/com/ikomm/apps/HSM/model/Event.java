@@ -35,7 +35,7 @@ public class Event extends Entity {
 	@DatabaseField
 	public String info_locale;
 	@DatabaseField
-	public String image_list;
+	public String image_list_android;
 	@DatabaseField
 	public String image_single;
 	
@@ -58,7 +58,7 @@ public class Event extends Entity {
 	public static final String KEY_INFO_DATES = "info_dates";
 	public static final String KEY_INFO_HOURS = "info_hours";
 	public static final String KEY_INFO_LOCALE = "info_locale";
-	public static final String KEY_IMAGE_LIST = "image_list";
+	public static final String KEY_IMAGE_LIST = "image_list_android";
 	public static final String KEY_IMAGE_SINGLE = "image_single";
 	
 	//----------------------------------------------
@@ -78,7 +78,7 @@ public class Event extends Entity {
 		this.info_dates = infoDates;
 		this.info_hours = infoHours;
 		this.info_locale = infoLocale;
-		this.image_list = imageList;
+		this.image_list_android = imageList;
 		this.image_single = imageSingle;
 	}
 	
@@ -90,7 +90,7 @@ public class Event extends Entity {
 	public String toString() {
 		return "Event [id=" + id + ", name=" + name + ", slug=" + slug + ", description=" + description + ", tiny_description="
 			+ tiny_description + ", info_dates=" + info_dates + ", info_hours=" + info_hours + ", info_locale=" + info_locale
-			+ ", image_list=" + image_list + ", image_single=" + image_single + "]";
+			+ ", image_list=" + image_list_android + ", image_single=" + image_single + "]";
 	}
 	
 	//----------------------------------------------
@@ -156,10 +156,10 @@ public class Event extends Entity {
 	}
 	
 	public String getImageList() {
-		return image_list;
+		return image_list_android;
 	}
 	public void setImageList(String imageList) {
-		this.image_list = imageList;
+		this.image_list_android = imageList;
 	}
 	
 	public String getImageSingle() {

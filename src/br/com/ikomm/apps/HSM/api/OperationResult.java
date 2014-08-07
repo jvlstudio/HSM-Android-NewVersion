@@ -156,10 +156,12 @@ public class OperationResult {
 	 * 
 	 * @param context The context to show the dialog.
 	 * @param result The OperationResult object to be evaluated.
+	 * @param forceSuccessMessage Forces the SUCCESS status to be shown for the user.
+	 * 
 	 * @return True if the operation is valid.
 	 */
-	public static Boolean validateResult(Context context, OperationResult result) {
-		return validateResult(context, result, null);
+	public static Boolean validateResult(Context context, OperationResult result, Boolean forceSuccessMessage) {
+		return validateResult(context, result, null, forceSuccessMessage);
 	}
 	
 	/**
@@ -168,10 +170,13 @@ public class OperationResult {
 	 * @param context The context to show the dialog.
 	 * @param result The OperationResult object to be evaluated.
 	 * @param listener The OnClickListener callback function to be called.
+	 * @param forceSuccessMessage Forces the SUCCESS status to be shown for the user.
+	 * 
 	 * @return True if the operation is valid.
 	 */
-	public static Boolean validateResult(Context context, OperationResult result, OnClickListener listener) {
+	public static Boolean validateResult(Context context, OperationResult result, OnClickListener listener, Boolean forceSuccessMessage) {
 		// Declaring resources.
+		Boolean success = false;
 		Integer titleResourceId = null;
 		Integer messageResourceId = null;
 		
@@ -204,8 +209,13 @@ public class OperationResult {
 				messageResourceId = R.string.error_msg_unknown;
 				break;
 			case SUCCESS:
+				if (forceSuccessMessage) {
+					titleResourceId = R.string.http_title_success;
+					messageResourceId = R.string.http_success;
+					success = true;
+				}
 			default:
-				return true;
+				success = true;
 		}
 		
 		// If the title and message resources are set.
@@ -218,8 +228,7 @@ public class OperationResult {
 					DialogUtils.showSimpleAlert(context, titleResourceId, messageResourceId, listener);
 				}
 			}
-			return false;
 		}
-		return true;
+		return success;
 	}
 }

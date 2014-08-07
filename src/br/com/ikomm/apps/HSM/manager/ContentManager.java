@@ -23,6 +23,7 @@ import br.com.ikomm.apps.HSM.task.HomeAsyncTask;
 import br.com.ikomm.apps.HSM.task.MagazineAsyncTask;
 import br.com.ikomm.apps.HSM.task.Notifiable;
 import br.com.ikomm.apps.HSM.task.PanelistAsyncTask;
+import br.com.ikomm.apps.HSM.task.PassPurchaseAsyncTask;
 import br.com.ikomm.apps.HSM.task.PasseAsyncTask;
 import br.com.ikomm.apps.HSM.task.UpdaterAsyncTask;
 import br.com.ikomm.apps.HSM.utils.Utils;
@@ -52,6 +53,7 @@ public class ContentManager {
 		public static final int MAGAZINE = 5;
 		public static final int PANELIST = 6;
 		public static final int PASSE = 7;
+		public static final int PASS_PURCHASE = 8;
 	}
 	
 	// The singleton instance.
@@ -416,6 +418,25 @@ public class ContentManager {
 		task.execute();
 	}
 	
+	/**
+	 * Purchases a {@link Passe}.
+	 * 
+	 * @param notifiable The notifiable object to be called.
+	 * @param name
+	 * @param email
+	 * @param company
+	 * @param role
+	 * @param cpf
+	 * @param passId
+	 */
+	public void setPassPurchase(Notifiable notifiable, String name, String email, String company, String role, String cpf, Integer passId) {
+		PassPurchaseAsyncTask task = new PassPurchaseAsyncTask(name, email, company, role, cpf, passId);
+		if (notifiable != null) {
+			mTaskNotifiables.put(task, notifiable);
+		}
+		task.execute();
+	}
+	
 	//----------------------------------------------
 	// Tasks Handling
 	//----------------------------------------------
@@ -467,6 +488,8 @@ public class ContentManager {
 				// Puts the Passe list in the cache.
 				mPasseList = (List<Passe>)result.getEntityList();
 			}
+		} else if (FETCH_TASK.PASS_PURCHASE == taskType) {
+			// Do nothing.
 		}
 		
 		// Removes performed task.
@@ -500,6 +523,8 @@ public class ContentManager {
 			return FETCH_TASK.PANELIST;
 		} else if (task instanceof PasseAsyncTask) {
 			return FETCH_TASK.PASSE;
+		} else if (task instanceof PassPurchaseAsyncTask) {
+			return FETCH_TASK.PASS_PURCHASE;
 		}
 		return -1;
 	}

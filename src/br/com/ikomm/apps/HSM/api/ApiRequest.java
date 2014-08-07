@@ -35,9 +35,9 @@ public class ApiRequest {
 	//----------------------------------------------
 	
 	/**
-	 * Gets the alderman list.
+	 * Gets the API list.
 	 * 
-	 * @return The alderman list.
+	 * @return The API list.
 	 * @throws Exception
 	 */
 	public static OperationResult getApiList(String serviceUrl, Integer type) throws Exception {

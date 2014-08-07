@@ -27,25 +27,16 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 	
 	public static final Integer IS_PARENT = 1; 
 	
-	public static final String EXTRA_NAME = "name";
-	public static final String EXTRA_EMAIL = "email";
-	public static final String EXTRA_CPF = "cpf";
-	public static final String EXTRA_COMPANY = "company";
-	public static final String EXTRA_ROLE = "role";
-	public static final String EXTRA_BANNER = "banner";
-	
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 	
 	private EditText mNameEditText; 
-	private EditText mMailEditText;
+	private EditText mEmailEditText;
 	private EditText mCpfEditText;
 	private EditText mCompanyEditText;
 	private EditText mRoleEditText;
 
-	private Integer mBanner;
-	
 	//--------------------------------------------------
 	// Activity Life Cycle
 	//--------------------------------------------------
@@ -98,8 +89,6 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 	public void getExtras() {
 		Button button = (Button)findViewById(R.id.id_back_button);
 		button.setOnClickListener(this);
-		Intent intent = getIntent();
-		mBanner = intent.getIntExtra(PaymentActivity.EXTRA_BANNERS, -1);
 	}
 	
 	/**
@@ -107,7 +96,7 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 	 */
 	public void setComponents() {
 		mNameEditText = (EditText) findViewById(R.id.id_name_edit_text);
-		mMailEditText = (EditText) findViewById(R.id.id_mail_edit_text);
+		mEmailEditText = (EditText) findViewById(R.id.id_mail_edit_text);
 		mCpfEditText = (EditText) findViewById(R.id.id_cpf_edit_text);
 		mCompanyEditText = (EditText) findViewById(R.id.id_company_edit_text);
 		mRoleEditText = (EditText) findViewById(R.id.id_role_edit_text);
@@ -118,11 +107,11 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 	 * 
 	 * @return
 	 */
-	private boolean validateFields() {
+	private boolean fieldsValid() {
 		setComponents();
 
 		String name = mNameEditText.getText().toString();
-		String email = mMailEditText.getText().toString();
+		String email = mEmailEditText.getText().toString();
 		String company = mCompanyEditText.getText().toString();
 		String role = mRoleEditText.getText().toString();
 		
@@ -188,14 +177,14 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 	@Override
 	public void onClick(View view) {
 		Intent intent = new Intent();
-		if (validateFields()) {
+		if (fieldsValid()) {
 			// Put extras.
-			intent.putExtra(EXTRA_NAME, mNameEditText.getText().toString());
-			intent.putExtra(EXTRA_EMAIL, mMailEditText.getText().toString());
-			intent.putExtra(EXTRA_CPF, mCpfEditText.getText().toString());
-			intent.putExtra(EXTRA_COMPANY, mCompanyEditText.getText().toString());
-			intent.putExtra(EXTRA_ROLE, mRoleEditText.getText().toString());
-			intent.putExtra(EXTRA_BANNER, mBanner);
+			intent.putExtra(PaymentActivity.EXTRA_NAME, mNameEditText.getText().toString());
+			intent.putExtra(PaymentActivity.EXTRA_EMAIL, mEmailEditText.getText().toString());
+			intent.putExtra(PaymentActivity.EXTRA_CPF, mCpfEditText.getText().toString());
+			intent.putExtra(PaymentActivity.EXTRA_COMPANY, mCompanyEditText.getText().toString());
+			intent.putExtra(PaymentActivity.EXTRA_ROLE, mRoleEditText.getText().toString());
+			intent.putExtra(PaymentActivity.EXTRA_PARENT, PassesActivity.PARENT_IS_PARTICIPANT);
 			
 			// Returns for the Parent Activity.
 	        setResult(IS_PARENT, intent);

@@ -18,20 +18,20 @@
         android:orientation="vertical">
         
         <TextView 
-            android:id="@+id/id_book_name_text_view"
+            android:id="@+id/id_book_title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="#ababc7"
+            android:textColor="@color/hsm_color_gray_light"
             android:textSize="14dp"
             android:text="@string/adapter_book_name" />
         
         <TextView 
-            android:id="@+id/id_book_description_text_view"
+            android:id="@+id/id_author_name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ababc7"
+            android:textColor="@color/hsm_color_gray_light"
             android:textSize="10dp"
-            android:text="@string/adapter_book_edition" />
+            android:text="@string/adapter_author_name" />
     </LinearLayout>
 </LinearLayout>

@@ -81,7 +81,7 @@ public class SplashScreenActivity extends Activity {
 	//--------------------------------------------------
 	
 	/**
-	 * Calls level list.
+	 * Waits for some seconds.
 	 */
 	private Runnable mHandlerChecker = new Runnable() {
 	    public void run() {

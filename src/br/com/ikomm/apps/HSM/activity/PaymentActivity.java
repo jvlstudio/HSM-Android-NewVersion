@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -13,10 +14,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.api.OperationResult;
+import br.com.ikomm.apps.HSM.api.OperationResult.ResultType;
 import br.com.ikomm.apps.HSM.database.QueryHelper;
+import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Passe;
-import br.com.ikomm.apps.HSM.services.WebServiceCommunication;
+import br.com.ikomm.apps.HSM.task.Notifiable;
+import br.com.ikomm.apps.HSM.utils.DialogUtils;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -26,35 +31,42 @@ import com.actionbarsherlock.view.MenuItem;
  * PaymentActivity.java class.
  * Modified by Rodrigo Cericatto at July 4, 2014.
  */
-public class PaymentActivity extends SherlockFragmentActivity implements OnClickListener {
+public class PaymentActivity extends SherlockFragmentActivity implements OnClickListener, Notifiable {
 
 	//--------------------------------------------------
 	// Constants
 	//--------------------------------------------------
 	
-	public static final String EXTRA_BANNERS = "banners";
+	public static final String EXTRA_PARENT = "extra_parent";
+	
+	public static final String EXTRA_NAME = "name";
+	public static final String EXTRA_EMAIL = "email";
+	public static final String EXTRA_CPF = "cpf";
+	public static final String EXTRA_COMPANY = "company";
+	public static final String EXTRA_ROLE = "role";
+	
+	public static final Integer TIME = 500;
 	
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
 
-	private Integer mBanners = -1;
-	private Integer mParent = 0;
+	private Integer mParent;
 	
-	private String mNome = "";
+	private String mName = "";
 	private String mEmail = "";
 	private String mCpf = "";
 	private String mCompany = "";
 	private String mRole = "";
-	private String mColor = "";
-	private String mDay = "";
 	
-	private Long mPasseId;
+	private Long mPassId;
 	private Integer mEventId;
 	private Passe mPasse = new Passe();
 	
 	private TextView mDaysTextView;
 	private Spinner mQuantitySpinner;
+	
+	private Handler mHandler = new Handler();
 
 	//--------------------------------------------------
 	// Activity Life Cycle
@@ -75,8 +87,19 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	@Override
 	protected void onActivityResult(int code, int result, Intent intent) {
 		mParent = result;
-		getUserInfo(intent);
+		if (intent != null) {
+			getUserInfo(intent);
+		} else {
+			DialogUtils.showSimpleAlert(this, R.string.payment_activity_user_not_registered_title,
+				R.string.payment_activity_user_not_registered_message);
+		}
 	}
+    
+    @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	mHandler.removeCallbacks(mHandlerChecker);
+    }
 	
 	//--------------------------------------------------
 	// Menu
@@ -115,17 +138,23 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	 * Gets the {@link Activity} extras.
 	 */
 	public void getExtras() {
-		Bundle extras = getIntent().getExtras();
 		Intent intent = getIntent();
-		if (extras != null) {
-			mPasseId = extras.getLong(PassesActivity.EXTRA_PASSE_ID);
-			mEventId = extras.getInt(PassesActivity.EXTRA_EVENT_ID);
-			if (mEventId != null) {
-				getUserInfo(intent);
+		if (intent != null) {
+			Bundle extras = intent.getExtras();
+			if (extras != null) {
+				mParent = extras.getInt(EXTRA_PARENT);
+				mEventId = extras.getInt(PassesActivity.EXTRA_EVENT_ID);
+				mPassId = extras.getLong(PassesActivity.EXTRA_PASSE_ID);
 				getCurrentPasse();
+				switch (mParent) {
+					case PassesActivity.PARENT_IS_PARTICIPANT:
+						if (mEventId != null) {
+							getUserInfo(intent);
+						}
+						break;
+				}
 			}
 		}
-		mBanners = intent.getIntExtra(ParticipantActivity.EXTRA_BANNER, -1);
 	}
 	
 	/**
@@ -143,7 +172,6 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	 */
 	public void colorizeLinearLayout() {
 		LinearLayout paymentLinearLayout = (LinearLayout)findViewById(R.id.id_payment_linear_layout);
-		mColor = mPasse.getColor();
 		if (mPasse.color.equals("green")) {
 			paymentLinearLayout.setBackgroundResource(R.drawable.hsm_passes_title_green);
 			setSpinner();
@@ -176,18 +204,18 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	 * @param intent The parent {@link Intent}. 
 	 */
 	public void getUserInfo(Intent intent) {
-		mNome = intent.getStringExtra(ParticipantActivity.EXTRA_NAME);
-		mEmail = intent.getStringExtra(ParticipantActivity.EXTRA_EMAIL);
-		mCpf = intent.getStringExtra(ParticipantActivity.EXTRA_CPF);
-		mCompany = intent.getStringExtra(ParticipantActivity.EXTRA_COMPANY);
-		mRole = intent.getStringExtra(ParticipantActivity.EXTRA_ROLE);
+		mName = intent.getStringExtra(EXTRA_NAME);
+		mEmail = intent.getStringExtra(EXTRA_EMAIL);
+		mCpf = intent.getStringExtra(EXTRA_CPF);
+		mCompany = intent.getStringExtra(EXTRA_COMPANY);
+		mRole = intent.getStringExtra(EXTRA_ROLE);
 	}
 	
 	/**
 	 * Gets the current {@link Passe}.
 	 */
 	public void getCurrentPasse() {
-		mPasse = QueryHelper.getPasse(mPasseId);
+		mPasse = QueryHelper.getPasse(mPassId);
 	}
 	
 	/**
@@ -233,27 +261,50 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	public void onClick(View view) {
 		switch (view.getId()) {
 			case R.id.id_purchase_button:
-				if (mParent == ParticipantActivity.IS_PARENT) {
-					startActivity(new Intent(PaymentActivity.this, GreetingsActivity.class));
-					WebServiceCommunication ws = new WebServiceCommunication();
-					if (mColor.equals("green")) {
-						if (mQuantitySpinner.getSelectedItem() != null) {
-							mDay = mQuantitySpinner.getSelectedItem().toString();
-						}
+				if (mParent == PassesActivity.PARENT_IS_PARTICIPANT) {
+					if (!mName.isEmpty() && !mEmail.isEmpty() && !mCompany.isEmpty() && !mRole.isEmpty()  && !mCpf.isEmpty()) {
+						ContentManager.getInstance().setPassPurchase(PaymentActivity.this, mName, mEmail, mCompany, mRole, mCpf, (int)mPassId.intValue());
 					}
-					if (!mColor.isEmpty() && !mNome.isEmpty() && !mEmail.isEmpty() && !mCompany.isEmpty() && !mRole.isEmpty()  && !mCpf.isEmpty()) {
-						ws.sendPurchaseForm(mColor, mDay, mNome, mEmail, mCompany, mRole, mCpf);
-					}
-					finish();
 				} else {
 					Toast.makeText(PaymentActivity.this, getString(R.string.payment_activity_invalid_data), Toast.LENGTH_LONG).show();
 				}
 				break;
 			case R.id.id_register_button:
 				Intent intent = new Intent(PaymentActivity.this, ParticipantActivity.class);
-				intent.putExtra(EXTRA_BANNERS, mBanners);
+				// If we had already returned from ParticipantActivity, the values below won't be null.
 				startActivityForResult(intent, 0);
 				break;
 		}		
 	}
+
+	//--------------------------------------------------
+	// Notifiable
+	//--------------------------------------------------
+	
+	public void taskFinished(int type, OperationResult result) {
+		// Validating the error result to show the proper dialog message.
+		OperationResult.validateResult(PaymentActivity.this, result, null, false);
+		
+		// Tasks.
+		if (type == ContentManager.FETCH_TASK.PASS_PURCHASE) {
+			if (ResultType.SUCCESS.equals(result.getResultType())) {
+				mHandler.postDelayed(mHandlerChecker, TIME);
+			} else {
+				DialogUtils.showSimpleAlert(this, R.string.error_title_bad_request, R.string.error_msg_bad_request);
+			}
+		}
+	}
+	
+	//--------------------------------------------------
+	// Handler
+	//--------------------------------------------------
+	
+	/**
+	 * Waits for some seconds.
+	 */
+	private Runnable mHandlerChecker = new Runnable() {
+	    public void run() {
+	    	startActivity(new Intent(PaymentActivity.this, GreetingsActivity.class));
+	    }
+	};
 }

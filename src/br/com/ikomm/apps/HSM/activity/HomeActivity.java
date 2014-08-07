@@ -26,7 +26,6 @@ import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.HomeGridViewAdapter;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Home;
-import br.com.ikomm.apps.HSM.services.WebServiceCommunication;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -80,7 +79,6 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 		setEventImage();
 		setDrawerMenu();
 		setDrawerToggle();
-		setThread();
 	}
 	
 	//--------------------------------------------------
@@ -141,24 +139,6 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 		
 		// Set the drawer toggle as the DrawerListener.
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-	}
-	
-	/**
-	 * Sets the Thread.
-	 */
-	public void setThread() {
-		// Update banners no sharedPreferences.
-		Thread thread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					WebServiceCommunication ws = new WebServiceCommunication();
-					ws.updateBanners(HomeActivity.this);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 	
 	/**

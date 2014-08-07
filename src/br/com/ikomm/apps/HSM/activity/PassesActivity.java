@@ -27,6 +27,9 @@ public class PassesActivity extends SherlockFragmentActivity implements OnItemCl
 	public static final String EXTRA_EVENT_ID = "event_id";
 	public static final String EXTRA_PASSE_ID = "passe_id";
 	
+	public static final int PARENT_IS_PASSES = 0;
+	public static final int PARENT_IS_PARTICIPANT = 1;
+	
 	//--------------------------------------------------
 	// Attributes
 	//--------------------------------------------------
@@ -108,6 +111,7 @@ public class PassesActivity extends SherlockFragmentActivity implements OnItemCl
 		Intent intent = new Intent(this, PaymentActivity.class);
 		intent.putExtra(EXTRA_PASSE_ID, id);
 		intent.putExtra(EXTRA_EVENT_ID, mEventId);
+		intent.putExtra(PaymentActivity.EXTRA_PARENT, PARENT_IS_PASSES); 
 		startActivity(intent);
 	}
 }

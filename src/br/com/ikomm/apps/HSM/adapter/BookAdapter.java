@@ -44,8 +44,8 @@ public class BookAdapter extends BaseAdapter {
 	//--------------------------------------------------
 	
 	static class ViewHolder {
-		private TextView bookName;
-		private TextView bookDescription;
+		private TextView bookTitle;
+		private TextView authorName;
 		private ImageView bookImage;
 	}
 	
@@ -90,8 +90,8 @@ public class BookAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.adapter_book, parent, false);
 			
 			// Set views.
-			mViewHolder.bookName = (TextView) convertView.findViewById(R.id.id_book_name_text_view);
-			mViewHolder.bookDescription = (TextView) convertView.findViewById(R.id.id_book_name_text_view);
+			mViewHolder.bookTitle = (TextView) convertView.findViewById(R.id.id_book_title_text_view);
+			mViewHolder.authorName = (TextView) convertView.findViewById(R.id.id_author_name_text_view);
 			mViewHolder.bookImage = (ImageView) convertView.findViewById(R.id.id_book_image_view);
 			
 			// Saves ViewHolder into the tag.
@@ -117,8 +117,8 @@ public class BookAdapter extends BaseAdapter {
 	 * @param book
 	 */
 	public void setData(Book book) {
-		mViewHolder.bookName.setText(book.getName());
-		mViewHolder.bookDescription.setText(book.getAuthorName());
+		mViewHolder.bookTitle.setText(book.getName());
+		mViewHolder.authorName.setText(book.getAuthorName());
 		
 		String url = URL + book.getPicture();
 		setUniversalImage(url, mViewHolder.bookImage);

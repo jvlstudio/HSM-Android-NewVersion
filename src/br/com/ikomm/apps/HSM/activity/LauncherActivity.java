@@ -165,7 +165,7 @@ public class LauncherActivity extends Activity implements Notifiable {
 				finish();
 			}
 		};
-		OperationResult.validateResult(LauncherActivity.this, result, listener);
+		OperationResult.validateResult(LauncherActivity.this, result, listener, false);
 		
 		// Tasks.
 		if (type == ContentManager.FETCH_TASK.UPDATER) {
