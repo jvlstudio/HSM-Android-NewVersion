@@ -19,7 +19,7 @@ import br.com.ikomm.apps.HSM.api.OperationResult.ResultType;
 import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Event;
-import br.com.ikomm.apps.HSM.model.Passe;
+import br.com.ikomm.apps.HSM.model.Pass;
 import br.com.ikomm.apps.HSM.task.Notifiable;
 import br.com.ikomm.apps.HSM.utils.DialogUtils;
 
@@ -61,7 +61,7 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	
 	private Long mPassId;
 	private Integer mEventId;
-	private Passe mPasse = new Passe();
+	private Pass mPasse = new Pass();
 	
 	private TextView mDaysTextView;
 	private Spinner mQuantitySpinner;
@@ -143,11 +143,11 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 			Bundle extras = intent.getExtras();
 			if (extras != null) {
 				mParent = extras.getInt(EXTRA_PARENT);
-				mEventId = extras.getInt(PassesActivity.EXTRA_EVENT_ID);
-				mPassId = extras.getLong(PassesActivity.EXTRA_PASSE_ID);
+				mEventId = extras.getInt(PassActivity.EXTRA_EVENT_ID);
+				mPassId = extras.getLong(PassActivity.EXTRA_PASSE_ID);
 				getCurrentPasse();
 				switch (mParent) {
-					case PassesActivity.PARENT_IS_PARTICIPANT:
+					case PassActivity.PARENT_IS_PARTICIPANT:
 						if (mEventId != null) {
 							getUserInfo(intent);
 						}
@@ -212,7 +212,7 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	}
 	
 	/**
-	 * Gets the current {@link Passe}.
+	 * Gets the current {@link Pass}.
 	 */
 	public void getCurrentPasse() {
 		mPasse = QueryHelper.getPasse(mPassId);
@@ -261,7 +261,7 @@ public class PaymentActivity extends SherlockFragmentActivity implements OnClick
 	public void onClick(View view) {
 		switch (view.getId()) {
 			case R.id.id_purchase_button:
-				if (mParent == PassesActivity.PARENT_IS_PARTICIPANT) {
+				if (mParent == PassActivity.PARENT_IS_PARTICIPANT) {
 					if (!mName.isEmpty() && !mEmail.isEmpty() && !mCompany.isEmpty() && !mRole.isEmpty()  && !mCpf.isEmpty()) {
 						ContentManager.getInstance().setPassPurchase(PaymentActivity.this, mName, mEmail, mCompany, mRole, mCpf, (int)mPassId.intValue());
 					}

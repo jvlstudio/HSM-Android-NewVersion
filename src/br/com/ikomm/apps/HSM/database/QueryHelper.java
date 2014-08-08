@@ -9,12 +9,14 @@ import android.util.Log;
 import br.com.ikomm.apps.HSM.AppConfiguration;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Agenda;
+import br.com.ikomm.apps.HSM.model.AppInfo;
+import br.com.ikomm.apps.HSM.model.Banner;
 import br.com.ikomm.apps.HSM.model.Book;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Home;
 import br.com.ikomm.apps.HSM.model.Magazine;
 import br.com.ikomm.apps.HSM.model.Panelist;
-import br.com.ikomm.apps.HSM.model.Passe;
+import br.com.ikomm.apps.HSM.model.Pass;
 
 import com.j256.ormlite.dao.Dao;
 
@@ -702,25 +704,25 @@ public class QueryHelper {
 	}
 	
 	//--------------------------------------------------
-	// Passe
+	// Pass
 	//--------------------------------------------------
 	
 	public void _______________PASSE_______________() {}
 	
 	/**
-	 * Gets the {@link Passe} list from the database.
+	 * Gets the {@link Pass} list from the database.
 	 * 
 	 * @param context
 	 * @return
 	 */
-	public static List<Passe> getPasseList(Context context) {
+	public static List<Pass> getPasseList(Context context) {
 		// Getting the database helper.
 		DatabaseHelper databaseHelper = DatabaseHelper.getHelper(context);
-		List<Passe> list = null;
+		List<Pass> list = null;
 		
 		try {
     		// Getting the Panelist list.
-    		Dao<Passe, Integer> passeDao = databaseHelper.getDao(Passe.class);
+    		Dao<Pass, Integer> passeDao = databaseHelper.getDao(Pass.class);
     		list = passeDao.queryForAll();
 		} catch (SQLException e) {
 			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Database exception.", e);
@@ -731,22 +733,22 @@ public class QueryHelper {
 	}
 	
 	/**
-	 * Stores the given {@link Passe} list into the database.
+	 * Stores the given {@link Pass} list into the database.
 	 * 
 	 * @param context
 	 * @param list
 	 */
-	public static void persistPasse(Context context, final List<Passe> list) {
+	public static void persistPasse(Context context, final List<Pass> list) {
 		// Getting the database helper.
 		DatabaseHelper databaseHelper = DatabaseHelper.getHelper(context);
 		try {
 			// Persisting.
-			for (Passe passe : list) {
+			for (Pass pass : list) {
 				// Persisting.
-				databaseHelper.createOrUpdate(passe);
+				databaseHelper.createOrUpdate(pass);
 			}
 		} catch (IllegalAccessException e) {
-			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Error while trying to create or update Passe.", e);
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Error while trying to create or update Pass.", e);
 		} catch (SQLException e) {
 			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Database exception.", e);
 		} catch (IllegalArgumentException e) {
@@ -758,45 +760,101 @@ public class QueryHelper {
 	}
 	
 	/**
-	 * Gets an {@link Passe} by an id.  
+	 * Gets an {@link Pass} by an id.  
 	 * 
 	 * @param passeId
 	 * 
 	 * @return
 	 */
-	public static Passe getPasse(Long passeId) {
-		List<Passe> list = ContentManager.getInstance().getCachedPasseList();
-		Passe currentPasse = new Passe();
+	public static Pass getPasse(Long passeId) {
+		List<Pass> list = ContentManager.getInstance().getCachedPasseList();
+		Pass currentPasse = new Pass();
 		Integer id = Integer.valueOf(passeId.intValue());
 				
-		for (Passe passe : list) {
+		for (Pass pass : list) {
 			// Gets conditions.
-			Boolean passeIdEqual = (passe.getId() == id);
+			Boolean passeIdEqual = (pass.getId() == id);
 			if (passeIdEqual) {
-				currentPasse = passe;
+				currentPasse = pass;
 			}
 		}
 		return currentPasse;
 	}
 	
 	/**
-	 * Gets an {@link Passe} by an {@link Event} and a date.  
+	 * Gets an {@link Pass} by an {@link Event} and a date.  
 	 * 
 	 * @param eventId
 	 * 
 	 * @return
 	 */
-	public static List<Passe> getPasseListByEvent(Integer eventId) {
-		List<Passe> list = ContentManager.getInstance().getCachedPasseList();
-		List<Passe> filteredPasse = new ArrayList<Passe>();
+	public static List<Pass> getPasseListByEvent(Integer eventId) {
+		List<Pass> list = ContentManager.getInstance().getCachedPasseList();
+		List<Pass> filteredPasse = new ArrayList<Pass>();
 				
-		for (Passe passe : list) {
+		for (Pass pass : list) {
 			// Gets conditions.
-			Boolean eventIdEqual = (passe.getEventId() == eventId);
+			Boolean eventIdEqual = (pass.getEventId() == eventId);
 			if (eventIdEqual) {
-				filteredPasse.add(passe);
+				filteredPasse.add(pass);
 			}
 		}
 		return filteredPasse;
+	}
+	
+	//--------------------------------------------------
+	// Banner
+	//--------------------------------------------------
+	
+	public void _______________BANNER_______________() {}
+	
+	/**
+	 * Gets the {@link Banner} list from the database.
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static List<Banner> getBannerList(Context context) {
+		// Getting the database helper.
+		DatabaseHelper databaseHelper = DatabaseHelper.getHelper(context);
+		List<Banner> list = null;
+		
+		try {
+    		// Getting the Banner list.
+    		Dao<Banner, Integer> bannerDao  = databaseHelper.getDao(Banner.class);
+    		list = bannerDao.queryForAll();
+		} catch (SQLException e) {
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Database exception.", e);
+		} finally {
+			DatabaseHelper.releaseHelper();
+		}
+		return list;
+	}
+	
+	/**
+	 * Stores the given {@link Banner} list into the database.
+	 * 
+	 * @param context
+	 * @param list
+	 */
+	public static void persistBanner(Context context, final List<Banner> list) {
+		// Getting the database helper.
+		DatabaseHelper databaseHelper = DatabaseHelper.getHelper(context);
+		try {
+			// Persisting.
+			for (Banner banner : list) {
+				// Persisting.
+				databaseHelper.createOrUpdate(banner);
+			}
+		} catch (IllegalAccessException e) {
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Error while trying to create or update Banner.", e);
+		} catch (SQLException e) {
+			Log.e(AppConfiguration.COMMON_LOGGING_TAG, "Database exception.", e);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} finally {
+			// Releasing the database helper.
+			DatabaseHelper.releaseHelper();
+		}
 	}
 }

@@ -6,13 +6,13 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * Passe.java class.
+ * Pass.java class.
  * 
  * @author Rodrigo Cericatto
  * @since July 30, 2014
  */
 @DatabaseTable
-public class Passe extends Entity {
+public class Pass extends Entity {
 
 	//----------------------------------------------
 	// Web Service Constants
@@ -74,9 +74,9 @@ public class Passe extends Entity {
 	// Constructor
 	//----------------------------------------------
 
-	public Passe() {}
+	public Pass() {}
 	
-	public Passe(int id, int event_id, String color, String name, String slug, String price_from, String price_to, String valid_to, String email,
+	public Pass(int id, int event_id, String color, String name, String slug, String price_from, String price_to, String valid_to, String email,
 			String description, String days, String show_dates, String is_multiple) {
 		super();
 		this.id = id;
@@ -100,7 +100,7 @@ public class Passe extends Entity {
 	
 	@Override
 	public String toString() {
-		return "Passe [id=" + id + ", event_id=" + event_id + ", color=" + color + ", name=" + name + ", slug=" + slug + ", price_from="
+		return "Pass [id=" + id + ", event_id=" + event_id + ", color=" + color + ", name=" + name + ", slug=" + slug + ", price_from="
 			+ price_from + ", price_to=" + price_to + ", valid_to=" + valid_to + ", email=" + email + ", description="
 			+ description + ", days=" + days + ", show_dates=" + show_dates + ", is_multiple=" + is_multiple + "]";
 	}

@@ -22,9 +22,6 @@ public class AppConfiguration {
 	// Any time you make changes to the database objects, you have to increase the database version.
 	public static final int DATABASE_VERSION = 1;
 	
-	// Path to the database files.
-	public static final String DATABASE_PATH = "/data/data/" + CustomApplication.ROOT_PACKAGE_NAME + "/databases/";
-
 	// The name of the database file.
 	public static final String DATABASE_NAME = "hsm.db";
 	
@@ -32,19 +29,8 @@ public class AppConfiguration {
 	public static Boolean sDatabaseNeedsUpdate = false;
 	
 	//----------------------------------------------
-	// File Settings
-	//----------------------------------------------
-	
-	// Separators.
-	public static final String SEPARATOR = ";";
-	public static final String NEW_LINE = "\n";
-
-	//----------------------------------------------
 	// Logging
 	//----------------------------------------------
-	
-	// Enable logging.
-	public static final boolean LOGGING_ENABLED = true;
 	
 	// Tag for common log output.
 	public static final String COMMON_LOGGING_TAG = "hsm";

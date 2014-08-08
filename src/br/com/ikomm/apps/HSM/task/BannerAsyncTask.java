@@ -9,15 +9,15 @@ import br.com.ikomm.apps.HSM.api.OperationResult;
 import br.com.ikomm.apps.HSM.api.OperationResult.ResultType;
 import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
-import br.com.ikomm.apps.HSM.model.Agenda;
+import br.com.ikomm.apps.HSM.model.Banner;
 
 /**
- * AgendaAsyncTask.java class.
+ * BannerAsyncTask.java class.
  * 
  * @author Rodrigo Cericatto
- * @since July 30, 2014
+ * @since August 8, 2014
  */
-public class AgendaAsyncTask extends AsyncTask<Void, Integer, OperationResult> {
+public class BannerAsyncTask extends AsyncTask<Void, Integer, OperationResult> {
 	
 	//--------------------------------------------------
 	// Attributes
@@ -34,9 +34,9 @@ public class AgendaAsyncTask extends AsyncTask<Void, Integer, OperationResult> {
 	//--------------------------------------------------
 	
 	/**
-	 * Creates a new {@link AgendaAsyncTask} instance.
+	 * Creates a new {@link BannerAsyncTask} instance.
 	 */
-	public AgendaAsyncTask(Context context, boolean needsUpdate) {
+	public BannerAsyncTask(Context context, boolean needsUpdate) {
 		mContext = context;
 		mNeedsUpdate = needsUpdate;
 	}
@@ -66,7 +66,7 @@ public class AgendaAsyncTask extends AsyncTask<Void, Integer, OperationResult> {
 	//----------------------------------------------
 	
 	/**
-	 * Updates the {@link Agenda} if needed or fetch it from the database.
+	 * Updates the {@link Banner} if needed or fetch it from the database.
 	 * 
 	 * @return
 	 * @throws Exception 
@@ -74,41 +74,41 @@ public class AgendaAsyncTask extends AsyncTask<Void, Integer, OperationResult> {
 	public static OperationResult update(Context context, boolean needsUpdate) throws Exception {
 		// If we need to update from the server.
 		if (needsUpdate) {
-			OperationResult serverResult = getAgendaFromServer(context);
+			OperationResult serverResult = getBannerFromServer(context);
 			return serverResult;
 		} else {
 			// We don't need to update, just grab the data from the server.
-			OperationResult databaseResult = getPersistedAgenda(context);
+			OperationResult databaseResult = getPersistedBanner(context);
 			// If we successful grab the data from the database, return the result.
 			if (ResultType.SUCCESS.equals(databaseResult.getResultType())) {
 				return databaseResult;
 			}
 			// Otherwise, we need to update from the server after all.
-			return getAgendaFromServer(context);
+			return getBannerFromServer(context);
 		}
 	}
 	
 	/**
-	 * Fetches the {@link Agenda} from the server.
+	 * Fetches the {@link Banner} from the server.
 	 * 
 	 * @return
 	 * @throws Exception 
 	 */
 	@SuppressWarnings("unchecked")
-	private static OperationResult getAgendaFromServer(final Context context) throws Exception {
+	private static OperationResult getBannerFromServer(final Context context) throws Exception {
 		// Getting the data from the online server.
-		OperationResult result = ApiRequest.getApiList(Agenda.SERVICE_URL, ContentManager.FETCH_TASK.AGENDA);
+		OperationResult result = ApiRequest.getApiList(Banner.SERVICE_URL, ContentManager.FETCH_TASK.BANNER);
 		// If successful, persist the data into the database.
 		if (ResultType.SUCCESS.equals(result.getResultType())) {
 			// Creating a final reference to the entity list.
-			final List<Agenda> list = (List<Agenda>)result.getEntityList();
+			final List<Banner> list = (List<Banner>)result.getEntityList();
 			// Replacing saved results in the list.
 			result.setEntityList(list);
 			// Creating a new thread to persist the data.
 			(new Thread() {
 				@Override
 				public void run() {
-					QueryHelper.persistAgenda(context, list);
+					QueryHelper.persistBanner(context, list);
 				}
 			}).start();
 		}
@@ -120,9 +120,9 @@ public class AgendaAsyncTask extends AsyncTask<Void, Integer, OperationResult> {
 	 * 
 	 * @return
 	 */
-	private static OperationResult getPersistedAgenda(Context context) {
+	private static OperationResult getPersistedBanner(Context context) {
 		// Pull persisted Agenda.
-		List<Agenda> list = QueryHelper.getAgendaList(context);
+		List<Banner> list = QueryHelper.getBannerList(context);
 		
 		// If the database is empty, return an error.
 		if (list == null) {

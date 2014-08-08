@@ -1,6 +1,7 @@
 package br.com.ikomm.apps.HSM.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import android.annotation.SuppressLint;
 import br.com.ikomm.apps.HSM.model.Agenda;
@@ -102,5 +103,14 @@ public class DateUtils {
 		values[4] = Integer.valueOf(times[1]);
 		
 		return values;
+	}
+	
+	/**
+	 * Gets the current time in mili seconds.
+	 * 
+	 * @return The current time.
+	 */
+	public static Long getCurrentInMillis() {
+		return Calendar.getInstance().getTimeInMillis();
 	}
 }

@@ -37,31 +37,32 @@
                             android:layout_height="match_parent"
                             android:layout_marginLeft="-5dp" />
                         <ImageView
+                            android:id="@+id/id_banner_home_image_button"
                             android:layout_width="@dimen/home_activity_big_images_width"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="-5dp"
-                            android:src="@drawable/ad_ios_banner_home_1394890864" />
+                            android:background="@color/hsm_color_black" />
                     </LinearLayout>
                 </HorizontalScrollView>
-
+		        
                 <!-- Grid View -->
                 <GridView
 				    android:id="@+id/id_grid_view"
 				    android:layout_width="match_parent"
-				    android:layout_height="360dp"
+				    android:layout_height="@dimen/home_activity_grid_view_height"
 				    android:gravity="center"
 				    android:numColumns="2"
-				    android:stretchMode="columnWidth">
-				</GridView>
+				    android:stretchMode="columnWidth" />
+				
+				<!-- Footer -->
+		        <ImageView
+		            android:id="@+id/id_footer_image_view"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="@dimen/home_activity_footer_margin"
+		            android:background="@color/hsm_color_black" />
             </LinearLayout>
         </ScrollView>
-
-        <!-- Footer -->
-        <fragment
-            android:id="@+id/id_footer_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            class="br.com.ikomm.apps.HSM.fragment.BannerFragment" />
     </LinearLayout>
 
     <!-- The navigation drawer -->

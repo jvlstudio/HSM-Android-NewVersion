@@ -184,7 +184,7 @@ public class ParticipantActivity extends SherlockFragmentActivity implements OnC
 			intent.putExtra(PaymentActivity.EXTRA_CPF, mCpfEditText.getText().toString());
 			intent.putExtra(PaymentActivity.EXTRA_COMPANY, mCompanyEditText.getText().toString());
 			intent.putExtra(PaymentActivity.EXTRA_ROLE, mRoleEditText.getText().toString());
-			intent.putExtra(PaymentActivity.EXTRA_PARENT, PassesActivity.PARENT_IS_PARTICIPANT);
+			intent.putExtra(PaymentActivity.EXTRA_PARENT, PassActivity.PARENT_IS_PARTICIPANT);
 			
 			// Returns for the Parent Activity.
 	        setResult(IS_PARENT, intent);

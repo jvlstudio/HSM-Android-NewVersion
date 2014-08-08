@@ -47,7 +47,7 @@ public class EventAsyncTask extends AsyncTask<Void, Integer, OperationResult> {
 	
 	@Override
 	protected OperationResult doInBackground(Void... params) {
-		// Updating Event list.
+		// Updating list.
 		try {
 			return update(mContext, mNeedsUpdate);
 		} catch (Exception e) {

@@ -10,7 +10,6 @@ import android.widget.ListView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.EventsAdapter;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
-import br.com.ikomm.apps.HSM.utils.Utils;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -83,7 +82,6 @@ public class EventListActivity extends SherlockActivity implements OnItemClickLi
 	 * Sets the list adapter.
 	 */
 	public void setAdapter() {
-		Utils.fileLog("EventListActivity.setAdapter() -> ----------------------------------------------------------------------------------------------------");
 		EventsAdapter adapter = new EventsAdapter(this, ContentManager.getInstance().getCachedEventList());
 		mListView = (ListView) findViewById(R.id.id_list_view);
 		mListView.setAdapter(adapter);

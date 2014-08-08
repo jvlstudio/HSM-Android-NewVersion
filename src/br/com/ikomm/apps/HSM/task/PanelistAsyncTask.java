@@ -47,7 +47,7 @@ public class PanelistAsyncTask extends AsyncTask<Void, Integer, OperationResult>
 	
 	@Override
 	protected OperationResult doInBackground(Void... params) {
-		// Updating Home list.
+		// Updating list.
 		try {
 			return update(mContext, mNeedsUpdate);
 		} catch (Exception e) {

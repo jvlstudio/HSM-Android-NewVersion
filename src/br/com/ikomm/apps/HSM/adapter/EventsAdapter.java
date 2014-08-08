@@ -13,7 +13,6 @@ import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
-import br.com.ikomm.apps.HSM.utils.Utils;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -105,7 +104,6 @@ public class EventsAdapter extends BaseAdapter {
 			// Gets ViewHolder from the tag.
 			mViewHolder = (ViewHolder)convertView.getTag();
 		}
-		Utils.fileLog("EventsAdapter.getView() -> Calling populatesAdapter() for position " + position + ".");
 		populatesAdapter(event, position);
 		
 		return convertView;

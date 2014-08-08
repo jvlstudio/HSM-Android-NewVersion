@@ -246,7 +246,7 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 				startActivity(intent);
 				break;
 			case R.id.id_passes_button:
-				intent = new Intent(EventDetailsActivity.this, PassesActivity.class);
+				intent = new Intent(EventDetailsActivity.this, PassActivity.class);
 				intent.putExtra(EXTRA_EVENT_ID, mEvent.getId());
 				startActivity(intent);
 				break;

@@ -9,7 +9,7 @@ import br.com.ikomm.apps.HSM.api.OperationResult;
 import br.com.ikomm.apps.HSM.api.OperationResult.ResultType;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.manager.HttpManager;
-import br.com.ikomm.apps.HSM.model.Passe;
+import br.com.ikomm.apps.HSM.model.Pass;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
 
 /**
@@ -79,7 +79,7 @@ public class PassPurchaseAsyncTask extends AsyncTask<Void, Integer, OperationRes
 	//----------------------------------------------
 	
 	/**
-	 * Sends the {@link Passe} to the server.
+	 * Sends the {@link Pass} to the server.
 	 */
 	public OperationResult sendPurchaseForm() {
 		OperationResult result = new OperationResult(ResultType.BAD_REQUEST);

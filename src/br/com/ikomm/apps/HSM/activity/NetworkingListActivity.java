@@ -19,10 +19,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.adapter.NetworkFriendsAdapter;
+import br.com.ikomm.apps.HSM.database.CardRepository;
 import br.com.ikomm.apps.HSM.model.Card;
-import br.com.ikomm.apps.HSM.qrcode.IntentIntegrator;
-import br.com.ikomm.apps.HSM.repo.CardRepository;
 import br.com.ikomm.apps.HSM.utils.CardConverter;
+import br.com.ikomm.apps.HSM.utils.qrcode.IntentIntegrator;
 
 import com.google.gson.Gson;
 

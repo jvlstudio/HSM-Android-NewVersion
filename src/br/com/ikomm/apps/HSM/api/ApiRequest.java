@@ -12,12 +12,13 @@ import br.com.ikomm.apps.HSM.api.OperationResult.ResultType;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.manager.HttpManager;
 import br.com.ikomm.apps.HSM.model.Agenda;
+import br.com.ikomm.apps.HSM.model.Banner;
 import br.com.ikomm.apps.HSM.model.Book;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Home;
 import br.com.ikomm.apps.HSM.model.Magazine;
 import br.com.ikomm.apps.HSM.model.Panelist;
-import br.com.ikomm.apps.HSM.model.Passe;
+import br.com.ikomm.apps.HSM.model.Pass;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
 
 import com.google.gson.JsonParseException;
@@ -146,7 +147,10 @@ public class ApiRequest {
 				key = Panelist.KEY_ROOT;
 				break;
 			case ContentManager.FETCH_TASK.PASSE:
-				key = Passe.KEY_ROOT;
+				key = Pass.KEY_ROOT;
+				break;
+			case ContentManager.FETCH_TASK.BANNER:
+				key = Banner.KEY_ROOT;
 				break;
 		}
 		
@@ -187,6 +191,9 @@ public class ApiRequest {
 				break;
 			case ContentManager.FETCH_TASK.PASSE:
 				object = ApiMapper.getPasseFromJson(item);
+				break;
+			case ContentManager.FETCH_TASK.BANNER:
+				object = ApiMapper.getBannerFromJson(item);
 				break;
 		}
 		return object;

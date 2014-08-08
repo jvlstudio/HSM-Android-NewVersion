@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -17,14 +18,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.adapter.DrawerAdapter;
 import br.com.ikomm.apps.HSM.adapter.HomeGridViewAdapter;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
+import br.com.ikomm.apps.HSM.model.Banner;
 import br.com.ikomm.apps.HSM.model.Home;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -41,8 +43,13 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 	// Constants
 	//--------------------------------------------------
 	
-	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/home/";
-
+	public static final String HOME_URL = "http://apps.ikomm.com.br/hsm5/uploads/home/";
+	public static final String BANNER_URL = "http://apps.ikomm.com.br/hsm5/uploads/ads/";
+	
+	public static final String BANNER_FOOTER = "banner_footer";
+	public static final String BANNER_SCROLL = "banner_home";
+	public static final String BANNER_MENU = "banner_menu";
+	
 	public static final int HOME = 0;
 	public static final int EVENTS = 1;
 	public static final int BOOKS = 2;
@@ -79,6 +86,33 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 		setEventImage();
 		setDrawerMenu();
 		setDrawerToggle();
+		setBanners();
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+	
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		// Sync the toggle state after onRestoreInstanceState has occurred.
+		mDrawerToggle.syncState();
+	}
+	
+	//--------------------------------------------------
+	// Menu
+	//--------------------------------------------------
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Pass the event to ActionBarDrawerToggle, if it returns true, then it has handled the app icon touch event.
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	//--------------------------------------------------
@@ -96,52 +130,6 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 	}
 	
 	/**
-	 * Sets the Drawer menu.
-	 */
-	public void setDrawerMenu() {
-		mMenuTitles = getResources().getStringArray(R.array.menuList);
-		mDrawerLayout = (DrawerLayout)findViewById(R.id.id_drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.id_left_drawer);
-
-		// Set the adapter for the list view.
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mMenuTitles));
-		// Set the list's click listener.
-		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-		mTitle = mDrawerTitle = getTitle();
-	}
-	
-	/**
-	 * Sets the Drawer Toggle.
-	 */
-	public void setDrawerToggle() {
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
-			/**
-			 * Called when a drawer has settled in a completely closed state.
-			 */
-			@Override
-			public void onDrawerClosed(View view) {
-				getActionBar().setTitle(mTitle);
-				// Creates call to onPrepareOptionsMenu().
-				invalidateOptionsMenu();
-			}
-
-			/**
-			 * Called when a drawer has settled in a completely open state.
-			 */
-			@Override
-			public void onDrawerOpened(View drawerView) {
-				getActionBar().setTitle(mDrawerTitle);
-				// Creates call to onPrepareOptionsMenu().
-				invalidateOptionsMenu();
-			}
-		};
-		
-		// Set the drawer toggle as the DrawerListener.
-		mDrawerLayout.setDrawerListener(mDrawerToggle);
-	}
-	
-	/**
 	 * Gets the current {@link Home}.
 	 */
 	public void getCurrentHome() {
@@ -153,7 +141,7 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 	
 	public void setEventImage() {
 		ImageView imageView = (ImageView)findViewById(R.id.id_events_image_button);
-		setUniversalImage(URL + mHome.getEventsImageAndroid(), imageView);
+		setUniversalImage(HOME_URL + mHome.getEventsImageAndroid(), imageView);
 		imageView.setOnClickListener(this);
 	}
 	
@@ -205,6 +193,44 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 	}
 	
 	//--------------------------------------------------
+	// Banners
+	//--------------------------------------------------
+	
+	/**
+	 * Sets the {@link Activity} footer.
+	 */
+	public void setBanners() {
+		String url = "";
+				
+		// Horizontal Scroll View Banner.
+		ImageView scrollImageView = (ImageView)findViewById(R.id.id_banner_home_image_button);
+		url = BANNER_URL + getSpecificBanner(BANNER_SCROLL);
+		setUniversalImage(url, scrollImageView);
+		
+		// Footer.
+		ImageView footerImageView = (ImageView)findViewById(R.id.id_footer_image_view);
+		url = BANNER_URL + getSpecificBanner(BANNER_FOOTER);
+		setUniversalImage(url, footerImageView);
+	}
+	
+	/**
+	 * Gets the {@link Banner} image URL.
+	 * 
+	 * @return
+	 */
+	public String getSpecificBanner(String type) {
+		List<Banner> list = ContentManager.getInstance().getCachedBannerList();
+		String url = "";
+		
+		for (Banner banner : list) {
+			if (banner.getSubtype().equals(type)) {
+				url = banner.getImage();
+			}
+		}
+		return url;
+	}
+	
+	//--------------------------------------------------
 	// Listeners
 	//--------------------------------------------------
 
@@ -234,9 +260,65 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 	}
 	
 	//--------------------------------------------------
-	// Drawer Layout
+	// Drawer
 	//--------------------------------------------------
 
+	/**
+	 * Sets the Drawer menu.
+	 */
+	public void setDrawerMenu() {
+		mMenuTitles = getResources().getStringArray(R.array.menu_list);
+		mDrawerLayout = (DrawerLayout)findViewById(R.id.id_drawer_layout);
+		mDrawerList = (ListView) findViewById(R.id.id_left_drawer);
+
+		// Set the adapter for the list view.
+		mDrawerList.setAdapter(new DrawerAdapter(this, mMenuTitles, getSpecificBanner(BANNER_MENU)));
+		// Set the list's click listener.
+		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+		mTitle = mDrawerTitle = getTitle();
+	}
+	
+	/**
+	 * Sets the Drawer Toggle.
+	 */
+	public void setDrawerToggle() {
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
+			/**
+			 * Called when a drawer has settled in a completely closed state.
+			 */
+			@Override
+			public void onDrawerClosed(View view) {
+				getActionBar().setTitle(mTitle);
+				// Creates call to onPrepareOptionsMenu().
+				invalidateOptionsMenu();
+			}
+
+			/**
+			 * Called when a drawer has settled in a completely open state.
+			 */
+			@Override
+			public void onDrawerOpened(View drawerView) {
+				getActionBar().setTitle(mDrawerTitle);
+				// Creates call to onPrepareOptionsMenu().
+				invalidateOptionsMenu();
+			}
+		};
+		
+		// Set the drawer toggle as the DrawerListener.
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+	}
+	
+	//--------------------------------------------------
+	// Inner Class
+	//--------------------------------------------------
+	
+	/**
+	 * DrawerLayout inner class.
+	 * 
+	 * @author Rodrigo Cericatto
+	 * Modified by Rodrigo Cericatto at July 3, 2014.
+	 */
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -266,27 +348,5 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 					break;
 			}
 		}
-	}
-
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		// Sync the toggle state after onRestoreInstanceState has occurred.
-		mDrawerToggle.syncState();
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Pass the event to ActionBarDrawerToggle, if it returns true, then it has handled the app icon touch event.
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 }

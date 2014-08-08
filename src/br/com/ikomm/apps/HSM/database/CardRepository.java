@@ -1,4 +1,4 @@
-package br.com.ikomm.apps.HSM.repo;
+package br.com.ikomm.apps.HSM.database;
 
 import java.util.Arrays;
 import java.util.List;

@@ -8,12 +8,13 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.ikomm.apps.HSM.model.Agenda;
+import br.com.ikomm.apps.HSM.model.Banner;
 import br.com.ikomm.apps.HSM.model.Book;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Home;
 import br.com.ikomm.apps.HSM.model.Magazine;
 import br.com.ikomm.apps.HSM.model.Panelist;
-import br.com.ikomm.apps.HSM.model.Passe;
+import br.com.ikomm.apps.HSM.model.Pass;
 
 import com.google.gson.JsonParseException;
 
@@ -259,38 +260,66 @@ public class ApiMapper {
 	}
 	
 	//----------------------------------------------
-	// Passe
+	// Pass
 	//----------------------------------------------
 	
 	/**
-	 * Gets the {@link Passe} from the given JSON data.
+	 * Gets the {@link Pass} from the given JSON data.
 	 * 
-	 * @param data The JSON data that contains the Passe info.
+	 * @param data The JSON data that contains the Pass info.
 	 * 
-	 * @return The current {@link Passe}.
+	 * @return The current {@link Pass}.
 	 * @throws Exception 
 	 */
-	public static Passe getPasseFromJson(Map<String, Object> data) throws Exception {
-		Passe passe = new Passe();
+	public static Pass getPasseFromJson(Map<String, Object> data) throws Exception {
+		Pass pass = new Pass();
 		
 		if (data != null) {
-			passe.setId(getInt(data.get(Passe.KEY_ID)));
-			passe.setEventId(getInt(data.get(Passe.KEY_EVENT_ID)));
-			passe.setColor(getString(data.get(Passe.KEY_COLOR)));
-			passe.setName(getString(data.get(Passe.KEY_NAME)));
-			passe.setSlug(getString(data.get(Passe.KEY_SLUG)));
-			passe.setPriceFrom(getString(data.get(Passe.KEY_PRICE_FROM)));
-			passe.setPriceTo(getString(data.get(Passe.KEY_PRICE_TO)));
-			passe.setValidTo(getString(data.get(Passe.KEY_VALID_TO)));
-			passe.setEmail(getString(data.get(Passe.KEY_EMAIL)));
-			passe.setDescription(getString(data.get(Passe.KEY_DESCRIPTION)));
-			passe.setDays(getString(data.get(Passe.KEY_DAYS)));
-			passe.setShowDates(getString(data.get(Passe.KEY_SHOW_DATES)));
-			passe.setIsMultiple(getString(data.get(Passe.KEY_IS_MULTIPLE)));
+			pass.setId(getInt(data.get(Pass.KEY_ID)));
+			pass.setEventId(getInt(data.get(Pass.KEY_EVENT_ID)));
+			pass.setColor(getString(data.get(Pass.KEY_COLOR)));
+			pass.setName(getString(data.get(Pass.KEY_NAME)));
+			pass.setSlug(getString(data.get(Pass.KEY_SLUG)));
+			pass.setPriceFrom(getString(data.get(Pass.KEY_PRICE_FROM)));
+			pass.setPriceTo(getString(data.get(Pass.KEY_PRICE_TO)));
+			pass.setValidTo(getString(data.get(Pass.KEY_VALID_TO)));
+			pass.setEmail(getString(data.get(Pass.KEY_EMAIL)));
+			pass.setDescription(getString(data.get(Pass.KEY_DESCRIPTION)));
+			pass.setDays(getString(data.get(Pass.KEY_DAYS)));
+			pass.setShowDates(getString(data.get(Pass.KEY_SHOW_DATES)));
+			pass.setIsMultiple(getString(data.get(Pass.KEY_IS_MULTIPLE)));
 		} else {
-			passe = null;
+			pass = null;
 		}
-		return passe;
+		return pass;
+	}
+	
+	//----------------------------------------------
+	// Banner
+	//----------------------------------------------
+	
+	/**
+	 * Gets the {@link Banner} from the given JSON data.
+	 * 
+	 * @param data The JSON data that contains the Banner info.
+	 * 
+	 * @return The current {@link Banner}.
+	 * @throws Exception 
+	 */
+	public static Banner getBannerFromJson(Map<String, Object> data) throws Exception {
+		Banner banner = new Banner();
+		
+		if (data != null) {
+			banner.setId(getInt(data.get(Banner.KEY_ID)));
+			banner.setPos(getInt(data.get(Banner.KEY_POS)));
+			banner.setType(getString(data.get(Banner.KEY_TYPE)));
+			banner.setSubtype(getString(data.get(Banner.KEY_SUBTYPE)));
+			banner.setImage(getString(data.get(Banner.KEY_IMAGE)));
+			banner.setImageExp(getString(data.get(Banner.KEY_IMAGE_EXP)));
+		} else {
+			banner = null;
+		}
+		return banner;
 	}
 	
 	//----------------------------------------------

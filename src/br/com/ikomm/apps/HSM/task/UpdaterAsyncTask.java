@@ -4,10 +4,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import br.com.ikomm.apps.HSM.api.OperationResult;
 import br.com.ikomm.apps.HSM.api.OperationResult.ResultType;
-import br.com.ikomm.apps.HSM.database.AppInfo;
 import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
-import br.com.ikomm.apps.HSM.utils.Utils;
+import br.com.ikomm.apps.HSM.model.AppInfo;
+import br.com.ikomm.apps.HSM.utils.DateUtils;
 
 /**
  * UpdaterAsyncTask class.
@@ -47,7 +47,7 @@ public class UpdaterAsyncTask extends AsyncTask<Void, Integer, OperationResult> 
 		
 		// Getting the App info and updating the App info update time.
 		final AppInfo info = QueryHelper.getAppInfo(mContext);
-		Boolean databaseNeeedsUpdate = QueryHelper.updateAppInfoUpdateTime(mContext, info.getId(), Utils.getCurrentInMillis());
+		Boolean databaseNeeedsUpdate = QueryHelper.updateAppInfoUpdateTime(mContext, info.getId(), DateUtils.getCurrentInMillis());
 		
 		// Setting the result entity.
 		result.setEntity(databaseNeeedsUpdate);

@@ -14,14 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.database.QueryHelper;
-import br.com.ikomm.apps.HSM.model.Passe;
+import br.com.ikomm.apps.HSM.model.Pass;
 import br.com.ikomm.apps.HSM.utils.StringUtils;
 
 /**
- * PassesAdapter.java class.
+ * PassAdapter.java class.
  * Modified by Rodrigo Cericatto at July 3, 2014.
  */
-public class PassesAdapter extends BaseAdapter {
+public class PassAdapter extends BaseAdapter {
 
 	//--------------------------------------------------
 	// Attributes
@@ -30,7 +30,7 @@ public class PassesAdapter extends BaseAdapter {
 	private ViewHolder mViewHolder;
 	private Activity mActivity;
 	
-	private List<Passe> mPasseList = new ArrayList<Passe>();
+	private List<Pass> mPasseList = new ArrayList<Pass>();
 
 	//--------------------------------------------------
 	// View Holder
@@ -48,7 +48,7 @@ public class PassesAdapter extends BaseAdapter {
 	// Constructor
 	//--------------------------------------------------
 	
-	public PassesAdapter(Activity activity, Integer id) {
+	public PassAdapter(Activity activity, Integer id) {
 		super();
 		
 		mActivity = activity;
@@ -65,20 +65,20 @@ public class PassesAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Passe getItem(int position) {
+	public Pass getItem(int position) {
 		return mPasseList.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		Passe passe = mPasseList.get(position); 
-		return passe.id;
+		Pass pass = mPasseList.get(position); 
+		return pass.id;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		mViewHolder = new ViewHolder();
-		Passe item = getItem(position);
+		Pass item = getItem(position);
 		
 		if (convertView == null) {
 			// Sets layout.
@@ -114,7 +114,7 @@ public class PassesAdapter extends BaseAdapter {
 	 * 
 	 * @param item
 	 */
-	public void getData(Passe item) {
+	public void getData(Pass item) {
 		setEventNameField(item);
 		setValidToField(item);
 
@@ -128,7 +128,7 @@ public class PassesAdapter extends BaseAdapter {
 	 * 
 	 * @param item
 	 */
-	public void setEventNameField(Passe item) {
+	public void setEventNameField(Pass item) {
 		if (!StringUtils.isEmpty(item.getName())) {
 			if (item.getName().length() > 20) {
 				mViewHolder.title.setText(item.getName().subSequence(0, 19));
@@ -145,7 +145,7 @@ public class PassesAdapter extends BaseAdapter {
 	 * 
 	 * @param item
 	 */
-	public void setValidToField(Passe item) {
+	public void setValidToField(Pass item) {
 		if (!StringUtils.isEmpty(item.getDescription())) {
 			mViewHolder.validity.setText(item.getDescription());
 		} else {
@@ -158,7 +158,7 @@ public class PassesAdapter extends BaseAdapter {
 	 * 
 	 * @param item
 	 */
-	public void setPriceFromField(Passe item) {
+	public void setPriceFromField(Pass item) {
 		if (!StringUtils.isEmpty(item.getPriceFrom())) {
 			mViewHolder.normalPrice.setText("R$ " + item.getPriceFrom());
 		} else {
@@ -171,7 +171,7 @@ public class PassesAdapter extends BaseAdapter {
 	 * 
 	 * @param item
 	 */
-	public void setPriceToField(Passe item) {
+	public void setPriceToField(Pass item) {
 		if (!StringUtils.isEmpty(item.price_to)) {
 			mViewHolder.appPrice.setText("R$ " + item.getPriceTo());
 		} else {
@@ -184,7 +184,7 @@ public class PassesAdapter extends BaseAdapter {
 	 * 
 	 * @param item
 	 */
-	public void setPassColorField(Passe item) {
+	public void setPassColorField(Pass item) {
 		if (item.getColor().equals("green")) {
 			mViewHolder.layout.setBackgroundColor(Color.parseColor("#00A180"));
 		}

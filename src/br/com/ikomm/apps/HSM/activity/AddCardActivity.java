@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
+import br.com.ikomm.apps.HSM.database.CardRepository;
 import br.com.ikomm.apps.HSM.model.Card;
-import br.com.ikomm.apps.HSM.repo.CardRepository;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;

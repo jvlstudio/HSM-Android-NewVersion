@@ -1,4 +1,6 @@
-package br.com.ikomm.apps.HSM.database;
+package br.com.ikomm.apps.HSM.model;
+
+import br.com.ikomm.apps.HSM.database.Entity;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;

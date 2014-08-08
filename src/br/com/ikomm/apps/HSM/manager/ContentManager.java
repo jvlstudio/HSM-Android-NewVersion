@@ -6,17 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import br.com.ikomm.apps.HSM.api.OperationResult;
 import br.com.ikomm.apps.HSM.api.OperationResult.ResultType;
 import br.com.ikomm.apps.HSM.model.Agenda;
+import br.com.ikomm.apps.HSM.model.Banner;
 import br.com.ikomm.apps.HSM.model.Book;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Home;
 import br.com.ikomm.apps.HSM.model.Magazine;
 import br.com.ikomm.apps.HSM.model.Panelist;
-import br.com.ikomm.apps.HSM.model.Passe;
+import br.com.ikomm.apps.HSM.model.Pass;
 import br.com.ikomm.apps.HSM.task.AgendaAsyncTask;
+import br.com.ikomm.apps.HSM.task.BannerAsyncTask;
 import br.com.ikomm.apps.HSM.task.BookAsyncTask;
 import br.com.ikomm.apps.HSM.task.EventAsyncTask;
 import br.com.ikomm.apps.HSM.task.HomeAsyncTask;
@@ -24,9 +25,8 @@ import br.com.ikomm.apps.HSM.task.MagazineAsyncTask;
 import br.com.ikomm.apps.HSM.task.Notifiable;
 import br.com.ikomm.apps.HSM.task.PanelistAsyncTask;
 import br.com.ikomm.apps.HSM.task.PassPurchaseAsyncTask;
-import br.com.ikomm.apps.HSM.task.PasseAsyncTask;
+import br.com.ikomm.apps.HSM.task.PassAsyncTask;
 import br.com.ikomm.apps.HSM.task.UpdaterAsyncTask;
-import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * ContentManager.java class. <br>
@@ -54,6 +54,7 @@ public class ContentManager {
 		public static final int PANELIST = 6;
 		public static final int PASSE = 7;
 		public static final int PASS_PURCHASE = 8;
+		public static final int BANNER = 9;
 	}
 	
 	// The singleton instance.
@@ -77,11 +78,8 @@ public class ContentManager {
 	private List<Home> mHomeList = new ArrayList<Home>();
 	private List<Magazine> mMagazineList = new ArrayList<Magazine>();
 	private List<Panelist> mPanelistList = new ArrayList<Panelist>();
-	private List<Passe> mPasseList = new ArrayList<Passe>();
-	
-	// Bitmap values.
-//	private List<Bitmap> mLinearLayoutBitmapList = new ArrayList<Bitmap>();
-	private Map<String, Bitmap> mBitmapMap = new HashMap<String, Bitmap>();
+	private List<Pass> mPasseList = new ArrayList<Pass>();
+	private List<Banner> mBannerList = new ArrayList<Banner>();
 	
 	// Notifiables map.
 	private Map<Object, Notifiable> mTaskNotifiables = new HashMap<Object, Notifiable>();
@@ -140,8 +138,7 @@ public class ContentManager {
 		mMagazineList = null;
 		mPanelistList = null;
 		mPasseList = null;
-//		mLinearLayoutBitmapList = null;
-		mBitmapMap = null;
+		mBannerList = null;
 	}
 	
 	//----------------------------------------------
@@ -170,56 +167,6 @@ public class ContentManager {
 			mTaskNotifiables.put(task, notifiable);
 		}
 		task.execute();
-	}
-	
-	//----------------------------------------------
-	// Bitmap
-	//----------------------------------------------
-	
-	public void _______________BITMAP_______________() {}
-	
-	/**
-	 * Adds a {@link Bitmap} to the {@link Bitmap} list.
-	 * 
-	 * @param bitmap
-	 */
-	public void addBitmap(String id, Bitmap bitmap) {
-//		mLinearLayoutBitmapList.add(bitmap);
-		Utils.fileLog("ContentManager.addBitmap() -> Adding Bitmap with id '" + id + "'.");
-		mBitmapMap.put(id, bitmap);
-	}
-	
-	/**
-	 * Gets the {@link Bitmap} list.
-	 * 
-	 * @return
-	 */
-	/*
-	public List<Bitmap> getCachedBitmapList() {
-		return mLinearLayoutBitmapList;
-	}
-	*/
-	public Bitmap getCachedBitmap(String id) {
-		return mBitmapMap.get(id);
-	}
-	
-	/**
-	 * Checks if the BitmapMap is ok.
-	 * 
-	 * @return
-	 */
-	public Boolean eventImagesInCache() {
-		Boolean mapSizeOk = (mBitmapMap != null) && (mBitmapMap.size() > 0) && (mBitmapMap.size() == mEventList.size()); 
-		return mapSizeOk;
-	}
-	
-	/**
-	 * Gets the {@link Bitmap} map size.
-	 * 
-	 * @return
-	 */
-	public Integer getMapSize() {
-		return mBitmapMap.size();
 	}
 	
 	//----------------------------------------------
@@ -391,27 +338,27 @@ public class ContentManager {
 	}
 	
 	//----------------------------------------------
-	// Passe
+	// Pass
 	//----------------------------------------------
 
 	public void _______________PASSE_______________() {}
 	
 	/**
-	 * Gets the {@link Passe} list from cache.
+	 * Gets the {@link Pass} list from cache.
 	 * 
 	 * @return
 	 */
-	public List<Passe> getCachedPasseList() {
+	public List<Pass> getCachedPasseList() {
 		return mPasseList;
 	}
 	
 	/**
-	 * Gets the {@link Passe} list.
+	 * Gets the {@link Pass} list.
 	 * 
 	 * @param notifiable The notifiable object to be called.
 	 */
 	public void getPasseList(Notifiable notifiable) {
-		PasseAsyncTask task = new PasseAsyncTask(mContext, mDatabaseNeedsUpdate);
+		PassAsyncTask task = new PassAsyncTask(mContext, mDatabaseNeedsUpdate);
 		if (notifiable != null) {
 			mTaskNotifiables.put(task, notifiable);
 		}
@@ -419,7 +366,7 @@ public class ContentManager {
 	}
 	
 	/**
-	 * Purchases a {@link Passe}.
+	 * Purchases a {@link Pass}.
 	 * 
 	 * @param notifiable The notifiable object to be called.
 	 * @param name
@@ -431,6 +378,32 @@ public class ContentManager {
 	 */
 	public void setPassPurchase(Notifiable notifiable, String name, String email, String company, String role, String cpf, Integer passId) {
 		PassPurchaseAsyncTask task = new PassPurchaseAsyncTask(name, email, company, role, cpf, passId);
+		if (notifiable != null) {
+			mTaskNotifiables.put(task, notifiable);
+		}
+		task.execute();
+	}
+	
+	//----------------------------------------------
+	// Banner
+	//----------------------------------------------
+	
+	/**
+	 * Gets the {@link Banner} list from cache.
+	 * 
+	 * @return
+	 */
+	public List<Banner> getCachedBannerList() {
+		return mBannerList;
+	}
+	
+	/**
+	 * Gets the {@link Pass} list.
+	 * 
+	 * @param notifiable The notifiable object to be called.
+	 */
+	public void getBannerList(Notifiable notifiable) {
+		BannerAsyncTask task = new BannerAsyncTask(mContext, mDatabaseNeedsUpdate);
 		if (notifiable != null) {
 			mTaskNotifiables.put(task, notifiable);
 		}
@@ -485,11 +458,16 @@ public class ContentManager {
 			}
 		} else if (FETCH_TASK.PASSE == taskType) {
 			if (result != null && ResultType.SUCCESS.equals(result.getResultType())) {
-				// Puts the Passe list in the cache.
-				mPasseList = (List<Passe>)result.getEntityList();
+				// Puts the Pass list in the cache.
+				mPasseList = (List<Pass>)result.getEntityList();
 			}
 		} else if (FETCH_TASK.PASS_PURCHASE == taskType) {
 			// Do nothing.
+		} else if (FETCH_TASK.BANNER == taskType) {
+			if (result != null && ResultType.SUCCESS.equals(result.getResultType())) {
+				// Puts the Banner list in the cache.
+				mBannerList = (List<Banner>)result.getEntityList();
+			}
 		}
 		
 		// Removes performed task.
@@ -521,10 +499,12 @@ public class ContentManager {
 			return FETCH_TASK.MAGAZINE;
 		} else if (task instanceof PanelistAsyncTask) {
 			return FETCH_TASK.PANELIST;
-		} else if (task instanceof PasseAsyncTask) {
+		} else if (task instanceof PassAsyncTask) {
 			return FETCH_TASK.PASSE;
 		} else if (task instanceof PassPurchaseAsyncTask) {
 			return FETCH_TASK.PASS_PURCHASE;
+		} else if (task instanceof BannerAsyncTask) {
+			return FETCH_TASK.BANNER;
 		}
 		return -1;
 	}

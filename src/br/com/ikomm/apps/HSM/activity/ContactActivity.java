@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
  * HomeActivity.java class.
  * Modified by Rodrigo Cericatto at July 10, 2014.
  */
+@SuppressWarnings("deprecation")
 public class ContactActivity extends SherlockActivity implements OnClickListener {
 
 	//--------------------------------------------------

@@ -4,7 +4,8 @@
     <!-- Home Activity -->
     <dimen name="home_activity_big_images_height">206dp</dimen>
     <dimen name="home_activity_big_images_width">360dp</dimen>
-    <dimen name="home_activity_grid_view_height">332dp</dimen> <!-- The double value from 'home_adapter_image_height' -->
+    <dimen name="home_activity_grid_view_height">360dp</dimen> <!-- The double value from 'home_adapter_image_height' -->
+    <dimen name="home_activity_footer_margin">-28dp</dimen>
     
 	<!-- Home Adapter -->
     <dimen name="home_adapter_image_height">166dp</dimen>

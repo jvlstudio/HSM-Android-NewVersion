@@ -1,4 +1,4 @@
-package br.com.ikomm.apps.HSM.qrcode;
+package br.com.ikomm.apps.HSM.utils.qrcode;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;

@@ -12,12 +12,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import br.com.ikomm.apps.HSM.AppConfiguration;
 import br.com.ikomm.apps.HSM.model.Agenda;
+import br.com.ikomm.apps.HSM.model.AppInfo;
+import br.com.ikomm.apps.HSM.model.Banner;
 import br.com.ikomm.apps.HSM.model.Book;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Home;
 import br.com.ikomm.apps.HSM.model.Magazine;
 import br.com.ikomm.apps.HSM.model.Panelist;
-import br.com.ikomm.apps.HSM.model.Passe;
+import br.com.ikomm.apps.HSM.model.Pass;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -50,7 +52,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		Home.class,
 		Magazine.class,
 		Panelist.class,
-		Passe.class
+		Pass.class,
+		Banner.class
 	};
 
     static {

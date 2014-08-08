@@ -9,7 +9,6 @@ import br.com.ikomm.apps.HSM.api.OperationResult;
 import br.com.ikomm.apps.HSM.api.OperationResult.ResultType;
 import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
-import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Home;
 
 /**
@@ -48,7 +47,7 @@ public class HomeAsyncTask extends AsyncTask<Void, Integer, OperationResult> {
 	
 	@Override
 	protected OperationResult doInBackground(Void... params) {
-		// Updating Home list.
+		// Updating list.
 		try {
 			return update(mContext, mNeedsUpdate);
 		} catch (Exception e) {

@@ -8,17 +8,17 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import br.com.ikomm.apps.HSM.R;
-import br.com.ikomm.apps.HSM.adapter.PassesAdapter;
+import br.com.ikomm.apps.HSM.adapter.PassAdapter;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
- * PassesActivity.java class.
+ * PassActivity.java class.
  * Modified by Rodrigo Cericatto at July 3, 2014.
  */
-public class PassesActivity extends SherlockFragmentActivity implements OnItemClickListener {
+public class PassActivity extends SherlockFragmentActivity implements OnItemClickListener {
 
 	//--------------------------------------------------
 	// Constants
@@ -98,7 +98,7 @@ public class PassesActivity extends SherlockFragmentActivity implements OnItemCl
 	 */
 	public void setListView() {
 		ListView listview = (ListView) findViewById(R.id.id_passes_list_view);
-		listview.setAdapter(new PassesAdapter(this, mEventId));
+		listview.setAdapter(new PassAdapter(this, mEventId));
 		listview.setOnItemClickListener(this);
 	}
 	
