@@ -197,10 +197,5 @@
             android:background="@drawable/button_passe_background_behavior"
             android:text="@string/event_details_activity_passes"
             android:textColor="@color/hsm_color_white" />
-        <fragment
-            android:id="@+id/footerFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            class="br.com.ikomm.apps.HSM.fragment.BannerFragment" />
     </LinearLayout>
 </ScrollView>

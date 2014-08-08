@@ -15,6 +15,9 @@ public class AppConfiguration {
 	// Application version.
 	public static final String APP_VERSION = "1.0.0";
 	
+	// Cache refreshing.
+	public static final Integer REFRESH_CACHE_INTERVAL = 5;
+	
 	//----------------------------------------------
 	// Database Settings
 	//----------------------------------------------

@@ -27,6 +27,7 @@ import br.com.ikomm.apps.HSM.model.Panelist;
 import br.com.ikomm.apps.HSM.model.Pass;
 import br.com.ikomm.apps.HSM.task.Notifiable;
 import br.com.ikomm.apps.HSM.utils.DialogUtils;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -47,7 +48,9 @@ public class LauncherActivity extends Activity implements Notifiable {
 	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/ads/";
 	public static final String SUPERSTITIAL = "superstitial";
 	
-	public static final Integer TIME = 500;
+	public static final String NUMBER_OF_EXECUTIONS = "number_of_executions";
+	
+	public static final Integer TIME = 3000;
 	public static final Integer LIMIT = 10;
 	
 	//--------------------------------------------------
@@ -151,6 +154,9 @@ public class LauncherActivity extends Activity implements Notifiable {
     	if (mAgendaListLoaded && mBookListLoaded && mEventListLoaded && mHomeListLoaded &&
     		mMagazineListLoaded && mPanelistListLoaded && mPasseListLoaded && mBannerListLoaded) {
     		
+    		Integer numberOfExecutions = Utils.getPreference(ContentManager.getInstance().getContext(), NUMBER_OF_EXECUTIONS);
+    		Utils.setPreference(ContentManager.getInstance().getContext(), NUMBER_OF_EXECUTIONS, numberOfExecutions + 1);
+    		Log.i(AppConfiguration.COMMON_LOGGING_TAG, "[LauncherActivity.callNextActivity] Number of executions is " + numberOfExecutions + ".");
     		setUniversalImage();
     	} else {
     		if (mCalledTasksCount > LIMIT) {
@@ -173,7 +179,7 @@ public class LauncherActivity extends Activity implements Notifiable {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap bitmap) {
             	imageView.setImageBitmap(bitmap);
-            	Log.i(AppConfiguration.COMMON_LOGGING_TAG, "------------------------- Image downloaded.");
+            	Log.i(AppConfiguration.COMMON_LOGGING_TAG, "[LauncherActivity.setUniversalImage] Image downloaded !!!");
 		    	mHandler.postDelayed(mHandlerChecker, TIME);
             }
         });

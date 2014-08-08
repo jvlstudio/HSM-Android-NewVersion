@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.util.Log;
+import br.com.ikomm.apps.HSM.AppConfiguration;
+import br.com.ikomm.apps.HSM.activity.LauncherActivity;
 import br.com.ikomm.apps.HSM.api.OperationResult;
 import br.com.ikomm.apps.HSM.api.OperationResult.ResultType;
 import br.com.ikomm.apps.HSM.model.Agenda;
@@ -27,6 +30,7 @@ import br.com.ikomm.apps.HSM.task.PanelistAsyncTask;
 import br.com.ikomm.apps.HSM.task.PassPurchaseAsyncTask;
 import br.com.ikomm.apps.HSM.task.PassAsyncTask;
 import br.com.ikomm.apps.HSM.task.UpdaterAsyncTask;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 /**
  * ContentManager.java class. <br>
@@ -425,6 +429,15 @@ public class ContentManager {
 			if (ResultType.SUCCESS.equals(result.getResultType())) {
 				// Puts the database info in the cache.
 				mDatabaseNeedsUpdate = (Boolean)result.getEntity();
+				
+				// Check if the database needs update.
+				Integer numberOfExecutions = Utils.getPreference(ContentManager.getInstance().getContext(), LauncherActivity.NUMBER_OF_EXECUTIONS);
+				Log.i(AppConfiguration.COMMON_LOGGING_TAG, "[ContentManager.getDatabaseInfo] Number of executions is " + numberOfExecutions + ".");
+				Integer mod = numberOfExecutions % AppConfiguration.REFRESH_CACHE_INTERVAL;
+				if (mod == 0) {
+					mDatabaseNeedsUpdate = true;
+					Log.i(AppConfiguration.COMMON_LOGGING_TAG, "[ContentManager.getDatabaseInfo] Mod acting!");
+				}
 			}
 		} else if (FETCH_TASK.AGENDA == taskType) {
 			if (ResultType.SUCCESS.equals(result.getResultType())) {

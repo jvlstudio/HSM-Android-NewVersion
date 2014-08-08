@@ -4,6 +4,7 @@ import android.app.Application;
 import br.com.ikomm.apps.HSM.database.DatabaseHelper;
 import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.manager.HttpManager;
+import br.com.ikomm.apps.HSM.utils.Utils;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
@@ -14,6 +15,21 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
  * @since Set 9, 2012
  */
 public class CustomApplication extends Application {
+
+	//--------------------------------------------------
+	// Constants
+	//--------------------------------------------------
+	
+	// The root package name.
+	public static final String ROOT_PACKAGE_NAME;
+	
+	//--------------------------------------------------
+	// Statics
+	//--------------------------------------------------
+
+	static {
+		ROOT_PACKAGE_NAME = Utils.getPackageName(CustomApplication.class);
+	}
 	
 	//--------------------------------------------------
 	// Application Life Cycle Methods

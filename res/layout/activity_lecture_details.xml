@@ -96,10 +96,4 @@
         android:background="@drawable/button_background_behavior"
         android:textColor="@color/hsm_color_white"
         android:text="@string/lecture_details_activity_schedule" />
-
-    <fragment
-        android:id="@+id/id_footer_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="br.com.ikomm.apps.HSM.fragment.BannerFragment" />
 </LinearLayout>

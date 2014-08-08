@@ -10,10 +10,4 @@
         android:layout_height="0dp"
         android:layout_weight="1" >
     </android.support.v4.view.ViewPager>
-
-    <fragment
-        android:id="@+id/id_footer_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="br.com.ikomm.apps.HSM.fragment.BannerFragment" />
 </LinearLayout>
