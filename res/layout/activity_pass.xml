@@ -11,10 +11,10 @@
         android:padding="20dp"
         android:textAlignment="center"
         android:textColor="@color/hsm_color_white"
-        android:text="@string/passes_activity_hint"/>
+        android:text="@string/pass_activity_hint"/>
     
     <ListView 
-        android:id="@+id/id_passes_list_view"
+        android:id="@+id/id_pass_list_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>

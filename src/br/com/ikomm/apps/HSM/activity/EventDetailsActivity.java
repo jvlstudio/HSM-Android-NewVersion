@@ -52,7 +52,7 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	private TextView mLocalTextView;
 	
 	private Button mAgendaButton;
-	private Button mPassesButton;
+	private Button mPassButton;
 	private Button mPalestrantesButton;
 	
 	private Button mAboutButton;
@@ -197,8 +197,8 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 	public void setButtons() {
 		mAgendaButton = (Button)findViewById(R.id.id_agenda_button);
 		mAgendaButton.setOnClickListener(this);
-		mPassesButton = (Button)findViewById(R.id.id_passes_button);
-		mPassesButton.setOnClickListener(this);
+		mPassButton = (Button)findViewById(R.id.id_pass_button);
+		mPassButton.setOnClickListener(this);
 		mPalestrantesButton = (Button) findViewById(R.id.id_panelist_button);
 		mPalestrantesButton.setOnClickListener(this);
 	}
@@ -245,7 +245,7 @@ public class EventDetailsActivity extends SherlockFragmentActivity implements On
 				intent.putExtra(EXTRA_DATES, mEvent.getInfoDates());
 				startActivity(intent);
 				break;
-			case R.id.id_passes_button:
+			case R.id.id_pass_button:
 				intent = new Intent(EventDetailsActivity.this, PassActivity.class);
 				intent.putExtra(EXTRA_EVENT_ID, mEvent.getId());
 				startActivity(intent);

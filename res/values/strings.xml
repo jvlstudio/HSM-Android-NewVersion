@@ -7,7 +7,7 @@
     <string name="activity_agenda_title">Agenda</string>
     <string name="activity_panelist_title">Palestrantes</string>
     <string name="activity_lecture_details_title">Detalhes da Palestra</string>
-    <string name="activity_passes_title">Passes</string>
+    <string name="activity_pass_title">Passes</string>
     <string name="activity_payment_title">Pagamento</string>
     <string name="activity_greetings_title">Agradecimento</string>
     <string name="activity_participant_title">Participante</string>
@@ -83,7 +83,7 @@
     
     <string name="event_details_activity_agenda">Agenda</string>
     <string name="event_details_activity_panelists">Palestrantes</string>
-    <string name="event_details_activity_passes">Passes</string>
+    <string name="event_details_activity_pass">Passes</string>
     
     <!-- Events Adapter -->
     <string name="adapter_event_item_title">Título</string>
@@ -147,20 +147,20 @@
     
     <string name="participant_activity_error">Favor informar os campos de forma correta.</string>
     
-    <!-- Passes Activity -->
-    <string name="passes_activity_hint">Ao comprar pelo aplicativo oficial da HSM, você tem um desconto exclusivo em qualquer um dos passes.</string>
+    <!-- Pass Activity -->
+    <string name="pass_activity_hint">Ao comprar pelo aplicativo oficial da HSM, você tem um desconto exclusivo em qualquer um dos passes.</string>
     
-    <!-- Passes Adapter -->
-    <string name="passes_adapter_inscription">Inscrições</string>
-    <string name="passes_adapter_title">TÍTULO DO PACOTE</string>
-    <string name="passes_adapter_validity">Validade</string>
-    <string name="passes_adapter_normal_price">Preço Normal:\nR$ X.XXX,00</string>
-    <string name="passes_adapter_new_price">Preço Novo:\nR$ X.XXX,00</string>
+    <!-- Pass Adapter -->
+    <string name="pass_adapter_inscription">Inscrições</string>
+    <string name="pass_adapter_title">TÍTULO DO PACOTE</string>
+    <string name="pass_adapter_validity">Validade</string>
+    <string name="pass_adapter_normal_price">Preço Normal:\nR$ X.XXX,00</string>
+    <string name="pass_adapter_new_price">Preço Novo:\nR$ X.XXX,00</string>
     
-    <string name="passes_adapter_title_empty">Cadastrar Título *</string>
-    <string name="passes_adapter_validity_empty">Cadastrar Validade *</string>
-    <string name="passes_adapter_normal_price_empty">Cadastrar Preço Antigo *</string>
-    <string name="passes_adapter_new_price_empty">Cadastrar Preço Novo *</string>
+    <string name="pass_adapter_title_empty">Cadastrar Título *</string>
+    <string name="pass_adapter_validity_empty">Cadastrar Validade *</string>
+    <string name="pass_adapter_normal_price_empty">Cadastrar Preço Antigo *</string>
+    <string name="pass_adapter_new_price_empty">Cadastrar Preço Novo *</string>
     
     <!-- Payment Activity -->
     <string name="payment_activity_single_pass">Passe Single</string>

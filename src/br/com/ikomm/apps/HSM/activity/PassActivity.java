@@ -43,7 +43,7 @@ public class PassActivity extends SherlockFragmentActivity implements OnItemClic
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_passes);
+		setContentView(R.layout.activity_pass);
 		
 		getExtras();
 		setActionBar();
@@ -97,7 +97,7 @@ public class PassActivity extends SherlockFragmentActivity implements OnItemClic
 	 * Sets the {@link ListView}.
 	 */
 	public void setListView() {
-		ListView listview = (ListView) findViewById(R.id.id_passes_list_view);
+		ListView listview = (ListView) findViewById(R.id.id_pass_list_view);
 		listview.setAdapter(new PassAdapter(this, mEventId));
 		listview.setOnItemClickListener(this);
 	}

@@ -83,7 +83,7 @@ public class PassAdapter extends BaseAdapter {
 		if (convertView == null) {
 			// Sets layout.
 			LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.adapter_pacote, parent, false);
+			convertView = inflater.inflate(R.layout.adapter_package, parent, false);
 
 			// Set views.
 			mViewHolder.title = (TextView) convertView.findViewById(R.id.id_passe_title_text_view);
@@ -136,7 +136,7 @@ public class PassAdapter extends BaseAdapter {
 				mViewHolder.title.setText(item.getName());
 			}
 		} else {
-			mViewHolder.title.setText(mActivity.getString(R.string.passes_adapter_title_empty));
+			mViewHolder.title.setText(mActivity.getString(R.string.pass_adapter_title_empty));
 		}
 	}
 	
@@ -149,7 +149,7 @@ public class PassAdapter extends BaseAdapter {
 		if (!StringUtils.isEmpty(item.getDescription())) {
 			mViewHolder.validity.setText(item.getDescription());
 		} else {
-			mViewHolder.validity.setText(mActivity.getString(R.string.passes_adapter_validity_empty));
+			mViewHolder.validity.setText(mActivity.getString(R.string.pass_adapter_validity_empty));
 		}
 	}
 	
@@ -162,7 +162,7 @@ public class PassAdapter extends BaseAdapter {
 		if (!StringUtils.isEmpty(item.getPriceFrom())) {
 			mViewHolder.normalPrice.setText("R$ " + item.getPriceFrom());
 		} else {
-			mViewHolder.normalPrice.setText(mActivity.getString(R.string.passes_adapter_normal_price_empty));
+			mViewHolder.normalPrice.setText(mActivity.getString(R.string.pass_adapter_normal_price_empty));
 		}
 	}
 	
@@ -175,7 +175,7 @@ public class PassAdapter extends BaseAdapter {
 		if (!StringUtils.isEmpty(item.price_to)) {
 			mViewHolder.appPrice.setText("R$ " + item.getPriceTo());
 		} else {
-			mViewHolder.normalPrice.setText(mActivity.getString(R.string.passes_adapter_new_price_empty));
+			mViewHolder.normalPrice.setText(mActivity.getString(R.string.pass_adapter_new_price_empty));
 		}
 	}
 	

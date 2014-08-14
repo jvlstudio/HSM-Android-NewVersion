@@ -186,7 +186,7 @@
 
         <!-- PASS BUTTON AND BANNER -->
         <Button
-            android:id="@+id/id_passes_button"
+            android:id="@+id/id_pass_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -195,7 +195,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/button_passe_background_behavior"
-            android:text="@string/event_details_activity_passes"
+            android:text="@string/event_details_activity_pass"
             android:textColor="@color/hsm_color_white" />
     </LinearLayout>
 </ScrollView>
