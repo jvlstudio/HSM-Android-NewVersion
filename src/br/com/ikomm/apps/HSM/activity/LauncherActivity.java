@@ -5,11 +5,11 @@ import java.util.List;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import br.com.ikomm.apps.HSM.AppConfiguration;
@@ -29,10 +29,6 @@ import br.com.ikomm.apps.HSM.task.Notifiable;
 import br.com.ikomm.apps.HSM.utils.DialogUtils;
 import br.com.ikomm.apps.HSM.utils.Utils;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
-
 /**
  * LauncherActivity.java class.
  * 
@@ -45,12 +41,11 @@ public class LauncherActivity extends Activity implements Notifiable {
 	// Constants
 	//--------------------------------------------------
 	
-	public static final String URL = "http://apps.ikomm.com.br/hsm5/uploads/ads/";
 	public static final String SUPERSTITIAL = "superstitial";
 	
 	public static final String NUMBER_OF_EXECUTIONS = "number_of_executions";
 	
-	public static final Integer TIME = 3000;
+	public static final Integer TIME = 6000;
 	public static final Integer LIMIT = 10;
 	
 	//--------------------------------------------------
@@ -157,7 +152,7 @@ public class LauncherActivity extends Activity implements Notifiable {
     		Integer numberOfExecutions = Utils.getPreference(ContentManager.getInstance().getContext(), NUMBER_OF_EXECUTIONS);
     		Utils.setPreference(ContentManager.getInstance().getContext(), NUMBER_OF_EXECUTIONS, numberOfExecutions + 1);
     		Log.i(AppConfiguration.COMMON_LOGGING_TAG, "[LauncherActivity.callNextActivity] Number of executions is " + numberOfExecutions + ".");
-    		setUniversalImage();
+    		setSplashScreen();
     	} else {
     		if (mCalledTasksCount > LIMIT) {
     			DialogUtils.showSimpleAlert(LauncherActivity.this, R.string.error_title_no_internet, R.string.error_msg_no_internet);
@@ -167,39 +162,19 @@ public class LauncherActivity extends Activity implements Notifiable {
     }
     
 	/**
-	 * Sets the image from each {@link ImageView}.<br>If it exists, get from cache.<br>If isn't, download it.
+	 * Sets the SplashScreen image.
 	 */
-	public void setUniversalImage() {
-		String url = URL + getBannerSuperstitial();
-		final ImageView imageView = (ImageView)findViewById(R.id.id_launcher_image_view);
-		
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.init(ImageLoaderConfiguration.createDefault(this));
-        imageLoader.loadImage(url, new SimpleImageLoadingListener() {
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap bitmap) {
-            	imageView.setImageBitmap(bitmap);
-            	Log.i(AppConfiguration.COMMON_LOGGING_TAG, "[LauncherActivity.setUniversalImage] Image downloaded !!!");
-		    	mHandler.postDelayed(mHandlerChecker, TIME);
-            }
-        });
-	}
-	
-	/**
-	 * Gets the {@link Banner} image URL.
-	 * 
-	 * @return
-	 */
-	public String getBannerSuperstitial() {
-		List<Banner> list = ContentManager.getInstance().getCachedBannerList();
-		String url = "";
-		
-		for (Banner banner : list) {
-			if (banner.getSubtype().equals(SUPERSTITIAL)) {
-				url = banner.getImage();
+	public void setSplashScreen() {
+		ImageView imageView = (ImageView)findViewById(R.id.id_launcher_image_view);
+		imageView.setBackgroundResource(R.drawable.hsm_splash);
+		imageView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+	    		Intent intent = new Intent(LauncherActivity.this, HomeActivity.class);
+	    		startActivity(intent);
 			}
-		}
-		return url;
+		});
+		mHandler.postDelayed(mHandlerChecker, TIME);
 	}
 	
 	//----------------------------------------------

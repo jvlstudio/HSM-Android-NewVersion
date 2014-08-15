@@ -160,7 +160,7 @@ public class PassAdapter extends BaseAdapter {
 	 */
 	public void setPriceFromField(Pass item) {
 		if (!StringUtils.isEmpty(item.getPriceFrom())) {
-			mViewHolder.normalPrice.setText("R$ " + item.getPriceFrom());
+			mViewHolder.normalPrice.setText(mActivity.getResources().getString(R.string.pass_adapter_normal_price_title) + "R$ " + item.getPriceFrom());
 		} else {
 			mViewHolder.normalPrice.setText(mActivity.getString(R.string.pass_adapter_normal_price_empty));
 		}
@@ -173,7 +173,7 @@ public class PassAdapter extends BaseAdapter {
 	 */
 	public void setPriceToField(Pass item) {
 		if (!StringUtils.isEmpty(item.price_to)) {
-			mViewHolder.appPrice.setText("R$ " + item.getPriceTo());
+			mViewHolder.appPrice.setText(mActivity.getResources().getString(R.string.pass_adapter_new_price_title) + "R$ " + item.getPriceTo());
 		} else {
 			mViewHolder.normalPrice.setText(mActivity.getString(R.string.pass_adapter_new_price_empty));
 		}

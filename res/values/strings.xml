@@ -154,6 +154,8 @@
     <string name="pass_adapter_inscription">Inscrições</string>
     <string name="pass_adapter_title">TÍTULO DO PACOTE</string>
     <string name="pass_adapter_validity">Validade</string>
+    <string name="pass_adapter_normal_price_title">Preço Normal:\n</string>
+    <string name="pass_adapter_new_price_title">Preço pelo Aplicativo:\n</string>
     <string name="pass_adapter_normal_price">Preço Normal:\nR$ X.XXX,00</string>
     <string name="pass_adapter_new_price">Preço Novo:\nR$ X.XXX,00</string>
     
