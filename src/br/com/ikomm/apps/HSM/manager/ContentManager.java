@@ -27,8 +27,8 @@ import br.com.ikomm.apps.HSM.task.HomeAsyncTask;
 import br.com.ikomm.apps.HSM.task.MagazineAsyncTask;
 import br.com.ikomm.apps.HSM.task.Notifiable;
 import br.com.ikomm.apps.HSM.task.PanelistAsyncTask;
-import br.com.ikomm.apps.HSM.task.PassPurchaseAsyncTask;
 import br.com.ikomm.apps.HSM.task.PassAsyncTask;
+import br.com.ikomm.apps.HSM.task.PassPurchaseAsyncTask;
 import br.com.ikomm.apps.HSM.task.UpdaterAsyncTask;
 import br.com.ikomm.apps.HSM.utils.Utils;
 
@@ -241,6 +241,7 @@ public class ContentManager {
 	 * @return
 	 */
 	public List<Event> getCachedEventList() {
+//		Collections.sort(mEventList, new EventComparator());
 		return mEventList;
 	}
 	
@@ -521,4 +522,29 @@ public class ContentManager {
 		}
 		return -1;
 	}
+	
+	//--------------------------------------------------
+	// Comparator
+	//--------------------------------------------------
+	
+	/*
+	public void _______________COMPARATOR_______________() {}
+	
+	public class EventComparator implements Comparator<Event> {
+		@Override
+		public int compare(Event event, Event event2) {
+			String infoDate = event.getInfoDates();
+			String dates[] = infoDate.replace("|", "-").split("-");
+			String date = dates[0].trim();
+			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "----------\nCurrent date is " + date + ".");
+			
+			String infoDate2 = event2.getInfoDates();
+			String dates2[] = infoDate2.replace("|", "-").split("-");
+			String date2 = dates2[0].trim();
+			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "Current date2 is " + date2 + ".");
+			
+			return date.compareTo(date2);
+		}
+	}
+	*/
 }

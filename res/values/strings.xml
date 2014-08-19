@@ -51,7 +51,7 @@
 	<!-- Book Details Activity -->
     <string name="book_details_activity_book_title">TÍTULO DO LIVRO</string>
 	<string name="book_details_activity_purchase">Comprar</string>
-	<string name="book_details_activity_sinopse">SINOPSE  |</string>
+	<string name="book_details_activity_sinopse">SINOPSE</string>
 	<string name="book_details_activity_author">AUTOR</string>
 	<string name="book_details_activity_description">Descrição do Livro</string>
 	<string name="book_details_activity_author_name">Nome do Autor</string>

@@ -209,7 +209,7 @@ public class QueryHelper {
 		
 		for (Agenda agenda : list) {
 			// Gets the right date.
-			String dateStart[] = currentDate.split(" ");
+			String dateStart[] = agenda.getDateStart().split(" ");
 			String dateFromDatabase = dateStart[0];
 			
 			// Gets conditions.
@@ -230,15 +230,14 @@ public class QueryHelper {
 	 * 
 	 * @return
 	 */
-	public static Agenda getAgendaByEventAndPanelist(Long panelistId, Integer eventId) {
+	public static Agenda getAgendaByEventAndPanelist(Integer panelistId, Integer eventId) {
 		List<Agenda> list = ContentManager.getInstance().getCachedAgendaList();
 		Agenda filteredAgenda = new Agenda();
-		Integer id = Integer.valueOf(panelistId.intValue());
 				
 		for (Agenda agenda : list) {
 			// Gets conditions.
 			Boolean eventIdEqual = (agenda.getEventId() == eventId);
-			Boolean panelistIdEqual = (agenda.getPanelistId() == id);
+			Boolean panelistIdEqual = (agenda.getPanelistId() == panelistId);
 			if (eventIdEqual && panelistIdEqual) {
 				filteredAgenda = agenda;
 			}

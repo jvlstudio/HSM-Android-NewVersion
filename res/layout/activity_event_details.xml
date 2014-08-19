@@ -35,6 +35,7 @@
             	android:layout_height="wrap_content"
             	android:background="@android:color/transparent"
             	android:layout_marginLeft="10dp"
+            	android:layout_marginRight="20dp"
             	android:textColor="@color/hsm_color_white"
             	android:text="@string/event_details_activity_about"
                 android:textSize="12dp" />

@@ -12,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.activity.LectureDetailsActivity;
+import br.com.ikomm.apps.HSM.activity.PanelistActivity;
 import br.com.ikomm.apps.HSM.adapter.AgendaAdapter;
 import br.com.ikomm.apps.HSM.database.QueryHelper;
 import br.com.ikomm.apps.HSM.model.Agenda;
@@ -25,13 +26,6 @@ import com.actionbarsherlock.app.SherlockFragment;
  * Modified by Rodrigo Cericatto at June 30, 2014.
  */
 public class AgendaFragment extends SherlockFragment {
-	
-	//--------------------------------------------------
-	// Constants
-	//--------------------------------------------------
-	
-	public static final String EXTRA_PANELIST_ID = "panelist_id";
-	public static final String EXTRA_EVENT_ID = "event_id";
 	
 	//--------------------------------------------------
 	// Attributes
@@ -103,7 +97,7 @@ public class AgendaFragment extends SherlockFragment {
 				}
 				Agenda currentAgenda = mAgendaList.get(position);
 				String type = currentAgenda.type;
-				filterByType(position, type);
+				filterByType(position, type, (int)id);
 			}
 		};
 	}
@@ -119,7 +113,7 @@ public class AgendaFragment extends SherlockFragment {
 	//--------------------------------------------------
 	
 	/**
-	 * Updates the {@link Fragment} view.
+	 * Updates the {@link SherlockFragment} view.
 	 */
 	private void updateView() {
 		// Gets the current Event date.
@@ -161,8 +155,9 @@ public class AgendaFragment extends SherlockFragment {
 	 * 
 	 * @param position
 	 * @param type
+	 * @param agendaId
 	 */
-	public void filterByType(Integer position, String type) {
+	public void filterByType(Integer position, String type, Integer agendaId) {
 		if (!StringUtils.isEmpty(type) && !type.equals("break") &&
 			!type.equals("coffeebreak") && !type.equals("lunch") &&
 			!type.equals("happyhour") && !type.equals("credential") &&
@@ -171,12 +166,13 @@ public class AgendaFragment extends SherlockFragment {
 			// Goes to LectureDetailsActivity.
 			Intent intent = new Intent(getActivity(), LectureDetailsActivity.class);
 			Agenda agenda = mAgendaList.get(position);
-			Long panelistId = (long)agenda.panelist_id;
-			Integer eventId = agenda.event_id;
+			Integer panelistId = agenda.getPanelistId();
+			Integer eventId = agenda.getEventId();
 			
 			// Extras.
-			intent.putExtra(EXTRA_PANELIST_ID, panelistId);
-			intent.putExtra(EXTRA_EVENT_ID, eventId);
+			intent.putExtra(PanelistActivity.EXTRA_PANELIST_ID, panelistId);
+			intent.putExtra(PanelistActivity.EXTRA_EVENT_ID, eventId);
+			intent.putExtra(PanelistActivity.EXTRA_AGENDA_ID, agendaId);
 			startActivity(intent);
 		}
 	}

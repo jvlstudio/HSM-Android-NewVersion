@@ -64,7 +64,7 @@ public class AgendaAdapter extends BaseAdapter {
 		mInflater = LayoutInflater.from(activity);
 		mAgendaList = listAgenda;
 		
-		Collections.sort(mAgendaList, new HoraComparator());
+		Collections.sort(mAgendaList, new HourComparator());
 	}
 	
 	//--------------------------------------------------
@@ -326,7 +326,7 @@ public class AgendaAdapter extends BaseAdapter {
 	// Comparator
 	//--------------------------------------------------
 	
-	public class HoraComparator implements Comparator<Agenda> {
+	public class HourComparator implements Comparator<Agenda> {
 		@Override
 		public int compare(Agenda agenda, Agenda agenda2) {
 			return agenda.getDateStart().compareTo(agenda2.getDateStart());

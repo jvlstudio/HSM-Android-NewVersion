@@ -30,6 +30,7 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	
 	public static final String EXTRA_PANELIST_ID = "panelist_id";
 	public static final String EXTRA_EVENT_ID = "event_id";
+	public static final String EXTRA_AGENDA_ID = "agenda_id";
 	
 	//--------------------------------------------------
 	// Methods

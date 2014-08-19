@@ -142,6 +142,7 @@ public class BookDetailsActivity extends SherlockActivity implements OnClickList
 	public void setTextViewSwitches() {
 		TextView sinopseTextView = (TextView)findViewById(R.id.id_sinopse_text_view);
 		sinopseTextView.setOnClickListener(this);
+		sinopseTextView.setText(getString(R.string.book_details_activity_sinopse) + "   |");
 		TextView authorTextView = (TextView)findViewById(R.id.id_author_text_view);
 		authorTextView.setOnClickListener(this);
 	}

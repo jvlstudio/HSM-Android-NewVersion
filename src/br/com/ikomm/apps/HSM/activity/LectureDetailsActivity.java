@@ -1,6 +1,7 @@
 package br.com.ikomm.apps.HSM.activity;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import br.com.ikomm.apps.HSM.R;
 import br.com.ikomm.apps.HSM.database.QueryHelper;
+import br.com.ikomm.apps.HSM.manager.ContentManager;
 import br.com.ikomm.apps.HSM.model.Agenda;
 import br.com.ikomm.apps.HSM.model.Event;
 import br.com.ikomm.apps.HSM.model.Panelist;
@@ -46,8 +48,9 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	// Attributes
 	//--------------------------------------------------
 	
-	private Long mPanelistId;
-	private Integer mEventId = 0;
+	private Integer mPanelistId = -1;
+	private Integer mEventId = -1;
+	private Integer mAgendaId = -1;
 	
 	private Panelist mPanelist;
 	private Agenda mAgenda;
@@ -120,7 +123,16 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	 * Gets the current {@link Agenda}.
 	 */
 	public void getCurrentAgenda() {
-		mAgenda = QueryHelper.getAgendaByEventAndPanelist(mPanelistId, mEventId);
+		if (mAgendaId > 0) {
+			List<Agenda> list = ContentManager.getInstance().getCachedAgendaList();
+			for (Agenda agenda : list) {
+				if (agenda.getId() == mAgendaId) {
+					mAgenda = agenda;
+				}
+			}
+		} else {
+			mAgenda = QueryHelper.getAgendaByEventAndPanelist(mPanelistId, mEventId);
+		}
 	}
 	
 	/**
@@ -129,8 +141,11 @@ public class LectureDetailsActivity extends SherlockFragmentActivity implements 
 	public void getExtras() {
 		Bundle extras = getIntent().getExtras(); 
 		if (extras != null){
-			mPanelistId = extras.getLong(PanelistActivity.EXTRA_PANELIST_ID);
+			mPanelistId = extras.getInt(PanelistActivity.EXTRA_PANELIST_ID);
 			mEventId = extras.getInt(PanelistActivity.EXTRA_EVENT_ID);
+			mAgendaId = extras.getInt(PanelistActivity.EXTRA_AGENDA_ID);
+			int i = 0;
+			i = i + 1;
 		}
 	}
 	

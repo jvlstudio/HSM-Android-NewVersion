@@ -67,7 +67,6 @@ public class ApiRequest {
 			return result;
 		}
 		
-		// TODO: Increase this command.
 		List<Object> list = getApiParsedList(jsonString, type);
 		result.setEntityList(list);
 		return result;
