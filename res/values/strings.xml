@@ -171,7 +171,7 @@
     <string name="payment_activity_register">Cadastrar</string>
     <string name="payment_activity_purchase">Comprar</string>
     
-    <string name="payment_activity_invalid_data">Cadastro com dados inválidos.</string>
+    <string name="payment_activity_invalid_data">Favor se cadastrar corretamente para comprar um passe.</string>
     <string name="payment_activity_user_not_registered_title">Cadastro Necessário</string>
     <string name="payment_activity_user_not_registered_message">Clique em \"Cadastrar\" para se cadastrar, para poder comprar um passe.</string>
     

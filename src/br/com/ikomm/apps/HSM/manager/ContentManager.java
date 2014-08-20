@@ -241,8 +241,8 @@ public class ContentManager {
 	 * @return
 	 */
 	public List<Event> getCachedEventList() {
-//		Collections.sort(mEventList, new EventComparator());
-		return mEventList;
+		List<Event> newList = orderList(mEventList);
+		return newList;
 	}
 	
 	/**
@@ -524,27 +524,66 @@ public class ContentManager {
 	}
 	
 	//--------------------------------------------------
-	// Comparator
+	// Ordenation
 	//--------------------------------------------------
 	
-	/*
-	public void _______________COMPARATOR_______________() {}
+	public void _______________ORDENATION_______________() {}
 	
-	public class EventComparator implements Comparator<Event> {
-		@Override
-		public int compare(Event event, Event event2) {
-			String infoDate = event.getInfoDates();
-			String dates[] = infoDate.replace("|", "-").split("-");
-			String date = dates[0].trim();
-			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "----------\nCurrent date is " + date + ".");
-			
-			String infoDate2 = event2.getInfoDates();
-			String dates2[] = infoDate2.replace("|", "-").split("-");
-			String date2 = dates2[0].trim();
-			Log.i(AppConfiguration.COMMON_LOGGING_TAG, "Current date2 is " + date2 + ".");
-			
-			return date.compareTo(date2);
+	/**
+	 * Orders the list using the Selection Sort.
+	 * 
+	 * @param list
+	 * 
+	 * @return
+	 */
+	public List<Event> orderList(List<Event> list) {
+		// Gets the array.
+		Event[] eventArray = new Event[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			eventArray[i] = list.get(i);
 		}
+		
+		// Orders the array.
+		for (int i = 0; i < eventArray.length - 1; i++) {
+			Integer min = i;
+			for (int j = i + 1; j < eventArray.length; j++) {
+				String currentInfoDates[] = eventArray[j].getInfoDates().replace("|", "-").split("-");
+				String minInfoDates[] = eventArray[min].getInfoDates().replace("|", "-").split("-");
+				
+				// The method "compareTo" returns an integer bigger than zero if the argument (in this case
+				// the "minInfoDates") is a string lexicographically smaller than the string which calls
+				// the method (in this case, the "currentInfoDates").
+				String iDate = getStringDates(currentInfoDates[0].trim());
+				String minDate = getStringDates(minInfoDates[0].trim());
+				Integer result = iDate.compareTo(minDate);
+				if (result < 0) {
+					min = j;
+				}
+			}
+			// Switch data.
+			Event tmp = eventArray[i];
+			eventArray[i] = eventArray[min];
+			eventArray[min] = tmp;
+		}
+		
+		// Re-populates the list.
+		List<Event> returnList = new ArrayList<Event>();
+		for (int i = 0; i < eventArray.length; i++) {
+			returnList.add(eventArray[i]);
+		}
+		return returnList;
 	}
-	*/
+
+	/**
+	 * Gets the current formatted value of the date.
+	 * 
+	 * @param entry
+	 * 
+	 * @return
+	 */
+	public String getStringDates(String entry) {
+		String parts[] = entry.split("/");
+		String text = parts[2] + parts[1] + parts[0];
+		return text;
+	}
 }

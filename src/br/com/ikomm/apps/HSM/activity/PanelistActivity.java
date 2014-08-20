@@ -115,7 +115,7 @@ public class PanelistActivity extends SherlockActivity implements OnItemClickLis
 	@Override
 	public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
 		Intent intent = new Intent(this, LectureDetailsActivity.class);
-		intent.putExtra(EXTRA_PANELIST_ID, id);
+		intent.putExtra(EXTRA_PANELIST_ID, (int)id);
 		intent.putExtra(EXTRA_EVENT_ID, mEventId);
 		startActivity(intent);
 	}

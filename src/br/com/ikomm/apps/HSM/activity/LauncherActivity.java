@@ -137,7 +137,7 @@ public class LauncherActivity extends Activity implements Notifiable {
         ContentManager.getInstance().getMagazineList(this);
         ContentManager.getInstance().getPanelistList(this);
         ContentManager.getInstance().getPasseList(this);
-        ContentManager.getInstance().getBannerList(this);
+//        ContentManager.getInstance().getBannerList(this);
     }
 
     /**
@@ -147,7 +147,7 @@ public class LauncherActivity extends Activity implements Notifiable {
     	mCalledTasksCount++;
     	Log.i(AppConfiguration.COMMON_LOGGING_TAG, "LauncherActivity.callNextActivity() -> Count is " + mCalledTasksCount + ".");
     	if (mAgendaListLoaded && mBookListLoaded && mEventListLoaded && mHomeListLoaded &&
-    		mMagazineListLoaded && mPanelistListLoaded && mPasseListLoaded && mBannerListLoaded) {
+    		mMagazineListLoaded && mPanelistListLoaded && mPasseListLoaded /* && mBannerListLoaded */) {
     		
     		Integer numberOfExecutions = Utils.getPreference(ContentManager.getInstance().getContext(), NUMBER_OF_EXECUTIONS);
     		Utils.setPreference(ContentManager.getInstance().getContext(), NUMBER_OF_EXECUTIONS, numberOfExecutions + 1);

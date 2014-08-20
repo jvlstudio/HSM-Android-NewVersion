@@ -83,12 +83,12 @@ public class AgendaFragment extends SherlockFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_agenda, container, false);
 		mListView = (ListView) view.findViewById(R.id.id_list_view);
-		mListView.setOnItemClickListener(onItemClickData1());
+		mListView.setOnItemClickListener(onItemClickData());
 		setHasOptionsMenu(false);
 		return view;
 	}
 
-	private OnItemClickListener onItemClickData1() {
+	private OnItemClickListener onItemClickData() {
 		return new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adpterView, View view, int position, long id) {

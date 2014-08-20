@@ -204,7 +204,8 @@ public class HomeActivity extends FragmentActivity implements OnItemClickListene
 				
 		// Horizontal Scroll View Banner.
 		ImageView scrollImageView = (ImageView)findViewById(R.id.id_banner_home_image_button);
-		url = BANNER_URL + getSpecificBanner(BANNER_SCROLL);
+//		url = BANNER_URL + getSpecificBanner(BANNER_SCROLL);
+		url = "http://apps.ikomm.com.br/hsm5/uploads/ads/ad_android_banner_home_1408560478.jpg";
 		setUniversalImage(url, scrollImageView);
 		
 		// Footer.
